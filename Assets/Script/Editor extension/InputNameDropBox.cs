@@ -25,23 +25,20 @@ public class InputNameDropBox : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        //EditorGUI.BeginProperty(position, label, property);
-        Debug.Log(_index);
         // セットアップが未だ完了していなければ実行する。
         if (_index == -1)
             SetUp(property);
 
         // 選択中の値が変更されたかどうか判断するために一時保存しておく
-        //int oldIndex = _index;
+        int oldIndex = _index;
         // 入力を取得する
         _index = EditorGUI.Popup(position, label, _index, _inputNames);
 
         // 選択中のオブジェクトが変更された場合、プロパティの値を変更する。
-        //if (oldIndex != _index)
-        //{
+        if (oldIndex != _index)
+        {
             property.stringValue = _inputNames[_index].text;
-        //}
-        //EditorGUI.EndProperty();
+        }
     }
 
     void SetUp(SerializedProperty property)
@@ -76,7 +73,7 @@ public class InputNameDropBox : PropertyDrawer
 
         // 選択されていた値を検索し見つかった場合、
         // インデックスを再指定する。
-        // (この処理はエディター実行時に初期化されてしまうので必要な処理)
+        // (この処理はエディター実行時に再コンパイルされ初期化されてしまうので必要な処理)
         // 見つからなかった場合インデックスは0で初期化する。
         if (!string.IsNullOrEmpty(property.stringValue))
         {
