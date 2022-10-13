@@ -14,8 +14,6 @@ public class PMove2 : MonoBehaviour
 
     #region Inspector Variables
     [Header("移動を制御するにあたって必要な値")]
-    [Range(0f, 40f), Tooltip("このキャラクターに加える重力"), SerializeField]
-    float _gravity;
     [Tooltip("X軸移動を制御するボタンの名前"), InputName, SerializeField]
     private string _moveButtonH = "";
     [Tooltip("Z軸移動を制御するボタンの名前"), InputName, SerializeField]
@@ -93,23 +91,13 @@ public class PMove2 : MonoBehaviour
         transform.rotation = rotation;
 
         // 坂道移動を補正する。
-        // 地面の情報を取得する
-        var groundInfo = _pIsGround.GetIsGround();
-        // 接地箇所
-        var groundedPoint = groundInfo.point;
-        // 接地箇所の法線ベクトル
-        var grondNomal = groundInfo.normal;
-        Debug.Log(grondNomal);
-
+        // 接地箇所の法線ベクトルを取得
+        var grondNomal = _pIsGround.GetIsGround().normal;
         // 接地箇所の法線ベクトルを進行方向に合わせる
         newVelocity.y = 0f;
-        newVelocity = Vector3.Cross(grondNomal, Vector3.Cross(newVelocity, grondNomal));
+        newVelocity = Vector3.Cross(grondNomal, Vector3.Cross(newVelocity, grondNomal)).normalized;
 
         //速度を与える
-        //newVelocity.y = 0f;
-        //_rigidbody.velocity =
-        //    newVelocity * speed * PStatusManager.Instance.TotalStatus._moveSpeed +
-        //    Vector3.up * _rigidbody.velocity.y;
 
         if (_pIsGround.IsGround && newVelocity.magnitude > 0.5f)
         {
@@ -132,7 +120,6 @@ public class PMove2 : MonoBehaviour
         {
             _rigidbody.velocity = Vector3.up * _rigidbody.velocity.y;
         }
-
     }
     #endregion
 }
