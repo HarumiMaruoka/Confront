@@ -22,6 +22,12 @@ public class PMove2 : MonoBehaviour
     private float _dashAcceleration = 1.5f;
     [Tooltip("ダッシュを制御するボタンの名前"), InputName, SerializeField]
     private string _dashButtonName = "";
+
+    [Header("ジャンプ関連の値")]
+    [Tooltip("ジャンプ力"), SerializeField]
+    private float _jumpPower = 2f;
+    [InputName, SerializeField]
+    private string _jumpButton = "";
     #endregion
 
     #region Member Variables
@@ -69,6 +75,12 @@ public class PMove2 : MonoBehaviour
     }
     private void Move()
     {
+        MoveGround();
+        Jump();
+    }
+
+    private void MoveGround()
+    {
         float speed = 0f;
         Vector3 newVelocity =
             new Vector3(Input.GetAxisRaw(_moveButtonH), 0, Input.GetAxisRaw(_moveButtonV)).normalized;
@@ -95,7 +107,7 @@ public class PMove2 : MonoBehaviour
         var grondNomal = _pIsGround.GetIsGround().normal;
         // 接地箇所の法線ベクトルを進行方向に合わせる
         newVelocity.y = 0f;
-        newVelocity = Vector3.Cross(grondNomal, Vector3.Cross(newVelocity, grondNomal)).normalized;
+        var groundVelocity = Vector3.Cross(grondNomal, Vector3.Cross(newVelocity, grondNomal)).normalized;
 
         //速度を与える
 
@@ -106,19 +118,31 @@ public class PMove2 : MonoBehaviour
                 _rigidbody.velocity =
                     (Vector3.right * newVelocity.x + Vector3.forward * newVelocity.z) *
                     speed * PStatusManager.Instance.TotalStatus._moveSpeed +
-                    Vector3.up * newVelocity.y;
+                    Vector3.up * groundVelocity.y;
             }
             else
             {
                 _rigidbody.velocity =
                     (Vector3.right * newVelocity.x + Vector3.forward * newVelocity.z) *
                     speed * PStatusManager.Instance.TotalStatus._moveSpeed +
-                    Vector3.up * newVelocity.y + Vector3.up * _rigidbody.velocity.y;
+                    Vector3.up * groundVelocity.y + Vector3.up * _rigidbody.velocity.y;
             }
         }
         else
         {
-            _rigidbody.velocity = Vector3.up * _rigidbody.velocity.y;
+            _rigidbody.velocity =
+                newVelocity * speed * PStatusManager.Instance.TotalStatus._moveSpeed +
+                Vector3.up * _rigidbody.velocity.y;
+        }
+    }
+
+    private void Jump()
+    {
+        // 接地していて、かつ、Jumpするためのボタンが押されたときに実行する
+        if (_pIsGround.IsGround && Input.GetButtonDown(_jumpButton))
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.velocity = Vector3.up * _jumpPower;
         }
     }
     #endregion
