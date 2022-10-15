@@ -1,0 +1,17 @@
+{
+    "name": "Equipment",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e29fb48a8abcc9f46a4662244d695dcb",
+        "GUID:f2e810c8471fbaa419bfda3896c4a2d9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

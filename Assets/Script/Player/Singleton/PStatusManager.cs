@@ -52,7 +52,6 @@ public class PStatusManager
     private PStatus _levelStatus;
     private PStatus _equipmentStatus;
     private PStatus _itemStatus;
-    private PStatus _totalStatus;
     #endregion
 
     #region Events

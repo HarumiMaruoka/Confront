@@ -13,7 +13,7 @@ public class PMove2 : MonoBehaviour
     #endregion
 
     #region Inspector Variables
-    [Header("移動を制御するにあたって必要な値")]
+    [Header("移動制御")]
     [Tooltip("X軸移動を制御するボタンの名前"), InputName, SerializeField]
     private string _moveButtonH = "";
     [Tooltip("Z軸移動を制御するボタンの名前"), InputName, SerializeField]
@@ -23,11 +23,21 @@ public class PMove2 : MonoBehaviour
     [Tooltip("ダッシュを制御するボタンの名前"), InputName, SerializeField]
     private string _dashButtonName = "";
 
-    [Header("ジャンプ関連の値")]
+    [Header("ジャンプ制御")]
     [Tooltip("ジャンプ力"), SerializeField]
     private float _jumpPower = 2f;
     [InputName, SerializeField]
     private string _jumpButton = "";
+
+    [Header("姿勢制御")]
+    [Tooltip("デバッグ表示するかどうか"), SerializeField]
+    private bool _isGizmo = false;
+    [Tooltip("デバッグ表示するレイの色"), SerializeField]
+    private Color _rayColor = default;
+    [Tooltip("プレイヤーからまっすぐ下に伸ばすレイの最大距離"), SerializeField]
+    private float _groundCheckMaxDistance = 1f;
+    [Tooltip("接地対象"), SerializeField]
+    private LayerMask _groundLayer = default;
     #endregion
 
     #region Member Variables
@@ -57,6 +67,14 @@ public class PMove2 : MonoBehaviour
     private void Update()
     {
         Move();
+    }
+    private void OnDrawGizmos()
+    {
+        if (_isGizmo)
+        {
+            // Debug.DrawRay(transform.position, Vector3.down, _rayColor, _groundCheckMaxDistance);
+            Debug.DrawLine(transform.position, transform.position + Vector3.down * _groundCheckMaxDistance, _rayColor);
+        }
     }
 
     #endregion
@@ -103,11 +121,13 @@ public class PMove2 : MonoBehaviour
         transform.rotation = rotation;
 
         // 坂道移動を補正する。
-        // 接地箇所の法線ベクトルを取得
-        var grondNomal = _pIsGround.GetIsGround().normal;
+        // 接地箇所の法線ベクトルを取得（自分からまっすぐ下にRayを飛ばす）
+        Ray ray = new Ray(transform.position, Vector3.down);
+        var groundNomal = Physics.Raycast(ray, out RaycastHit hit, _groundCheckMaxDistance, _groundLayer);
         // 接地箇所の法線ベクトルを進行方向に合わせる
+        // （やってることは坂を表現できる面とペンを使用して想像してみるとわかりやすい）
         newVelocity.y = 0f;
-        var groundVelocity = Vector3.Cross(grondNomal, Vector3.Cross(newVelocity, grondNomal)).normalized;
+        var groundVelocity = Vector3.Cross(hit.normal, Vector3.Cross(newVelocity, hit.normal)).normalized;
 
         //速度を与える
 

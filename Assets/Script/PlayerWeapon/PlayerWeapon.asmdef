@@ -1,0 +1,18 @@
+{
+    "name": "PlayerWeapon",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7e7e2620ad2c3f94b8a0e20609a11b8d",
+        "GUID:339e8ee644ba7de4a9825021a36a0825",
+        "GUID:f2e810c8471fbaa419bfda3896c4a2d9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

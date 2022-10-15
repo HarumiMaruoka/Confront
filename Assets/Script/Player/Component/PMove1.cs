@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// プレイヤーの移動を制御するコンポーネント
+/// プレイヤーの移動を制御するコンポーネント version1
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PMove1 : MonoBehaviour
@@ -14,7 +14,7 @@ public class PMove1 : MonoBehaviour
     #region Inspector Variables
     [Header("移動を制御するにあたって必要な値")]
     [Tooltip("ダッシュ時の加速度"), SerializeField]
-    float _dashAcceleration = 1.5f;
+    private float _dashAcceleration = 1.5f;
     #endregion
 
     #region Member Variables
@@ -35,12 +35,10 @@ public class PMove1 : MonoBehaviour
     {
         Init();
     }
-
     private void Update()
     {
         Move();
     }
-
     #endregion
 
     #region Enums

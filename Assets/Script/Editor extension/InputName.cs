@@ -12,7 +12,7 @@ public class InputNameAttribute : PropertyAttribute { }
 /// このクラスは、属性を付与した相手に合わせた処理をするクラス。<br/>
 /// </summary>
 [CustomPropertyDrawer(typeof(InputNameAttribute))]
-public class InputNameDropBox : PropertyDrawer
+public class InputName : PropertyDrawer
 {
     /// <summary>
     /// 選択中のインデックス

@@ -10,10 +10,10 @@ public struct PStatus
     public float _stamina;
     /// <summary> 移動速度 </summary>
     public float _moveSpeed;
-    /// <summary> 左クリック攻撃力 </summary>
-    public float _leftOffensivePower;
-    /// <summary> 右クリック攻撃力 </summary>
-    public float _rightOffensivePower;
+    /// <summary> 近距離武器攻撃力 </summary>
+    public float _shortRangeOffensivePower;
+    /// <summary> 遠距離武器攻撃力 </summary>
+    public float _longRangeOffensivePower;
     /// <summary> 重さ </summary>
     public float _weight;
 
@@ -23,8 +23,8 @@ public struct PStatus
         _life = life;
         _stamina = stamina;
         _moveSpeed = moveSpeed;
-        _leftOffensivePower = leftOffensivePower;
-        _rightOffensivePower = rightOffensivePower;
+        _shortRangeOffensivePower = leftOffensivePower;
+        _longRangeOffensivePower = rightOffensivePower;
         _weight = weight;
     }
 
@@ -33,8 +33,8 @@ public struct PStatus
         left._life += right._life;
         left._stamina += right._stamina;
         left._moveSpeed += right._moveSpeed;
-        left._leftOffensivePower += right._leftOffensivePower;
-        left._rightOffensivePower += right._rightOffensivePower;
+        left._shortRangeOffensivePower += right._shortRangeOffensivePower;
+        left._longRangeOffensivePower += right._longRangeOffensivePower;
         left._weight += right._weight;
         return left;
     }
