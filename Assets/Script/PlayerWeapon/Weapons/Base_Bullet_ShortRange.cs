@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 弾の基底クラス。<br/>
+/// 弾にアタッチすべきコンポーネントの基底クラス。<br/>
 /// 近距離武器の弾。
 /// </summary>
 public abstract class Base_Bullet_ShortRange : Base_Bullet
@@ -17,38 +17,35 @@ public abstract class Base_Bullet_ShortRange : Base_Bullet
     #region Member Variables
     #endregion
 
-    #region Constant
-    #endregion
-
-    #region Events
-    #endregion
-
-    #region Unity Methods
-    private void Start()
-    {
-        Init();
-    }
-    protected override void Update()
-    {
-
-    }
-    #endregion
-
     #region Public Methods
-    public override void Damage(ref float life)
+    public override void OnDamage(
+        EStatusManager enemyStatusManager,
+        Rigidbody rigidbody = null, Vector3 dir = default, float knockbackPower = 1.0f)
     {
-        life -= PStatusManager.Instance.TotalStatus._shortRangeOffensivePower;
+        // 相手のライフを減らす処理
+
+
+        // ノックバック処理
+        if (rigidbody == null)
+        {
+            Debug.LogError(
+                "<color=grey>rigidbodyがnullです！修正してください！</color>");
+        }
+        else
+        {
+            rigidbody.AddForce(dir);
+        }
     }
     #endregion
 
     #region Private Methods
     protected override void Init()
     {
-
+        base.Init();
     }
-    protected virtual void Move()
+    protected override void Process()
     {
-
+        
     }
     #endregion
 

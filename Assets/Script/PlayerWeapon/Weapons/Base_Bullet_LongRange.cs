@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 弾の基底クラス。<br/>
+/// 弾にアタッチすべきコンポーネントの基底クラス。<br/>
 /// 遠距離武器の弾
 /// </summary>
 public abstract class Base_Bullet_LongRange : Base_Bullet
@@ -20,34 +20,18 @@ public abstract class Base_Bullet_LongRange : Base_Bullet
     #region Member Variables
     #endregion
 
-    #region Constant
-    #endregion
-
-    #region Events
-    #endregion
-
-    #region Unity Methods
-    private void Start()
-    {
-        Init();
-    }
-    protected override void Update()
-    {
-        Move();
-    }
-    #endregion
-
     #region Public Methods
-    public override void Damage(ref float life)
+    public override void OnDamage(
+        EStatusManager enemyStatusManager, Rigidbody _rigidbody = null, Vector3 dir = default, float knockbackPower = 1.0f)
     {
-        life -= PStatusManager.Instance.TotalStatus._longRangeOffensivePower;
+
     }
     #endregion
 
     #region Private Methods
     protected override void Init()
     {
-
+        base.Init();
     }
     protected virtual void Move()
     {
@@ -56,10 +40,5 @@ public abstract class Base_Bullet_LongRange : Base_Bullet
     #endregion
 
     #region On Animation Events
-    private void Destroy()
-    {
-        Destroy(gameObject);
-    }
     #endregion
-
 }

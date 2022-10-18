@@ -31,7 +31,6 @@ public class PWeaponComponent : MonoBehaviour
     [Tooltip("左手攻撃のボタン"), InputName, SerializeField]
     string _leftFireButtonName = "";
     [Tooltip("右手攻撃のボタン"), InputName, SerializeField]
-
     string _rightFireButtonName = "";
     #endregion
 
@@ -42,24 +41,15 @@ public class PWeaponComponent : MonoBehaviour
     private System.Action _rightClickAttackNever = default;
     #endregion
 
-    #region Constant
-    #endregion
-
-    #region Events
-    #endregion
-
     #region Unity Methods
-
     private void Start()
     {
 
     }
-
     private void Update()
     {
-
+        UpdateWeapon();
     }
-
     #endregion
 
     #region Private Methods
