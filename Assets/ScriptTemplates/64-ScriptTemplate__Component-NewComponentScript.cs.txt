@@ -21,17 +21,14 @@ public class #SCRIPTNAME# : MonoBehaviour
     #endregion
     
     #region Unity Methods
-
     private void Start()
     {
         #NOTRIM#
     }
-
     private void Update()
     {
         #NOTRIM#
     }
-
     #endregion
 
     #region Enums
