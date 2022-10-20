@@ -21,18 +21,14 @@ public abstract class Base_Bullet : MonoBehaviour, IOnEnemyDamage
 
     // Athor Variables
     protected readonly BulletType _bulletType = BulletType.NOT_SET;
-    protected readonly HitType _hitType = HitType.NOT_SET;
-    #endregion
-
-    #region Constant
     #endregion
 
     #region Unity Methods
-    private void Start()
+    protected virtual void Start()
     {
         Init();
     }
-    private void Update()
+    protected virtual void Update()
     {
         Process();
     }
@@ -116,6 +112,9 @@ public abstract class Base_Bullet : MonoBehaviour, IOnEnemyDamage
             }
         }
     }
+    #endregion
+
+    #region Abstract Methods
     #endregion
 
     #region On Animation Events
