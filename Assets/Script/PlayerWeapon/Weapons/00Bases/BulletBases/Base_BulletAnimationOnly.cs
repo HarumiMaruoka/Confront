@@ -1,7 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 弾として飛ばすが当たり判定を持たないオブジェクトのコンポーネント。
+/// 攻撃の演出のみを目的としたオブジェクトアタッチすることを想定して作成したもの。
+/// （例えばレイを飛ばすモノとかは、Weaponがレイを飛ばすので演出だけで良い。）
+/// </summary>
 public class Base_BulletAnimationOnly : MonoBehaviour
 {
     #region Properties

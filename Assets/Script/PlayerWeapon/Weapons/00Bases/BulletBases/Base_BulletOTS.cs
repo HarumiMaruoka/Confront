@@ -1,7 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 弾の基底クラス（OTSとはOnTriggerStayの略）
+/// 衝突時にヒット処理を行う弾基底クラス。
+/// </summary>
 public abstract class Base_BulletOTS : Base_Bullet
 {
     #region Properties
