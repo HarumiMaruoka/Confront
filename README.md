@@ -45,3 +45,6 @@
 ・決まり次第ここに追記すること。
 
 <h3> 他の決め事 </h3>
+
+<h3> クラス図に当たって要素の洗い出し </h3>
+https://docs.google.com/spreadsheets/d/1P0pI1Aae1SGBurK-E84oMNUS9YYAc3OrGqErN4ZRl6Q/edit#gid=0
