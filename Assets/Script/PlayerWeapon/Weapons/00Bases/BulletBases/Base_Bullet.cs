@@ -16,10 +16,6 @@ public abstract class Base_Bullet : MonoBehaviour, IOnEnemyDamage
     #endregion
 
     #region Member Variables
-    // Components
-    private Animator _animator;
-
-    // Athor Variables
     protected readonly BulletType _bulletType = BulletType.NOT_SET;
     #endregion
 
@@ -69,7 +65,7 @@ public abstract class Base_Bullet : MonoBehaviour, IOnEnemyDamage
     /// </summary>
     protected virtual void Init()
     {
-        _animator = GetComponent<Animator>();
+
     }
     /// <summary>
     /// 移動処理
@@ -90,7 +86,7 @@ public abstract class Base_Bullet : MonoBehaviour, IOnEnemyDamage
     /// <param name="dir"> ノックバックさせる場合にノックバック方向をここに設定する。</param>
     /// <param name="knockbackPower"> ノックバックの強さ </param>
     public virtual void OnDamage(
-        EStatusManager enemyStatusManager, float value, bool isKnockback = false,
+        EnemyStatusManager enemyStatusManager, float value, bool isKnockback = false,
         Rigidbody _rigidbody = null, Vector3 dir = default, float knockbackPower = 1.0f)
     {
         // 体力を減らす処理

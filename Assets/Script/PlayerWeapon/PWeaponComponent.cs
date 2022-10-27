@@ -11,27 +11,33 @@ public class PWeaponComponent : MonoBehaviour
     /// <summary>
     /// 左クリックで実行する攻撃デリゲート（押した瞬間のみ実行するタイプ）
     /// </summary>
-    public System.Action LeftClickAttackMoment { set => _leftClickAttackMoment = value; }
+    public System.Action LeftArmAttackMoment { set => _leftClickAttackMoment = value; }
     /// <summary>
     /// 右クリックで実行する攻撃デリゲート（押した瞬間のみの実行するタイプ）
     /// </summary>
-    public System.Action RightClickAttackMoment { set => _rightClickAttackMoment = value; }
+    public System.Action RightArmAttackMoment { set => _rightClickAttackMoment = value; }
     /// <summary>
     /// 左クリックで実行する攻撃デリゲート（押している間ずっと実行するタイプ）
     /// </summary>
-    public System.Action LeftClickAttackNever { set => _leftClickAttackNever = value; }
+    public System.Action LeftArmAttackNever { set => _leftClickAttackNever = value; }
     /// <summary>
     /// 右クリックで実行する攻撃デリゲート（押している間ずっと実行するタイプ）
     /// </summary>
-    public System.Action RightClickAttackNever { set => _rightClickAttackNever = value; }
+    public System.Action RightArmAttackNever { set => _rightClickAttackNever = value; }
+    /// <summary>
+    /// 攻撃対象のタグ
+    /// </summary>
+    public string AttackTargetTag => _attackTargetTag;
     #endregion
 
     #region Inspector Variables
     [Header("攻撃に関して設定すべき値")]
     [Tooltip("左手攻撃のボタン"), InputName, SerializeField]
-    string _leftFireButtonName = "";
+    private string _leftFireButtonName = "";
     [Tooltip("右手攻撃のボタン"), InputName, SerializeField]
-    string _rightFireButtonName = "";
+    private string _rightFireButtonName = "";
+    [Tooltip("攻撃対象のタグ"), TagName, SerializeField]
+    private string _attackTargetTag = "";
     #endregion
 
     #region Member Variables

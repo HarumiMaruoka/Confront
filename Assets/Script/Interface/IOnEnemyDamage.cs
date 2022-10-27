@@ -17,6 +17,6 @@ public interface IOnEnemyDamage
     /// <param name="knockbackPower">
     /// ノックバックさせる場合にノックバックパワーをここに設定する。
     /// </param>
-    void OnDamage(EStatusManager enemyStatusManager, float value, bool isKnockback = false,
+    void OnDamage(EnemyStatusManager enemyStatusManager, float value, bool isKnockback = false,
         Rigidbody _rigidbody = null, Vector3 dir = default, float knockbackPower = 1.0f);
 }

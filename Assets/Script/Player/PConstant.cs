@@ -5,6 +5,6 @@
 public class PConstant
 {
 	public const int Not_set=0;
-	public const int Right_Click = 1;
-	public const int Left_Click = 2;
+	public const int RIGHT = 1;
+	public const int LEFT = 2;
 }
