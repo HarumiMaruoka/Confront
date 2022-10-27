@@ -42,4 +42,10 @@
 ・bool値は フィールドの場合_is〇〇 プロパティの場合 Is〇〇と記述すること <br/>
 ・Debugクラスを使用してConsoleに何か表示する際は、カテゴリーによって色を分ける。<br/>
 ・summaryタグで何事にも目的と意図を明確に記す。<br/>
-・決まり次第ここに追記すること。
+・Dry原則に従って出来るだけ同じコードを書かないように意識する。<br/>
+・他にも決まり次第ここに追記すること。
+
+<h3> 他の決め事 </h3>
+
+<h3> クラス図に当たって要素の洗い出し </h3>
+https://docs.google.com/spreadsheets/d/1P0pI1Aae1SGBurK-E84oMNUS9YYAc3OrGqErN4ZRl6Q/edit#gid=0
