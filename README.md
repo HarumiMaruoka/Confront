@@ -43,9 +43,10 @@
 ・Debugクラスを使用してConsoleに何か表示する際は、カテゴリーによって色を分ける。<br/>
 ・summaryタグで何事にも目的と意図を明確に記す。<br/>
 ・Dry原則に従って出来るだけ同じコードを書かないように意識する。<br/>
+・KISS原則に従って「単純性」「簡潔性」を重視して記述すること。<br/>
 ・他にも決まり次第ここに追記すること。
 
 <h3> 他の決め事 </h3>
 
-<h3> 要件定義？ </h3>
+<h3> 仕様書的な何か </h3>
 https://docs.google.com/spreadsheets/d/1P0pI1Aae1SGBurK-E84oMNUS9YYAc3OrGqErN4ZRl6Q/edit#gid=0
