@@ -19,13 +19,11 @@ public abstract class Base_WeaponTMUseRay : Base_WeaponTN, IOnEnemyDamage
     }
 
     public void OnDamage(
-        EnemyStatusManager enemyStatusManager, float value, bool isKnockback = false,
+        EnemyStatusBehavior enemyStatusManager, float value, bool isKnockback = false,
         Rigidbody _rigidbody = null, Vector3 dir = default, float knockbackPower = 1)
     {
         // 体力を減らす処理
-        var temp = enemyStatusManager.Status;
-        temp._life -= value;
-        enemyStatusManager.Status = temp;
+        enemyStatusManager.Life -= value;
 
         // ノックバック処理
         if (isKnockback)

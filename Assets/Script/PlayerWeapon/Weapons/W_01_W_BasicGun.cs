@@ -21,7 +21,7 @@ public class W_01_W_BasicGun : Base_WeaponTMUseRay
     {
         if (OnFireRay(_maxDistance))
         {
-            if(_hitInfo.collider.TryGetComponent(out EnemyStatusManager eStatusManager))
+            if(_hitInfo.collider.TryGetComponent(out EnemyStatusBehavior eStatusManager))
             {
                 OnDamage(eStatusManager, PStatusManager.Instance.TotalStatus._longRangeOffensivePower);
             }

@@ -86,13 +86,11 @@ public abstract class Base_Bullet : MonoBehaviour, IOnEnemyDamage
     /// <param name="dir"> ノックバックさせる場合にノックバック方向をここに設定する。</param>
     /// <param name="knockbackPower"> ノックバックの強さ </param>
     public virtual void OnDamage(
-        EnemyStatusManager enemyStatusManager, float value, bool isKnockback = false,
+        EnemyStatusBehavior enemyStatusManager, float value, bool isKnockback = false,
         Rigidbody _rigidbody = null, Vector3 dir = default, float knockbackPower = 1.0f)
     {
         // 体力を減らす処理
-        var temp = enemyStatusManager.Status;
-        temp._life -= value;
-        enemyStatusManager.Status = temp;
+        enemyStatusManager.Life -= value;
 
         // ノックバック処理
         if (isKnockback)

@@ -22,11 +22,9 @@ public class FireRaycastFrontForPlayer : IFireBehavior
         RaycastHit hitInfo = default;
         if(Physics.Raycast(originPos, dir, out hitInfo, maxDistance))
         {
-            if(hitInfo.collider.TryGetComponent(out EnemyStatusManager eStatusManager))
+            if(hitInfo.collider.TryGetComponent(out EnemyStatusBehavior eStatusManager))
             {
-                var s = eStatusManager.Status;
-                s._life -= offensivePower;
-                eStatusManager.Status = s;
+                eStatusManager.Life -= offensivePower;
             }
         }
     }
