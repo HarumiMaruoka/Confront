@@ -9,14 +9,16 @@ public class PlayerStateMachine : MonoBehaviour
 {
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
 }
+
+
 
 public enum PlayerState
 {
