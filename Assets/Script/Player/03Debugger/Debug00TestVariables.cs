@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
 
-
 namespace Player
 {
     [System.Serializable]
-    public class PlayerState03Jump : PlayerState00Base
+    public class Debug00TestVariables
     {
 
     }

@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace Player
 {
-    [SerializeField]
-    private PlayerStateMachine _stateMachine;
-
-    private CharacterController _characterController = null;
-
-
-    public PlayerStateMachine StateMachine => _stateMachine;
-    public CharacterController CharacterController => _characterController;
-
-    private void Start()
+    public class PlayerController : MonoBehaviour
     {
-        _stateMachine.Init(this);
-    }
-    private void Update()
-    {
-        _stateMachine.Update();
+        [SerializeField]
+        private PlayerStateMachine _stateMachine;
+
+        private CharacterController _characterController = null;
+
+
+        public PlayerStateMachine StateMachine => _stateMachine;
+        public CharacterController CharacterController => _characterController;
+
+        private void Start()
+        {
+            _stateMachine.Init(this);
+        }
+        private void Update()
+        {
+            _stateMachine.Update();
+        }
     }
 }

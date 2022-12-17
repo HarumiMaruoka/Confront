@@ -2,10 +2,6 @@
 using UnityEditor;
 using System.Collections.Generic;
 
-/// <summary>
-/// インスペクタにInputManagerのName一覧を表示するエディタ拡張
-/// </summary>
-public class InputNameAttribute : PropertyAttribute { }
 
 /// <summary>
 /// CustomPropertyDrawerには属性名を設定する。<br/>
