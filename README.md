@@ -51,4 +51,5 @@
 <h3> 他の決め事 </h3>
 
 <h3> 仕様書的な何か </h3>
-https://docs.google.com/spreadsheets/d/1P0pI1Aae1SGBurK-E84oMNUS9YYAc3OrGqErN4ZRl6Q/edit#gid=0
+https://app.diagrams.net/#G177lQsBmjIRGAIySM57kN0rdL4yLy9eN6 <br/>
+https://docs.google.com/spreadsheets/d/1l35ytyqEfQ2Ws91MpLVoRpL0s4FeUuzkA5XVEoQggyA/edit#gid=0 <br/>
