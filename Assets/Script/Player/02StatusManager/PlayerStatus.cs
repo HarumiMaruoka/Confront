@@ -27,6 +27,11 @@ public class PlayerStatus
     private float _musclePower = 100f;
     [SerializeField]
     private float _magicPower = 100f;
+    [Header("–hŒä—Í")]
+    [SerializeField]
+    private float _muscleDefense = 100f;
+    [SerializeField]
+    private float _magicDefense = 100f;
 
     [Header("‚»‚Ì‘¼")]
     [SerializeField]
@@ -46,6 +51,8 @@ public class PlayerStatus
     public float MoveSpeed => _moveSpeed;
     public float MusclePower => _musclePower;
     public float MagicPower => _magicPower;
+    public float MuscleDefense => _muscleDefense;
+    public float MagicDefense => _magicDefense;
     public int Level => _level;
     public float Exp => _exp;
     public float Money => _money;
