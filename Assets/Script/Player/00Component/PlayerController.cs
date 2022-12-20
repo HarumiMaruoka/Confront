@@ -7,11 +7,14 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
-        private PlayerStateMachine _stateMachine;
+        private Input _input = default;
+        [SerializeField]
+        private PlayerStateMachine _stateMachine = default;
+
 
         private CharacterController _characterController = null;
 
-
+        public Input Input => _input;
         public PlayerStateMachine StateMachine => _stateMachine;
         public CharacterController CharacterController => _characterController;
 

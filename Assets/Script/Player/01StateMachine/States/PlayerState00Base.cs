@@ -26,6 +26,5 @@ namespace Player
         {
             
         }
-        public abstract void Transition();
     }
 }
