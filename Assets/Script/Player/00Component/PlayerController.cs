@@ -11,7 +11,6 @@ namespace Player
         [SerializeField]
         private PlayerStateMachine _stateMachine = default;
 
-
         private CharacterController _characterController = null;
 
         public Input Input => _input;

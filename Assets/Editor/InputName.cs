@@ -2,7 +2,6 @@
 using UnityEditor;
 using System.Collections.Generic;
 
-
 /// <summary>
 /// CustomPropertyDrawerには属性名を設定する。<br/>
 /// このクラスは、属性を付与した相手に合わせた処理をするクラス。<br/>

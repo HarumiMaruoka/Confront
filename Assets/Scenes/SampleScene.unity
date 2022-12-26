@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 481710104}
   - component: {fileID: 481710105}
   m_Layer: 0
-  m_Name: Tester
+  m_Name: Edhitor Extension Tester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2195,7 +2195,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27734
+  m_Name: pb_Mesh27738
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -8,8 +8,10 @@ namespace Player
     {
         public override void Update()
         {
-
-
+            if (_stateMachine.PlayerController.Input.IsMoveInput)
+            {
+                _stateMachine.TransitionTo(_stateMachine.StateMove);
+            }
         }
     }
 }
