@@ -26,9 +26,9 @@ namespace Player
 
         private PlayerController _playerController = null;
 
-        public PlayerState01Idle StateIdle => _idle;
-        public PlayerState02Move StateMove => _move;
-        public PlayerState03Jump StateJump => _jump;
+        public PlayerState01Idle Idle => _idle;
+        public PlayerState02Move Move => _move;
+        public PlayerState03Jump Jump => _jump;
         public PlayerState04Midair Midair => _midair;
         public PlayerState05Attack Attack => _attack;
         public PlayerState06Damage Damage => _damage;

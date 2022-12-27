@@ -29,4 +29,9 @@ public class OverLapBox
     {
         return Physics.OverlapBox(_origin.position + _offset, _size, Quaternion.identity, _targetLayer);
     }
+
+    public bool IsExist()
+    {
+        return GetCollider().Length > 0;
+    }
 }
