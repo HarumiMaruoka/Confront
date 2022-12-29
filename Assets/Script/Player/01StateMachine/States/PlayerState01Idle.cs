@@ -21,9 +21,27 @@ namespace Player
                 return;
             }
             // 非接地状態が検出されたとき、ステートをMidairに遷移する。
-            if (_stateMachine.PlayerController.GroundChecker.IsExist())
+            if (_stateMachine.PlayerController.GroundChecker.IsHit())
             {
                 _stateMachine.TransitionTo(_stateMachine.Midair);
+                return;
+            }
+            // 会話入力が検出されたとき かつ プレイヤーの前方にHumanが検出されたとき、Talkに遷移する
+            if (_stateMachine.PlayerController.Input.IsTalkInput &&
+                _stateMachine.PlayerController.TalkChecker.GetResult())
+            {
+                _stateMachine.TransitionTo(_stateMachine.Talk);
+                return;
+            }
+            // 攻撃入力が検知されたとき、Attackに遷移する
+            if (_stateMachine.PlayerController.Input.IsAttack1InputButton)
+            {
+                _stateMachine.TransitionTo(_stateMachine.Attack1);
+                return;
+            }
+            if (_stateMachine.PlayerController.Input.IsAttack2InputButton)
+            {
+                _stateMachine.TransitionTo(_stateMachine.Attack2);
                 return;
             }
         }

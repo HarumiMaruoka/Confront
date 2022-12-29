@@ -11,14 +11,17 @@ namespace Player
         [SerializeField]
         private PlayerStateMachine _stateMachine = default;
         [SerializeField]
-        private OverLapBox _groundChecker = default;
+        private Helper.OverLapBox _groundChecker = default;
+        [SerializeField]
+        private Helper.Raycast _talkChecker = default;
 
         private CharacterController _characterController = null;
 
         public Input Input => _input;
         public PlayerStateMachine StateMachine => _stateMachine;
         public CharacterController CharacterController => _characterController;
-        public OverLapBox GroundChecker => _groundChecker;
+        public Helper.OverLapBox GroundChecker => _groundChecker;
+        public Helper.Raycast TalkChecker => _talkChecker;
 
         private void Start()
         {

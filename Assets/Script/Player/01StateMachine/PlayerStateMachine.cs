@@ -18,7 +18,9 @@ namespace Player
         [SerializeField]
         private PlayerState04Midair _midair = default;
         [SerializeField]
-        private PlayerState05Attack _attack = default;
+        private PlayerState05Attack _attack1 = default;
+        [SerializeField]
+        private PlayerState05Attack _attack2 = default;
         [SerializeField]
         private PlayerState06Damage _damage = default;
         [SerializeField]
@@ -30,7 +32,8 @@ namespace Player
         public PlayerState02Move Move => _move;
         public PlayerState03Jump Jump => _jump;
         public PlayerState04Midair Midair => _midair;
-        public PlayerState05Attack Attack => _attack;
+        public PlayerState05Attack Attack1 => _attack1;
+        public PlayerState05Attack Attack2 => _attack2;
         public PlayerState06Damage Damage => _damage;
         public PlayerState07Talk Talk => _talk;
         public PlayerController PlayerController => _playerController;
@@ -47,7 +50,7 @@ namespace Player
             _move.Init(this);
             _jump.Init(this);
             _midair.Init(this);
-            _attack.Init(this);
+            _attack1.Init(this);
             _damage.Init(this);
             _talk.Init(this);
         }
