@@ -10,4 +10,6 @@ public class Sample : MonoBehaviour
     private string bbb;
     [SceneName, SerializeField]
     private string ccc;
+    [AnimationParameter, SerializeField]
+    private string ddd;
 }

@@ -4,5 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class Item00Base
 {
-	
+	public virtual void Use()
+    {
+        Debug.Log("ñ¢é¿ëïÇ≈Ç∑ÅB");
+    }
 }
