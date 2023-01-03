@@ -28,13 +28,41 @@ namespace Helper
 
         public bool GetResult()
         {
-            return Physics.Raycast(_origin.position, _dir, out _result, _maxDistance, _targetLayer);
+            return Physics.Raycast(_origin.position, _origin.rotation * _dir, out _result, _maxDistance, _targetLayer);
         }
         public bool GetResult(out RaycastHit result)
         {
-            var isHit = Physics.Raycast(_origin.position, _dir, out result, _maxDistance, _targetLayer);
+            var isHit = Physics.Raycast(_origin.position, _origin.rotation * _dir, out result, _maxDistance, _targetLayer);
             _result = result;
             return isHit;
+        }
+        [SerializeField]
+        private Color _hitColor = Color.red;
+        [SerializeField]
+        private Color _noHitColor = Color.blue;
+        public void OnDrawGizmo(Transform origin)
+        {
+            // Rayがヒットした場合で色を変える。
+            RaycastHit hit;
+            if (Physics.Raycast(origin.position, origin.rotation * _dir, out hit, _maxDistance, _targetLayer))
+            {
+                //衝突時のRayを画面に表示
+                Debug.DrawRay(
+                    origin.position, // 開始位置
+                    hit.point - origin.position, //Rayの方向と距離
+                    _hitColor, // ヒットした場合の色
+                    0, // ラインを表示する時間（秒単位）
+                    false); // ラインがカメラから近いオブジェクトによって隠された場合にラインを隠すかどうか
+                return;
+            }
+
+            //非衝突時のRayを画面に表示
+            Debug.DrawRay(
+                origin.position,
+               (origin.rotation * _dir).normalized * _maxDistance,
+                _noHitColor,
+                0,
+                false);
         }
     }
 }

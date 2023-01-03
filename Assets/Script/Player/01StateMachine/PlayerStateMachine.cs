@@ -25,6 +25,8 @@ namespace Player
         private PlayerController _playerController = null;
         private PlayerState05AttackBase _attack1 = null;
         private PlayerState05AttackBase _attack2 = null;
+        private PlayerState05AttackBase _midairAttack1 = null;
+        private PlayerState05AttackBase _midairAttack2 = null;
 
         public PlayerState01Idle Idle => _idle;
         public PlayerState02Move Move => _move;
@@ -32,6 +34,8 @@ namespace Player
         public PlayerState04Midair Midair => _midair;
         public PlayerState05AttackBase Attack1 { get => _attack1; set => _attack1 = value; }
         public PlayerState05AttackBase Attack2 { get => _attack2; set => _attack2 = value; }
+        public PlayerState05AttackBase MidairAttack1 { get => _midairAttack1; set => _midairAttack1 = value; }
+        public PlayerState05AttackBase MidairAttack2 { get => _midairAttack2; set => _midairAttack2 = value; }
         public PlayerState06Damage Damage => _damage;
         public PlayerState07Talk Talk => _talk;
         public PlayerController PlayerController => _playerController;

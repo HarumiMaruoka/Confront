@@ -20,7 +20,6 @@ public class AnimationParameterPropertyDrawer : PropertyDrawer
         {
             isSuccessSetUp = SetUp(position, property, label);
         }
-        Debug.Log(isSuccessSetUp);
         if (isSuccessSetUp)
         {
             int oldIndex = _index;

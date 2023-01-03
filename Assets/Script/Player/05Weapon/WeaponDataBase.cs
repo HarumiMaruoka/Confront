@@ -24,11 +24,11 @@ namespace Player
     public class Weapon
     {
         // 武器名
-        private string _name = default;
+        private string _name = "未設定";
         public string Name => _name;
 
         // 説明文
-        private string _explanatoryText = default;
+        private string _explanatoryText = "未設定";
         public string ExplanatoryText => _explanatoryText;
 
         // ステータスパラメータ
@@ -37,15 +37,19 @@ namespace Player
 
         // ステート
         private PlayerState05AttackBase _attackState = default;
+        private PlayerState05AttackBase _midairAttackState = default;
         public PlayerState05AttackBase AttackState => _attackState;
+        public PlayerState05AttackBase MidairAttackState => _midairAttackState;
 
         public Weapon(string name, string explanatoryText,
-            WeaponStatus status, PlayerState05AttackBase attackState)
+            WeaponStatus status, PlayerState05AttackBase attackState,
+            PlayerState05AttackBase midairAttackState)
         {
             _name = name;
             _explanatoryText = explanatoryText;
             _status = status;
             _attackState = attackState;
+            _midairAttackState = midairAttackState;
         }
     }
 }
