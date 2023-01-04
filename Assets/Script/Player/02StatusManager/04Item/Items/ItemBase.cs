@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Player
 {
     [System.Serializable]
-    public class Item00Base
+    public class ItemBase
     {
         public virtual void Use()
         {
@@ -20,7 +20,7 @@ namespace Player
         private ItemType _type = ItemType.NotSet;
         public ItemType Type => _type;
 
-        public Item00Base(string name, 
+        public ItemBase(string name, 
             string explanatoryText,
             ItemType type)
         {
@@ -31,10 +31,15 @@ namespace Player
     }
     public enum ItemType
     {
+        /// <summary> 未設定 </summary>
         NotSet,
+        /// <summary> 回復 </summary>
         Heal,
+        /// <summary> パワーアップ </summary>
         PowerUp,
+        /// <summary> 弾（矢とか銃の弾とか） </summary>
         Bullet,
+        /// <summary> カギ </summary>
         Key
     }
 }

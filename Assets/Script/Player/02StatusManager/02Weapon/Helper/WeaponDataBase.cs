@@ -6,11 +6,10 @@ namespace Player
     [System.Serializable]
     public class WeaponDataBase
     {
-        // 各武器のパラメータをcsvファイルから読み込む。
-        // （もしかしてセルのデータを数値にすればfloat.Parse()する必要ない？）
-        public void LoadData()
+        public void LoadData(string addressableName)
         {
-
+            // 各武器のパラメータをcsvファイルから読み込む。
+            // （もしかしてセルのデータを数値にすればfloat.Parse()する必要ない？）
         }
         public const int MaxID = 0;
 

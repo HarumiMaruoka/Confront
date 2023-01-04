@@ -39,7 +39,27 @@ namespace Player
 
         public void Damage(float value, Vector3 knockBackDir, float knockBackPower, DamageType type)
         {
-            Debug.LogWarning("ダメージは未実装です。");
+            // 体力を減らす
+            Debug.LogWarning("体力を減らす処理は未実装です。");
+            // ノックバックする
+            Debug.LogWarning("ノックバック処理は未実装です。");
+
+            // ステート遷移処理
+            switch (type)
+            {
+                case DamageType.Big:
+                    // Debug.Log("ビッグダメージを受けました。BigDamageStateに遷移します。");
+                    _stateMachine.TransitionTo(_stateMachine.BigDamage);
+                    break;
+                case DamageType.Middle:
+                    // Debug.Log("ミドルダメージを受けました。MiddleDamageStateに遷移します。");
+                    _stateMachine.TransitionTo(_stateMachine.MiddleDamage);
+                    break;
+                case DamageType.Small:
+                    // Debug.Log("スモールダメージを受けました。SmallDamageStateに遷移します。");
+                    _stateMachine.TransitionTo(_stateMachine.SmallDamage);
+                    break;
+            }
         }
     }
     public enum DamageType

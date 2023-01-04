@@ -6,7 +6,7 @@ namespace Player
 	[System.Serializable]
 	public class EquipmentDataBase
 	{
-		public void LoadData()
+		public void LoadData(string addressableName)
         {
 			// 各装備のパラメータをcsvファイルから読み込む。
 			// （もしかしてセルのデータを数値にすればfloat.Parse()する必要ない？）
