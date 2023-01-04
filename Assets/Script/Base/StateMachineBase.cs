@@ -13,7 +13,7 @@ public abstract class StateMachineBase
     }
     protected IState CurrentState { get; private set; }
 
-    public event Action<IState> OnStateChanged = default;
+    public event Action<IState, IState> OnStateChanged = default;
 
     // 最初のステートを設定する。
     protected void Initialize(IState startState)
@@ -25,11 +25,11 @@ public abstract class StateMachineBase
 
         // ステート変化時に実行するアクション。
         // 引数に最初のステートを渡す。
-        OnStateChanged?.Invoke(startState);
+        OnStateChanged?.Invoke(null, startState);
 
 #if UNITY_EDITOR
-        OnStateChanged += 
-            newState => 
+        OnStateChanged +=
+            (_, newState) =>
             Debug.Log($"プレイヤーのステートが変更されました。\n" +
             $"現在のステートは\"{newState.GetType().Name}\"です。");
 #endif
@@ -38,13 +38,14 @@ public abstract class StateMachineBase
     // ステートの遷移処理。引数に「次のステートの参照」を受け取る。
     public void TransitionTo(IState nextState)
     {
+        var previousState = CurrentState;
         CurrentState.Exit();      // 現在ステートの終了処理。
         CurrentState = nextState; // 現在のステートの変更処理。
         nextState.Enter();        // 変更された「新しい現在ステート」のEnter処理。
 
         // ステート変更時のアクションを実行する。
         // 引数に「新しい現在ステート」を渡す。
-        OnStateChanged?.Invoke(nextState);
+        OnStateChanged?.Invoke(previousState, nextState);
     }
     protected abstract void StateInit();
 }

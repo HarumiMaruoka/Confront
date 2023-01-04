@@ -16,10 +16,12 @@ namespace Player
         private Helper.Raycast _talkChecker = default;
 
         private CharacterController _characterController = null;
+        private Animator _animator = null;
 
         public Input Input => _input;
         public PlayerStateMachine StateMachine => _stateMachine;
         public CharacterController CharacterController => _characterController;
+        public Animator Animator => _animator;
         public Helper.OverLapBox GroundChecker => _groundChecker;
         public Helper.Raycast TalkChecker => _talkChecker;
 
@@ -27,10 +29,21 @@ namespace Player
         {
             _stateMachine.Init(this);
             _groundChecker.Init(transform);
+            _animator = GetComponent<Animator>();
+            _characterController = GetComponent<CharacterController>();
         }
         private void Update()
         {
             _stateMachine.Update();
         }
+
+        public void Damage(float value, Vector3 knockBackDir, float knockBackPower, DamageType type)
+        {
+            Debug.LogWarning("ダメージは未実装です。");
+        }
+    }
+    public enum DamageType
+    {
+        Big, Middle, Small
     }
 }

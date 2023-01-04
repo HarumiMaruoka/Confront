@@ -18,7 +18,11 @@ namespace Player
         [SerializeField]
         private PlayerState04Midair _midair = default;
         [SerializeField]
-        private PlayerState06Damage _damage = default;
+        private PlayerState06BigDamage _bigDamage = default;
+        [SerializeField]
+        private PlayerState06MiddleDamage _middleDamage = default;
+        [SerializeField]
+        private PlayerState06SmallDamage _smallDamage = default;
         [SerializeField]
         private PlayerState07Talk _talk = default;
 
@@ -36,7 +40,9 @@ namespace Player
         public PlayerState05AttackBase Attack2 { get => _attack2; set => _attack2 = value; }
         public PlayerState05AttackBase MidairAttack1 { get => _midairAttack1; set => _midairAttack1 = value; }
         public PlayerState05AttackBase MidairAttack2 { get => _midairAttack2; set => _midairAttack2 = value; }
-        public PlayerState06Damage Damage => _damage;
+        public PlayerState06BigDamage BigDamage => _bigDamage;
+        public PlayerState06MiddleDamage MiddleDamage => _middleDamage;
+        public PlayerState06SmallDamage SmallDamage => _smallDamage;
         public PlayerState07Talk Talk => _talk;
         public PlayerController PlayerController => _playerController;
         #endregion
@@ -45,6 +51,13 @@ namespace Player
         {
             _playerController = playerController;
             Initialize(_idle);
+            OnStateChanged += (previousState, nextState) =>
+            {
+                _playerController.Animator.SetBool(
+                    (previousState as PlayerState00Base).AnimParameterName, false);
+                _playerController.Animator.SetBool(
+                    (nextState as PlayerState00Base).AnimParameterName, true);
+            };
         }
         protected override void StateInit()
         {
@@ -53,7 +66,9 @@ namespace Player
             _jump.Init(this);
             _midair.Init(this);
             _attack1.Init(this);
-            _damage.Init(this);
+            _bigDamage.Init(this);
+            _middleDamage.Init(this);
+            _smallDamage.Init(this);
             _talk.Init(this);
         }
     }
