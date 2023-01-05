@@ -13,6 +13,5 @@ namespace Player
         private EquipmentStatus _totalStatus;
         /// <summary> 着用している全ての装備のステータスの合計値 </summary>
         public EquipmentStatus TotalStatus => _totalStatus;
-
     }
 }

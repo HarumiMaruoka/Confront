@@ -26,11 +26,11 @@ namespace Helper
             _origin = origin;
         }
 
-        public bool GetResult()
+        public bool IsHit()
         {
             return Physics.Raycast(_origin.position, _origin.rotation * _dir, out _result, _maxDistance, _targetLayer);
         }
-        public bool GetResult(out RaycastHit result)
+        public bool IsHit(out RaycastHit result)
         {
             var isHit = Physics.Raycast(_origin.position, _origin.rotation * _dir, out result, _maxDistance, _targetLayer);
             _result = result;

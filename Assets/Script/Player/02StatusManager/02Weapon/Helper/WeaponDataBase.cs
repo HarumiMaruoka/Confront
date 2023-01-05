@@ -11,9 +11,8 @@ namespace Player
             // 各武器のパラメータをcsvファイルから読み込む。
             // （もしかしてセルのデータを数値にすればfloat.Parse()する必要ない？）
         }
-        public const int MaxID = 0;
 
-        private Weapon[] _weaponsData = new Weapon[MaxID];
+        private Weapon[] _weaponsData = new Weapon[Constants.MaxWeaponID];
         public Weapon[] WeaponsData => _weaponsData;
     }
 

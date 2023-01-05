@@ -7,6 +7,27 @@ namespace Player
     [System.Serializable]
     public class PlayerState04Midair : PlayerState00Base
     {
-
+        public override void Update()
+        {
+            // UŒ‚“ü—Í‚ªŒŸ’m‚³‚ê‚½‚Æ‚«AMidairAttack‚É‘JˆÚ‚·‚é
+            if (_stateMachine.PlayerController.Input.IsAttack1InputButton &&
+                _stateMachine.Attack1 != null)
+            {
+                _stateMachine.TransitionTo(_stateMachine.MidairAttack1);
+                return;
+            }
+            if (_stateMachine.PlayerController.Input.IsAttack2InputButton &&
+                _stateMachine.Attack2 != null)
+            {
+                _stateMachine.TransitionTo(_stateMachine.MidairAttack2);
+                return;
+            }
+            // Ú’nó‘Ô‚ªŒŸo‚³‚ê‚½‚Æ‚«ALand‚É‘JˆÚ‚·‚é
+            if (_stateMachine.PlayerController.GroundChecker.IsHit())
+            {
+                _stateMachine.TransitionTo(_stateMachine.Midair);
+                return;
+            }
+        }
     }
 }

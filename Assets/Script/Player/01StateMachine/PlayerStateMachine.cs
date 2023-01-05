@@ -65,7 +65,6 @@ namespace Player
             _move.Init(this);
             _jump.Init(this);
             _midair.Init(this);
-            _attack1.Init(this);
             _bigDamage.Init(this);
             _middleDamage.Init(this);
             _smallDamage.Init(this);

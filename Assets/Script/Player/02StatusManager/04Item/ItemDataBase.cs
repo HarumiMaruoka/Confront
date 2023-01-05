@@ -9,8 +9,7 @@ namespace Player
     [System.Serializable]
     public class ItemDataBase
     {
-        public const int MaxID = 0;
-        private ItemBase[] _itemData = new ItemBase[MaxID];
+        private ItemBase[] _itemData = new ItemBase[Constants.MaxItemID];
         /// <summary>
         /// 全てのアイテムのデータ <br/>
         /// インデックスにIDを指定することで、指定のアイテムデータにアクセスできる。

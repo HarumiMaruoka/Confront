@@ -8,27 +8,15 @@ namespace Player
     {
         public override void Update()
         {
-            // 移動入力が検知されたとき、ステートをMoveに遷移する。
-            if (_stateMachine.PlayerController.Input.IsMoveInput)
-            {
-                _stateMachine.TransitionTo(_stateMachine.Move);
-                return;
-            }
-            // ジャンプ入力が検知されたとき、ステートをJumpに遷移する。
-            if (_stateMachine.PlayerController.Input.IsJumpInput)
-            {
-                _stateMachine.TransitionTo(_stateMachine.Jump);
-                return;
-            }
             // 非接地状態が検出されたとき、ステートをMidairに遷移する。
-            if (_stateMachine.PlayerController.GroundChecker.IsHit())
+            if (!_stateMachine.PlayerController.GroundChecker.IsHit())
             {
                 _stateMachine.TransitionTo(_stateMachine.Midair);
                 return;
             }
             // 会話入力が検出されたとき かつ プレイヤーの前方にHumanが検出されたとき、Talkに遷移する
             if (_stateMachine.PlayerController.Input.IsTalkInput &&
-                _stateMachine.PlayerController.TalkChecker.GetResult())
+                _stateMachine.PlayerController.TalkChecker.IsHit())
             {
                 _stateMachine.TransitionTo(_stateMachine.Talk);
                 return;
@@ -44,6 +32,18 @@ namespace Player
                 _stateMachine.Attack2 != null)
             {
                 _stateMachine.TransitionTo(_stateMachine.Attack2);
+                return;
+            }
+            // ジャンプ入力が検知されたとき、ステートをJumpに遷移する。
+            if (_stateMachine.PlayerController.Input.IsJumpInput)
+            {
+                _stateMachine.TransitionTo(_stateMachine.Jump);
+                return;
+            }
+            // 移動入力が検知されたとき、ステートをMoveに遷移する。
+            if (_stateMachine.PlayerController.Input.IsMoveInput)
+            {
+                _stateMachine.TransitionTo(_stateMachine.Move);
                 return;
             }
         }
