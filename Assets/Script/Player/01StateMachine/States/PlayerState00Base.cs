@@ -7,8 +7,8 @@ namespace Player
     public abstract class PlayerState00Base : IState
     {
         [AnimationParameter, SerializeField]
-        protected string _animParameterName = default;
-        public string AnimParameterName => _animParameterName;
+        protected string _transitionAnimParameterName = default;
+        public string AnimParameterName => _transitionAnimParameterName;
 
         protected PlayerStateMachine _stateMachine = null;
 

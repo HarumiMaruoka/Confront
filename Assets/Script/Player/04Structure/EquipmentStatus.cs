@@ -12,7 +12,7 @@ namespace Player
         public float _magicAttackPower;
         public float _magicDefensePower;
 
-        public static EquipmentStatus operator +(EquipmentStatus a, WeaponStatus b)
+        public static EquipmentStatus operator +(EquipmentStatus a, EquipmentStatus b)
         {
             a._maxHP += b._maxHP;
             a._maxStamina += b._maxStamina;

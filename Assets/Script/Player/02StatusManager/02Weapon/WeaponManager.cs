@@ -10,13 +10,11 @@ namespace Player
     [System.Serializable]
     public class WeaponManager
     {
-        private WeaponDataBase _weaponDataBase = new WeaponDataBase();
         /// <summary> 全てのWeaponデータを管理･格納しているオブジェクトへの参照 </summary>
-        public WeaponDataBase WeaponDataBase => _weaponDataBase;
+        public WeaponDataBase WeaponDataBase { get; private set; } = new WeaponDataBase();
 
-        private EquippedWeapon _equippedWeapon = new EquippedWeapon();
         /// <summary> 装備中の武器を管理しているオブジェクトへの参照 </summary>
-        public EquippedWeapon EquippedWeapon => _equippedWeapon;
+        public EquippedWeapon EquippedWeapon { get; private set; } = new EquippedWeapon();
 
     }
 }

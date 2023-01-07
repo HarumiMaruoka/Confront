@@ -10,8 +10,8 @@ namespace Player
         public override void Update()
         {
             // アニメーションの再生が終了したとき遷移処理を実行する。
-            // if (_stateMachine.PlayerController.IsAnimEnd)
-            // {
+            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Jump))
+            {
                 // 非接地状態が検出されたとき、ステートをMidairに遷移する。
                 if (!_stateMachine.PlayerController.GroundChecker.IsHit())
                 {
@@ -30,7 +30,7 @@ namespace Player
                     _stateMachine.TransitionTo(_stateMachine.Idle);
                     return;
                 }
-            // }
+            }
         }
     }
 }

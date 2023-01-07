@@ -29,7 +29,7 @@ namespace Player
         public LevelManager LevelManager => _levelManager;
         public PlayerStatus TotalStatus =>
             _baseStatus +
-            _equipmentManager.TotalStatus +
+            _equipmentManager.EquippedData.TotalStatus +
             _weaponManager.EquippedWeapon.TotalStatus +
             _levelManager.TotalStatus;
     }

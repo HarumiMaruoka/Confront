@@ -10,8 +10,9 @@ namespace Player
     [System.Serializable]
     public class EquipmentManager
     {
-        private EquipmentStatus _totalStatus;
-        /// <summary> 着用している全ての装備のステータスの合計値 </summary>
-        public EquipmentStatus TotalStatus => _totalStatus;
+        /// <summary> 着用している装備データ </summary>
+        public EquippedData EquippedData { get; private set; } = new EquippedData();
+        /// <summary> 装備のデータベース </summary>
+        public EquipmentDataBase DataBase { get; private set; } = new EquipmentDataBase();
     }
 }
