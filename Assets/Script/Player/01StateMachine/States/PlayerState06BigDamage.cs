@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 
 
@@ -7,34 +8,27 @@ namespace Player
     [System.Serializable]
     public class PlayerState06BigDamage : PlayerState00Base
     {
-        // BigDamage仕様書がドライブのスプレッドシートに用意してあるので
-        // それに沿って記述してください。
-
-        public override void Enter()
-        {
-            // ゴッドモードを起動する
-            // _stateMachine.PlayerController.StartGodMode();
-            // 物理演算を有効化する
-            // _stateMachine.PlayerController.Rigidbody.isKinematic = false;
-            // ノックバックする。
-            // ここにノックバックのコードを記述する。
-        }
         public override void Exit()
         {
             // ゴッドモードを停止する
-            // _stateMachine.PlayerController.EndGodMode();
-            // 基本的にはキャラクターコントローラーで移動等の制御をするので、物理演算を無効化する。
-            // _stateMachine.PlayerController.Rigidbody.isKinematic = false;
+            _stateMachine.PlayerController.EndGodMode();
+            _stateMachine.PlayerController.
+                ChangeMovementMethod(PlayerController.MovementMethodType.CharacterController);
         }
 
         [AnimationParameter, SerializeField]
         private string _standUpAnimParameterName = default;
         public override void Update()
         {
-            // 吹っ飛びが停止したとき立ち上がるアニメーションを再生する。
-            // if (_stateMachine.PlayerController.Rigidbody.velocity.sqrMagnitude < 0.1f)
+            // 速度がほぼ停止したとき立ち上がるアニメーションを再生する。
+            if (_stateMachine.PlayerController.Rigidbody.velocity.sqrMagnitude < 0.1f)
             {
-                // _animator.SetBool(_standUpAnimParameterName,true);
+                _stateMachine.PlayerController.Animator.SetBool(_standUpAnimParameterName, true);
+                // 1フレーム後に値を元に戻す。
+                Observable.NextFrame()
+                    .Subscribe(_ =>
+                    _stateMachine.PlayerController.Animator.
+                    SetBool(_standUpAnimParameterName, false));
                 return;
             }
             // 立ち上がるアニメーションの再生が終了したとき遷移処理を実行する。

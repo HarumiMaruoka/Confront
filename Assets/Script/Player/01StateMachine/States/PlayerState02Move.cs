@@ -47,6 +47,7 @@ namespace Player
                 _stateMachine.TransitionTo(_stateMachine.Move);
                 return;
             }
+            _stateMachine.PlayerController.Move();
         }
     }
 }

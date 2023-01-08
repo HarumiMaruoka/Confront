@@ -12,7 +12,6 @@ namespace Player
         public float _magicAttackPower;
         public float _magicDefensePower;
 
-
         public static LevelStatus operator +(LevelStatus a, LevelStatus b)
         {
             // 最大体力, スタミナ, マジックポイント, 移動速度の適用

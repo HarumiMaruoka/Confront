@@ -28,6 +28,7 @@ namespace Player
                 _stateMachine.TransitionTo(_stateMachine.Midair);
                 return;
             }
+            _stateMachine.PlayerController.Move();
         }
     }
 }

@@ -36,4 +36,10 @@ namespace Player
             _explanatoryText = explanatoryText;
         }
     }
+
+    [System.Serializable]
+    public enum EquippedType
+    {
+        Head, Body, Leg, LeftHand, RightHand,
+    }
 }
