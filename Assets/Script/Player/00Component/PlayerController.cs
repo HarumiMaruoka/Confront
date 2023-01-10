@@ -32,15 +32,23 @@ namespace Player
         #region UnityMethod
         private void Start()
         {
-            _stateMachine.Init(this);
-            _groundChecker.Init(transform);
             _animator = GetComponent<Animator>();
             _characterController = GetComponent<CharacterController>();
+            _rigidbody = GetComponent<Rigidbody>();
+            _stateMachine.Init(this);
+            _groundChecker.Init(transform);
             ChangeMovementMethod(MovementMethodType.CharacterController);
         }
         private void Update()
         {
             _stateMachine.Update();
+            MoveHorizontal();
+            MoveVertical();
+        }
+        private void OnDrawGizmosSelected()
+        {
+            _groundChecker.OnDrawGizmos(transform);
+            _talkChecker.OnDrawGizmo(transform);
         }
         #endregion
 
@@ -126,6 +134,7 @@ namespace Player
         public void OnAnimEnd(AnimType animType)
         {
             _isAnimationEndDetection = animType;
+            Debug.Log("次フレームで値を初期化します。");
             Observable.NextFrame()
                 .Subscribe(_ => _isAnimationEndDetection = AnimType.NotSet);
         }
@@ -145,14 +154,16 @@ namespace Player
         private float _rotationSpeed = 600f;
         [SerializeField]
         private bool _canMove = true;
+        public bool CamMove { get => _canMove; set => _canMove = value; }
 
         private Vector3 _moveSpeed = default;
         private float _moveSpeedY = 0f;
         Quaternion _targetRotation = default;
-        public void Move()
+        public void MoveHorizontal()
         {
             if (_canMove)
-            {
+            { // このブロックの処理について : 加速するように書き換える
+
                 // 水平方向の移動計算
                 _moveSpeed = Input.MoveHorizontalDir.normalized;
                 //　メインカメラを基準に方向を決める。
@@ -170,7 +181,16 @@ namespace Player
                 transform.rotation = rotation;
                 _moveSpeed *= _testHorizontalMoveSpeed * Time.deltaTime;
             }
+            else
+            {
+                // 減速プログラムを記述する
+            }
 
+            // キャラクターコントローラーに値を渡す。
+            _characterController.Move(_moveSpeed);
+        }
+        public void MoveVertical()
+        {
             // 垂直方向の移動計算
             if (!GroundChecker.IsHit()) // 接地してない場合の処理
             {

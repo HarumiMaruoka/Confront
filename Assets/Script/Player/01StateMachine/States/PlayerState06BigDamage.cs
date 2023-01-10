@@ -23,17 +23,14 @@ namespace Player
             // 速度がほぼ停止したとき立ち上がるアニメーションを再生する。
             if (_stateMachine.PlayerController.Rigidbody.velocity.sqrMagnitude < 0.1f)
             {
+                _stateMachine.PlayerController.Animator.SetBool(_enterAnimParameterName, false);
                 _stateMachine.PlayerController.Animator.SetBool(_standUpAnimParameterName, true);
-                // 1フレーム後に値を元に戻す。
-                Observable.NextFrame()
-                    .Subscribe(_ =>
-                    _stateMachine.PlayerController.Animator.
-                    SetBool(_standUpAnimParameterName, false));
                 return;
             }
             // 立ち上がるアニメーションの再生が終了したとき遷移処理を実行する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.StandUp))
             {
+                _stateMachine.PlayerController.Animator.SetBool(_standUpAnimParameterName, false);
                 // 非接地状態が検出されたとき、ステートをMidairに遷移する。
                 if (!_stateMachine.PlayerController.GroundChecker.IsHit())
                 {

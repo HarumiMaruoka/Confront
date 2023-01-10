@@ -44,10 +44,9 @@ namespace Player
             // 移動入力が消失したとき、ステートをIdleに遷移する。
             if (!_stateMachine.PlayerController.Input.IsMoveInput)
             {
-                _stateMachine.TransitionTo(_stateMachine.Move);
+                _stateMachine.TransitionTo(_stateMachine.Idle);
                 return;
             }
-            _stateMachine.PlayerController.Move();
         }
     }
 }

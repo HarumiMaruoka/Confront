@@ -29,15 +29,22 @@ public abstract class StateMachineBase
 
 #if UNITY_EDITOR
         OnStateChanged +=
-            (_, newState) =>
-            Debug.Log($"プレイヤーのステートが変更されました。\n" +
-            $"現在のステートは\"{newState.GetType().Name}\"です。");
+            (previousState, newState) =>
+            {
+                Debug.Log($"プレイヤーのステートが変更されました。\n" +
+                $"現在のステートは\"{newState.GetType().Name}\"です。");
+            };
 #endif
     }
 
     // ステートの遷移処理。引数に「次のステートの参照」を受け取る。
     public void TransitionTo(IState nextState)
     {
+        if (nextState == null)
+        {
+            Debug.LogError($"引数に渡された {nextState} はnullです。遷移をキャンセルします。");
+            return;
+        }
         var previousState = CurrentState;
         CurrentState.Exit();      // 現在ステートの終了処理。
         CurrentState = nextState; // 現在のステートの変更処理。

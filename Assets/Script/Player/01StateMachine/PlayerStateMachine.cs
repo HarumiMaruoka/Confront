@@ -25,6 +25,8 @@ namespace Player
         private PlayerState06SmallDamage _smallDamage = default;
         [SerializeField]
         private PlayerState07Talk _talk = default;
+        [SerializeField]
+        private PlayerState08Land _land = default;
 
         private PlayerController _playerController = null;
         private PlayerState05AttackBase _attack1 = null;
@@ -44,6 +46,7 @@ namespace Player
         public PlayerState06MiddleDamage MiddleDamage => _middleDamage;
         public PlayerState06SmallDamage SmallDamage => _smallDamage;
         public PlayerState07Talk Talk => _talk;
+        public PlayerState08Land Land => _land;
         public PlayerController PlayerController => _playerController;
         #endregion
 
@@ -51,11 +54,12 @@ namespace Player
         {
             _playerController = playerController;
             Initialize(_idle);
+
             OnStateChanged += (previousState, nextState) =>
             {
-                _playerController.Animator.SetBool(
+                _playerController.Animator?.SetBool(
                     (previousState as PlayerState00Base).AnimParameterName, false);
-                _playerController.Animator.SetBool(
+                _playerController.Animator?.SetBool(
                     (nextState as PlayerState00Base).AnimParameterName, true);
             };
         }
@@ -69,6 +73,7 @@ namespace Player
             _middleDamage.Init(this);
             _smallDamage.Init(this);
             _talk.Init(this);
+            _land.Init(this);
         }
     }
 }

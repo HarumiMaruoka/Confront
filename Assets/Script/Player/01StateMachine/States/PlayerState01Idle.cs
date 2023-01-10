@@ -43,7 +43,6 @@ namespace Player
             // 移動入力が検知されたとき、ステートをMoveに遷移する。
             if (_stateMachine.PlayerController.Input.IsMoveInput)
             {
-                _stateMachine.PlayerController.Move();
                 _stateMachine.TransitionTo(_stateMachine.Move);
                 return;
             }

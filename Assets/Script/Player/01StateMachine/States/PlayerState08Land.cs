@@ -18,6 +18,7 @@ namespace Player
             // 着地アニメーションの再生が終了したとき遷移処理を実行する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Land))
             {
+                Debug.Log("遷移します");
                 // 移動入力があるとき、ステートをMoveに遷移する。
                 if (_stateMachine.PlayerController.Input.IsMoveInput)
                 {

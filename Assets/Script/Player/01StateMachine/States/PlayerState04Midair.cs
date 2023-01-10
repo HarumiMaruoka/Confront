@@ -25,10 +25,9 @@ namespace Player
             // Ú’nó‘Ô‚ªŒŸo‚³‚ê‚½‚Æ‚«ALand‚É‘JˆÚ‚·‚é
             if (_stateMachine.PlayerController.GroundChecker.IsHit())
             {
-                _stateMachine.TransitionTo(_stateMachine.Midair);
+                _stateMachine.TransitionTo(_stateMachine.Land);
                 return;
             }
-            _stateMachine.PlayerController.Move();
         }
     }
 }

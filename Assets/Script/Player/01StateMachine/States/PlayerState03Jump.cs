@@ -31,7 +31,6 @@ namespace Player
                     return;
                 }
             }
-            _stateMachine.PlayerController.Move();
         }
     }
 }

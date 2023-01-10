@@ -18,8 +18,8 @@ namespace Helper
         }
         private void Update()
         {
-            Debug.Log($"_overLapBoxSample{_overLapBoxSample.IsHit()}");
-            Debug.Log($"_raycastSample{_raycastSample.IsHit()}");
+            // Debug.Log($"_overLapBoxSample{_overLapBoxSample.IsHit()}");
+            // Debug.Log($"_raycastSample{_raycastSample.IsHit()}");
         }
         private void OnDrawGizmos()
         {
