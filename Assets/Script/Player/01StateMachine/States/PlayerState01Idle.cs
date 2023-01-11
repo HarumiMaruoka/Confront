@@ -35,7 +35,8 @@ namespace Player
                 return;
             }
             // ジャンプ入力が検知されたとき、ステートをJumpに遷移する。
-            if (_stateMachine.PlayerController.Input.IsJumpInput)
+            if (_stateMachine.PlayerController.Input.IsJumpInput &&
+                _stateMachine.PlayerController.IsReadyJump)
             {
                 _stateMachine.TransitionTo(_stateMachine.Jump);
                 return;

@@ -7,6 +7,14 @@ namespace Player
     [System.Serializable]
     public class PlayerState02Move : PlayerState00Base
     {
+        public override void Enter()
+        {
+            _stateMachine.PlayerController.CamMove = true;
+        }
+        public override void Exit()
+        {
+            _stateMachine.PlayerController.CamMove = false;
+        }
         public override void Update()
         {
             // 非接地状態が検出されたとき、ステートをMidairに遷移する。
@@ -36,7 +44,8 @@ namespace Player
                 return;
             }
             // ジャンプ入力が検知されたとき、ステートをJumpに遷移する。
-            if (_stateMachine.PlayerController.Input.IsJumpInput)
+            if (_stateMachine.PlayerController.Input.IsJumpInput &&
+                _stateMachine.PlayerController.IsReadyJump)
             {
                 _stateMachine.TransitionTo(_stateMachine.Jump);
                 return;

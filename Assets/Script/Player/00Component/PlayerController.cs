@@ -1,3 +1,4 @@
+using System.Collections;
 using UniRx;
 using UnityEngine;
 
@@ -143,9 +144,23 @@ namespace Player
         // ================== 移動に関連するメソッド群 ================== //
         #region Move
         [Header("移動に関連する値")]
+
+        [Tooltip("移動速度の最大値")]
         [SerializeField]
-        [Tooltip("テスト用移動速度 : ステータス制御が完成したとき削除する値")]
-        private float _testHorizontalMoveSpeed = 4;
+        private float _maxMoveSpeedHorizontal = 4f;
+        [Tooltip("移動加速度")]
+        [SerializeField]
+        private float _movementAccelerationHorizontal = 0.4f;
+        [Tooltip("移動減速度")]
+        [SerializeField]
+        private float _movementDecelerationHorizontal = 0.4f;
+        [Tooltip("現在のプレイヤーの水平移動速度を表す値")]
+        [SerializeField]
+        private float _currentMoveSpeedHorizontal = 0f;
+        [Tooltip("現在のプレイヤーの垂直移動速度を表す値")]
+        [SerializeField]
+        private float _currentMoveSpeedVertical = 0f;
+
         [SerializeField]
         private float _jumpSpeed = 0.8f;
         [SerializeField]
@@ -156,59 +171,93 @@ namespace Player
         private bool _canMove = true;
         public bool CamMove { get => _canMove; set => _canMove = value; }
 
-        private Vector3 _moveSpeed = default;
-        private float _moveSpeedY = 0f;
+        private Vector3 _moveSpeedHorizontal = default;
         Quaternion _targetRotation = default;
+
         public void MoveHorizontal()
         {
-            if (_canMove)
-            { // このブロックの処理について : 加速するように書き換える
-
-                // 水平方向の移動計算
-                _moveSpeed = Input.MoveHorizontalDir.normalized;
-                //　メインカメラを基準に方向を決める。
-                _moveSpeed = Camera.main.transform.TransformDirection(_moveSpeed);
-                // 移動方向を向く
-                if (_moveSpeed.magnitude > 0.5f)
+            if (_canMove && Input.IsMoveInput)
+            {
+                // 加速の計算
+                _currentMoveSpeedHorizontal += _movementAccelerationHorizontal * Time.deltaTime;
+                if (_currentMoveSpeedHorizontal > _maxMoveSpeedHorizontal)
                 {
-                    _targetRotation = Quaternion.LookRotation(_moveSpeed, Vector3.up);
+                    _currentMoveSpeedHorizontal = _maxMoveSpeedHorizontal;
                 }
+                // 入力方向を取得
+                _moveSpeedHorizontal = Input.MoveHorizontalDir.normalized;
+                // メインカメラを基準に方向を指定する。
+                _moveSpeedHorizontal = Camera.main.transform.TransformDirection(_moveSpeedHorizontal);
+                if (_moveSpeedHorizontal.magnitude > 0.5f)
+                {
+                    _targetRotation = Quaternion.LookRotation(_moveSpeedHorizontal, Vector3.up);
+                }
+                // 回転の抑制
+                _targetRotation.x = 0f;
+                _targetRotation.z = 0f;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, _rotationSpeed * Time.deltaTime);
 
-                var rotation = transform.rotation;
-                rotation.x = 0f;
-                rotation.z = 0f;
-                transform.rotation = rotation;
-                _moveSpeed *= _testHorizontalMoveSpeed * Time.deltaTime;
+                // 速度の適用
+                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal;
             }
             else
             {
-                // 減速プログラムを記述する
+                // 減速の計算
+                _currentMoveSpeedHorizontal -= _movementDecelerationHorizontal * Time.deltaTime;
+                if (_currentMoveSpeedHorizontal < 0f) _currentMoveSpeedHorizontal = 0f;
+                // 速度の適用
+                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal * Time.deltaTime;
             }
-
+            _moveSpeedHorizontal.y = 0f;
             // キャラクターコントローラーに値を渡す。
-            _characterController.Move(_moveSpeed);
+            _characterController.Move(_moveSpeedHorizontal);
         }
+        [SerializeField]
+        private float _gravityOnGrounded = 1f;
+        [SerializeField]
+        private float _jumpInterval = 2f;
+
+        private bool _gravityOnGroundedGravity = default;
+        private bool _isReadyJump = true;
+
+        public bool IsReadyJump => _isReadyJump;
+
         public void MoveVertical()
         {
             // 垂直方向の移動計算
-            if (!GroundChecker.IsHit()) // 接地してない場合の処理
+            if (!GroundChecker.IsHit() || !_gravityOnGroundedGravity) // 接地してない場合の処理
             {
-                _moveSpeedY -= _gravity * Time.deltaTime; // 重力の計算
-                _moveSpeed.y = _moveSpeedY;
+                _currentMoveSpeedVertical -= _gravity * Time.deltaTime; // 重力の計算
             }
-            else // 接地している場合の処理
+            else if (_gravityOnGroundedGravity) // 接地している場合の処理
             {
-                _moveSpeed.y = _moveSpeedY = 0f;
+                _currentMoveSpeedVertical = _gravityOnGrounded * Time.deltaTime * -1f;
             }
-
-            if (Input.IsJumpInput && GroundChecker.IsHit()) // ジャンプの処理
+            if (Input.IsJumpInput && GroundChecker.IsHit() && _isReadyJump) // ジャンプの処理
             {
-                _moveSpeedY = _jumpSpeed;
+                _currentMoveSpeedVertical = _jumpSpeed;
+                StartCoroutine(StopOnGroundedGravity());
+                StartCoroutine(WaitJump());
             }
 
             // キャラクターコントローラーに値を渡す。
-            _characterController.Move(_moveSpeed);
+            _characterController.Move(new Vector3(0f, _currentMoveSpeedVertical) * Time.deltaTime);
+        }
+        private IEnumerator StopOnGroundedGravity()
+        {
+            _gravityOnGroundedGravity = false;
+
+            while (!IsAnimEnd(AnimType.Jump))
+            {
+                yield return null;
+            }
+            _gravityOnGroundedGravity = true;
+        }
+        private IEnumerator WaitJump()
+        {
+            _isReadyJump = false;
+            yield return new WaitForSeconds(_jumpInterval);
+            _isReadyJump = true;
         }
         #endregion
     }
