@@ -26,4 +26,8 @@ namespace Player
             return a;
         }
     }
+    public enum EquipmentType
+    {
+        Head, Body, Leg, Arm
+    }
 }

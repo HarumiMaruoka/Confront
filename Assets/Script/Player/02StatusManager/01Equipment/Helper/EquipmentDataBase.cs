@@ -22,7 +22,7 @@ namespace Player
         // ステータス変化パラメータ
         private EquipmentStatus _status = default;
         public EquipmentStatus Status => _status;
-        // 装備名
+        // 装備の名前
         private string _name = "未設定";
         public string Name => _name;
         // 説明文

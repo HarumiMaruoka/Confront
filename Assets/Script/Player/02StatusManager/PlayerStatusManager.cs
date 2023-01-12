@@ -12,15 +12,19 @@ namespace Player
         [SerializeField, Tooltip("基本となるステータス")]
         private PlayerStatus _baseStatus = default;
 
-        private EquipmentManager _equipmentManager = new EquipmentManager();
-        private WeaponManager _weaponManager = new WeaponManager();
-        private LevelManager _levelManager = new LevelManager();
+        [SerializeField]
+        private EquipmentManager _equipmentManager = default;
+        [SerializeField]
+        private WeaponManager _weaponManager = default;
+        [SerializeField]
+        private LevelManager _levelManager = default;
 
         public void LoadData()
         {
             // 各データベースに値を設定する。
 
-            // セーブデータを保存する。
+            // セーブデータを取得し、フィールドに保存する。
+
         }
 
         public PlayerStatus BaseStatus => _baseStatus;
@@ -31,6 +35,6 @@ namespace Player
             _baseStatus +
             _equipmentManager.EquippedData.TotalStatus +
             _weaponManager.EquippedWeapon.TotalStatus +
-            _levelManager.TotalStatus;
+            _levelManager.CurrentStatus;
     }
 }

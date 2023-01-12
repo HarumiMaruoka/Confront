@@ -16,6 +16,9 @@ namespace Player
         private Helper.OverLapBox _groundChecker = default;
         [SerializeField]
         private Helper.Raycast _talkChecker = default;
+        [Header("ステータス管理")]
+        [SerializeField]
+        private PlayerStatusManager _playerStatusManager = default;
 
         private CharacterController _characterController = null;
         private Rigidbody _rigidbody = null;
@@ -23,6 +26,7 @@ namespace Player
 
         public Input Input => _input;
         public PlayerStateMachine StateMachine => _stateMachine;
+        public PlayerStatusManager PlayerStatusManager => _playerStatusManager;
         public CharacterController CharacterController => _characterController;
         public Rigidbody Rigidbody => _rigidbody;
         public Animator Animator => _animator;
@@ -38,6 +42,7 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody>();
             _stateMachine.Init(this);
             _groundChecker.Init(transform);
+            _playerStatusManager.LoadData();
             ChangeMovementMethod(MovementMethodType.CharacterController);
         }
         private void Update()
@@ -135,9 +140,24 @@ namespace Player
         public void OnAnimEnd(AnimType animType)
         {
             _isAnimationEndDetection = animType;
-            Debug.Log("次フレームで値を初期化します。");
+            if (animType == AnimType.Attack)
+            {
+                StartCoroutine(WaitAttackInterval());
+            }
             Observable.NextFrame()
                 .Subscribe(_ => _isAnimationEndDetection = AnimType.NotSet);
+        }
+        /// <summary> 攻撃入力を有効化, 無効化の設定する </summary>
+        public void SetAcceptingAttackInput(bool value)
+        {
+            Input.IsAcceptingAttackInput = value;
+        }
+        /// <summary> 指定された時間 攻撃入力を無効化する </summary>
+        private IEnumerator WaitAttackInterval()
+        {
+            Input.IsAcceptingAttackInput = false;
+            yield return new WaitForSeconds(_stateMachine.AttackStateController.AttackInterval);
+            Input.IsAcceptingAttackInput = true;
         }
         #endregion
 
@@ -222,26 +242,30 @@ namespace Player
 
         public bool IsReadyJump => _isReadyJump;
 
+        public bool IsVerticalCalculation { get; set; }
         public void MoveVertical()
         {
-            // 垂直方向の移動計算
-            if (!GroundChecker.IsHit() || !_gravityOnGroundedGravity) // 接地してない場合の処理
+            if (IsVerticalCalculation)
             {
-                _currentMoveSpeedVertical -= _gravity * Time.deltaTime; // 重力の計算
-            }
-            else if (_gravityOnGroundedGravity) // 接地している場合の処理
-            {
-                _currentMoveSpeedVertical = _gravityOnGrounded * Time.deltaTime * -1f;
-            }
-            if (Input.IsJumpInput && GroundChecker.IsHit() && _isReadyJump) // ジャンプの処理
-            {
-                _currentMoveSpeedVertical = _jumpSpeed;
-                StartCoroutine(StopOnGroundedGravity());
-                StartCoroutine(WaitJump());
-            }
+                // 垂直方向の移動計算
+                if (!GroundChecker.IsHit() || !_gravityOnGroundedGravity) // 接地してない場合の処理
+                {
+                    _currentMoveSpeedVertical -= _gravity * Time.deltaTime; // 重力の計算
+                }
+                else if (_gravityOnGroundedGravity) // 接地している場合の処理
+                {
+                    _currentMoveSpeedVertical = _gravityOnGrounded * Time.deltaTime * -1f;
+                }
+                if (Input.IsJumpInput && GroundChecker.IsHit() && _isReadyJump) // ジャンプの処理
+                {
+                    _currentMoveSpeedVertical = _jumpSpeed;
+                    StartCoroutine(StopOnGroundedGravity());
+                    StartCoroutine(WaitJump());
+                }
 
-            // キャラクターコントローラーに値を渡す。
-            _characterController.Move(new Vector3(0f, _currentMoveSpeedVertical) * Time.deltaTime);
+                // キャラクターコントローラーに値を渡す。
+                _characterController.Move(new Vector3(0f, _currentMoveSpeedVertical) * Time.deltaTime);
+            }
         }
         private IEnumerator StopOnGroundedGravity()
         {
@@ -278,6 +302,7 @@ namespace Player
         MiddleDamage,
         SmallDamage,
         Land,
+        Attack,
     }
     #endregion
 }

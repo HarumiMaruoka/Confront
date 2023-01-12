@@ -9,7 +9,7 @@ namespace Player
     [System.Serializable]
     public class EquippedWeapon
     {
-        public void LoadData()
+        public void LoadData(string saveDataFilePath)
         {
 
         }

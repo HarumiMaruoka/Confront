@@ -15,6 +15,5 @@ namespace Player
 
         /// <summary> 装備中の武器を管理しているオブジェクトへの参照 </summary>
         public EquippedWeapon EquippedWeapon { get; private set; } = new EquippedWeapon();
-
     }
 }

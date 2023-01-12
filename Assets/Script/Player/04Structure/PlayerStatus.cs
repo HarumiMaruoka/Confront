@@ -34,14 +34,6 @@ namespace Player
         [SerializeField]
         public float _magicDefense;
 
-        [Header("レベル, 経験値, お金")]
-        [SerializeField]
-        public int _level;
-        [SerializeField]
-        public float _exp;
-        [SerializeField]
-        public float _money;
-
         /// <summary>
         /// 装備ステータスの + 演算子適用
         /// </summary>

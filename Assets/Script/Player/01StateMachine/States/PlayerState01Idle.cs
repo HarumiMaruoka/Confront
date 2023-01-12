@@ -22,13 +22,13 @@ namespace Player
                 return;
             }
             // UŒ‚“ü—Í‚ªŒŸ’m‚³‚ê‚½‚Æ‚«AAttack‚É‘JˆÚ‚·‚é
-            if (_stateMachine.PlayerController.Input.IsAttack1InputButton &&
+            if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() &&
                 _stateMachine.Attack1 != null)
             {
                 _stateMachine.TransitionTo(_stateMachine.Attack1);
                 return;
             }
-            if (_stateMachine.PlayerController.Input.IsAttack2InputButton &&
+            if (_stateMachine.PlayerController.Input.IsAttack2InputButtonDown() &&
                 _stateMachine.Attack2 != null)
             {
                 _stateMachine.TransitionTo(_stateMachine.Attack2);

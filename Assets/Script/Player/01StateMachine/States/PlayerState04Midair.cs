@@ -18,13 +18,13 @@ namespace Player
         public override void Update()
         {
             // UŒ‚“ü—Í‚ªŒŸ’m‚³‚ê‚½‚Æ‚«AMidairAttack‚É‘JˆÚ‚·‚é
-            if (_stateMachine.PlayerController.Input.IsAttack1InputButton &&
+            if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() &&
                 _stateMachine.MidairAttack1 != null)
             {
                 _stateMachine.TransitionTo(_stateMachine.MidairAttack1);
                 return;
             }
-            if (_stateMachine.PlayerController.Input.IsAttack2InputButton &&
+            if (_stateMachine.PlayerController.Input.IsAttack2InputButtonDown() &&
                 _stateMachine.MidairAttack2 != null)
             {
                 _stateMachine.TransitionTo(_stateMachine.MidairAttack2);

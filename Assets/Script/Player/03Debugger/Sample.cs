@@ -12,4 +12,15 @@ public class Sample : MonoBehaviour
     private string ccc;
     [AnimationParameter, SerializeField]
     private string ddd;
+    [AnimationParameter, SerializeField]
+    private string[] eee;
+
+    private void Start()
+    {
+        // Test
+        foreach(var e in eee)
+        {
+            print(e);
+        }
+    }
 }

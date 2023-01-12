@@ -498,6 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 481710104}
   - component: {fileID: 481710105}
+  - component: {fileID: 481710106}
   m_Layer: 0
   m_Name: Edhitor Extension Tester
   m_TagString: Untagged
@@ -535,7 +536,32 @@ MonoBehaviour:
   aaa: Horizontal
   bbb: Untagged
   ccc: SampleScene
-  ddd: 
+  ddd: IsIdle
+  eee:
+  - IsMove
+  - IsJump
+  - IsTalk
+  - IsLand
+--- !u!95 &481710106
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481710103}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e1c4d23268cd5848b0c3e9b7e427872, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &518729423
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,7 +776,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28704
+  m_Name: pb_Mesh28706
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2517,6 +2543,19 @@ MonoBehaviour:
     _isDrawGizmo: 1
     _hitColor: {r: 1, g: 0, b: 0, a: 1}
     _noHitColor: {r: 0, g: 0, b: 1, a: 1}
+  _playerStatusManager:
+    _baseStatus:
+      _maxHP: 0
+      _hp: 0
+      _maxStamina: 0
+      _stamina: 0
+      _maxMagicPoint: 0
+      _magicPoint: 0
+      _moveSpeed: 0
+      _musclePower: 0
+      _magicPower: 0
+      _muscleDefense: 0
+      _magicDefense: 0
   _isGodMode: 0
   _maxMoveSpeedHorizontal: 0.6
   _movementAccelerationHorizontal: 0.4
@@ -2573,7 +2612,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28718
+  m_Name: pb_Mesh28720
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
