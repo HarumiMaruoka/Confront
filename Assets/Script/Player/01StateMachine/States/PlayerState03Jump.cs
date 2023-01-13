@@ -29,6 +29,7 @@ namespace Player
                 else
                 {
                     _stateMachine.TransitionTo(_stateMachine.Land);
+                    return;
                 }
             }
         }

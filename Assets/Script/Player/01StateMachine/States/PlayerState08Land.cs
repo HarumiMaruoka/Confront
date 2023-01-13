@@ -7,13 +7,20 @@ namespace Player
     [System.Serializable]
     public class PlayerState08Land : PlayerState00Base
     {
+        [SerializeField, Range(0f, 1f)]
+        private float _moveAcceleration = default;
+
         public override void Enter()
         {
             _stateMachine.PlayerController.CamMove = true;
+            _stateMachine.PlayerController.SpecialAcceleration = _moveAcceleration;
+            _stateMachine.PlayerController.ResetMoveHorizontalSpeed();
         }
         public override void Exit()
         {
             _stateMachine.PlayerController.CamMove = false;
+            _stateMachine.PlayerController.SpecialAcceleration = 1f;
+            _stateMachine.PlayerController.ResetMoveHorizontalSpeed();
         }
         public override void Update()
         {

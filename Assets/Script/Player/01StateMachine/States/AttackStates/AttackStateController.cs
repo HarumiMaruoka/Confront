@@ -22,7 +22,7 @@ namespace Player
         [AnimationParameter, SerializeField]
         private string _attackAnimParamName = default;
         public string AttackAnimParamName => _attackAnimParamName;
-        [Tooltip("どのようにしていするかここに記述する")]
+        [Tooltip("2コンボ目以降のコンボ用アニメーションパラメータ名を設定する")]
         [AnimationParameter, SerializeField]
         private string[] _comboParamName = default;
         public string[] ComboParamName => _comboParamName;

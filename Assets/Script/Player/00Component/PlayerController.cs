@@ -189,17 +189,23 @@ namespace Player
         private float _rotationSpeed = 600f;
         [SerializeField]
         private bool _canMove = true;
+
+        public float SpecialAcceleration { get; set; } = 1f;
         public bool CamMove { get => _canMove; set => _canMove = value; }
 
         private Vector3 _moveSpeedHorizontal = default;
         Quaternion _targetRotation = default;
 
+        public void ResetMoveHorizontalSpeed()
+        {
+            _currentMoveSpeedHorizontal = 0f;
+        }
         public void MoveHorizontal()
         {
             if (_canMove && Input.IsMoveInput)
             {
                 // 加速の計算
-                _currentMoveSpeedHorizontal += _movementAccelerationHorizontal * Time.deltaTime;
+                _currentMoveSpeedHorizontal += _movementAccelerationHorizontal * Time.deltaTime * SpecialAcceleration;
                 if (_currentMoveSpeedHorizontal > _maxMoveSpeedHorizontal)
                 {
                     _currentMoveSpeedHorizontal = _maxMoveSpeedHorizontal;
@@ -232,6 +238,7 @@ namespace Player
             // キャラクターコントローラーに値を渡す。
             _characterController.Move(_moveSpeedHorizontal);
         }
+
         [SerializeField]
         private float _gravityOnGrounded = 1f;
         [SerializeField]
@@ -242,7 +249,11 @@ namespace Player
 
         public bool IsReadyJump => _isReadyJump;
 
-        public bool IsVerticalCalculation { get; set; }
+        [SerializeField]
+        private bool _isVerticalCalculation = true;
+        /// <summary> 垂直移動処理を実行するかどうかを表す値 </summary>
+        public bool IsVerticalCalculation
+        { get => _isVerticalCalculation; set => _isVerticalCalculation = value; }
         public void MoveVertical()
         {
             if (IsVerticalCalculation)
@@ -262,7 +273,6 @@ namespace Player
                     StartCoroutine(StopOnGroundedGravity());
                     StartCoroutine(WaitJump());
                 }
-
                 // キャラクターコントローラーに値を渡す。
                 _characterController.Move(new Vector3(0f, _currentMoveSpeedVertical) * Time.deltaTime);
             }
@@ -302,7 +312,13 @@ namespace Player
         MiddleDamage,
         SmallDamage,
         Land,
+
+        /// <summary> 武器を構える </summary>
+        HoldWeapon,
+        /// <summary> 攻撃 </summary>
         Attack,
+        /// <summary> 武器の構えを解く </summary>
+        UnarmWeapon,
     }
     #endregion
 }

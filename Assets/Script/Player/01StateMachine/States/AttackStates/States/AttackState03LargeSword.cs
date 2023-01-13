@@ -5,20 +5,8 @@ using UnityEngine;
 namespace Player
 {
     [System.Serializable]
-    public class AttackState03LargeSword : PlayerState05AttackBase
+    public class AttackState03LargeSword : PlayerState05AttackBaseTypeCombo
     {
-        [AnimationParameter, SerializeField]
-        private string _secondComboAnimationParameterName;
-        [AnimationParameter, SerializeField]
-        private string _thirdComboAnimationParameterName;
 
-        public override void Update()
-        {
-
-        }
-        private void WaitNextComboInput(int nextNumber)
-        {
-
-        }
     }
 }

@@ -28,7 +28,7 @@ namespace Helper
 
         public Collider[] GetCollider()
         {
-            var dir = _origin.rotation * _offset; // 回転を考慮した本当のオフセットを取得
+            var dir = _origin.rotation * _offset; // 回転を考慮した本当のオフセットを取得a
             return Physics.OverlapBox(_origin.position + dir, _size / 2f, _origin.rotation, _targetLayer);
         }
 

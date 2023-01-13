@@ -12,7 +12,7 @@ namespace Player
 
         protected PlayerStateMachine _stateMachine = null;
 
-        public void Init(PlayerStateMachine stateMachine)
+        public virtual void Init(PlayerStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
         }

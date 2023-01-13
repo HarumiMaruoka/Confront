@@ -12,6 +12,10 @@ namespace Helper
         private float _maxDistance = default;
         [SerializeField]
         private LayerMask _targetLayer = default;
+        [SerializeField]
+        private Vector3 _originOffset = Vector3.zero;
+
+        // IsHit()メソッドが全てOnDrawGizmo()を使用して理想通りの動作をするかどうかチェックする
 
         private Transform _origin = null;
         private RaycastHit _result = default;
@@ -28,11 +32,21 @@ namespace Helper
 
         public bool IsHit()
         {
-            return Physics.Raycast(_origin.position, _origin.rotation * _dir, out _result, _maxDistance, _targetLayer);
+            return Physics.Raycast(_origin.position + _originOffset, _origin.rotation * _dir, out _result, _maxDistance, _targetLayer);
         }
         public bool IsHit(out RaycastHit result)
         {
-            var isHit = Physics.Raycast(_origin.position, _origin.rotation * _dir, out result, _maxDistance, _targetLayer);
+            var isHit = Physics.Raycast(_origin.position + _originOffset, _origin.rotation * _dir, out result, _maxDistance, _targetLayer);
+            _result = result;
+            return isHit;
+        }
+        public bool IsHit(Transform origin)
+        {
+            return Physics.Raycast(origin.position + _originOffset, _origin.rotation * _dir, out _result, _maxDistance, _targetLayer);
+        }
+        public bool IsHit(Transform origin, out RaycastHit result)
+        {
+            var isHit = Physics.Raycast(origin.position + _originOffset, _origin.rotation * _dir, out result, _maxDistance, _targetLayer);
             _result = result;
             return isHit;
         }
@@ -48,12 +62,12 @@ namespace Helper
             {
                 // Rayがヒットした場合で色を変える。
                 RaycastHit hit;
-                if (Physics.Raycast(origin.position, origin.rotation * _dir, out hit, _maxDistance, _targetLayer))
+                if (Physics.Raycast(origin.position + _originOffset, origin.rotation * _dir, out hit, _maxDistance, _targetLayer))
                 {
                     //衝突時のRayを画面に表示
                     Debug.DrawRay(
-                        origin.position, // 開始位置
-                        hit.point - origin.position, //Rayの方向と距離
+                        origin.position + _originOffset, // 開始位置
+                        hit.point - (origin.position + _originOffset), //Rayの方向と距離
                         _hitColor, // ヒットした場合の色
                         0, // ラインを表示する時間（秒単位）
                         false); // ラインがカメラから近いオブジェクトによって隠された場合にラインを隠すかどうか
@@ -62,7 +76,7 @@ namespace Helper
 
                 //非衝突時のRayを画面に表示
                 Debug.DrawRay(
-                    origin.position,
+                    origin.position + _originOffset,
                    (origin.rotation * _dir).normalized * _maxDistance,
                     _noHitColor,
                     0,

@@ -7,6 +7,13 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.needle.compilation-visualizer": {
+      "version": "https://github.com/needle-tools/compilation-visualizer.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "373b61a45f4619e2f12b5c6093f4366a68132671"
+    },
     "com.neuecc.unirx": {
       "version": "7.1.0",
       "depth": 0,
@@ -40,6 +47,13 @@
         "com.unity.services.core": "1.0.1"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.unity.editoriterationprofiler": {
+      "version": "https://github.com/Unity-Technologies/com.unity.editoriterationprofiler.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "02a50237af74cc628b971f02987eba048076b902"
     },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
