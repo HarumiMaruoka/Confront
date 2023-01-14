@@ -205,7 +205,8 @@ namespace Player
             if (_canMove && Input.IsMoveInput)
             {
                 // ‰Á‘¬‚ÌŒvŽZ
-                _currentMoveSpeedHorizontal += _movementAccelerationHorizontal * Time.deltaTime * SpecialAcceleration;
+                _currentMoveSpeedHorizontal +=
+                    _movementAccelerationHorizontal * Time.deltaTime * SpecialAcceleration;
                 if (_currentMoveSpeedHorizontal > _maxMoveSpeedHorizontal)
                 {
                     _currentMoveSpeedHorizontal = _maxMoveSpeedHorizontal;

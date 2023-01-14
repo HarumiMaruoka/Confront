@@ -57,7 +57,7 @@ namespace Player
         public void Init(PlayerController playerController)
         {
             _playerController = playerController;
-            base.Initialize(_idle);
+            Initialize(_idle);
 
             OnStateChanged += (previousState, nextState) =>
             {
@@ -68,8 +68,8 @@ namespace Player
                 _playerController.Animator?.SetBool(
                     (nextState as PlayerState00Base).AnimParameterName, true);
                 // 攻撃ステートのアニメーションパラメータ名を設定する。
-                _playerController.Animator?.SetBool(
-                    AttackStateController.AttackAnimParamName, nextState is PlayerState05AttackBase);
+                // _playerController.Animator?.SetBool(
+                //     AttackStateController.AttackAnimParamName, nextState is PlayerState05AttackBase);
             };
         }
         protected override void StateInit()

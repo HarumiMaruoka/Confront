@@ -9,7 +9,7 @@ namespace Player
         [AnimationParameter, SerializeField]
         protected string _enterAnimParameterName = default;
         public string AnimParameterName => _enterAnimParameterName;
-
+        [NonSerialized]
         protected PlayerStateMachine _stateMachine = null;
 
         public virtual void Init(PlayerStateMachine stateMachine)

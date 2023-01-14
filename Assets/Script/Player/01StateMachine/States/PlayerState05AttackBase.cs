@@ -22,7 +22,7 @@ namespace Player
         [SerializeField]
         protected int _maxComboNumber = 0;
         public int CurrentComboNumber { get; protected set; } = 1;
-
+        [NonSerialized]
         protected string[] _comboAnimParamName = null;
 
         public override void Init(PlayerStateMachine stateMachine)

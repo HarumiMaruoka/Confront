@@ -6,12 +6,14 @@ public abstract class StateMachineBase
 {
     public void Update()
     {
-        if (CurrentState != null)
+        if (_currentState != null)
         {
-            CurrentState.Update();
+            _currentState.Update();
         }
     }
-    protected IState CurrentState { get; private set; }
+    [NonSerialized]
+    protected IState _currentState;
+    public IState CurrentState { get => _currentState; }
 
     public event Action<IState, IState> OnStateChanged = default;
 
@@ -20,7 +22,7 @@ public abstract class StateMachineBase
     {
         StateInit();
 
-        CurrentState = startState;
+        _currentState = startState;
         startState.Enter();
 
         // ステート変化時に実行するアクション。
@@ -45,9 +47,9 @@ public abstract class StateMachineBase
             Debug.LogError($"引数に渡された {nextState} はnullです。遷移をキャンセルします。");
             return;
         }
-        var previousState = CurrentState;
-        CurrentState.Exit();      // 現在ステートの終了処理。
-        CurrentState = nextState; // 現在のステートの変更処理。
+        var previousState = _currentState;
+        _currentState.Exit();      // 現在ステートの終了処理。
+        _currentState = nextState; // 現在のステートの変更処理。
         nextState.Enter();        // 変更された「新しい現在ステート」のEnter処理。
 
         // ステート変更時のアクションを実行する。
