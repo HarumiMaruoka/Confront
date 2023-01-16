@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using UniRx;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Player
         private PlayerStateMachine _stateMachine = default;
         [Header("各チェッカー")]
         [SerializeField]
-        private Helper.OverLapBox _groundChecker = default;
+        private Helper.OverLapSphere _groundChecker = default;
         [SerializeField]
         private Helper.Raycast _talkChecker = default;
         [Header("ステータス管理")]
@@ -30,7 +31,7 @@ namespace Player
         public CharacterController CharacterController => _characterController;
         public Rigidbody Rigidbody => _rigidbody;
         public Animator Animator => _animator;
-        public Helper.OverLapBox GroundChecker => _groundChecker;
+        public Helper.OverLapSphere GroundChecker => _groundChecker;
         public Helper.Raycast TalkChecker => _talkChecker;
 
         // ========================= Unityイベント ========================= //
@@ -48,8 +49,7 @@ namespace Player
         private void Update()
         {
             _stateMachine.Update();
-            MoveHorizontal();
-            MoveVertical();
+            Move();
         }
         private void OnDrawGizmosSelected()
         {
@@ -142,7 +142,7 @@ namespace Player
             _isAnimationEndDetection = animType;
             if (animType == AnimType.Attack)
             {
-                StartCoroutine(WaitAttackInterval());
+                WaitAttackInterval();
             }
             Observable.NextFrame()
                 .Subscribe(_ => _isAnimationEndDetection = AnimType.NotSet);
@@ -153,16 +153,17 @@ namespace Player
             Input.IsAcceptingAttackInput = value;
         }
         /// <summary> 指定された時間 攻撃入力を無効化する </summary>
-        private IEnumerator WaitAttackInterval()
+        private async void WaitAttackInterval()
         {
             Input.IsAcceptingAttackInput = false;
-            yield return new WaitForSeconds(_stateMachine.AttackStateController.AttackInterval);
+            await UniTask.Delay((int)(_stateMachine.AttackStateController.AttackInterval * 1000f));
             Input.IsAcceptingAttackInput = true;
         }
         #endregion
 
         // ================== 移動に関連するメソッド群 ================== //
         #region Move
+        #region Value
         [Header("移動に関連する値")]
 
         [Tooltip("移動速度の最大値")]
@@ -189,18 +190,26 @@ namespace Player
         private float _rotationSpeed = 600f;
         [SerializeField]
         private bool _canMove = true;
+        #endregion
 
+        #region Horizontal
         public float SpecialAcceleration { get; set; } = 1f;
         public bool CamMove { get => _canMove; set => _canMove = value; }
 
         private Vector3 _moveSpeedHorizontal = default;
         Quaternion _targetRotation = default;
 
+        private void Move()
+        {
+            Vector3 moveVector = MoveHorizontal();
+            moveVector.y = MoveVertical();
+            _characterController.Move(moveVector);
+        }
         public void ResetMoveHorizontalSpeed()
         {
             _currentMoveSpeedHorizontal = 0f;
         }
-        public void MoveHorizontal()
+        public Vector3 MoveHorizontal()
         {
             if (_canMove && Input.IsMoveInput)
             {
@@ -215,7 +224,7 @@ namespace Player
                 _moveSpeedHorizontal = Input.MoveHorizontalDir.normalized;
                 // メインカメラを基準に方向を指定する。
                 _moveSpeedHorizontal = Camera.main.transform.TransformDirection(_moveSpeedHorizontal);
-                if (_moveSpeedHorizontal.magnitude > 0.5f)
+                if (_moveSpeedHorizontal.sqrMagnitude > 0.01f)
                 {
                     _targetRotation = Quaternion.LookRotation(_moveSpeedHorizontal, Vector3.up);
                 }
@@ -233,29 +242,31 @@ namespace Player
                 _currentMoveSpeedHorizontal -= _movementDecelerationHorizontal * Time.deltaTime;
                 if (_currentMoveSpeedHorizontal < 0f) _currentMoveSpeedHorizontal = 0f;
                 // 速度の適用
-                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal * Time.deltaTime;
+                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal;
             }
             _moveSpeedHorizontal.y = 0f;
-            // キャラクターコントローラーに値を渡す。
-            _characterController.Move(_moveSpeedHorizontal);
-        }
 
+            return _moveSpeedHorizontal;
+        }
+        #endregion
+
+        #region Vertical
         [SerializeField]
         private float _gravityOnGrounded = 1f;
         [SerializeField]
         private float _jumpInterval = 2f;
+        [SerializeField]
+        private bool _isVerticalCalculation = true;
 
-        private bool _gravityOnGroundedGravity = default;
+        private bool _gravityOnGroundedGravity = true;
         private bool _isReadyJump = true;
 
         public bool IsReadyJump => _isReadyJump;
-
-        [SerializeField]
-        private bool _isVerticalCalculation = true;
         /// <summary> 垂直移動処理を実行するかどうかを表す値 </summary>
         public bool IsVerticalCalculation
         { get => _isVerticalCalculation; set => _isVerticalCalculation = value; }
-        public void MoveVertical()
+
+        public float MoveVertical()
         {
             if (IsVerticalCalculation)
             {
@@ -264,36 +275,45 @@ namespace Player
                 {
                     _currentMoveSpeedVertical -= _gravity * Time.deltaTime; // 重力の計算
                 }
-                else if (_gravityOnGroundedGravity) // 接地している場合の処理
+                else // 接地している場合の処理
                 {
                     _currentMoveSpeedVertical = _gravityOnGrounded * Time.deltaTime * -1f;
                 }
                 if (Input.IsJumpInput && GroundChecker.IsHit() && _isReadyJump) // ジャンプの処理
                 {
                     _currentMoveSpeedVertical = _jumpSpeed;
-                    StartCoroutine(StopOnGroundedGravity());
-                    StartCoroutine(WaitJump());
+                    StopOnGroundedGravity();
                 }
-                // キャラクターコントローラーに値を渡す。
-                _characterController.Move(new Vector3(0f, _currentMoveSpeedVertical) * Time.deltaTime);
             }
+            else
+            {
+                _currentMoveSpeedVertical = 0f;
+            }
+            return _currentMoveSpeedVertical * Time.deltaTime;
         }
-        private IEnumerator StopOnGroundedGravity()
+        /// <summary>
+        /// 接地用重力計算をジャンプアニメーションが完了するまで停止する。
+        /// </summary>
+        private async void StopOnGroundedGravity()
         {
             _gravityOnGroundedGravity = false;
 
-            while (!IsAnimEnd(AnimType.Jump))
-            {
-                yield return null;
-            }
+            // 条件を満たすまで待機
+            // （ジャンプアニメーションが完了するまで重力の計算は通常通り行う）
+            await UniTask.WaitUntil(() => IsAnimEnd(AnimType.Jump));
+
             _gravityOnGroundedGravity = true;
         }
-        private IEnumerator WaitJump()
+        /// <summary>
+        /// シリアライズフィールドで指定された値(_jumpInterval)時間ジャンプを実行できないようにする。
+        /// </summary>
+        private async void WaitJump()
         {
             _isReadyJump = false;
-            yield return new WaitForSeconds(_jumpInterval);
+            await UniTask.Delay((int)(_jumpInterval * 1000f));
             _isReadyJump = true;
         }
+        #endregion
         #endregion
     }
     #region Enum

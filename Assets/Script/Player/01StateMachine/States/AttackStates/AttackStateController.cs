@@ -9,19 +9,26 @@ namespace Player
     [System.Serializable]
     public class AttackStateController
     {
-        // 各攻撃ステート
+        // =================== 各攻撃ステート =================== //
+        #region States
         [SerializeField]
         private AttackState00BasicGunFire _basicGunFire = default;
         [SerializeField]
         private AttackState01TwinSword _attackState01TwinSword = default;
         [SerializeField]
         private AttackState01TwinSwordMidair _attackState01TwinSwordMidair = default;
+        [SerializeField]
+        private AttackState02NomalSword _attackState02NomalSword = default;
+        [SerializeField]
+        private AttackState02NomalSwordMidair _attackState02NomalSwordMidair = default;
+        [SerializeField]
+        private AttackState03LargeSword _attackState03LargeSword = default;
+        [SerializeField]
+        private AttackState03LargeSwordMidair _attackState03LargeSwordMidair = default;
+        #endregion
 
         #region Controller
-        [AnimationParameter, SerializeField]
-        private string _attackAnimParamName = default;
-        public string AttackAnimParamName => _attackAnimParamName;
-        [Tooltip("2コンボ目以降のコンボ用アニメーションパラメータ名を設定する")]
+        [Tooltip("\"2コンボ目\"から\"5コンボ目\"用のコンボ用アニメーションパラメータ名を設定する")]
         [AnimationParameter, SerializeField]
         private string[] _comboParamName = default;
         public string[] ComboParamName => _comboParamName;
@@ -43,11 +50,18 @@ namespace Player
 
             // ↓こんな感じで 各ステートを初期化し、配列に登録していく
             // ID順に初期化する必要があるので注意する
+            // 00
             InitLandState(_basicGunFire);
             InitMidairState(_basicGunFire);
-
+            // 01
             InitLandState(_attackState01TwinSword);
             InitMidairState(_attackState01TwinSwordMidair);
+            // 02
+            InitLandState(_attackState02NomalSword);
+            InitMidairState(_attackState02NomalSwordMidair);
+            // 03
+            InitLandState(_attackState03LargeSword);
+            InitMidairState(_attackState03LargeSwordMidair);
         }
 
         private int _initLandCounter = 0;
@@ -68,7 +82,7 @@ namespace Player
         /// </summary>
         public void InitMidairState(PlayerState05AttackBase targetState)
         {
-            targetState.Init(_stateMachine);
+            targetState.Init(_stateMachine, this);
             MidairStates[_initMidairCounter] = targetState;
             _initMidairCounter++;
         }

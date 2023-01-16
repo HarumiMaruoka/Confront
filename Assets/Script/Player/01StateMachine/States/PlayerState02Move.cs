@@ -13,7 +13,6 @@ namespace Player
         }
         public override void Exit()
         {
-            Debug.Log("aa");
             _stateMachine.PlayerController.CamMove = false;
         }
         public override void Update()

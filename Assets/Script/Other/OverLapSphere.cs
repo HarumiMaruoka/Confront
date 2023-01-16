@@ -3,19 +3,19 @@ using UnityEngine;
 namespace Helper
 {
     [System.Serializable]
-    public class OverLapBox
+    public class OverLapSphere
     {
         [SerializeField]
         private Vector3 _offset;
         [SerializeField]
-        private Vector3 _size;
+        private float _radius;
         [SerializeField]
         private LayerMask _targetLayer;
 
         private Transform _origin;
 
         public Vector3 Offset => _offset;
-        public Vector3 Size => _size;
+        public float Radius => _radius;
         public LayerMask TargetLayer => _targetLayer;
         public Transform Origin => _origin;
 
@@ -27,7 +27,7 @@ namespace Helper
         public Collider[] GetCollider()
         {
             var dir = _origin.rotation * _offset; // 回転を考慮した本当のオフセットを取得
-            return Physics.OverlapBox(_origin.position + dir, _size / 2f, _origin.rotation, _targetLayer);
+            return Physics.OverlapSphere(_origin.position + dir, _radius, _targetLayer);
         }
 
         public bool IsHit()
@@ -38,17 +38,22 @@ namespace Helper
         [SerializeField]
         private bool _isDrawGizmo = true;
         [SerializeField]
-        private Color _gizmoColor = Color.red;
+        private Color _gizmoHitColor = Color.red;
+        [SerializeField]
+        private Color _gizmoNotHitColor = Color.blue;
+
         public void OnDrawGizmos(Transform origin)
         {
             if (_isDrawGizmo)
             {
-                Gizmos.color = _gizmoColor;
+                var dir = origin.rotation * _offset;
 
-                //Gizmo はワールド座標指定なので、相対座標指定の場合はマトリクス変換で移動する
-                Gizmos.matrix = Matrix4x4.TRS(origin.position, origin.rotation, origin.localScale);
-                Gizmos.DrawCube(_offset, _size);
-                Gizmos.matrix = new Matrix4x4();
+                if (Physics.OverlapSphere(origin.position + dir, _radius, _targetLayer).Length > 0)
+                    Gizmos.color = _gizmoHitColor;
+                else
+                    Gizmos.color = _gizmoNotHitColor;
+
+                Gizmos.DrawSphere(origin.position + dir, _radius);
             }
         }
     }

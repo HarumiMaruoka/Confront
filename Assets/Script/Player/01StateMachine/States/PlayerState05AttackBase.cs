@@ -14,32 +14,34 @@ namespace Player
     [System.Serializable]
     public class PlayerState05AttackBase : PlayerState00Base
     {
-        // 全ての攻撃ステートに共通して必要なデータと機能を記述してください。
-    }
-    // コンボを使用する攻撃クラスの基底クラス
-    public class PlayerState05AttackBaseTypeCombo : PlayerState05AttackBase
-    {
-        [SerializeField]
+        [Tooltip("この攻撃による最大コンボ数を表現する値"), SerializeField]
         protected int _maxComboNumber = 0;
+        /// <summary> 現在 何コンボ目を実行中か表す値 </summary>
         public int CurrentComboNumber { get; protected set; } = 1;
-        [NonSerialized]
+        [AnimationParameter, SerializeField]
         protected string[] _comboAnimParamName = null;
+        [NonSerialized]
+        protected AttackStateController _attackStateController = null;
 
-        public override void Init(PlayerStateMachine stateMachine)
+        public void Init(PlayerStateMachine stateMachine, AttackStateController attackStateController)
         {
             base.Init(stateMachine);
+            _attackStateController = attackStateController;
             _comboAnimParamName = _stateMachine.AttackStateController.ComboParamName;
         }
+
         /// <summary> 攻撃ステートの開始処理 </summary>
         public override void Enter()
         {
             CurrentComboNumber = 1;
         }
+        /// <summary> 攻撃ステートの終了処理 </summary>
         public override void Exit()
         {
             _stateMachine.PlayerController.Animator.
                        SetBool(_comboAnimParamName[CurrentComboNumber], false);
         }
+        /// <summary> 毎フレーム実行する処理 </summary>
         public override void Update()
         {
             // アニメーション終了時, Attackアニメーションの完了が検知されたときステートを遷移する
@@ -73,6 +75,10 @@ namespace Player
                 UpdateCombo();
             }
         }
+        /// <summary> 
+        /// 現在のコンボアニメーションを終了し、
+        /// 次のコンボアニメーションを再生する。
+        /// </summary>
         protected void UpdateCombo()
         {
             // 攻撃1,あるいは2ボタンが押下されたとき次のコンボを再生する。
@@ -96,8 +102,7 @@ namespace Player
             }
         }
     }
-    // コンボを使用するMidair攻撃クラスの基底クラス
-    public class PlayerState05AttackBaseTypeComboOnMidair : PlayerState05AttackBaseTypeCombo
+    public class PlayerState05AttackBaseOnMidair : PlayerState05AttackBase
     {
         public override void Enter()
         {

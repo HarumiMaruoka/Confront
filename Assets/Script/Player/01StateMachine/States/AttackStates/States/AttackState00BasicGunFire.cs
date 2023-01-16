@@ -9,30 +9,56 @@ namespace Player
     {
         public override void Update()
         {
+            base.Update();
             // 構えアニメーションが完了したらFireアニメーションを再生する
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.HoldWeapon))
             {
+                _stateMachine.PlayerController.Animator.
+                    SetBool(_enterAnimParameterName, false);
+                _stateMachine.PlayerController.Animator.
+                    SetBool(_comboAnimParamName[0], true);
 
             }
             // Fireアニメーションの完了時に
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack))
             {
-                // 攻撃入力があればもう一度再生する。
-                if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
-                 _stateMachine.PlayerController.Input.IsAttack2InputButton())
+                // 攻撃入力が無ければ, 武器を構えを解くアニメーションを再生する。
+                if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
+                    !_stateMachine.PlayerController.Input.IsAttack2InputButton())
                 {
-
+                    _stateMachine.PlayerController.Animator.
+                        SetBool(_comboAnimParamName[0], false);
+                    _stateMachine.PlayerController.Animator.
+                        SetBool(_comboAnimParamName[1], true);
                 }
                 // そうでなければ, 武器を構えを解くアニメーションを再生する。
-                else
-                {
-
-                }
+                // （アニメーションは, ループ再生で表現するので特に何もしない。）
             }
             // 武器の構えを解くアニメーションの再生が完了したら, 他のステートに遷移する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.UnarmWeapon))
             {
-
+                // 非接地状態が検出されたとき、ステートをMidairに遷移する。
+                if (!_stateMachine.PlayerController.GroundChecker.IsHit())
+                {
+                    _stateMachine.TransitionTo(_stateMachine.Midair);
+                    return;
+                }
+                // 着地アニメーションの再生が終了したとき遷移処理を実行する。
+                if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Land))
+                {
+                    // 移動入力があるとき、ステートをMoveに遷移する。
+                    if (_stateMachine.PlayerController.Input.IsMoveInput)
+                    {
+                        _stateMachine.TransitionTo(_stateMachine.Move);
+                        return;
+                    }
+                    // 移動入力があるとき、ステートをMoveに遷移する。
+                    else
+                    {
+                        _stateMachine.TransitionTo(_stateMachine.Idle);
+                        return;
+                    }
+                }
             }
         }
     }

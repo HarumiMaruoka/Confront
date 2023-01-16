@@ -68,6 +68,7 @@ namespace Player
                 _playerController.Animator?.SetBool(
                     (nextState as PlayerState00Base).AnimParameterName, true);
                 // 攻撃ステートのアニメーションパラメータ名を設定する。
+                // 攻撃アニメーションをアニメーションコントローラーに実装したらコメントインする。
                 // _playerController.Animator?.SetBool(
                 //     AttackStateController.AttackAnimParamName, nextState is PlayerState05AttackBase);
             };

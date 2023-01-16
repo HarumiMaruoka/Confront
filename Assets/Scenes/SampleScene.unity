@@ -776,7 +776,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28720
+  m_Name: pb_Mesh28796
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1024,14 +1024,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005928784}
-  m_LocalRotation: {x: 0, y: 0.3530666, z: 0, w: 0.9355982}
-  m_LocalPosition: {x: 1.1146038, y: 2.36, z: 1.8199053}
+  m_LocalRotation: {x: -0, y: -0.7355062, z: 0, w: -0.67751795}
+  m_LocalPosition: {x: -2.69, y: 5.02, z: -0.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 41.35, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -265.3, z: 0}
 --- !u!114 &1005928789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,8 +1045,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _overLapBoxSample:
-    _offset: {x: -1.05, y: 0.16, z: 0}
-    _size: {x: 0.81, y: 0.65, z: 1.5}
+    _offset: {x: 0, y: 0, z: 0}
+    _size: {x: 0, y: 0, z: 0}
     _targetLayer:
       serializedVersion: 2
       m_Bits: 16
@@ -1062,6 +1062,15 @@ MonoBehaviour:
     _isDrawGizmo: 1
     _hitColor: {r: 1, g: 0, b: 0, a: 1}
     _noHitColor: {r: 0, g: 0, b: 1, a: 1}
+  _overLapSphereSample:
+    _offset: {x: 0, y: 0, z: 2.82}
+    _radius: 0.85
+    _targetLayer:
+      serializedVersion: 2
+      m_Bits: 16
+    _isDrawGizmo: 1
+    _gizmoHitColor: {r: 1, g: 0, b: 0, a: 1}
+    _gizmoNotHitColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &1292444884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,7 +2335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337502725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.293, y: 4.07, z: 1.07}
+  m_LocalPosition: {x: 2.35, y: 5.06, z: -1.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2531,23 +2540,43 @@ MonoBehaviour:
     _attackStateController:
       _basicGunFire:
         _enterAnimParameterName: 
+        _maxComboNumber: 0
+        _comboAnimParamName: []
       _attackState01TwinSword:
         _enterAnimParameterName: 
         _maxComboNumber: 0
+        _comboAnimParamName: []
       _attackState01TwinSwordMidair:
         _enterAnimParameterName: 
         _maxComboNumber: 0
-      _attackAnimParamName: 
+        _comboAnimParamName: []
+      _attackState02NomalSword:
+        _enterAnimParameterName: 
+        _maxComboNumber: 0
+        _comboAnimParamName: []
+      _attackState02NomalSwordMidair:
+        _enterAnimParameterName: 
+        _maxComboNumber: 0
+        _comboAnimParamName: []
+      _attackState03LargeSword:
+        _enterAnimParameterName: 
+        _maxComboNumber: 0
+        _comboAnimParamName: []
+      _attackState03LargeSwordMidair:
+        _enterAnimParameterName: 
+        _maxComboNumber: 0
+        _comboAnimParamName: []
       _comboParamName: []
       _attackInterval: 0.2
   _groundChecker:
     _offset: {x: 0, y: -1.1, z: 0}
-    _size: {x: 1.15, y: 0.26, z: 1.15}
+    _radius: 0
     _targetLayer:
       serializedVersion: 2
       m_Bits: 8
     _isDrawGizmo: 1
-    _gizmoColor: {r: 1, g: 0, b: 0, a: 0.56078434}
+    _gizmoHitColor: {r: 1, g: 0, b: 0, a: 1}
+    _gizmoNotHitColor: {r: 0, g: 0, b: 1, a: 1}
   _talkChecker:
     _dir: {x: 0, y: 0, z: 3}
     _maxDistance: 2.28
@@ -2628,7 +2657,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28734
+  m_Name: pb_Mesh28810
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3083,17 +3112,57 @@ PrefabInstance:
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _gravity
-      value: 28
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _jumpSpeed
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _test._radius
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _test._offset.x
+      value: 1.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _test._offset.y
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _test._offset.z
+      value: 1.91
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _gravityOnGrounded
-      value: 250
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _groundChecker._radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _groundChecker._size.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _groundChecker._size.y
-      value: 0.4
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _groundChecker._size.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -3103,7 +3172,17 @@ PrefabInstance:
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _groundChecker._offset.y
-      value: 0
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _test._targetLayer.m_Bits
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _movementAccelerationHorizontal
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}

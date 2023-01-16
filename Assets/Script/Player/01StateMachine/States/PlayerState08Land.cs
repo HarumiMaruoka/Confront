@@ -7,7 +7,7 @@ namespace Player
     [System.Serializable]
     public class PlayerState08Land : PlayerState00Base
     {
-        [SerializeField, Range(0f, 1f)]
+        [Tooltip("’…’n‚à‚¿‚å‚Á‚Æ‚¾‚¯“®‚¯‚é‚æ‚¤‚É‚·‚éB"), SerializeField, Range(0f, 1f)]
         private float _moveAcceleration = default;
 
         public override void Enter()
