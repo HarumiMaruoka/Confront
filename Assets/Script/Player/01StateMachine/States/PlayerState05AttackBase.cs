@@ -12,37 +12,63 @@ namespace Player
     /// 全ての攻撃ステートの基底クラス
     /// </summary>
     [System.Serializable]
-    public class PlayerState05AttackBase : PlayerState00Base
+    public class PlayerState05AttackBase : IState
     {
+        [NonSerialized]
+        protected PlayerStateMachine _stateMachine = null;
+        [NonSerialized]
+        protected AttackStateManager _attackStateManager = null;
+
         [Tooltip("この攻撃による最大コンボ数を表現する値"), SerializeField]
         protected int _maxComboNumber = 0;
-        /// <summary> 現在 何コンボ目を実行中か表す値 </summary>
-        public int CurrentComboNumber { get; protected set; } = 1;
-        [AnimationParameter, SerializeField]
-        protected string[] _comboAnimParamName = null;
-        [NonSerialized]
-        protected AttackStateController _attackStateController = null;
+        [Tooltip("この攻撃ステートのIDNumber"), SerializeField]
+        protected int _myID = -1;
 
-        public void Init(PlayerStateMachine stateMachine, AttackStateController attackStateController)
+        /// <summary> 現在 何コンボ目を実行中か表す値 （0からカウントアップ） </summary>
+        public int CurrentComboNumber { get; protected set; } = 0;
+
+        public virtual void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
         {
-            base.Init(stateMachine);
-            _attackStateController = attackStateController;
-            _comboAnimParamName = _stateMachine.AttackStateController.ComboParamName;
+            _stateMachine = stateMachine;
+            _attackStateManager = attackStateController;
         }
 
         /// <summary> 攻撃ステートの開始処理 </summary>
-        public override void Enter()
+        public virtual void Enter()
         {
+            // コンボナンバーを初期化
             CurrentComboNumber = 1;
+            // 攻撃入力を停止（アニメーションイベントから入力復帰を指定してください）
+            _stateMachine.PlayerController.SetAcceptingAttackInput(false);
+            // アニメーションの再生処理
+            // 攻撃のサブステートに遷移
+            _stateMachine.PlayerController.Animator.
+                       SetBool(_attackStateManager.AttackParamName, true);
+            // 攻撃IDを指定
+            _stateMachine.PlayerController.Animator.
+                       SetInteger(_attackStateManager.AttackIDAnimParamName, _myID);
+
         }
         /// <summary> 攻撃ステートの終了処理 </summary>
-        public override void Exit()
+        public virtual void Exit()
         {
+            // アニメーションの停止処理
             _stateMachine.PlayerController.Animator.
-                       SetBool(_comboAnimParamName[CurrentComboNumber], false);
+                       SetBool(_attackStateManager.AttackParamName, false);
+            // 攻撃インターバルの設定
+            _stateMachine.PlayerController.WaitAttackInterval();
+        }
+        /// <summary> コンボアニメーションの更新処理 </summary>
+        protected void UpdteComboAnim()
+        {
+            CurrentComboNumber++;
+            _stateMachine.PlayerController.Animator.
+                SetTrigger(_attackStateManager.ComboTriggerAnimParamName);
+            _stateMachine.PlayerController.Animator.
+                SetInteger(_attackStateManager.ComboCounterAnimParamName, CurrentComboNumber);
         }
         /// <summary> 毎フレーム実行する処理 </summary>
-        public override void Update()
+        public virtual void Update()
         {
             // アニメーション終了時, Attackアニメーションの完了が検知されたときステートを遷移する
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack))
@@ -72,32 +98,20 @@ namespace Player
             // アニメーション再生中, 入力が発生したとき次のコンボを再生する
             else
             {
-                UpdateCombo();
-            }
-        }
-        /// <summary> 
-        /// 現在のコンボアニメーションを終了し、
-        /// 次のコンボアニメーションを再生する。
-        /// </summary>
-        protected void UpdateCombo()
-        {
-            // 攻撃1,あるいは2ボタンが押下されたとき次のコンボを再生する。
-            if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
-                _stateMachine.PlayerController.Input.IsAttack2InputButtonDown())
-            {
-                // 範囲内かチェック
-                if (_maxComboNumber <= CurrentComboNumber) // 範囲内の場合
+                // 攻撃1,あるいは2ボタンが押下されたとき次のコンボを再生する。
+                if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
+                    _stateMachine.PlayerController.Input.IsAttack2InputButtonDown())
                 {
-                    // アニメーションを切り替える
-                    _stateMachine.PlayerController.Animator.
-                        SetBool(_comboAnimParamName[CurrentComboNumber], false);
-                    CurrentComboNumber++;
-                    _stateMachine.PlayerController.Animator.
-                        SetBool(_comboAnimParamName[CurrentComboNumber], true);
-                }
-                else // 範囲外の場合
-                {
-                    Debug.LogWarning("範囲外が指定されました！修正してください！");
+                    // 範囲内かチェック
+                    if (_maxComboNumber <= CurrentComboNumber) // 範囲内の場合
+                    {
+                        /// 次のコンボアニメーションの再生処理。
+                        UpdteComboAnim();
+                    }
+                    else // 範囲外の場合
+                    {
+                        Debug.LogWarning("範囲外が指定されました！修正してください！");
+                    }
                 }
             }
         }
@@ -135,7 +149,21 @@ namespace Player
             // アニメーション再生中, 入力が発生したとき次のコンボを再生する
             else
             {
-                UpdateCombo();
+                // 攻撃1,あるいは2ボタンが押下されたとき次のコンボを再生する。
+                if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
+                    _stateMachine.PlayerController.Input.IsAttack2InputButtonDown())
+                {
+                    // 範囲内かチェック
+                    if (_maxComboNumber <= CurrentComboNumber) // 範囲内の場合
+                    {
+                        /// 次のコンボアニメーションの再生処理。
+                        UpdteComboAnim();
+                    }
+                    else // 範囲外の場合
+                    {
+                        Debug.LogWarning("範囲外が指定されました！修正してください！");
+                    }
+                }
             }
         }
     }

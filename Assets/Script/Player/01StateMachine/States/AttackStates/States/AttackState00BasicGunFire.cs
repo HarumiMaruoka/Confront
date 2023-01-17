@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Player
 {
     [System.Serializable]
@@ -9,15 +5,10 @@ namespace Player
     {
         public override void Update()
         {
-            base.Update();
             // 構えアニメーションが完了したらFireアニメーションを再生する
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.HoldWeapon))
             {
-                _stateMachine.PlayerController.Animator.
-                    SetBool(_enterAnimParameterName, false);
-                _stateMachine.PlayerController.Animator.
-                    SetBool(_comboAnimParamName[0], true);
-
+                UpdteComboAnim();
             }
             // Fireアニメーションの完了時に
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack))
@@ -26,10 +17,7 @@ namespace Player
                 if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
                     !_stateMachine.PlayerController.Input.IsAttack2InputButton())
                 {
-                    _stateMachine.PlayerController.Animator.
-                        SetBool(_comboAnimParamName[0], false);
-                    _stateMachine.PlayerController.Animator.
-                        SetBool(_comboAnimParamName[1], true);
+                    UpdteComboAnim();
                 }
                 // そうでなければ, 武器を構えを解くアニメーションを再生する。
                 // （アニメーションは, ループ再生で表現するので特に何もしない。）

@@ -28,7 +28,7 @@ namespace Player
         [SerializeField]
         private PlayerState08Land _land = default;
         [SerializeField]
-        private AttackStateController _attackStateController = default;
+        private AttackStateManager _attackStateController = default;
 
         private PlayerController _playerController = null;
 
@@ -50,7 +50,7 @@ namespace Player
         public PlayerState06SmallDamage SmallDamage => _smallDamage;
         public PlayerState07Talk Talk => _talk;
         public PlayerState08Land Land => _land;
-        public AttackStateController AttackStateController => _attackStateController;
+        public AttackStateManager AttackStateController => _attackStateController;
         public PlayerController PlayerController => _playerController;
         #endregion
 
@@ -63,14 +63,16 @@ namespace Player
             {
                 // 前のステート独自のアニメーションパラメータ名をfalseにし、
                 // 次のステート独自のアニメーションパラメータ名をtrueにする。
-                _playerController.Animator?.SetBool(
-                    (previousState as PlayerState00Base).AnimParameterName, false);
-                _playerController.Animator?.SetBool(
-                    (nextState as PlayerState00Base).AnimParameterName, true);
-                // 攻撃ステートのアニメーションパラメータ名を設定する。
-                // 攻撃アニメーションをアニメーションコントローラーに実装したらコメントインする。
-                // _playerController.Animator?.SetBool(
-                //     AttackStateController.AttackAnimParamName, nextState is PlayerState05AttackBase);
+                if (previousState is PlayerState00Base)
+                {
+                    _playerController.Animator?.SetBool(
+                        (previousState as PlayerState00Base).AnimParameterName, false);
+                }
+                if(nextState is PlayerState00Base)
+                {
+                    _playerController.Animator?.SetBool(
+                        (nextState as PlayerState00Base).AnimParameterName, true);
+                }
             };
         }
         protected override void StateInit()

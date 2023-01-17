@@ -147,18 +147,6 @@ namespace Player
             Observable.NextFrame()
                 .Subscribe(_ => _isAnimationEndDetection = AnimType.NotSet);
         }
-        /// <summary> 攻撃入力を有効化, 無効化の設定する </summary>
-        public void SetAcceptingAttackInput(bool value)
-        {
-            Input.IsAcceptingAttackInput = value;
-        }
-        /// <summary> 指定された時間 攻撃入力を無効化する </summary>
-        private async void WaitAttackInterval()
-        {
-            Input.IsAcceptingAttackInput = false;
-            await UniTask.Delay((int)(_stateMachine.AttackStateController.AttackInterval * 1000f));
-            Input.IsAcceptingAttackInput = true;
-        }
         #endregion
 
         // ================== 移動に関連するメソッド群 ================== //
@@ -314,6 +302,28 @@ namespace Player
             _isReadyJump = true;
         }
         #endregion
+        #endregion
+
+        // ================== 攻撃に関連するメソッド群 ================== //
+        #region Attack
+        /// <summary>
+        /// 攻撃入力を有効化, 無効化の設定する。<br/>
+        /// 通常は, 攻撃ステート開始時と, 攻撃のアニメーションイベントから呼び出す。
+        /// </summary>
+        public void SetAcceptingAttackInput(bool value)
+        {
+            Input.IsAcceptingAttackInput = value;
+        }
+        /// <summary> 
+        /// 指定された時間 攻撃入力を無効化する。<br/>
+        /// 通常は, 攻撃ステートのExitメソッドで呼び出す。
+        /// </summary>
+        public async void WaitAttackInterval()
+        {
+            Input.IsAcceptingAttackInput = false;
+            await UniTask.Delay((int)(_stateMachine.AttackStateController.AttackInterval * 1000f));
+            Input.IsAcceptingAttackInput = true;
+        }
         #endregion
     }
     #region Enum
