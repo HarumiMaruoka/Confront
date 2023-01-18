@@ -21,6 +21,7 @@ namespace Helper
         }
         private void Update()
         {
+            _overLapSphereSample.Enter();
             // Debug.Log($"_overLapBoxSample{_overLapBoxSample.IsHit()}");
             // Debug.Log($"_raycastSample{_raycastSample.IsHit()}");
             Debug.Log($"_overLapSphereSample{_overLapSphereSample.IsHit()}");

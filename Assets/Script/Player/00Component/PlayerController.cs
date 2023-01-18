@@ -48,6 +48,7 @@ namespace Player
         }
         private void Update()
         {
+            _groundChecker.Enter();
             _stateMachine.Update();
             Move();
         }
@@ -192,6 +193,7 @@ namespace Player
             Vector3 moveVector = MoveHorizontal();
             moveVector.y = MoveVertical();
             _characterController.Move(moveVector);
+            // Debug.LogError(moveVector);
         }
         public void ResetMoveHorizontalSpeed()
         {
@@ -216,13 +218,15 @@ namespace Player
                 {
                     _targetRotation = Quaternion.LookRotation(_moveSpeedHorizontal, Vector3.up);
                 }
+                _moveSpeedHorizontal.y = 0f;
+                _moveSpeedHorizontal = _moveSpeedHorizontal.normalized;
                 // 回転の抑制
                 _targetRotation.x = 0f;
                 _targetRotation.z = 0f;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, _rotationSpeed * Time.deltaTime);
 
                 // 速度の適用
-                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal;
+                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal * Time.deltaTime;
             }
             else
             {
@@ -230,10 +234,9 @@ namespace Player
                 _currentMoveSpeedHorizontal -= _movementDecelerationHorizontal * Time.deltaTime;
                 if (_currentMoveSpeedHorizontal < 0f) _currentMoveSpeedHorizontal = 0f;
                 // 速度の適用
-                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal;
+                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal * Time.deltaTime;
             }
-            _moveSpeedHorizontal.y = 0f;
-
+            Debug.LogError(_moveSpeedHorizontal);
             return _moveSpeedHorizontal;
         }
         #endregion
@@ -258,6 +261,7 @@ namespace Player
         {
             if (IsVerticalCalculation)
             {
+                // Debug.LogError(GroundChecker.IsHit());
                 // 垂直方向の移動計算
                 if (!GroundChecker.IsHit() || !_gravityOnGroundedGravity) // 接地してない場合の処理
                 {

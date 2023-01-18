@@ -48,7 +48,7 @@ namespace Helper
                 //Gizmo はワールド座標指定なので、相対座標指定の場合はマトリクス変換で移動する
                 Gizmos.matrix = Matrix4x4.TRS(origin.position, origin.rotation, origin.localScale);
                 Gizmos.DrawCube(_offset, _size);
-                Gizmos.matrix = new Matrix4x4();
+                Gizmos.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
             }
         }
     }

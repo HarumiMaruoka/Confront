@@ -51,7 +51,7 @@ public abstract class StateMachineBase
         var previousState = _currentState;
         _currentState.Exit();      // 現在ステートの終了処理。
         _currentState = nextState; // 現在のステートの変更処理。
-        nextState.Enter();        // 変更された「新しい現在ステート」のEnter処理。
+        nextState.Enter();         // 変更された「新しい現在ステート」のEnter処理。
 
         // ステート変更時のアクションを実行する。
         // 引数に「新しい現在ステート」を渡す。
