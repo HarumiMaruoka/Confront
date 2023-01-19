@@ -203,11 +203,14 @@ namespace Player
         {
             if (_canMove && Input.IsMoveInput)
             {
+                // 現在、加減速の制御は Linear だが, 他の Easing を試す場合は、DOTweenを使用する。
+
                 // 加速の計算
                 _currentMoveSpeedHorizontal +=
                     _movementAccelerationHorizontal * Time.deltaTime * SpecialAcceleration;
                 if (_currentMoveSpeedHorizontal > _maxMoveSpeedHorizontal)
                 {
+                    Debug.Log("最大速度です");
                     _currentMoveSpeedHorizontal = _maxMoveSpeedHorizontal;
                 }
                 // 入力方向を取得
@@ -234,9 +237,9 @@ namespace Player
                 _currentMoveSpeedHorizontal -= _movementDecelerationHorizontal * Time.deltaTime;
                 if (_currentMoveSpeedHorizontal < 0f) _currentMoveSpeedHorizontal = 0f;
                 // 速度の適用
-                _moveSpeedHorizontal *= _currentMoveSpeedHorizontal * Time.deltaTime;
+                _moveSpeedHorizontal = _moveSpeedHorizontal.normalized * _currentMoveSpeedHorizontal * Time.deltaTime;
             }
-            Debug.LogError(_moveSpeedHorizontal);
+            // Debug.LogError(_moveSpeedHorizontal);
             return _moveSpeedHorizontal;
         }
         #endregion

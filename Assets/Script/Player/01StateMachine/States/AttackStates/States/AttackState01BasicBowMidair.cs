@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Player
 {
     //[System.Serializable]
-    //public class AttackState02NomalSword : PlayerState05AttackBase
+    //public class AttackState01BasicBowMidair : PlayerState05AttackBaseOnMidair
     //{
 
     //}
