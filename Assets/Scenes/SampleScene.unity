@@ -3399,32 +3399,10 @@ MonoBehaviour:
       _enterAnimParameterName: IsLand
       _moveAcceleration: 0
     _attackStateController:
-      _basicGunFire:
-        _maxComboNumber: 0
-        _myID: -1
-      _attackState01TwinSword:
-        _maxComboNumber: 0
-        _myID: -1
-      _attackState01TwinSwordMidair:
-        _maxComboNumber: 0
-        _myID: -1
-      _attackState02NomalSword:
-        _maxComboNumber: 0
-        _myID: -1
-      _attackState02NomalSwordMidair:
-        _maxComboNumber: 0
-        _myID: -1
-      _attackState03LargeSword:
-        _maxComboNumber: 0
-        _myID: -1
-      _attackState03LargeSwordMidair:
-        _maxComboNumber: 0
-        _myID: -1
-      _attackParamName: 
-      _midairAttackParamName: 
-      _attackIDAnimParamName: 
-      _comboTriggerAnimParamName: 
-      _comboCounterAnimParamName: 
+      _attackAnimName: 
+      _attackIDAnimName: 
+      _comboNumberAnimName: 
+      _animUpdateTriggerAnimName: 
       _attackInterval: 0.2
   _groundChecker:
     _offset: {x: 0, y: -1.1, z: 0}
@@ -3515,7 +3493,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28806
+  m_Name: pb_Mesh28832
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3679,7 +3657,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28820
+  m_Name: pb_Mesh28846
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4133,6 +4111,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1927635862074231400, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
+      propertyPath: m_Radius
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927635862074231400, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
       propertyPath: m_Center.y
       value: 1.08
       objectReference: {fileID: 0}
@@ -4150,6 +4133,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _test._radius
       value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _rotationSpeed
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -4174,7 +4162,7 @@ PrefabInstance:
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _groundChecker._radius
-      value: 0.49
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}

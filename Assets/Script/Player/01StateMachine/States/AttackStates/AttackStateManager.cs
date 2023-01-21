@@ -28,26 +28,18 @@ namespace Player
         #endregion
 
         #region Controller
-        [Tooltip("攻撃開始用アニメーションパラメータ名を設定する")]
-        [AnimationParameter, SerializeField]
-        private string _attackParamName = default;
-        public string AttackParamName => _attackParamName;
-        [Tooltip("空中攻撃開始用アニメーションパラメータ名を設定する")]
-        [AnimationParameter, SerializeField]
-        private string _midairAttackParamName = default;
-        public string MidairAttackParamName => _midairAttackParamName;
-        [Tooltip("攻撃ID指定用intアニメーションパラメータ名を設定する")]
-        [AnimationParameter, SerializeField]
-        private string _attackIDAnimParamName = default;
-        public string AttackIDAnimParamName => _attackIDAnimParamName;
-        [Tooltip("コンボ更新用トリガー名を設定する")]
-        [AnimationParameter, SerializeField]
-        private string _comboTriggerAnimParamName = default;
-        public string ComboTriggerAnimParamName => _comboTriggerAnimParamName;
-        [Tooltip("現在何コンボ目かを表すintアニメーションパラメータ名を設定する")]
-        [AnimationParameter, SerializeField]
-        private string _comboCounterAnimParamName = default;
-        public string ComboCounterAnimParamName => _comboCounterAnimParamName;
+        [Tooltip("攻撃用パラメータ名を指定する。"), AnimationParameter, SerializeField]
+        private string _attackAnimName = default;
+        public string AttackAnimName => _attackAnimName;
+        [Tooltip("ID指定用パラメータ名を指定する。"), AnimationParameter, SerializeField]
+        private string _attackIDAnimName = default;
+        public string AttackIDAnimName => _attackIDAnimName;
+        [Tooltip("コンボ番号指定用パラメータ名を指定する。"), AnimationParameter, SerializeField]
+        private string _comboNumberAnimName = default;
+        public string ComboNumberAnimName => _comboNumberAnimName;
+        [Tooltip("アニメーション更新命令用パラメータ名を指定する。"), AnimationParameter, SerializeField]
+        private string _animUpdateTriggerAnimName = default;
+        public string AnimUpdateTriggerAnimName => _animUpdateTriggerAnimName;
 
         [Tooltip("攻撃終了時から次の攻撃が可能になるまでのインターバル"), SerializeField]
         private float _attackInterval = 0.2f;
@@ -64,8 +56,7 @@ namespace Player
         {
             _stateMachine = stateMachine;
 
-            // ↓こんな感じで 各ステートを初期化し、配列に登録していく
-            // ID順に初期化する必要があるので注意する
+            // 各ステートの初期化,配列に登録する処理
             // 00
             //InitLandState(_basicGunFire);
             //InitMidairState(_basicGunFire);
@@ -78,38 +69,30 @@ namespace Player
             //// 03
             //InitLandState(_attackState03LargeSword);
             //InitMidairState(_attackState03LargeSwordMidair);
-
-
         }
 
-        /// <summary>
-        /// Landステート用 初期化処理
-        /// </summary>
-        public void InitLandState(PlayerState05AttackBase targetState)
+        private void InitState(PlayerState05AttackBase landState, PlayerState05AttackBase midairState)
+        {
+            InitState(LandStates, landState);
+            InitState(MidairStates, midairState);
+        }
+        private void InitState(PlayerState05AttackBase[] states, PlayerState05AttackBase targetState)
         {
             targetState.Init(_stateMachine, this);
-            if (targetState.MyID < 0 && targetState.MyID >= LandStates.Length)
+            if (targetState.MyID < 0 && targetState.MyID >= states.Length)
             {
                 Debug.LogError("設定されているIDが不正です！修正してください！");
             }
             else
             {
-                LandStates[targetState.MyID] = targetState; ;
-            }
-        }
-
-        /// <summary>
-        /// Midairステート用 初期化処理
-        /// </summary>
-        public void InitMidairState(PlayerState05AttackBase targetState)
-        {
-            if (targetState.MyID < 0 && targetState.MyID >= MidairStates.Length)
-            {
-                Debug.LogError("設定されているIDが不正です！修正してください！");
-            }
-            else
-            {
-                MidairStates[targetState.MyID] = targetState; ;
+                if (MidairStates[targetState.MyID] != null)
+                {
+                    Debug.LogError("設定されているIDが重複してます！修正してください！");
+                }
+                else
+                {
+                    states[targetState.MyID] = targetState;
+                }
             }
         }
 

@@ -12,7 +12,7 @@ namespace Player
     /// 全ての攻撃ステートの基底クラス
     /// </summary>
     [System.Serializable]
-    public class PlayerState05AttackBase : IState
+    public abstract class PlayerState05AttackBase : IState
     {
         [NonSerialized]
         protected PlayerStateMachine _stateMachine = null;
@@ -51,5 +51,37 @@ namespace Player
         {
 
         }
+        /// <summary>
+        /// アニメーションの更新命令
+        /// </summary>
+        /// <param name="targetNumber"></param>
+        protected void ChangeAnimation(int targetNumber)
+        {
+            _stateMachine.PlayerController.Animator.
+                SetInteger(_attackStateManager.ComboNumberAnimName, targetNumber);
+            _stateMachine.PlayerController.Animator.
+                SetTrigger(_attackStateManager.AnimUpdateTriggerAnimName);
+        }
+        /// <summary>
+        /// ステート遷移処理
+        /// </summary> 
+        protected virtual void Transition()
+        {
+            Debug.LogWarning("未実装");
+        }
+    }
+    /// <summary>
+    /// 攻撃の際にあったら便利そうな状態を表す列挙体
+    /// </summary>
+    public enum AttackState
+    {
+        /// <summary> 未設定 </summary>
+        NotSet,
+        /// <summary> 構える </summary>
+        HoldWeapon,
+        /// <summary> 撃つ </summary>
+        Shoot,
+        /// <summary> 収める </summary>
+        UnarmWeapon,
     }
 }

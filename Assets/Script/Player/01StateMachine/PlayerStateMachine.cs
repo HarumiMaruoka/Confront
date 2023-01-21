@@ -61,14 +61,36 @@ namespace Player
 
             OnStateChanged += (previousState, nextState) =>
             {
-                // 前のステート独自のアニメーションパラメータ名をfalseにし、
-                // 次のステート独自のアニメーションパラメータ名をtrueにする。
+                // 攻撃ステートのアニメーション遷移処理を登録処理
+                if (previousState is PlayerState05AttackBase)
+                {
+                    // IDをリセットする
+                    _playerController.Animator?.SetInteger(
+                        _attackStateController.AttackIDAnimName, -1);
+                    // 攻撃アニメーションパラメータにfalseを設定する
+                    _playerController.Animator?.SetBool(
+                        _attackStateController.AttackAnimName, false);
+                }
+                if (nextState is PlayerState05AttackBase)
+                {
+                    // IDを設定する
+                    _playerController.Animator?.SetInteger(
+                        _attackStateController.AttackIDAnimName,
+                        (nextState as PlayerState05AttackBase).MyID);
+                    // 攻撃アニメーションパラメータにtrueを設定する
+                    _playerController.Animator?.SetBool(
+                        _attackStateController.AttackAnimName, true);
+                }
+
+                // 攻撃ステート以外のアニメーション遷移処理を登録処理
+                //   前のステート独自のアニメーションパラメータ名をfalseにし、
+                //   次のステート独自のアニメーションパラメータ名をtrueにする。
                 if (previousState is PlayerState00Base)
                 {
                     _playerController.Animator?.SetBool(
                         (previousState as PlayerState00Base).AnimParameterName, false);
                 }
-                if(nextState is PlayerState00Base)
+                if (nextState is PlayerState00Base)
                 {
                     _playerController.Animator?.SetBool(
                         (nextState as PlayerState00Base).AnimParameterName, true);
