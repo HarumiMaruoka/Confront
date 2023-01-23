@@ -7,7 +7,7 @@ namespace Player
     /// <summary>
     /// 魔法攻撃のステートのベースクラス
     /// </summary>
-    public class AtatckState05MagicBase : PlayerState05AttackBase
+    public class AttackState05MagicBase : PlayerState05AttackBase
     {
         public override void Enter()
         {
@@ -48,6 +48,11 @@ namespace Player
         }
 
         // 魔法攻撃の際にあったら便利そうなメソッド群を記述する。
+
+    }
+
+    public class AttackState05MidairMagicBase : AttackState05MagicBase, IMidairAttack
+    {
 
     }
 }

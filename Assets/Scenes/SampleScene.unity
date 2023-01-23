@@ -3400,10 +3400,29 @@ MonoBehaviour:
       _moveAcceleration: 0
     _attackStateController:
       _attackAnimName: 
+      _midairAttackAnimName: 
       _attackIDAnimName: 
       _comboNumberAnimName: 
       _animUpdateTriggerAnimName: 
       _attackInterval: 0.2
+      _basicGunFire:
+        _myID: -1
+      _attackState01BasicBow:
+        _myID: -1
+      _attackState01BasicBowMidair:
+        _myID: -1
+      _attackState02NomalSword:
+        _myID: -1
+        _maxComboNumber: 0
+      _attackState02NomalSwordMidair:
+        _myID: -1
+        _maxComboNumber: 0
+      _attackState03LargeSword:
+        _myID: -1
+        _maxComboNumber: 0
+      _attackState03LargeSwordMidair:
+        _myID: -1
+        _maxComboNumber: 0
   _groundChecker:
     _offset: {x: 0, y: -1.1, z: 0}
     _radius: 0
@@ -3493,7 +3512,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28832
+  m_Name: pb_Mesh28854
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3657,7 +3676,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28846
+  m_Name: pb_Mesh28868
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4211,13 +4230,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
+      propertyPath: _stateMachine._attackStateController._attackAnimName
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
       propertyPath: _stateMachine._attackStateController._attackParamName
       value: Attack
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
+      propertyPath: _stateMachine._attackStateController._attackIDAnimName
+      value: AttackIDNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._basicGunFire._myID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
       propertyPath: _stateMachine._attackStateController._attackAnimParamName
       value: IsIdle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._comboNumberAnimName
+      value: AttackComboNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._midairAttackAnimName
+      value: MidairAttack
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -4231,6 +4275,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
+      propertyPath: _stateMachine._attackStateController._animUpdateTriggerAnimName
+      value: AttackTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
       propertyPath: _stateMachine._attackStateController._comboCounterAnimParamName
       value: AttackComboNumber
       objectReference: {fileID: 0}
@@ -4238,6 +4287,56 @@ PrefabInstance:
         type: 3}
       propertyPath: _stateMachine._attackStateController._comboTriggerAnimParamName
       value: UpdateCombo
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState01BasicBow._myID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState02NomalSword._myID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState03LargeSword._myID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState01BasicBowMidair._myID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState02NomalSwordMidair._myID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._myID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState02NomalSword._maxComboNumber
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState03LargeSword._maxComboNumber
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState02NomalSwordMidair._maxComboNumber
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._maxComboNumber
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}

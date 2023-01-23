@@ -32,19 +32,19 @@ namespace Player
 
         private PlayerController _playerController = null;
 
-        private PlayerState05AttackBase _attackToExecute1 = null;
-        private PlayerState05AttackBase _attackToExecute2 = null;
-        private PlayerState05AttackBase _midairAttackToExecute1 = null;
-        private PlayerState05AttackBase _midairAttackToExecute2 = null;
+        private PlayerState05AttackBase _attack1 = null;
+        private PlayerState05AttackBase _attack2 = null;
+        private PlayerState05AttackBase _midairAttack1 = null;
+        private PlayerState05AttackBase _midairAttack2 = null;
 
         public PlayerState01Idle Idle => _idle;
         public PlayerState02Move Move => _move;
         public PlayerState03Jump Jump => _jump;
         public PlayerState04Midair Midair => _midair;
-        public PlayerState05AttackBase Attack1 { get => _attackToExecute1; set => _attackToExecute1 = value; }
-        public PlayerState05AttackBase Attack2 { get => _attackToExecute2; set => _attackToExecute2 = value; }
-        public PlayerState05AttackBase MidairAttack1 { get => _midairAttackToExecute1; set => _midairAttackToExecute1 = value; }
-        public PlayerState05AttackBase MidairAttack2 { get => _midairAttackToExecute2; set => _midairAttackToExecute2 = value; }
+        public PlayerState05AttackBase Attack1 { get => _attack1; set => _attack1 = value; }
+        public PlayerState05AttackBase Attack2 { get => _attack2; set => _attack2 = value; }
+        public PlayerState05AttackBase MidairAttack1 { get => _midairAttack1; set => _midairAttack1 = value; }
+        public PlayerState05AttackBase MidairAttack2 { get => _midairAttack2; set => _midairAttack2 = value; }
         public PlayerState06BigDamage BigDamage => _bigDamage;
         public PlayerState06MiddleDamage MiddleDamage => _middleDamage;
         public PlayerState06SmallDamage SmallDamage => _smallDamage;
@@ -56,20 +56,38 @@ namespace Player
 
         public void Init(PlayerController playerController)
         {
+            _attackStateController.Init(this);
+
+            // =================== テスト用処理 =================== //
+            _attackStateController.SetBothState(0, 1);
+            // ==================================================== //
+
             _playerController = playerController;
             Initialize(_idle);
 
             OnStateChanged += (previousState, nextState) =>
             {
-                // 攻撃ステートのアニメーション遷移処理を登録処理
+                // 攻撃ステートのアニメーション遷移処理を登録する処理
                 if (previousState is PlayerState05AttackBase)
                 {
                     // IDをリセットする
                     _playerController.Animator?.SetInteger(
                         _attackStateController.AttackIDAnimName, -1);
-                    // 攻撃アニメーションパラメータにfalseを設定する
-                    _playerController.Animator?.SetBool(
-                        _attackStateController.AttackAnimName, false);
+
+                    // 空中攻撃の場合
+                    if (previousState is IMidairAttack)
+                    {
+                        // 攻撃アニメーションパラメータにfalseを設定する
+                        _playerController.Animator?.SetBool(
+                            _attackStateController.MidairAttackAnimName, false);
+                    }
+                    // 地上攻撃の場合
+                    else
+                    {
+                        // 攻撃アニメーションパラメータにfalseを設定する
+                        _playerController.Animator?.SetBool(
+                            _attackStateController.AttackAnimName, false);
+                    }
                 }
                 if (nextState is PlayerState05AttackBase)
                 {
@@ -77,9 +95,21 @@ namespace Player
                     _playerController.Animator?.SetInteger(
                         _attackStateController.AttackIDAnimName,
                         (nextState as PlayerState05AttackBase).MyID);
-                    // 攻撃アニメーションパラメータにtrueを設定する
-                    _playerController.Animator?.SetBool(
-                        _attackStateController.AttackAnimName, true);
+
+                    // 空中攻撃の場合
+                    if (previousState is IMidairAttack)
+                    {
+                        // 攻撃アニメーションパラメータにfalseを設定する
+                        _playerController.Animator?.SetBool(
+                            _attackStateController.MidairAttackAnimName, true);
+                    }
+                    // 地上攻撃の場合
+                    else
+                    {
+                        // 攻撃アニメーションパラメータにtrueを設定する
+                        _playerController.Animator?.SetBool(
+                            _attackStateController.AttackAnimName, true);
+                    }
                 }
 
                 // 攻撃ステート以外のアニメーション遷移処理を登録処理

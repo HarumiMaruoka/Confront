@@ -19,12 +19,9 @@ namespace Player
         [NonSerialized]
         protected AttackStateManager _attackStateManager = null;
 
-        [Tooltip("この攻撃による最大コンボ数を表現する値"), SerializeField]
-        protected int _maxComboNumber = 0;
         [Tooltip("この攻撃ステートのIDNumber"), SerializeField]
         protected int _myID = -1;
 
-        public int MaxComboNumber => _maxComboNumber;
         public int MyID => _myID;
 
         /// <summary> 現在 何コンボ目を実行中か表す値 （0からカウントアップ） </summary>

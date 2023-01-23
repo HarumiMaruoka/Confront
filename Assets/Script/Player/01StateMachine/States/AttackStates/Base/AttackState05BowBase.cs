@@ -7,8 +7,8 @@ namespace Player
 {
     /// <summary>
     /// 弓攻撃ステートのベースクラス
-    ///// </summary>
-    public class AtatckState05BowBase : PlayerState05AttackBase
+    /// </summary>
+    public class AttackState05BowBase : PlayerState05AttackBase
     {
         private AttackState _currentState = default;
 
@@ -111,5 +111,12 @@ namespace Player
                 }
             }
         }
+    }
+    /// <summary>
+    /// 空中弓攻撃の基底クラス
+    /// </summary>
+    public class AttackState05MidairBowBase : AttackState05BowBase, IMidairAttack
+    {
+
     }
 }

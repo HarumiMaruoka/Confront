@@ -9,7 +9,7 @@ namespace Player
         /// <summary>
         /// 武器の最大数を表現する定数値
         /// </summary>
-        public const int MaxWeaponID = 0;
+        public const int MaxWeaponID = 4;
         /// <summary>
         /// アイテムの最大数を表現する定数値
         /// </summary>

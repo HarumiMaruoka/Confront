@@ -7,7 +7,7 @@ namespace Player
     /// <summary>
     /// 銃攻撃ステートのベースクラス
     /// </summary>
-    public class AtatckState05GunBase : PlayerState05AttackBase
+    public class AttackState05GunBase : PlayerState05AttackBase
     {
         public override void Enter()
         {
@@ -83,5 +83,9 @@ namespace Player
                 }
             }
         }
+    }
+    public class AttackState05MidairGunBase : AttackState05GunBase, IState
+    {
+
     }
 }

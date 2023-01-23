@@ -9,28 +9,13 @@ namespace Player
     [System.Serializable]
     public class AttackStateManager
     {
-        // =================== 各攻撃ステート =================== //
-        #region States
-        //[SerializeField]
-        //private AttackState00BasicGunFire _basicGunFire = default;
-        //[SerializeField]
-        //private AttackState01BasicBow _attackState01BasicBow = default;
-        //[SerializeField]
-        //private AttackState01BasicBowMidair _attackState01BasicBowMidair = default;
-        //[SerializeField]
-        //private AttackState02NomalSword _attackState02NomalSword = default;
-        //[SerializeField]
-        //private AttackState02NomalSwordMidair _attackState02NomalSwordMidair = default;
-        //[SerializeField]
-        //private AttackState03LargeSword _attackState03LargeSword = default;
-        //[SerializeField]
-        //private AttackState03LargeSwordMidair _attackState03LargeSwordMidair = default;
-        #endregion
-
         #region Controller
         [Tooltip("攻撃用パラメータ名を指定する。"), AnimationParameter, SerializeField]
         private string _attackAnimName = default;
         public string AttackAnimName => _attackAnimName;
+        [Tooltip("空中攻撃用パラメータ名を指定する。"), AnimationParameter, SerializeField]
+        private string _midairAttackAnimName = default;
+        public string MidairAttackAnimName => _midairAttackAnimName;
         [Tooltip("ID指定用パラメータ名を指定する。"), AnimationParameter, SerializeField]
         private string _attackIDAnimName = default;
         public string AttackIDAnimName => _attackIDAnimName;
@@ -45,11 +30,31 @@ namespace Player
         private float _attackInterval = 0.2f;
         public float AttackInterval => _attackInterval;
 
-        public PlayerState05AttackBase[] LandStates { get; private set; } = new PlayerState05AttackBase[Constants.MaxWeaponID];
-        public PlayerState05AttackBase[] MidairStates { get; private set; } = new PlayerState05AttackBase[Constants.MaxWeaponID];
+        public PlayerState05AttackBase[] LandStates { get; private set; } =
+            new PlayerState05AttackBase[Constants.MaxWeaponID];
+        public PlayerState05AttackBase[] MidairStates { get; private set; } =
+            new PlayerState05AttackBase[Constants.MaxWeaponID];
 
         [NonSerialized]
         private PlayerStateMachine _stateMachine = null;
+        #endregion
+
+        // =================== 各攻撃ステート =================== //
+        #region States
+        [SerializeField]
+        private AttackState00BasicGunFire _basicGunFire = default;
+        [SerializeField]
+        private AttackState01BasicBow _attackState01BasicBow = default;
+        [SerializeField]
+        private AttackState01BasicBowMidair _attackState01BasicBowMidair = default;
+        [SerializeField]
+        private AttackState02NomalSword _attackState02NomalSword = default;
+        [SerializeField]
+        private AttackState02NomalSwordMidair _attackState02NomalSwordMidair = default;
+        [SerializeField]
+        private AttackState03LargeSword _attackState03LargeSword = default;
+        [SerializeField]
+        private AttackState03LargeSwordMidair _attackState03LargeSwordMidair = default;
         #endregion
 
         public void Init(PlayerStateMachine stateMachine)
@@ -58,24 +63,56 @@ namespace Player
 
             // 各ステートの初期化,配列に登録する処理
             // 00
-            //InitLandState(_basicGunFire);
-            //InitMidairState(_basicGunFire);
-            //// 01
-            //InitLandState(_attackState01BasicBow);
-            //InitMidairState(_attackState01BasicBowMidair);
-            //// 02
-            //InitLandState(_attackState02NomalSword);
-            //InitMidairState(_attackState02NomalSwordMidair);
-            //// 03
-            //InitLandState(_attackState03LargeSword);
-            //InitMidairState(_attackState03LargeSwordMidair);
+            InitState(_basicGunFire, _basicGunFire);
+            // 01
+            InitState(_attackState01BasicBow, _attackState01BasicBowMidair);
+            // 02
+            InitState(_attackState02NomalSword, _attackState02NomalSwordMidair);
+            // 03
+            InitState(_attackState03LargeSword, _attackState03LargeSwordMidair);
         }
 
+        /// <summary>
+        /// 渡されたIDを攻撃として設定する
+        /// </summary>
+        /// <param name="oneID"> 攻撃ボタン1用ステート </param>
+        /// <param name="twoID"> 攻撃ボタン2用ステート </param>
+        public void SetBothState(int oneID, int twoID)
+        {
+            SetOneState(oneID);
+            SetTwoState(twoID);
+        }
+        /// <summary>
+        /// 渡されたIDを使用する攻撃として設定する
+        /// </summary>
+        /// <param name="id"> 攻撃ボタン1用ステートID </param>
+        public void SetOneState(int id)
+        {
+            _stateMachine.Attack1 = LandStates[id];
+            _stateMachine.MidairAttack1 = MidairStates[id];
+        }
+        /// <summary>
+        /// 渡されたIDを使用する攻撃として設定する
+        /// </summary>
+        /// <param name="id"> 攻撃ボタン2用ステートID </param>
+        public void SetTwoState(int id)
+        {
+            _stateMachine.Attack2 = LandStates[id];
+            _stateMachine.MidairAttack2 = MidairStates[id];
+        }
+        /// <summary>
+        /// ステートの初期化処理
+        /// </summary>
+        /// <param name="landState"> 攻撃ステート（地上用） </param>
+        /// <param name="midairState"> 攻撃ステート（空中用） </param>
         private void InitState(PlayerState05AttackBase landState, PlayerState05AttackBase midairState)
         {
             InitState(LandStates, landState);
             InitState(MidairStates, midairState);
         }
+        /// <summary>
+        /// 配列に登録する処理
+        /// </summary>
         private void InitState(PlayerState05AttackBase[] states, PlayerState05AttackBase targetState)
         {
             targetState.Init(_stateMachine, this);
@@ -94,17 +131,6 @@ namespace Player
                     states[targetState.MyID] = targetState;
                 }
             }
-        }
-
-        /// <summary>
-        /// 引数に渡された値を攻撃ステートに設定する。
-        /// </summary>
-        /// <param name="attack1"> 攻撃ボタン1用ステート </param>
-        /// <param name="attack2"> 攻撃ボタン2用ステート </param>
-        private void SetFirstState(PlayerState05AttackBase attack1, PlayerState05AttackBase attack2)
-        {
-            _stateMachine.Attack1 = attack1;
-            _stateMachine.Attack2 = attack2;
         }
     }
 }

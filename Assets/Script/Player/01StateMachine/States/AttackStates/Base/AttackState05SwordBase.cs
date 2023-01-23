@@ -7,8 +7,13 @@ namespace Player
     /// <summary>
     /// 剣攻撃ステートのベースクラス（槍やハンマーにも流用可）
     /// </summary>
-    public class AtatckState05SwordBase : PlayerState05AttackBase
+    public class AttackState05SwordBase : PlayerState05AttackBase
     {
+        [Tooltip("この攻撃による最大コンボ数を表現する値"), SerializeField]
+        protected int _maxComboNumber = 0;
+
+        public int MaxComboNumber => _maxComboNumber;
+
         public override void Enter()
         {
             // 最初のアニメーションを再生する
@@ -78,7 +83,7 @@ namespace Player
         }
     }
 
-    public class AtatckState05MidairSwordBase : AtatckState05SwordBase
+    public class AttackState05MidairSwordBase : AttackState05SwordBase, IMidairAttack
     {
         public override void Enter()
         {
