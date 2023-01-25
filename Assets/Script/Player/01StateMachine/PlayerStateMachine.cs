@@ -56,12 +56,6 @@ namespace Player
 
         public void Init(PlayerController playerController)
         {
-            _attackStateController.Init(this);
-
-            // =================== テスト用処理 =================== //
-            _attackStateController.SetBothState(0, 1);
-            // ==================================================== //
-
             _playerController = playerController;
             Initialize(_idle);
 
@@ -72,7 +66,7 @@ namespace Player
                 {
                     // IDをリセットする
                     _playerController.Animator?.SetInteger(
-                        _attackStateController.AttackIDAnimName, -1);
+                        _attackStateController.AttackEnumAnimName, -1);
 
                     // 空中攻撃の場合
                     if (previousState is IMidairAttack)
@@ -93,8 +87,8 @@ namespace Player
                 {
                     // IDを設定する
                     _playerController.Animator?.SetInteger(
-                        _attackStateController.AttackIDAnimName,
-                        (nextState as PlayerState05AttackBase).MyID);
+                        _attackStateController.AttackEnumAnimName,
+                        (int)(nextState as PlayerState05AttackBase).WeaponType);
 
                     // 空中攻撃の場合
                     if (previousState is IMidairAttack)
@@ -126,6 +120,13 @@ namespace Player
                         (nextState as PlayerState00Base).AnimParameterName, true);
                 }
             };
+
+            // 攻撃ステートマネージャー初期化
+            _attackStateController.Init(this);
+
+            // =================== テスト用処理 =================== //
+            _attackStateController.SetBothState(0, 1);
+            // ==================================================== //
         }
         protected override void StateInit()
         {

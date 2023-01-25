@@ -11,6 +11,15 @@ namespace Player
     public class AttackState05BowBase : PlayerState05AttackBase
     {
         private AttackState _currentState = default;
+        private string _cancelButtonName = null;
+
+        public override void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
+        {
+            base.Init(stateMachine, attackStateController);
+            Debug.Log(_stateMachine.PlayerController != null);
+            // キャンセルボタンを設定する（今回は, トークボタンを割り当てる。）
+            _cancelButtonName = _stateMachine.PlayerController.Input.TalkButtonName;
+        }
 
         public override void Enter()
         {
@@ -18,7 +27,7 @@ namespace Player
             //   構えるアニメーションを再生する
             if (true/**/)
             {
-                ChangeAnimation(0, AttackState.HoldWeapon);
+                ChangeAnimation((int)AnimNumber.Equip, AttackState.Equipment);
             }
             // 弾を1つも所持していないとき
             // 他のステートに遷移する
@@ -36,25 +45,27 @@ namespace Player
         {
             switch (_currentState)
             {
-                case AttackState.HoldWeapon:
+                case AttackState.Equipment:
                     await HoldWeapon();
                     break;
                 case AttackState.Shoot:
                     await Shoot();
                     break;
-                case AttackState.UnarmWeapon:
+                case AttackState.Unarm:
                     UnarmWeapon();
                     break;
             }
         }
         private async UniTask HoldWeapon()
-        {
-            // 両方のボタンが離されるまで待つ
+        {   // 両方のボタンが離されるまで待つ
+            // （待っている間にキャンセルボタンが押された時の事を想定して,
+            // CancellationTokenSourceを渡し、キャンセル時処理を行うようにする。）
+            await _stateMachine.PlayerController.IsAnimEndAsync(AnimType.HoldWeapon, default);
             await UniTask.WaitUntil(() =>
-                !(_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
-                  _stateMachine.PlayerController.Input.IsAttack2InputButton()));
+                !((_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
+                  _stateMachine.PlayerController.Input.IsAttack2InputButton())));
             // 離されたとき撃つステートに遷移する
-            ChangeAnimation(1, AttackState.Shoot);
+            ChangeAnimation((int)AnimNumber.Recoil, AttackState.Shoot);
         }
         private async UniTask Shoot()
         {
@@ -64,7 +75,7 @@ namespace Player
             await UniTask.WaitUntil(() =>
             _stateMachine.PlayerController.IsAnimEnd(AnimType.Attack));
             // 攻撃アニメーションの再生が完了したら収めるステートに遷移する
-            ChangeAnimation(2, AttackState.UnarmWeapon);
+            ChangeAnimation((int)AnimNumber.Disarm, AttackState.Unarm);
         }
         private void UnarmWeapon()
         {
@@ -78,12 +89,12 @@ namespace Player
             if (_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
                   _stateMachine.PlayerController.Input.IsAttack2InputButton())
             {
-                ChangeAnimation(1, AttackState.Shoot);
+                ChangeAnimation((int)AnimNumber.Aim, AttackState.Shoot);
             }
         }
-        private void ChangeAnimation(int number, AttackState nextState)
+        private void ChangeAnimation(int orderNumber, AttackState nextState)
         {
-            ChangeAnimation(number);
+            ChangeAnimation(orderNumber);
             _currentState = nextState;
         }
         protected override void Transition()
@@ -110,6 +121,13 @@ namespace Player
                     return;
                 }
             }
+        }
+        public enum AnimNumber : int
+        {
+            Equip = 0,
+            Aim,
+            Recoil,
+            Disarm,
         }
     }
     /// <summary>

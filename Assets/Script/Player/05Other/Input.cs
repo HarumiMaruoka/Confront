@@ -24,6 +24,8 @@ namespace Player
         [InputName, SerializeField]
         private string _talk = default;
 
+        public string TalkButtonName => _talk;
+
         public bool IsAcceptingAttackInput { get; set; }
 
         // ƒWƒƒƒ“ƒv

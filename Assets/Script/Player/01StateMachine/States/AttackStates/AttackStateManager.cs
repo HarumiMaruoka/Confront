@@ -16,12 +16,12 @@ namespace Player
         [Tooltip("空中攻撃用パラメータ名を指定する。"), AnimationParameter, SerializeField]
         private string _midairAttackAnimName = default;
         public string MidairAttackAnimName => _midairAttackAnimName;
-        [Tooltip("ID指定用パラメータ名を指定する。"), AnimationParameter, SerializeField]
-        private string _attackIDAnimName = default;
-        public string AttackIDAnimName => _attackIDAnimName;
+        [Tooltip("種類指定用パラメータ名を指定する。"), AnimationParameter, SerializeField]
+        private string _attackEnumAnimName = default;
+        public string AttackEnumAnimName => _attackEnumAnimName;
         [Tooltip("コンボ番号指定用パラメータ名を指定する。"), AnimationParameter, SerializeField]
-        private string _comboNumberAnimName = default;
-        public string ComboNumberAnimName => _comboNumberAnimName;
+        private string _orderNumberAnimName = default;
+        public string OrderNumberAnimName => _orderNumberAnimName;
         [Tooltip("アニメーション更新命令用パラメータ名を指定する。"), AnimationParameter, SerializeField]
         private string _animUpdateTriggerAnimName = default;
         public string AnimUpdateTriggerAnimName => _animUpdateTriggerAnimName;
@@ -42,7 +42,9 @@ namespace Player
         // =================== 各攻撃ステート =================== //
         #region States
         [SerializeField]
-        private AttackState00BasicGunFire _basicGunFire = default;
+        private AttackState00BasicGunFire _attackState00BasicGunFire = default;
+        [SerializeField]
+        private AttackState00MidairBasicGunFire _attackState00BasicGunFireMidair = default;
         [SerializeField]
         private AttackState01BasicBow _attackState01BasicBow = default;
         [SerializeField]
@@ -63,7 +65,7 @@ namespace Player
 
             // 各ステートの初期化,配列に登録する処理
             // 00
-            InitState(_basicGunFire, _basicGunFire);
+            InitState(_attackState00BasicGunFire, _attackState00BasicGunFireMidair);
             // 01
             InitState(_attackState01BasicBow, _attackState01BasicBowMidair);
             // 02
@@ -73,7 +75,7 @@ namespace Player
         }
 
         /// <summary>
-        /// 渡されたIDを攻撃として設定する
+        /// 渡されたIDをCurrentAttackStateとして設定する
         /// </summary>
         /// <param name="oneID"> 攻撃ボタン1用ステート </param>
         /// <param name="twoID"> 攻撃ボタン2用ステート </param>
@@ -122,7 +124,7 @@ namespace Player
             }
             else
             {
-                if (MidairStates[targetState.MyID] != null)
+                if (states[targetState.MyID] != null)
                 {
                     Debug.LogError("設定されているIDが重複してます！修正してください！");
                 }

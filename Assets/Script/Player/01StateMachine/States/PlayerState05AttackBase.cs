@@ -14,6 +14,9 @@ namespace Player
     [System.Serializable]
     public abstract class PlayerState05AttackBase : IState
     {
+        [SerializeField]
+        private WeaponType _weaponType = default;
+
         [NonSerialized]
         protected PlayerStateMachine _stateMachine = null;
         [NonSerialized]
@@ -22,6 +25,7 @@ namespace Player
         [Tooltip("この攻撃ステートのIDNumber"), SerializeField]
         protected int _myID = -1;
 
+        public WeaponType WeaponType => _weaponType;
         public int MyID => _myID;
 
         /// <summary> 現在 何コンボ目を実行中か表す値 （0からカウントアップ） </summary>
@@ -55,7 +59,7 @@ namespace Player
         protected void ChangeAnimation(int targetNumber)
         {
             _stateMachine.PlayerController.Animator.
-                SetInteger(_attackStateManager.ComboNumberAnimName, targetNumber);
+                SetInteger(_attackStateManager.OrderNumberAnimName, targetNumber);
             _stateMachine.PlayerController.Animator.
                 SetTrigger(_attackStateManager.AnimUpdateTriggerAnimName);
         }
@@ -68,17 +72,31 @@ namespace Player
         }
     }
     /// <summary>
+    /// 武器の種類を表す型
+    /// </summary>
+    [System.Serializable]
+    public enum WeaponType
+    {
+        NotSet = -1,
+        Gun,
+        Bow,
+        NomalSword,
+        GreatSword,
+    }
+    /// <summary>
     /// 攻撃の際にあったら便利そうな状態を表す列挙体
     /// </summary>
     public enum AttackState
     {
         /// <summary> 未設定 </summary>
-        NotSet,
+        NotSet = -1,
         /// <summary> 構える </summary>
-        HoldWeapon,
+        Equipment,
+        /// <summary> 狙いを定める </summary>
+        AimIdle,
         /// <summary> 撃つ </summary>
         Shoot,
         /// <summary> 収める </summary>
-        UnarmWeapon,
+        Unarm,
     }
 }

@@ -22,6 +22,7 @@ namespace Player
             else
             {
                 Transition();
+                return;
             }
         }
         public override void Update()
@@ -52,6 +53,7 @@ namespace Player
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.UnarmWeapon))
             {
                 Transition();
+                return;
             }
         }
         public override void Exit()
@@ -84,7 +86,7 @@ namespace Player
             }
         }
     }
-    public class AttackState05MidairGunBase : AttackState05GunBase, IState
+    public class AttackState05MidairGunBase : AttackState05GunBase, IMidairAttack
     {
 
     }

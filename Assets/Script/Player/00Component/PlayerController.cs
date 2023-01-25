@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
+using System.Threading;
 using UniRx;
 using UnityEngine;
 
@@ -135,6 +137,24 @@ namespace Player
         public bool IsAnimEnd(AnimType animType)
         {
             return _isAnimationEndDetection == animType;
+        }
+        /// <summary>
+        /// 非同期で待つアニメーションの終了を待つ
+        /// </summary>
+        /// <param name="animType"> アニメーションの種類 </param>
+        /// <param name="token"> キャンセル用トークン </param>
+        /// <returns> 正常終了したとき true, キャンセル終了したとき flaseを返す。 </returns>
+        public async UniTask<bool> IsAnimEndAsync(AnimType animType, CancellationToken token)
+        {
+            try
+            {
+                await UniTask.WaitUntil(() => _isAnimationEndDetection == animType, cancellationToken: token);
+            }
+            catch(OperationCanceledException e)
+            {
+                return false;
+            }
+            return true;
         }
         // アニメーションイベントで呼び出す想定で作成したメソッド
         /// <summary> 引数をフィールドに保存する。1フレーム後にフィールドを"AnimType.NotSet"に戻す。 </summary>

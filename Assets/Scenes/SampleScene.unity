@@ -3401,26 +3401,36 @@ MonoBehaviour:
     _attackStateController:
       _attackAnimName: 
       _midairAttackAnimName: 
-      _attackIDAnimName: 
-      _comboNumberAnimName: 
+      _attackEnumAnimName: 
+      _orderNumberAnimName: 
       _animUpdateTriggerAnimName: 
       _attackInterval: 0.2
-      _basicGunFire:
+      _attackState00BasicGunFire:
+        _weaponType: 0
+        _myID: -1
+      _attackState00BasicGunFireMidair:
+        _weaponType: 0
         _myID: -1
       _attackState01BasicBow:
+        _weaponType: 0
         _myID: -1
       _attackState01BasicBowMidair:
+        _weaponType: 0
         _myID: -1
       _attackState02NomalSword:
+        _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
       _attackState02NomalSwordMidair:
+        _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
       _attackState03LargeSword:
+        _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
       _attackState03LargeSwordMidair:
+        _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
   _groundChecker:
@@ -4241,7 +4251,12 @@ PrefabInstance:
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _stateMachine._attackStateController._attackIDAnimName
-      value: AttackIDNumber
+      value: AttackEnumNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackEnumAnimName
+      value: AttackEnumNumber
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -4256,7 +4271,12 @@ PrefabInstance:
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _stateMachine._attackStateController._comboNumberAnimName
-      value: AttackComboNumber
+      value: AttackOrderNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._orderNumberAnimName
+      value: AttackOrderNumber
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -4305,8 +4325,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState00BasicGunFire._myID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState01BasicBow._weaponType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
       propertyPath: _stateMachine._attackStateController._attackState01BasicBowMidair._myID
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState02NomalSword._weaponType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -4315,8 +4350,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState03LargeSword._weaponType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
       propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._myID
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState00BasicGunFireMidair._myID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState01BasicBowMidair._weaponType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -4326,6 +4376,16 @@ PrefabInstance:
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _stateMachine._attackStateController._attackState03LargeSword._maxComboNumber
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState02NomalSwordMidair._weaponType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._weaponType
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,

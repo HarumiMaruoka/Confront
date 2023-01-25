@@ -25,7 +25,7 @@ namespace Player
             // 攻撃アニメーションの再生が完了した時, 状態を遷移する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack) &&
                 _stateMachine.PlayerController.Animator.
-                GetInteger(_attackStateManager.ComboNumberAnimName) == CurrentComboNumber)
+                GetInteger(_attackStateManager.OrderNumberAnimName) == CurrentComboNumber)
             {
                 Transition();
                 return;

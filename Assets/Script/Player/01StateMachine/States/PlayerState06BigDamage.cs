@@ -10,7 +10,7 @@ namespace Player
     {
         public override void Exit()
         {
-            // ゴッドモードを停止する
+            // ゴッドモードを停止する。(ゴッドモードの開始処理は, ダメージ時に実行する)
             _stateMachine.PlayerController.EndGodMode();
             _stateMachine.PlayerController.
                 ChangeMovementMethod(PlayerController.MovementMethodType.CharacterController);
