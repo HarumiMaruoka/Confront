@@ -230,7 +230,7 @@ namespace Player
                     _movementAccelerationHorizontal * Time.deltaTime * SpecialAcceleration;
                 if (_currentMoveSpeedHorizontal > _maxMoveSpeedHorizontal)
                 {
-                    Debug.Log("Å‘å‘¬“x‚Å‚·");
+                    // Debug.Log("Å‘å‘¬“x‚Å‚·");
                     _currentMoveSpeedHorizontal = _maxMoveSpeedHorizontal;
                 }
                 // “ü—Í•ûŒü‚ğæ“¾

@@ -700,30 +700,58 @@ MonoBehaviour:
       _exitDistance: 8
     _land:
       _enterAnimParameterName: IsLand
+      _moveAcceleration: 0
     _attackStateController:
-      basicGunFire:
-        _enterAnimParameterName: 
-      _attackState01TwinSword:
-        _enterAnimParameterName: 
-      _attackState01TwinSwordMidair:
-        _enterAnimParameterName: 
-      _attackAnimParamName: 
-      _comboParamName: []
+      _attackAnimName: 
+      _midairAttackAnimName: 
+      _attackEnumAnimName: 
+      _orderNumberAnimName: 
+      _animUpdateTriggerAnimName: 
       _attackInterval: 0.2
+      _attackState00BasicGunFire:
+        _weaponType: 0
+        _myID: -1
+      _attackState00BasicGunFireMidair:
+        _weaponType: 0
+        _myID: -1
+      _attackState01BasicBow:
+        _weaponType: 0
+        _myID: -1
+      _attackState01BasicBowMidair:
+        _weaponType: 0
+        _myID: -1
+      _attackState02NomalSword:
+        _weaponType: 0
+        _myID: -1
+        _maxComboNumber: 0
+      _attackState02NomalSwordMidair:
+        _weaponType: 0
+        _myID: -1
+        _maxComboNumber: 0
+      _attackState03LargeSword:
+        _weaponType: 0
+        _myID: -1
+        _maxComboNumber: 0
+      _attackState03LargeSwordMidair:
+        _weaponType: 0
+        _myID: -1
+        _maxComboNumber: 0
   _groundChecker:
     _offset: {x: 0, y: -0.2, z: 0}
-    _size: {x: 0.8, y: 0.8, z: 0.8}
+    _radius: 0
     _targetLayer:
       serializedVersion: 2
       m_Bits: 8
     _isDrawGizmo: 1
-    _gizmoColor: {r: 1, g: 0, b: 0, a: 0.56078434}
+    _gizmoHitColor: {r: 1, g: 0, b: 0, a: 1}
+    _gizmoNotHitColor: {r: 0, g: 0, b: 1, a: 1}
   _talkChecker:
     _dir: {x: 0, y: 0, z: 3}
     _maxDistance: 2.28
     _targetLayer:
       serializedVersion: 2
       m_Bits: 64
+    _originOffset: {x: 0, y: 0, z: 0}
     _isDrawGizmo: 1
     _hitColor: {r: 1, g: 0, b: 0, a: 1}
     _noHitColor: {r: 0, g: 0, b: 1, a: 1}

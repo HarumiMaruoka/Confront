@@ -33,9 +33,9 @@ public abstract class StateMachineBase
         OnStateChanged +=
             (previousState, newState) =>
             {
-                Debug.Log(
-                    $"プレイヤーのステートが変更されました。\n" +
-                    $"現在のステートは\"{newState.GetType().Name}\"です。");
+                //Debug.Log(
+                //    $"プレイヤーのステートが変更されました。\n" +
+                //    $"現在のステートは\"{newState.GetType().Name}\"です。");
             };
 #endif
     }

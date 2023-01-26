@@ -16,7 +16,6 @@ namespace Player
         public override void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
         {
             base.Init(stateMachine, attackStateController);
-            Debug.Log(_stateMachine.PlayerController != null);
             // キャンセルボタンを設定する（今回は, トークボタンを割り当てる。）
             _cancelButtonName = _stateMachine.PlayerController.Input.TalkButtonName;
         }

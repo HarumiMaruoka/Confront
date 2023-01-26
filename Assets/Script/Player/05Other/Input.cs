@@ -26,7 +26,7 @@ namespace Player
 
         public string TalkButtonName => _talk;
 
-        public bool IsAcceptingAttackInput { get; set; }
+        public bool IsAcceptingAttackInput { get; set; } = true;
 
         // ƒWƒƒƒ“ƒv
         public bool IsJumpInput => UnityEngine.Input.GetButtonDown(_jump);
