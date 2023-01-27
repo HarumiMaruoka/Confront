@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 
@@ -67,21 +68,6 @@ namespace Player
                     // IDをリセットする
                     _playerController.Animator?.SetInteger(
                         _attackStateController.AttackEnumAnimName, -1);
-
-                    // 空中攻撃の場合
-                    if (previousState is IMidairAttack)
-                    {
-                        // 攻撃アニメーションパラメータにfalseを設定する
-                        _playerController.Animator?.SetBool(
-                            _attackStateController.MidairAttackAnimName, false);
-                    }
-                    // 地上攻撃の場合
-                    else
-                    {
-                        // 攻撃アニメーションパラメータにfalseを設定する
-                        _playerController.Animator?.SetBool(
-                            _attackStateController.AttackAnimName, false);
-                    }
                 }
                 if (nextState is PlayerState05AttackBase)
                 {
@@ -96,6 +82,9 @@ namespace Player
                         // 攻撃アニメーションパラメータにfalseを設定する
                         _playerController.Animator?.SetBool(
                             _attackStateController.MidairAttackAnimName, true);
+                        Observable.NextFrame()
+                            .Subscribe(_ => _playerController.Animator?.SetBool(
+                            _attackStateController.MidairAttackAnimName, false));
                     }
                     // 地上攻撃の場合
                     else
@@ -103,6 +92,9 @@ namespace Player
                         // 攻撃アニメーションパラメータにtrueを設定する
                         _playerController.Animator?.SetBool(
                             _attackStateController.AttackAnimName, true);
+                        Observable.NextFrame()
+                            .Subscribe(_ => _playerController.Animator?.SetBool(
+                            _attackStateController.AttackAnimName, false));
                     }
                 }
 

@@ -14,10 +14,15 @@ namespace Player
 
         public int MaxComboNumber => _maxComboNumber;
 
+        [SerializeField]
+        private GameObject _weapon = default;
+
         public override void Enter()
         {
             // 最初のアニメーションを再生する
-            ChangeAnimation(CurrentComboNumber);
+            ChangeAnimation(CurrentAnimOrderNumber);
+            // 武器をアクティブにする。
+            // _weapon?.SetActive(true);
         }
         public override void Update()
         {
@@ -25,7 +30,7 @@ namespace Player
             // 攻撃アニメーションの再生が完了した時, 状態を遷移する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack) &&
                 _stateMachine.PlayerController.Animator.
-                GetInteger(_attackStateManager.OrderNumberAnimName) == CurrentComboNumber)
+                GetInteger(_attackStateManager.OrderNumberAnimName) == CurrentAnimOrderNumber)
             {
                 Transition();
                 return;
@@ -37,16 +42,16 @@ namespace Player
             if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
                 _stateMachine.PlayerController.Input.IsAttack2InputButtonDown())
             {
-                if (CurrentComboNumber + 1 >= MaxComboNumber)
+                if (CurrentAnimOrderNumber + 1 >= MaxComboNumber)
                 {
-                    CurrentComboNumber++;
-                    ChangeAnimation(CurrentComboNumber);
+                    CurrentAnimOrderNumber++;
+                    ChangeAnimation(CurrentAnimOrderNumber);
                 }
                 else
                 {
                     Debug.LogError("アニメーションを更新できません！");
                     Debug.LogError(
-                        $"CurrentComboNumberは, {CurrentComboNumber}です！\n" +
+                        $"CurrentComboNumberは, {CurrentAnimOrderNumber}です！\n" +
                         $"MaxComboNumberは, {MaxComboNumber}です！");
                 }
             }
@@ -54,7 +59,9 @@ namespace Player
         public override void Exit()
         {
             // このステートの状態を初期化する。
-            CurrentComboNumber = 0;
+            CurrentAnimOrderNumber = 0;
+            // 武器を非アクティブにする。
+            // _weapon?.SetActive(false);
         }
         protected override void Transition()
         {
@@ -88,14 +95,14 @@ namespace Player
         public override void Enter()
         {
             // 最初のアニメーションを再生する
-            ChangeAnimation(CurrentComboNumber);
+            ChangeAnimation(CurrentAnimOrderNumber);
             // 縦の移動計算を停止する
             _stateMachine.PlayerController.IsVerticalCalculation = false;
         }
         public override void Exit()
         {
             // このステートの状態を初期化する。
-            CurrentComboNumber = 0;
+            CurrentAnimOrderNumber = 0;
             // 縦の移動計算を起動する
             _stateMachine.PlayerController.IsVerticalCalculation = true;
         }

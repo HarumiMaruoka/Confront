@@ -150,7 +150,7 @@ namespace Player
             {
                 await UniTask.WaitUntil(() => _isAnimationEndDetection == animType, cancellationToken: token);
             }
-            catch(OperationCanceledException e)
+            catch(OperationCanceledException exception)
             {
                 return false;
             }

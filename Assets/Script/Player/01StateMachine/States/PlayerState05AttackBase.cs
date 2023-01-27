@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx;
 using UnityEngine;
 
 
@@ -29,7 +30,7 @@ namespace Player
         public int MyID => _myID;
 
         /// <summary> 現在 何コンボ目を実行中か表す値 （0からカウントアップ） </summary>
-        public int CurrentComboNumber { get; protected set; } = 0;
+        public int CurrentAnimOrderNumber { get; protected set; } = 0;
 
         public virtual void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
         {
@@ -58,10 +59,15 @@ namespace Player
         /// <param name="targetNumber"></param>
         protected void ChangeAnimation(int targetNumber)
         {
+            // アニメーションの更新命令
             _stateMachine.PlayerController.Animator.
                 SetInteger(_attackStateManager.OrderNumberAnimName, targetNumber);
             _stateMachine.PlayerController.Animator.
-                SetTrigger(_attackStateManager.AnimUpdateTriggerAnimName);
+                SetBool(_attackStateManager.AnimUpdateTriggerAnimName, true);
+            // 遮断処理
+            Observable.NextFrame()
+                 .Subscribe(_ => _stateMachine.PlayerController.Animator.
+                SetBool(_attackStateManager.AnimUpdateTriggerAnimName, false));
         }
         /// <summary>
         /// ステート遷移処理

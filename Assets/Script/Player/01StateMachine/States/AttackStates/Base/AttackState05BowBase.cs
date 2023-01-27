@@ -13,6 +13,9 @@ namespace Player
         private AttackState _currentState = default;
         private string _cancelButtonName = null;
 
+        [SerializeField]
+        private GameObject _weapon = default;
+
         public override void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
         {
             base.Init(stateMachine, attackStateController);
@@ -23,9 +26,11 @@ namespace Player
         public override void Enter()
         {
             // 弾を1つ以上所持しているとき
-            //   構えるアニメーションを再生する
-            if (true/**/)
+            if (true /* ここに弾の数を判定する処理を書く */)
             {
+                // 武器をアクティブにする。
+                // _weapon?.SetActive(true);
+                // 構えるアニメーションを再生する
                 ChangeAnimation((int)AnimNumber.Equip, AttackState.Equipment);
             }
             // 弾を1つも所持していないとき
@@ -37,6 +42,8 @@ namespace Player
         }
         public override void Exit()
         {
+            // 武器を非アクティブにする。
+            //  _weapon?.SetActive(false);
             // このステートの初期化処理を記述する
             _currentState = AttackState.NotSet;
         }
@@ -104,8 +111,7 @@ namespace Player
                 _stateMachine.TransitionTo(_stateMachine.Midair);
                 return;
             }
-            // 着地アニメーションの再生が終了したとき遷移処理を実行する。
-            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Land))
+            else
             {
                 // 移動入力があるとき、ステートをMoveに遷移する。
                 if (_stateMachine.PlayerController.Input.IsMoveInput)

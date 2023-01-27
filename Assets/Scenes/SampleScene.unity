@@ -4629,31 +4629,39 @@ MonoBehaviour:
       _attackState00BasicGunFire:
         _weaponType: 0
         _myID: -1
+        _weapon: {fileID: 0}
       _attackState00BasicGunFireMidair:
         _weaponType: 0
         _myID: -1
+        _weapon: {fileID: 0}
       _attackState01BasicBow:
         _weaponType: 0
         _myID: -1
+        _weapon: {fileID: 0}
       _attackState01BasicBowMidair:
         _weaponType: 0
         _myID: -1
+        _weapon: {fileID: 0}
       _attackState02NomalSword:
         _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
+        _weapon: {fileID: 0}
       _attackState02NomalSwordMidair:
         _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
+        _weapon: {fileID: 0}
       _attackState03LargeSword:
         _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
+        _weapon: {fileID: 0}
       _attackState03LargeSwordMidair:
         _weaponType: 0
         _myID: -1
         _maxComboNumber: 0
+        _weapon: {fileID: 0}
   _groundChecker:
     _offset: {x: 0, y: -1.1, z: 0}
     _radius: 0
@@ -5618,6 +5626,21 @@ PrefabInstance:
         type: 3}
       propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._maxComboNumber
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}

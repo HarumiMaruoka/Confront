@@ -9,9 +9,12 @@ namespace Player
     /// </summary>
     public class AttackState05MagicBase : PlayerState05AttackBase
     {
+        [SerializeField]
+        private GameObject _weapon = default;
         public override void Enter()
         {
-
+            // 武器をアクティブにする。
+            // _weapon?.SetActive(true);
         }
         public override void Update()
         {
@@ -19,7 +22,8 @@ namespace Player
         }
         public override void Exit()
         {
-
+            // 武器を非アクティブにする。
+            // _weapon?.SetActive(false);
         }
         protected override void Transition()
         {
