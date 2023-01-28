@@ -35,7 +35,7 @@ namespace Player
         // ‰ï˜b
         public bool IsTalkInput => UnityEngine.Input.GetButtonDown(_talk);
         // ˆÚ“®
-        public bool IsMoveInput => MoveHorizontalDir.sqrMagnitude > 0.1f;
+        public bool IsMoveInput => MoveHorizontalDir.sqrMagnitude > 0.5f;
         public Vector3 MoveHorizontalDir =>
             new Vector3(
                 UnityEngine.Input.GetAxisRaw(_moveHorizontal),

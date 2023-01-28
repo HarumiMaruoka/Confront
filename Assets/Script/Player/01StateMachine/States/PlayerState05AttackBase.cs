@@ -76,6 +76,17 @@ namespace Player
         {
             Debug.LogWarning("未実装");
         }
+        protected void RunWhileAttacking()
+        {
+            if (_stateMachine.PlayerController.Input.IsMoveInput)
+            {
+                _stateMachine.PlayerController.Animator.SetBool(_attackStateManager.IsRunAnimName, true);
+            }
+            else
+            {
+                _stateMachine.PlayerController.Animator.SetBool(_attackStateManager.IsRunAnimName, false);
+            }
+        }
     }
     /// <summary>
     /// 武器の種類を表す型

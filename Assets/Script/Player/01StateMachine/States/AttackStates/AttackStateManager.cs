@@ -25,6 +25,12 @@ namespace Player
         [Tooltip("アニメーション更新命令用パラメータ名を指定する。"), AnimationParameter, SerializeField]
         private string _animUpdateTriggerAnimName = default;
         public string AnimUpdateTriggerAnimName => _animUpdateTriggerAnimName;
+        [Tooltip("攻撃終了時を知らせる為に使用するパラメータ名を指定してください。"), AnimationParameter, SerializeField]
+        private string _isAttackAnimEndAnimName = default;
+        public string IsAttackAnimEndAnimName => _isAttackAnimEndAnimName;
+        [Tooltip("攻撃中に移動する際に使用するパラメータを設定してください。"), AnimationParameter, SerializeField]
+        private string _isRunAnimName = default;
+        public string IsRunAnimName => _isRunAnimName;
 
         [Tooltip("攻撃終了時から次の攻撃が可能になるまでのインターバル"), SerializeField]
         private float _attackInterval = 0.2f;

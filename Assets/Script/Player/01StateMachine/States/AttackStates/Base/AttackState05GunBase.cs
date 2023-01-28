@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace Player
@@ -21,6 +22,7 @@ namespace Player
             //   弾を1つ減らす。
             if (true /* 弾の所持数の判定は省略 */ )
             {
+                _stateMachine.PlayerController.CamMove = true;
                 // 武器をアクティブにする。
                 // _weapon?.SetActive(true);
                 // アニメーションを変更する
@@ -45,11 +47,14 @@ namespace Player
                 case AttackState.Shoot: Shoot(); break;
                 case AttackState.Unarm: Unarm(); break;
             }
+            RunWhileAttacking();
         }
         public override void Exit()
         {
             // 武器を非アクティブにする。
             // _weapon?.SetActive(false);
+
+            _stateMachine.PlayerController.CamMove = false;
         }
         protected override void Transition()
         {
@@ -75,40 +80,50 @@ namespace Player
                 }
             }
         }
+        // ================ このステート内のステート ================ //
         private void Equipment()
         {
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.HoldWeapon))
             {
-                _currentState = AttackState.Shoot;
-            }
-            else
-            {
-                Debug.LogWarning("キャンセルされました。");
+                if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
+                    !_stateMachine.PlayerController.Input.IsAttack2InputButton())
+                {
+                    _currentState = AttackState.Unarm;
+                    ChangeAnimation(2);
+                }
+                else
+                {
+                    _currentState = AttackState.Shoot;
+                    ChangeAnimation(1);
+                }
             }
         }
         private void Shoot()
         {
             // インターバルを経過する度に発砲処理を行う
             // ここに処理を記述する
-
             // ボタンが離されたら状態を遷移する
-            if (!_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() &&
-                !_stateMachine.PlayerController.Input.IsAttack2InputButtonDown())
+            if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
+                !_stateMachine.PlayerController.Input.IsAttack2InputButton())
             {
                 _currentState = AttackState.Unarm;
+                ChangeAnimation(2);
             }
         }
-        private async void Unarm()
+        private void Unarm()
         {
             // 武装解除アニメーションの再生が完了したとき状態を遷移する。
-            if (await _stateMachine.PlayerController.IsAnimEndAsync(AnimType.HoldWeapon, default))
+            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.UnarmWeapon))
             {
+                // アニメーション更新処理
+                _stateMachine.PlayerController.Animator.
+                    SetBool(_attackStateManager.IsAttackAnimEndAnimName, true);
+                Observable.NextFrame()
+                     .Subscribe(_ => _stateMachine.PlayerController.Animator.
+                    SetBool(_attackStateManager.IsAttackAnimEndAnimName, false));
+                // ステートを変更する
                 Transition();
                 return;
-            }
-            else // キャンセル時の処理（主にダメージ）
-            {
-                Debug.LogWarning("キャンセルされました。");
             }
         }
     }
