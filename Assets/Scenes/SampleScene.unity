@@ -245,7 +245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -37.14229, y: 7.91545, z: 6.2869935}
+  m_LocalPosition: {x: -37.064922, y: 7.91545, z: 6.2869935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1336,7 +1336,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0a7fc6f097aef2640a580b72feca1d71,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1092408308860062549, guid: 0a7fc6f097aef2640a580b72feca1d71,
         type: 3}
@@ -2103,7 +2103,7 @@ PrefabInstance:
     - target: {fileID: 1733994109633327913, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1905438170858079809, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
@@ -5289,7 +5289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086805009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -37.14229, y: 7.91545, z: 6.2869935}
+  m_LocalPosition: {x: -37.064922, y: 7.91545, z: 6.2869935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5363,301 +5363,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1733994109633327913, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1927635862074231400, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 1927635862074231400, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 1.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _gravity
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _jumpSpeed
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _test._radius
-      value: 0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _rotationSpeed
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _test._offset.x
-      value: 1.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _test._offset.y
-      value: 1.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _test._offset.z
-      value: 1.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _gravityOnGrounded
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _groundChecker._radius
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _groundChecker._size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _groundChecker._size.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _groundChecker._size.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _maxMoveSpeedHorizontal
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _groundChecker._offset.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _test._targetLayer.m_Bits
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _movementAccelerationHorizontal
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _movementDecelerationHorizontal
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._land._moveAcceleration
-      value: 0.077
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._isRunAnimName
-      value: IsRun
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackAnimName
-      value: Attack
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackParamName
-      value: Attack
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackIDAnimName
-      value: AttackEnumNumber
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackEnumAnimName
-      value: AttackAnimType
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._basicGunFire._myID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackAnimParamName
-      value: IsIdle
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._comboNumberAnimName
-      value: AttackOrderNumber
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._orderNumberAnimName
-      value: AttackOrderNumber
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._midairAttackAnimName
-      value: MidairAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackIDAnimParamName
-      value: AttackIDNumber
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._midairAttackParamName
-      value: MidairAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._isAttackAnimEndAnimName
-      value: AttackIsEnd
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._animUpdateTriggerAnimName
-      value: AttackTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._comboCounterAnimParamName
-      value: AttackComboNumber
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._comboTriggerAnimParamName
-      value: UpdateCombo
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState01BasicBow._myID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState02NomalSword._myID
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState03LargeSword._myID
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState00BasicGunFire._myID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState01BasicBow._weaponType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState01BasicBowMidair._myID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState02NomalSword._weaponType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState02NomalSwordMidair._myID
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState03LargeSword._weaponType
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._myID
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState00BasicGunFireMidair._myID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState01BasicBowMidair._weaponType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState02NomalSword._maxComboNumber
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState03LargeSword._maxComboNumber
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState02NomalSwordMidair._weaponType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._weaponType
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState02NomalSwordMidair._maxComboNumber
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: _stateMachine._attackStateController._attackState03LargeSwordMidair._maxComboNumber
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: m_CullingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: m_WarningMessage
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5024783586803184617, guid: a96b174be519d7a43bd4353e96946e18,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a96b174be519d7a43bd4353e96946e18, type: 3}

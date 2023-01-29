@@ -565,6 +565,7 @@ GameObject:
   - component: {fileID: 1927635862074231400}
   - component: {fileID: 6704766958893882075}
   - component: {fileID: 4509088394488100289}
+  - component: {fileID: 2189165696668534665}
   m_Layer: 0
   m_Name: Main Player
   m_TagString: Untagged
@@ -618,7 +619,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ec1053d085b81af4f83a6b7e73d21d91, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -637,12 +638,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.37
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.08, z: 0}
 --- !u!54 &6704766958893882075
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -700,45 +701,55 @@ MonoBehaviour:
       _exitDistance: 8
     _land:
       _enterAnimParameterName: IsLand
-      _moveAcceleration: 0
+      _moveAcceleration: 0.077
     _attackStateController:
-      _attackAnimName: 
-      _midairAttackAnimName: 
-      _attackEnumAnimName: 
-      _orderNumberAnimName: 
-      _animUpdateTriggerAnimName: 
+      _attackAnimName: Attack
+      _midairAttackAnimName: MidairAttack
+      _attackEnumAnimName: AttackAnimType
+      _orderNumberAnimName: AttackOrderNumber
+      _animUpdateTriggerAnimName: AttackTrigger
+      _isAttackAnimEndAnimName: AttackIsEnd
+      _isRunAnimName: IsRun
       _attackInterval: 0.2
       _attackState00BasicGunFire:
         _weaponType: 0
-        _myID: -1
+        _myID: 0
+        _weapon: {fileID: 0}
       _attackState00BasicGunFireMidair:
         _weaponType: 0
-        _myID: -1
+        _myID: 0
+        _weapon: {fileID: 0}
       _attackState01BasicBow:
-        _weaponType: 0
-        _myID: -1
+        _weaponType: 1
+        _myID: 1
+        _weapon: {fileID: 0}
       _attackState01BasicBowMidair:
-        _weaponType: 0
-        _myID: -1
+        _weaponType: 1
+        _myID: 1
+        _weapon: {fileID: 0}
       _attackState02NomalSword:
-        _weaponType: 0
-        _myID: -1
-        _maxComboNumber: 0
+        _weaponType: 2
+        _myID: 2
+        _maxComboNumber: 4
+        _weapon: {fileID: 0}
       _attackState02NomalSwordMidair:
-        _weaponType: 0
-        _myID: -1
-        _maxComboNumber: 0
+        _weaponType: 2
+        _myID: 2
+        _maxComboNumber: 4
+        _weapon: {fileID: 0}
       _attackState03LargeSword:
-        _weaponType: 0
-        _myID: -1
-        _maxComboNumber: 0
+        _weaponType: 3
+        _myID: 3
+        _maxComboNumber: 3
+        _weapon: {fileID: 0}
       _attackState03LargeSwordMidair:
-        _weaponType: 0
-        _myID: -1
-        _maxComboNumber: 0
+        _weaponType: 3
+        _myID: 3
+        _maxComboNumber: 3
+        _weapon: {fileID: 0}
   _groundChecker:
-    _offset: {x: 0, y: -0.2, z: 0}
-    _radius: 0
+    _offset: {x: 0, y: 0, z: 0}
+    _radius: 0.35
     _targetLayer:
       serializedVersion: 2
       m_Bits: 8
@@ -769,18 +780,31 @@ MonoBehaviour:
       _muscleDefense: 0
       _magicDefense: 0
   _isGodMode: 0
-  _maxMoveSpeedHorizontal: 0.16
-  _movementAccelerationHorizontal: 0.04
-  _movementDecelerationHorizontal: 0.8
+  _maxMoveSpeedHorizontal: 8
+  _movementAccelerationHorizontal: 16
+  _movementDecelerationHorizontal: 24
   _currentMoveSpeedHorizontal: 0
   _currentMoveSpeedVertical: 0
-  _jumpSpeed: 18
-  _gravity: 40
+  _jumpSpeed: 16
+  _gravity: 28
   _rotationSpeed: 600
   _canMove: 1
-  _gravityOnGrounded: 300
+  _gravityOnGrounded: 600
   _jumpInterval: 2
   _isVerticalCalculation: 1
+--- !u!114 &2189165696668534665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733994109633327913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5500508ab63870c4b8a320a5f17d5c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cancelButton: Cancel
 --- !u!1 &1754455962673859552
 GameObject:
   m_ObjectHideFlags: 0

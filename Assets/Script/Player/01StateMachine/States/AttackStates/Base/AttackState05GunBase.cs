@@ -22,6 +22,7 @@ namespace Player
             //   弾を1つ減らす。
             if (true /* 弾の所持数の判定は省略 */ )
             {
+                RunWhileAttacking();
                 _stateMachine.PlayerController.CamMove = true;
                 // 武器をアクティブにする。
                 // _weapon?.SetActive(true);
