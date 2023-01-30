@@ -12,13 +12,13 @@ namespace Player
 
         public override void Enter()
         {
-            _stateMachine.PlayerController.CamMove = true;
+            _stateMachine.PlayerController.CanMove = true;
             _stateMachine.PlayerController.SpecialAcceleration = _moveAcceleration;
             _stateMachine.PlayerController.ResetMoveHorizontalSpeed();
         }
         public override void Exit()
         {
-            _stateMachine.PlayerController.CamMove = false;
+            _stateMachine.PlayerController.CanMove = false;
             _stateMachine.PlayerController.SpecialAcceleration = 1f;
             _stateMachine.PlayerController.ResetMoveHorizontalSpeed();
         }

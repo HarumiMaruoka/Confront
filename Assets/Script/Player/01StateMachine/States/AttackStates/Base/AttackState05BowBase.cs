@@ -13,8 +13,6 @@ namespace Player
         private AttackState _currentState = default;
         private string _cancelButtonName = null;
 
-        [SerializeField]
-        private GameObject _weapon = default;
 
         public override void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
         {

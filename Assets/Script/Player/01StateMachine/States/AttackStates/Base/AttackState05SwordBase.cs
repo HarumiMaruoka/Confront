@@ -14,9 +14,6 @@ namespace Player
 
         public int MaxComboNumber => _maxComboNumber;
 
-        [SerializeField]
-        private GameObject _weapon = default;
-
         public override void Enter()
         {
             // 最初のアニメーションを再生する
@@ -87,6 +84,15 @@ namespace Player
                     return;
                 }
             }
+        }
+        public enum SwordType
+        {
+            /// <summary> 双剣 </summary>
+            TwinSword,
+            /// <summary> 単剣 </summary>
+            NomalSword,
+            /// <summary> 大剣 </summary>
+            GreatSword,
         }
     }
 

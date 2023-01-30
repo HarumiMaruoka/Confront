@@ -11,21 +11,17 @@ namespace Player
     /// </summary>
     public class AttackState05GunBase : PlayerState05AttackBase
     {
-        [SerializeField]
-        private GameObject _weapon = default;
-
         private AttackState _currentState = AttackState.NotSet;
         public override void Enter()
         {
+            _stateMachine.PlayerController.IsReadyJump = false;
             // 弾を1つ以上所持している時
             //   銃を構えるアニメーションを再生する。
             //   弾を1つ減らす。
             if (true /* 弾の所持数の判定は省略 */ )
             {
                 RunWhileAttacking();
-                _stateMachine.PlayerController.CamMove = true;
-                // 武器をアクティブにする。
-                // _weapon?.SetActive(true);
+                _stateMachine.PlayerController.CanMove = true;
                 // アニメーションを変更する
                 ChangeAnimation(0);
                 // ステートを変更する
@@ -50,12 +46,14 @@ namespace Player
             }
             RunWhileAttacking();
         }
+        [SerializeField]
+        private int _attackIntervalMillisecond = 0;
         public override void Exit()
         {
-            // 武器を非アクティブにする。
-            // _weapon?.SetActive(false);
-
-            _stateMachine.PlayerController.CamMove = false;
+            _timer = 0f;
+            _stateMachine.PlayerController.CanMove = false;
+            _stateMachine.PlayerController.IsReadyJump = true;
+            _stateMachine.StartAttackInterval(_attackIntervalMillisecond);
         }
         protected override void Transition()
         {
@@ -86,6 +84,8 @@ namespace Player
         {
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.HoldWeapon))
             {
+                // 武器をアクティブにする。
+                _weapon?.SetActive(true);
                 if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
                     !_stateMachine.PlayerController.Input.IsAttack2InputButton())
                 {
@@ -99,11 +99,20 @@ namespace Player
                 }
             }
         }
+        [Tooltip("発砲の間隔"), SerializeField]
+        private float _fireInterval = 0.2f;
+        private float _timer = 0f;
         private void Shoot()
         {
             // インターバルを経過する度に発砲処理を行う
             // ここに処理を記述する
             // ボタンが離されたら状態を遷移する
+            if (_timer < _fireInterval)
+            {
+                _attackStateManager.AttackMethodGroup.AttackGun();
+                _timer = 0f;
+            }
+            _timer += Time.deltaTime;
             if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
                 !_stateMachine.PlayerController.Input.IsAttack2InputButton())
             {

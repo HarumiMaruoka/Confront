@@ -9,11 +9,11 @@ namespace Player
     {
         public override void Enter()
         {
-            _stateMachine.PlayerController.CamMove = true;
+            _stateMachine.PlayerController.CanMove = true;
         }
         public override void Exit()
         {
-            _stateMachine.PlayerController.CamMove = false;
+            _stateMachine.PlayerController.CanMove = false;
         }
         public override void Update()
         {
@@ -32,13 +32,15 @@ namespace Player
             }
             // UŒ‚“ü—Í‚ªŒŸ’m‚³‚ê‚½‚Æ‚«AAttack‚É‘JˆÚ‚·‚é
             if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() &&
-                _stateMachine.Attack1 != null)
+                _stateMachine.Attack1 != null &&
+                !_stateMachine.IsAttackIntervalNow)
             {
                 _stateMachine.TransitionTo(_stateMachine.Attack1);
                 return;
             }
             if (_stateMachine.PlayerController.Input.IsAttack2InputButtonDown() &&
-                _stateMachine.Attack2 != null)
+                _stateMachine.Attack2 != null &&
+                !_stateMachine.IsAttackIntervalNow)
             {
                 _stateMachine.TransitionTo(_stateMachine.Attack2);
                 return;

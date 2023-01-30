@@ -10,6 +10,9 @@ namespace Player
     public class AttackStateManager
     {
         #region Controller
+        [SerializeField]
+        private AttackMethodGroup _attackMethodGroup = default;
+        public AttackMethodGroup AttackMethodGroup => _attackMethodGroup;
         [Tooltip("攻撃用パラメータ名を指定する。"), AnimationParameter, SerializeField]
         private string _attackAnimName = default;
         public string AttackAnimName => _attackAnimName;

@@ -17,6 +17,8 @@ namespace Player
     {
         [SerializeField]
         private WeaponType _weaponType = default;
+        [SerializeField]
+        protected GameObject _weapon = default;
 
         [NonSerialized]
         protected PlayerStateMachine _stateMachine = null;
@@ -27,6 +29,7 @@ namespace Player
         protected int _myID = -1;
 
         public WeaponType WeaponType => _weaponType;
+        public GameObject Weapon => _weapon;
         public int MyID => _myID;
 
         /// <summary> 現在 何コンボ目を実行中か表す値 （0からカウントアップ） </summary>

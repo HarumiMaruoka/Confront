@@ -150,7 +150,7 @@ namespace Player
             {
                 await UniTask.WaitUntil(() => _isAnimationEndDetection == animType, cancellationToken: token);
             }
-            catch(OperationCanceledException exception)
+            catch (OperationCanceledException exception)
             {
                 return false;
             }
@@ -167,6 +167,28 @@ namespace Player
             }
             Observable.NextFrame()
                 .Subscribe(_ => _isAnimationEndDetection = AnimType.NotSet);
+        }
+        public void OnActiveWeapon()
+        {
+            if (_stateMachine.CurrentState is PlayerState05AttackBase)
+            {
+                (_stateMachine.CurrentState as PlayerState05AttackBase).Weapon.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("無効な命令が発行されました。");
+            }
+        }
+        public void OnDisableWeapon()
+        {
+            if (_stateMachine.CurrentState is PlayerState05AttackBase)
+            {
+                (_stateMachine.CurrentState as PlayerState05AttackBase).Weapon.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("無効な命令が発行されました。");
+            }
         }
         #endregion
 
@@ -203,7 +225,7 @@ namespace Player
 
         #region Horizontal
         public float SpecialAcceleration { get; set; } = 1f;
-        public bool CamMove { get => _canMove; set => _canMove = value; }
+        public bool CanMove { get => _canMove; set => _canMove = value; }
 
         private Vector3 _moveSpeedHorizontal = default;
         Quaternion _targetRotation = default;
@@ -275,7 +297,7 @@ namespace Player
         private bool _gravityOnGroundedGravity = true;
         private bool _isReadyJump = true;
 
-        public bool IsReadyJump => _isReadyJump;
+        public bool IsReadyJump { get => _isReadyJump; set => _isReadyJump = value; }
         /// <summary> 垂直移動処理を実行するかどうかを表す値 </summary>
         public bool IsVerticalCalculation
         { get => _isVerticalCalculation; set => _isVerticalCalculation = value; }

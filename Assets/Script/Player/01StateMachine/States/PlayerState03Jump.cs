@@ -9,11 +9,11 @@ namespace Player
     {
         public override void Enter()
         {
-            _stateMachine.PlayerController.CamMove = true;
+            _stateMachine.PlayerController.CanMove = true;
         }
         public override void Exit()
         {
-            _stateMachine.PlayerController.CamMove = false;
+            _stateMachine.PlayerController.CanMove = false;
         }
         public override void Update()
         {

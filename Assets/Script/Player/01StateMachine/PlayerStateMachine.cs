@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -53,6 +54,7 @@ namespace Player
         public PlayerState08Land Land => _land;
         public AttackStateManager AttackStateController => _attackStateController;
         public PlayerController PlayerController => _playerController;
+        public bool IsAttackIntervalNow { get; set; } = false;
         #endregion
 
         public void Init(PlayerController playerController)
@@ -131,6 +133,13 @@ namespace Player
             _smallDamage.Init(this);
             _talk.Init(this);
             _land.Init(this);
+        }
+
+        public async void StartAttackInterval(int timeMillisecond)
+        {
+            IsAttackIntervalNow = true;
+            await UniTask.Delay(timeMillisecond);
+            IsAttackIntervalNow = false;
         }
     }
 }

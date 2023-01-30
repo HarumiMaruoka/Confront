@@ -9,23 +9,25 @@ namespace Player
     {
         public override void Enter()
         {
-            _stateMachine.PlayerController.CamMove = true;
+            _stateMachine.PlayerController.CanMove = true;
         }
         public override void Exit()
         {
-            _stateMachine.PlayerController.CamMove = false;
+            _stateMachine.PlayerController.CanMove = false;
         }
         public override void Update()
         {
             // UŒ‚“ü—Í‚ªŒŸ’m‚³‚ê‚½‚Æ‚«AMidairAttack‚É‘JˆÚ‚·‚é
             if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() &&
-                _stateMachine.MidairAttack1 != null)
+                _stateMachine.MidairAttack1 != null &&
+                !_stateMachine.IsAttackIntervalNow)
             {
                 _stateMachine.TransitionTo(_stateMachine.MidairAttack1);
                 return;
             }
             if (_stateMachine.PlayerController.Input.IsAttack2InputButtonDown() &&
-                _stateMachine.MidairAttack2 != null)
+                _stateMachine.MidairAttack2 != null &&
+                !_stateMachine.IsAttackIntervalNow)
             {
                 _stateMachine.TransitionTo(_stateMachine.MidairAttack2);
                 return;
