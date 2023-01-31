@@ -70,6 +70,7 @@ namespace Player
                     // IDをリセットする
                     _playerController.Animator?.SetInteger(
                         _attackStateController.AttackEnumAnimName, -1);
+                    _attackStateController.OnAttackAnimEnd();
                 }
                 if (nextState is PlayerState05AttackBase)
                 {
@@ -119,7 +120,7 @@ namespace Player
             _attackStateController.Init(this);
 
             // =================== テスト用処理 =================== //
-            _attackStateController.SetBothState(0, 1);
+            _attackStateController.SetBothState(0, 2);
             // ==================================================== //
         }
         protected override void StateInit()

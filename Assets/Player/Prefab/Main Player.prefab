@@ -703,6 +703,7 @@ MonoBehaviour:
       _enterAnimParameterName: IsLand
       _moveAcceleration: 0.077
     _attackStateController:
+      _attackMethodGroup: {fileID: 3925558030884093627}
       _attackAnimName: Attack
       _midairAttackAnimName: MidairAttack
       _attackEnumAnimName: AttackAnimType
@@ -715,10 +716,14 @@ MonoBehaviour:
         _weaponType: 0
         _weapon: {fileID: 953294458000724726}
         _myID: 0
+        _attackIntervalMillisecond: 0
+        _fireInterval: 0.2
       _attackState00BasicGunFireMidair:
         _weaponType: 0
         _weapon: {fileID: 0}
         _myID: 0
+        _attackIntervalMillisecond: 0
+        _fireInterval: 0.2
       _attackState01BasicBow:
         _weaponType: 1
         _weapon: {fileID: 0}
@@ -782,7 +787,7 @@ MonoBehaviour:
   _isGodMode: 0
   _maxMoveSpeedHorizontal: 8
   _movementAccelerationHorizontal: 16
-  _movementDecelerationHorizontal: 24
+  _movementDecelerationHorizontal: 40
   _currentMoveSpeedHorizontal: 0
   _currentMoveSpeedVertical: 0
   _jumpSpeed: 16
@@ -809,7 +814,7 @@ MonoBehaviour:
     _maxDistance: 6
     _targetLayer:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 128
     _originOffset: {x: 0, y: 1.35, z: 0}
     _isDrawGizmo: 1
     _hitColor: {r: 1, g: 0, b: 0, a: 1}
@@ -3189,6 +3194,7 @@ Transform:
   - {fileID: 3569463386242628689}
   - {fileID: 3637034885185043842}
   - {fileID: 953294458000821974}
+  - {fileID: 1976796089195440725}
   m_Father: {fileID: 4679650760586687021}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3763,6 +3769,81 @@ Transform:
   m_Father: {fileID: 3637126833607492412}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &481018718642738312
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5455530430708555340}
+    m_Modifications:
+    - target: {fileID: 1624047688248190055, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_Name
+      value: DemonicSword
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f87c2e55b95e4894c9c30592cce6d287, type: 3}
+--- !u!4 &1976796089195440725 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2144301008763993821, guid: f87c2e55b95e4894c9c30592cce6d287,
+    type: 3}
+  m_PrefabInstance: {fileID: 481018718642738312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &953294458000692306
 PrefabInstance:
   m_ObjectHideFlags: 0

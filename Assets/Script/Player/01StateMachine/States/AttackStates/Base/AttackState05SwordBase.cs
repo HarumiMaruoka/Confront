@@ -19,15 +19,16 @@ namespace Player
             // 最初のアニメーションを再生する
             ChangeAnimation(CurrentAnimOrderNumber);
             // 武器をアクティブにする。
-            // _weapon?.SetActive(true);
+            _weapon?.SetActive(true);
         }
         public override void Update()
         {
             // 現在再生中のコンボアニメーションナンバーと,現在ステートのコンボナンバーが一致し
+            // （トランジション中のアニメーションイベント発行防止策）←失敗
             // 攻撃アニメーションの再生が完了した時, 状態を遷移する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack) &&
-                _stateMachine.PlayerController.Animator.
-                GetInteger(_attackStateManager.OrderNumberAnimName) == CurrentAnimOrderNumber)
+                (!_stateMachine.PlayerController.Animator.IsInTransition(2) &&
+                !_stateMachine.PlayerController.Animator.IsInTransition(3)))
             {
                 Transition();
                 return;
@@ -39,7 +40,7 @@ namespace Player
             if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
                 _stateMachine.PlayerController.Input.IsAttack2InputButtonDown())
             {
-                if (CurrentAnimOrderNumber + 1 >= MaxComboNumber)
+                if (CurrentAnimOrderNumber + 1 <= MaxComboNumber)
                 {
                     CurrentAnimOrderNumber++;
                     ChangeAnimation(CurrentAnimOrderNumber);
@@ -58,7 +59,7 @@ namespace Player
             // このステートの状態を初期化する。
             CurrentAnimOrderNumber = 0;
             // 武器を非アクティブにする。
-            // _weapon?.SetActive(false);
+            _weapon?.SetActive(false);
         }
         protected override void Transition()
         {
@@ -68,21 +69,17 @@ namespace Player
                 _stateMachine.TransitionTo(_stateMachine.Midair);
                 return;
             }
-            // 着地アニメーションの再生が終了したとき遷移処理を実行する。
-            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Land))
+            // 移動入力があるとき、ステートをMoveに遷移する。
+            if (_stateMachine.PlayerController.Input.IsMoveInput)
             {
-                // 移動入力があるとき、ステートをMoveに遷移する。
-                if (_stateMachine.PlayerController.Input.IsMoveInput)
-                {
-                    _stateMachine.TransitionTo(_stateMachine.Move);
-                    return;
-                }
-                // 移動入力があるとき、ステートをMoveに遷移する。
-                else
-                {
-                    _stateMachine.TransitionTo(_stateMachine.Idle);
-                    return;
-                }
+                _stateMachine.TransitionTo(_stateMachine.Move);
+                return;
+            }
+            // 移動入力があるとき、ステートをMoveに遷移する。
+            else
+            {
+                _stateMachine.TransitionTo(_stateMachine.Idle);
+                return;
             }
         }
         public enum SwordType

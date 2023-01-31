@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 
 namespace Player
@@ -142,6 +143,17 @@ namespace Player
                     states[targetState.MyID] = targetState;
                 }
             }
+        }
+        /// <summary>
+        /// 攻撃アニメーションの終了処理
+        /// </summary>
+        public void OnAttackAnimEnd()
+        {
+            _stateMachine.PlayerController.Animator.
+                SetBool(this.IsAttackAnimEndAnimName, true);
+            Observable.NextFrame()
+                 .Subscribe(_ => _stateMachine.PlayerController.Animator.
+                SetBool(this.IsAttackAnimEndAnimName, false));
         }
     }
 }

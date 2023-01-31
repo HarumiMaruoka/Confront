@@ -53,7 +53,6 @@ namespace Player
             _timer = 0f;
             _stateMachine.PlayerController.CanMove = false;
             _stateMachine.PlayerController.IsReadyJump = true;
-            _stateMachine.StartAttackInterval(_attackIntervalMillisecond);
         }
         protected override void Transition()
         {
@@ -125,12 +124,6 @@ namespace Player
             // 武装解除アニメーションの再生が完了したとき状態を遷移する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.UnarmWeapon))
             {
-                // アニメーション更新処理
-                _stateMachine.PlayerController.Animator.
-                    SetBool(_attackStateManager.IsAttackAnimEndAnimName, true);
-                Observable.NextFrame()
-                     .Subscribe(_ => _stateMachine.PlayerController.Animator.
-                    SetBool(_attackStateManager.IsAttackAnimEndAnimName, false));
                 // ステートを変更する
                 Transition();
                 return;
