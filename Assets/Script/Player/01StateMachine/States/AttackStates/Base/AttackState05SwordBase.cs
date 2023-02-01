@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player
 {
@@ -21,37 +19,46 @@ namespace Player
             // 武器をアクティブにする。
             _weapon?.SetActive(true);
         }
+        private bool _isComboUpdate = false;
         public override void Update()
         {
-            // 現在再生中のコンボアニメーションナンバーと,現在ステートのコンボナンバーが一致し
-            // （トランジション中のアニメーションイベント発行防止策）←失敗
             // 攻撃アニメーションの再生が完了した時, 状態を遷移する。
-            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack) &&
-                (!_stateMachine.PlayerController.Animator.IsInTransition(2) &&
-                !_stateMachine.PlayerController.Animator.IsInTransition(3)))
+            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack))
             {
-                Transition();
-                return;
+                if (_isComboUpdate)
+                {
+                    _isComboUpdate = false;
+                    if (CurrentAnimOrderNumber + 2 <= MaxComboNumber)
+                    {
+                        CurrentAnimOrderNumber++;
+                        ChangeAnimation(CurrentAnimOrderNumber);
+                    }
+                    else
+                    {
+                        //Debug.LogError("アニメーションを更新できません！");
+                        //Debug.LogError(
+                        //    $"CurrentComboNumberは, {CurrentAnimOrderNumber}です！\n" +
+                        //    $"MaxComboNumberは, {MaxComboNumber}です！");
+
+                        Transition();
+                        return;
+                    }
+                }
+                else
+                {
+                    Transition();
+                    return;
+                }
             }
 
             // 攻撃入力が発生したとき
             // 次のコンボが存在するかチェックする
             // 次のコンボを再生する
-            if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
-                _stateMachine.PlayerController.Input.IsAttack2InputButtonDown())
+            if (!_isComboUpdate)
             {
-                if (CurrentAnimOrderNumber + 1 <= MaxComboNumber)
-                {
-                    CurrentAnimOrderNumber++;
-                    ChangeAnimation(CurrentAnimOrderNumber);
-                }
-                else
-                {
-                    Debug.LogError("アニメーションを更新できません！");
-                    Debug.LogError(
-                        $"CurrentComboNumberは, {CurrentAnimOrderNumber}です！\n" +
-                        $"MaxComboNumberは, {MaxComboNumber}です！");
-                }
+                _isComboUpdate =
+                    _stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
+                    _stateMachine.PlayerController.Input.IsAttack2InputButtonDown();
             }
         }
         public override void Exit()
@@ -60,6 +67,7 @@ namespace Player
             CurrentAnimOrderNumber = 0;
             // 武器を非アクティブにする。
             _weapon?.SetActive(false);
+            _isComboUpdate = false;
         }
         protected override void Transition()
         {
@@ -97,17 +105,15 @@ namespace Player
     {
         public override void Enter()
         {
-            // 最初のアニメーションを再生する
-            ChangeAnimation(CurrentAnimOrderNumber);
             // 縦の移動計算を停止する
             _stateMachine.PlayerController.IsVerticalCalculation = false;
+            base.Enter();
         }
         public override void Exit()
         {
-            // このステートの状態を初期化する。
-            CurrentAnimOrderNumber = 0;
             // 縦の移動計算を起動する
             _stateMachine.PlayerController.IsVerticalCalculation = true;
+            base.Exit();
         }
     }
 }

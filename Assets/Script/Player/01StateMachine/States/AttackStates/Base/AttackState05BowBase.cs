@@ -29,7 +29,8 @@ namespace Player
                 // 武器をアクティブにする。
                 // _weapon?.SetActive(true);
                 // 構えるアニメーションを再生する
-                ChangeAnimation((int)AnimNumber.Equip, AttackState.Equipment);
+                ChangeAnimation(0);
+                _currentState = AttackState.Equipment;
             }
             // 弾を1つも所持していないとき
             // 他のステートに遷移する
@@ -49,57 +50,78 @@ namespace Player
         {
             switch (_currentState)
             {
-                case AttackState.Equipment:
-                    await HoldWeapon();
-                    break;
-                case AttackState.Shoot:
-                    await Shoot();
-                    break;
-                case AttackState.Unarm:
-                    UnarmWeapon();
-                    break;
+                case AttackState.NotSet: Debug.LogError("想定していない値が渡されました！修正してください！"); break;
+                case AttackState.Equipment: Equipment(); break;
+                case AttackState.AimIdle: Aim(); break;
+                case AttackState.Shoot: Shoot(); break;
+                case AttackState.Unarm: UnarmWeapon(); break;
             }
         }
-        private async UniTask HoldWeapon()
-        {   // 両方のボタンが離されるまで待つ
-            // （待っている間にキャンセルボタンが押された時の事を想定して,
-            // CancellationTokenSourceを渡し、キャンセル時処理を行うようにする。）
-            await _stateMachine.PlayerController.IsAnimEndAsync(AnimType.HoldWeapon, default);
-            await UniTask.WaitUntil(() =>
-                !((_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
-                  _stateMachine.PlayerController.Input.IsAttack2InputButton())));
-            // 離されたとき撃つステートに遷移する
-            ChangeAnimation((int)AnimNumber.Recoil, AttackState.Shoot);
-        }
-        private async UniTask Shoot()
+        private void Equipment()
         {
-            // 弾の所持数を減らす（アイテムの実装が完了したら実装する）
-
-            // 攻撃アニメーションが再生し終わるまで待機
-            await UniTask.WaitUntil(() =>
-            _stateMachine.PlayerController.IsAnimEnd(AnimType.Attack));
-            // 攻撃アニメーションの再生が完了したら収めるステートに遷移する
-            ChangeAnimation((int)AnimNumber.Disarm, AttackState.Unarm);
+            // 構えるアニメーションの再生が完了したとき
+            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.HoldWeapon))
+            {
+                // 攻撃ボタンが押下されていたらAimへ, そうでなければShootへ遷移する。
+                if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
+                    _stateMachine.PlayerController.Input.IsAttack2InputButton())
+                {
+                    _currentState = AttackState.AimIdle;
+                    ChangeAnimation(1);
+                }
+                else
+                {
+                    _currentState = AttackState.Shoot;
+                    ChangeAnimation(2);
+                }
+            }
+        }
+        private void Aim()
+        {
+            // 攻撃ボタンが開放されとき、Shootへ遷移する。
+            if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
+                !_stateMachine.PlayerController.Input.IsAttack2InputButton())
+            {
+                _currentState = AttackState.Shoot;
+                ChangeAnimation(2);
+            }
+        }
+        private void Shoot()
+        {
+            // Shootアニメーションの再生が完了したとき
+            // 攻撃ボタンが押下されていたらAimへ
+            // そうでなければ UnarmWeaponへ遷移する。
+            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack))
+            {
+                if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
+                    _stateMachine.PlayerController.Input.IsAttack2InputButton())
+                {
+                    _currentState = AttackState.AimIdle;
+                    ChangeAnimation(1);
+                }
+                else
+                {
+                    _currentState = AttackState.Unarm;
+                    ChangeAnimation(3);
+                }
+            }
         }
         private void UnarmWeapon()
         {
-            // 武器を解くアニメーションの再生が完了したら通常ステートに遷移する
+            // 武装解除アニメーションの再生が完了したとき
+            // 他のステートに遷移する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.UnarmWeapon))
             {
                 Transition();
+                return;
             }
-            // いずれかの攻撃ボタンが押されたら
-            // もう一度撃つステートに遷移する
-            if (_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
-                  _stateMachine.PlayerController.Input.IsAttack2InputButton())
+            // 攻撃ボタンが押下されたときAimへ遷移する。
+            if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
+                _stateMachine.PlayerController.Input.IsAttack2InputButton())
             {
-                ChangeAnimation((int)AnimNumber.Aim, AttackState.Shoot);
+                _currentState = AttackState.AimIdle;
+                ChangeAnimation(1);
             }
-        }
-        private void ChangeAnimation(int orderNumber, AttackState nextState)
-        {
-            ChangeAnimation(orderNumber);
-            _currentState = nextState;
         }
         protected override void Transition()
         {
