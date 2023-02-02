@@ -79,6 +79,9 @@ namespace Player
         {
             Debug.LogWarning("未実装");
         }
+        /// <summary>
+        /// 攻撃中の移動アニメーションを管理するメソッド
+        /// </summary>
         protected void RunWhileAttacking()
         {
             if (_stateMachine.PlayerController.Input.IsMoveInput)

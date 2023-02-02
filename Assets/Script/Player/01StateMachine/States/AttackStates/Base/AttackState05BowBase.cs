@@ -31,6 +31,9 @@ namespace Player
                 // 構えるアニメーションを再生する
                 ChangeAnimation(0);
                 _currentState = AttackState.Equipment;
+                // 歩行可能にし、アニメーションを制御する。
+                _stateMachine.PlayerController.CanMove = true;
+                RunWhileAttacking();
             }
             // 弾を1つも所持していないとき
             // 他のステートに遷移する
@@ -45,9 +48,13 @@ namespace Player
             //  _weapon?.SetActive(false);
             // このステートの初期化処理を記述する
             _currentState = AttackState.NotSet;
+
+            // 移動不可にする
+            _stateMachine.PlayerController.CanMove = false;
         }
-        public override async void Update()
+        public override void Update()
         {
+            RunWhileAttacking();
             switch (_currentState)
             {
                 case AttackState.NotSet: Debug.LogError("想定していない値が渡されました！修正してください！"); break;
