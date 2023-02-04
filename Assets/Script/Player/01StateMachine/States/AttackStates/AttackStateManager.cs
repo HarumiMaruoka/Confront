@@ -67,6 +67,15 @@ namespace Player
         private AttackState03LargeSword _attackState03LargeSword = default;
         [SerializeField]
         private AttackState03LargeSwordMidair _attackState03LargeSwordMidair = default;
+
+        public AttackState00BasicGunFire AttackState00BasicGunFire => _attackState00BasicGunFire;
+        public AttackState00MidairBasicGunFire AttackState00BasicGunFireMidair => _attackState00BasicGunFireMidair;
+        public AttackState01BasicBow AttackState01BasicBow => _attackState01BasicBow;
+        public AttackState01BasicBowMidair AttackState01BasicBowMidair => _attackState01BasicBowMidair;
+        public AttackState02NomalSword AttackState02NomalSword => _attackState02NomalSword;
+        public AttackState02NomalSwordMidair AttackState02NomalSwordMidair => _attackState02NomalSwordMidair;
+        public AttackState03LargeSword AttackState03LargeSword => _attackState03LargeSword;
+        public AttackState03LargeSwordMidair AttackState03LargeSwordMidair => _attackState03LargeSwordMidair;
         #endregion
 
         public void Init(PlayerStateMachine stateMachine)

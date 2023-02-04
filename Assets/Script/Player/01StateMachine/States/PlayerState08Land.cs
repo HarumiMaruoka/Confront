@@ -9,17 +9,20 @@ namespace Player
     {
         [Tooltip("着地時もちょっとだけ動けるようにする。"), SerializeField, Range(0f, 1f)]
         private float _moveAcceleration = default;
+        // 移動加速度を元に戻すように保存するフィールド
+        private float _saveAccelerationValue = default;
 
         public override void Enter()
         {
             _stateMachine.PlayerController.CanMove = true;
-            _stateMachine.PlayerController.SpecialAcceleration = _moveAcceleration;
+            _saveAccelerationValue = _stateMachine.PlayerController.MoveHorizontalAcceleration;
+            _stateMachine.PlayerController.MoveHorizontalAcceleration = _moveAcceleration;
             _stateMachine.PlayerController.ResetMoveHorizontalSpeed();
         }
         public override void Exit()
         {
             _stateMachine.PlayerController.CanMove = false;
-            _stateMachine.PlayerController.SpecialAcceleration = 1f;
+            _stateMachine.PlayerController.MoveHorizontalAcceleration = _saveAccelerationValue;
             _stateMachine.PlayerController.ResetMoveHorizontalSpeed();
         }
         public override void Update()

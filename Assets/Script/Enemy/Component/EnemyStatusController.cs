@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Enemyのステータスを管理するクラス
 /// </summary>
-public class EnemyStatusController : MonoBehaviour
+public class EnemyStatusController : MonoBehaviour, ITakenDamage
 {
     [SerializeField]
     private EnemyStatus _status = default;
@@ -15,7 +15,7 @@ public class EnemyStatusController : MonoBehaviour
     /// <summary>
     /// ダメージ処理
     /// </summary>
-    public void Damage(int value)
+    public void TakenDamage(float value)
     {
         // ライフを減らす処理
         _status._life -= value;
@@ -25,6 +25,7 @@ public class EnemyStatusController : MonoBehaviour
             Death();
         }
     }
+
     /// <summary>
     /// 死亡時の処理
     /// </summary>

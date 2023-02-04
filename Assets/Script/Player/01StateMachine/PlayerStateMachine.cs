@@ -63,58 +63,57 @@ namespace Player
             Initialize(_idle);
 
             OnStateChanged += (previousState, nextState) =>
-            {
-                // 攻撃ステートのアニメーション遷移処理を登録する処理
-                if (previousState is PlayerState05AttackBase)
-                {
-                    // IDをリセットする
-                    _playerController.Animator?.SetInteger(
-                        _attackStateController.AttackEnumAnimName, -1);
-                    _attackStateController.OnAttackAnimEnd();
-                }
-                if (nextState is PlayerState05AttackBase)
-                {
-                    // IDを設定する
-                    _playerController.Animator?.SetInteger(
-                        _attackStateController.AttackEnumAnimName,
-                        (int)(nextState as PlayerState05AttackBase).WeaponType);
+             {
+                 // 攻撃ステートのアニメーション遷移処理を登録する処理
+                 if (previousState is PlayerState05AttackBase)
+                 {
+                     // IDをリセットする
+                     _playerController.Animator?.SetInteger(
+                          _attackStateController.AttackEnumAnimName, -1);
+                     _attackStateController.OnAttackAnimEnd();
 
-                    // 空中攻撃の場合
-                    if (previousState is IMidairAttack)
-                    {
-                        // 攻撃アニメーションパラメータにfalseを設定する
-                        _playerController.Animator?.SetBool(
-                            _attackStateController.MidairAttackAnimName, true);
-                        Observable.NextFrame()
-                            .Subscribe(_ => _playerController.Animator?.SetBool(
-                            _attackStateController.MidairAttackAnimName, false));
-                    }
-                    // 地上攻撃の場合
-                    else
-                    {
-                        // 攻撃アニメーションパラメータにtrueを設定する
-                        _playerController.Animator?.SetBool(
-                            _attackStateController.AttackAnimName, true);
-                        Observable.NextFrame()
-                            .Subscribe(_ => _playerController.Animator?.SetBool(
-                            _attackStateController.AttackAnimName, false));
-                    }
-                }
+                     _playerController.Animator?.SetBool(
+                         _attackStateController.AttackAnimName, false);
+                     _playerController.Animator?.SetBool(
+                          _attackStateController.MidairAttackAnimName, false);
+                 }
+                 if (nextState is PlayerState05AttackBase)
+                 {
+                     // IDを設定する
+                     _playerController.Animator?.SetInteger(
+                          _attackStateController.AttackEnumAnimName,
+                          (int)(nextState as PlayerState05AttackBase).WeaponType);
 
-                // 攻撃ステート以外のアニメーション遷移処理を登録処理
-                //   前のステート独自のアニメーションパラメータ名をfalseにし、
-                //   次のステート独自のアニメーションパラメータ名をtrueにする。
-                if (previousState is PlayerState00Base)
-                {
-                    _playerController.Animator?.SetBool(
-                        (previousState as PlayerState00Base).AnimParameterName, false);
-                }
-                if (nextState is PlayerState00Base)
-                {
-                    _playerController.Animator?.SetBool(
-                        (nextState as PlayerState00Base).AnimParameterName, true);
-                }
-            };
+                     // 空中攻撃の場合
+                     if (nextState is IMidairAttack)
+                     {
+                         // 攻撃アニメーションパラメータにfalseを設定する
+                         _playerController.Animator?.SetBool(
+                              _attackStateController.MidairAttackAnimName, true);
+                     }
+                     // 地上攻撃の場合
+                     else
+                     {
+                         // 攻撃アニメーションパラメータにtrueを設定する
+                         _playerController.Animator?.SetBool(
+                              _attackStateController.AttackAnimName, true);
+                     }
+                 }
+
+                 // 攻撃ステート以外のアニメーション遷移処理を登録処理
+                 //   前のステート独自のアニメーションパラメータ名をfalseにし、
+                 //   次のステート独自のアニメーションパラメータ名をtrueにする。
+                 if (previousState is PlayerState00Base)
+                 {
+                     _playerController.Animator?.SetBool(
+                         (previousState as PlayerState00Base).AnimParameterName, false);
+                 }
+                 if (nextState is PlayerState00Base)
+                 {
+                     _playerController.Animator?.SetBool(
+                         (nextState as PlayerState00Base).AnimParameterName, true);
+                 }
+             };
 
             // 攻撃ステートマネージャー初期化
             _attackStateController.Init(this);

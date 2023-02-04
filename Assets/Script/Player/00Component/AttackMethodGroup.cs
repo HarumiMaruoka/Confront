@@ -43,7 +43,7 @@ namespace Player
         [SerializeField]
         private Helper.Raycast _gunRay = default;
         [SerializeField, Range(1, 10)]
-        private int _testGunDamage = 1;
+        private float _testGunDamage = 1;
         /// <summary>
         /// 前方にレイを飛ばしヒットした対象にダメージを加える
         /// </summary>
@@ -51,9 +51,9 @@ namespace Player
         {
             if (_gunRay.IsHit())
             {
-                if (_gunRay.Result.collider.TryGetComponent(out EnemyStatusController enemy))
+                if (_gunRay.Result.collider.TryGetComponent(out ITakenDamage target))
                 {
-                    enemy.Damage(_testGunDamage);
+                    target.TakenDamage(_testGunDamage);
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace Player
         [SerializeField]
         private Helper.OverLapBox _nomalSword = default;
         [SerializeField, Range(1, 100)]
-        private int _testNomalSwordDamage = 1;
+        private float _testNomalSwordDamage = 1;
         /// <summary>
         /// 前方にレイを飛ばしヒットした対象にダメージを加える
         /// </summary>
@@ -71,13 +71,14 @@ namespace Player
             // 上半身と下半身で同じアニメーションを使用しているため、
             // アニメーションイベントが二回呼ばれ、二倍のダメージが敵に入る。
             // これは仕様です。
+            // (二回処理が走っているので、もしパフォーマンスを向上させたいと感じたら。全身用のアニメーションで再生する。)
             if (_nomalSword.IsHit())
             {
                 foreach (var e in _nomalSword.GetCollider())
                 {
-                    if (e.TryGetComponent(out EnemyStatusController enemy))
+                    if (e.TryGetComponent(out ITakenDamage target))
                     {
-                        enemy.Damage(_testNomalSwordDamage);
+                        target.TakenDamage(_testNomalSwordDamage);
                     }
                 }
             }

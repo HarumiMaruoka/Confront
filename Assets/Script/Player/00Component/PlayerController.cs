@@ -130,6 +130,10 @@ namespace Player
 
         // ================== アニメーションに関連するメソッド群 ================== //
         #region Animation
+        [Header("アニメーションに関わる値")]
+        [SerializeField]
+        private GameObject _animationArrow = default;
+
         /// <summary> アニメーションの終了を検知する用の変数名 </summary>
         private AnimType _isAnimationEndDetection = AnimType.NotSet;
         /// <summary> 引数に指定されたアニメーションの再生が終了されるフレームのみ"true"を返す。 </summary>
@@ -189,6 +193,14 @@ namespace Player
                 Debug.LogWarning("無効な命令が発行されました。");
             }
         }
+        public void OnActiveArrow()
+        {
+            _animationArrow.SetActive(true);
+        }
+        public void OnDisableArrow()
+        {
+            _animationArrow.SetActive(false);
+        }
         #endregion
 
         // ================== 移動に関連するメソッド群 ================== //
@@ -223,11 +235,12 @@ namespace Player
         #endregion
 
         #region Horizontal
-        public float SpecialAcceleration { get; set; } = 1f;
-        public bool CanMove { get => _canMove; set => _canMove = value; }
-
         private Vector3 _moveSpeedHorizontal = default;
-        Quaternion _targetRotation = default;
+        private Quaternion _targetRotation = default;
+
+        public bool CanMove { get => _canMove; set => _canMove = value; }
+        public float MaxMoveSpeedHorizontal { get => _maxMoveSpeedHorizontal; set => _maxMoveSpeedHorizontal = value; }
+        public float MoveHorizontalAcceleration { get => _movementAccelerationHorizontal; set => _movementAccelerationHorizontal = value; }
 
         private void Move()
         {
@@ -248,7 +261,7 @@ namespace Player
 
                 // 加速の計算
                 _currentMoveSpeedHorizontal +=
-                    _movementAccelerationHorizontal * Time.deltaTime * SpecialAcceleration;
+                    _movementAccelerationHorizontal * Time.deltaTime;
                 if (_currentMoveSpeedHorizontal > _maxMoveSpeedHorizontal)
                 {
                     // Debug.Log("最大速度です");
@@ -354,6 +367,20 @@ namespace Player
 
         // ================== 攻撃に関連するメソッド群 ================== //
         #region Attack
+        [Header("攻撃に関する値")]
+        [SerializeField]
+        private GameObject _attackArrow = default;
+        [SerializeField]
+        private GameObject _nomalArrow = default;
+        [SerializeField]
+        private Collider[] _nonContactTarget = default;
+        [SerializeField]
+        private Transform _arrowGeneratePos = default;
+        [SerializeField]
+        private float _minArrowShootPower = default;
+        [SerializeField]
+        private float _maxArrowShootPower = default;
+
         /// <summary>
         /// 攻撃入力を有効化, 無効化の設定する。<br/>
         /// 通常は, 攻撃ステート開始時と, 攻撃のアニメーションイベントから呼び出す。
@@ -371,6 +398,23 @@ namespace Player
             Input.IsAcceptingAttackInput = false;
             await UniTask.Delay((int)(_stateMachine.AttackStateController.AttackInterval * 1000f));
             Input.IsAcceptingAttackInput = true;
+        }
+        /// <summary>
+        /// 矢を放つ処理
+        /// </summary>
+        public void ShootArrow()
+        {
+            // 下限値を加算した値を取得
+            var shootPower = _minArrowShootPower +
+                _stateMachine.AttackStateController.
+                AttackState01BasicBow.CurrentShootArrowPower;
+            // 上限値以内に補正する
+            if (shootPower > _maxArrowShootPower)
+                shootPower = _maxArrowShootPower;
+
+            // 矢を生成し、前方に放つ
+            var arrow = Instantiate(_attackArrow, _arrowGeneratePos);
+            arrow.GetComponent<AttackArrowController>().Setup(_nomalArrow, _nonContactTarget, shootPower);
         }
         #endregion
     }

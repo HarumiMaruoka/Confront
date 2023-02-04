@@ -1,5 +1,5 @@
 [System.Serializable]
 public struct EnemyStatus
 {
-    public int _life;
+    public float _life;
 }

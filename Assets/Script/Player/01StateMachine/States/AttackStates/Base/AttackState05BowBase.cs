@@ -10,15 +10,29 @@ namespace Player
     /// </summary>
     public class AttackState05BowBase : PlayerState05AttackBase
     {
+        /// <summary> このステート内のステート </summary>
         private AttackState _currentState = default;
-        private string _cancelButtonName = null;
 
+        [Tooltip("このステート中の移動加速度"), SerializeField]
+        private float _moveAcceleration = default;
+        // 移動加速度を元に戻すように保存するフィールド
+        private float _saveAccelerationValue = default;
+
+        [Tooltip("このステート中の最大移動速度"), SerializeField]
+        private float _maxMoveSpeed = default;
+        // 最大移動速度を元に戻すように保存するフィールド
+        private float _saveMaxMoveSpeedValue = default;
+
+        [Tooltip("矢の初速度の加算割合"), SerializeField, Range(1f, 10f)]
+        private float _shootArrowPowerAddition = 1f;
+        private float _maxShootArrowPower = 9999f;
+        [Tooltip("インスペクタで確認する用"), SerializeField]
+        private float _currentShootArrowPower = 0f;
+        public float CurrentShootArrowPower => _currentShootArrowPower;
 
         public override void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
         {
             base.Init(stateMachine, attackStateController);
-            // キャンセルボタンを設定する（今回は, トークボタンを割り当てる。）
-            _cancelButtonName = _stateMachine.PlayerController.Input.TalkButtonName;
         }
 
         public override void Enter()
@@ -34,6 +48,12 @@ namespace Player
                 // 歩行可能にし、アニメーションを制御する。
                 _stateMachine.PlayerController.CanMove = true;
                 RunWhileAttacking();
+                // 移動速度を変更する / 元の移動速度を保存する
+                _saveAccelerationValue = _stateMachine.PlayerController.MoveHorizontalAcceleration;
+                _stateMachine.PlayerController.MoveHorizontalAcceleration = _moveAcceleration;
+
+                _saveMaxMoveSpeedValue = _stateMachine.PlayerController.MaxMoveSpeedHorizontal;
+                _stateMachine.PlayerController.MaxMoveSpeedHorizontal = _maxMoveSpeed;
             }
             // 弾を1つも所持していないとき
             // 他のステートに遷移する
@@ -51,6 +71,9 @@ namespace Player
 
             // 移動不可にする
             _stateMachine.PlayerController.CanMove = false;
+            // 移動速度を元に戻す
+            _stateMachine.PlayerController.MoveHorizontalAcceleration = _saveAccelerationValue;
+            _stateMachine.PlayerController.MaxMoveSpeedHorizontal = _saveMaxMoveSpeedValue;
         }
         public override void Update()
         {
@@ -74,6 +97,7 @@ namespace Player
                     _stateMachine.PlayerController.Input.IsAttack2InputButton())
                 {
                     _currentState = AttackState.AimIdle;
+                    _currentShootArrowPower = 0f;
                     ChangeAnimation(1);
                 }
                 else
@@ -85,16 +109,29 @@ namespace Player
         }
         private void Aim()
         {
+            // Debug.Log("I aim Now");
+            // 矢の初速度を加算していくｩ!
+            _currentShootArrowPower += Time.deltaTime * _shootArrowPowerAddition;
+            // 上限を超えないようにする。
+            if (_currentShootArrowPower > _maxShootArrowPower) _currentShootArrowPower = _maxShootArrowPower;
             // 攻撃ボタンが開放されとき、Shootへ遷移する。
             if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
                 !_stateMachine.PlayerController.Input.IsAttack2InputButton())
             {
                 _currentState = AttackState.Shoot;
                 ChangeAnimation(2);
+                return;
+            }
+            // キャンセルボタン(TalkButton)が押された時, 武装解除する
+            if (_stateMachine.PlayerController.Input.IsTalkInput)
+            {
+                _currentState = AttackState.Unarm;
+                ChangeAnimation(3);
             }
         }
         private void Shoot()
         {
+            // Debug.Log("I shoot Now");
             // Shootアニメーションの再生が完了したとき
             // 攻撃ボタンが押下されていたらAimへ
             // そうでなければ UnarmWeaponへ遷移する。
@@ -104,6 +141,7 @@ namespace Player
                     _stateMachine.PlayerController.Input.IsAttack2InputButton())
                 {
                     _currentState = AttackState.AimIdle;
+                    _currentShootArrowPower = 0f;
                     ChangeAnimation(1);
                 }
                 else
@@ -115,19 +153,22 @@ namespace Player
         }
         private void UnarmWeapon()
         {
+            // 攻撃ボタンが押下されたときAimへ遷移する。
+            if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
+                _stateMachine.PlayerController.Input.IsAttack2InputButton())
+            {
+                _currentState = AttackState.AimIdle;
+                _currentShootArrowPower = 0f;
+                ChangeAnimation(1);
+                return;
+            }
+            // Debug.Log("I disaim Now");
             // 武装解除アニメーションの再生が完了したとき
             // 他のステートに遷移する。
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.UnarmWeapon))
             {
                 Transition();
                 return;
-            }
-            // 攻撃ボタンが押下されたときAimへ遷移する。
-            if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
-                _stateMachine.PlayerController.Input.IsAttack2InputButton())
-            {
-                _currentState = AttackState.AimIdle;
-                ChangeAnimation(1);
             }
         }
         protected override void Transition()
