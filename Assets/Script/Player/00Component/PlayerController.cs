@@ -184,6 +184,11 @@ namespace Player
         }
         public void OnDisableWeapon()
         {
+            // 遷移中なら無視する
+            if (_animator.IsInTransition(1))
+            {
+                return;
+            }
             if (_stateMachine.CurrentState is PlayerState05AttackBase)
             {
                 (_stateMachine.CurrentState as PlayerState05AttackBase).Weapon.SetActive(false);
@@ -412,9 +417,14 @@ namespace Player
             if (shootPower > _maxArrowShootPower)
                 shootPower = _maxArrowShootPower;
 
+            Debug.Log($"矢の力は\"{shootPower}\"です");
             // 矢を生成し、前方に放つ
-            var arrow = Instantiate(_attackArrow, _arrowGeneratePos);
-            arrow.GetComponent<AttackArrowController>().Setup(_nomalArrow, _nonContactTarget, shootPower);
+            var arrow = Instantiate(_attackArrow, _arrowGeneratePos.position, Quaternion.identity);
+            arrow.GetComponent<AttackArrowController>().Setup(_nomalArrow, _nonContactTarget, shootPower,
+                new Vector3(transform.forward.x, 0.2f, transform.forward.z));
+
+            // アニメーション用の矢を非アクティブにする。
+            _animationArrow.SetActive(false);
         }
         #endregion
     }

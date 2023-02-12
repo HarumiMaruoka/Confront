@@ -35,11 +35,6 @@ namespace Player
                     }
                     else
                     {
-                        //Debug.LogError("アニメーションを更新できません！");
-                        //Debug.LogError(
-                        //    $"CurrentComboNumberは, {CurrentAnimOrderNumber}です！\n" +
-                        //    $"MaxComboNumberは, {MaxComboNumber}です！");
-
                         Transition();
                         return;
                     }
