@@ -28,13 +28,14 @@ namespace Player
                 if (_isComboUpdate)
                 {
                     _isComboUpdate = false;
-                    if (CurrentAnimOrderNumber + 2 <= MaxComboNumber)
+                    if (CurrentAnimOrderNumber + 1 < MaxComboNumber)
                     {
                         CurrentAnimOrderNumber++;
                         ChangeAnimation(CurrentAnimOrderNumber);
                     }
                     else
                     {
+                        Debug.Log($"{CurrentAnimOrderNumber}, {MaxComboNumber}");
                         Transition();
                         return;
                     }

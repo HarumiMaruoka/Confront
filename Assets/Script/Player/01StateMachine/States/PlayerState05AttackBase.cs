@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using UniRx;
 using UnityEngine;
 
@@ -60,17 +61,16 @@ namespace Player
         /// アニメーションの更新命令
         /// </summary>
         /// <param name="targetNumber"></param>
-        protected void ChangeAnimation(int targetNumber)
+        protected async void ChangeAnimation(int targetNumber)
         {
             // アニメーションの更新命令
             _stateMachine.PlayerController.Animator.
                 SetInteger(_attackStateManager.OrderNumberAnimName, targetNumber);
             _stateMachine.PlayerController.Animator.
                 SetBool(_attackStateManager.AnimUpdateTriggerAnimName, true);
-            // 遮断処理
-            Observable.NextFrame()
-                 .Subscribe(_ => _stateMachine.PlayerController.Animator.
-                SetBool(_attackStateManager.AnimUpdateTriggerAnimName, false));
+            await UniTask.DelayFrame(1);
+            _stateMachine.PlayerController.Animator.
+                 SetBool(_attackStateManager.AnimUpdateTriggerAnimName, false);
         }
         /// <summary>
         /// ステート遷移処理

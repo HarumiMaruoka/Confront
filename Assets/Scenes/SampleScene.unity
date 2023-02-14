@@ -356,7 +356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.92853, y: 3.4347324, z: 10.690001}
+  m_LocalPosition: {x: -17.922354, y: 3.4347324, z: 10.690001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -930,7 +930,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33396
+  m_Name: pb_Mesh28856
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2877,7 +2877,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33426
+  m_Name: pb_Mesh28870
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3324,7 +3324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086805009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.92853, y: 3.4347324, z: 10.690001}
+  m_LocalPosition: {x: -17.922354, y: 3.4347324, z: 10.690001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3345,7 +3345,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 953294458000724726, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 953294458007986482, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: eea179eee471f254f963ed07f51ce853, type: 2}
     - target: {fileID: 953294458103544678, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1163385820024959215, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3460,6 +3475,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -62.826
       objectReference: {fileID: 0}
+    - target: {fileID: 2471093441826992683, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4509088394488100289, guid: a96b174be519d7a43bd4353e96946e18,
         type: 3}
       propertyPath: _arrow
@@ -3536,6 +3556,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _stateMachine._attackStateController._attackState01BasicBow._shootArrowPowerAddition
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902696445182451798, guid: a96b174be519d7a43bd4353e96946e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a96b174be519d7a43bd4353e96946e18, type: 3}

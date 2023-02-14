@@ -31,21 +31,17 @@ namespace Player
                 _stateMachine.TransitionTo(_stateMachine.Midair);
                 return;
             }
-            // 着地アニメーションの再生が終了したとき遷移処理を実行する。
-            if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Land))
+            // 移動入力があるとき、ステートをMoveに遷移する。
+            if (_stateMachine.PlayerController.Input.IsMoveInput)
             {
-                // 移動入力があるとき、ステートをMoveに遷移する。
-                if (_stateMachine.PlayerController.Input.IsMoveInput)
-                {
-                    _stateMachine.TransitionTo(_stateMachine.Move);
-                    return;
-                }
-                // 移動入力があるとき、ステートをMoveに遷移する。
-                else
-                {
-                    _stateMachine.TransitionTo(_stateMachine.Idle);
-                    return;
-                }
+                _stateMachine.TransitionTo(_stateMachine.Move);
+                return;
+            }
+            // 移動入力があるとき、ステートをMoveに遷移する。
+            else
+            {
+                _stateMachine.TransitionTo(_stateMachine.Idle);
+                return;
             }
         }
 

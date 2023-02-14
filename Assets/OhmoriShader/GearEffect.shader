@@ -16,7 +16,7 @@ Shader"Unlit/GearEffect"
     {
         Tags 
         {
-            "RenderType"="Opaque"
+            "RenderType"="Transparent"
             "RenderPipeline" = "UniversalPipeline"
         }
         Blend One OneMinusSrcAlpha
@@ -106,7 +106,7 @@ Shader"Unlit/GearEffect"
                 normal = normalize(normal);
                 Light light = GetMainLight();
                 float diffuse = dot(normal, light.direction);
-                half4 col = tex2D(_MainTex, i.uv);
+                half4 col = half4(tex2D(_MainTex, i.uv).rgb, 1);
                 col.rgb *= diffuse;
     
                 // dissolve

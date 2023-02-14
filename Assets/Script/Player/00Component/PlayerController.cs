@@ -161,20 +161,17 @@ namespace Player
         }
         // アニメーションイベントで呼び出す想定で作成したメソッド
         /// <summary> 引数をフィールドに保存する。1フレーム後にフィールドを"AnimType.NotSet"に戻す。 </summary>
-        public void OnAnimEnd(AnimType animType)
+        public async void OnAnimEnd(AnimType animType)
         {
             _isAnimationEndDetection = animType;
-            if (animType == AnimType.Attack)
-            {
-                WaitAttackInterval();
-            }
-            Observable.NextFrame()
-                .Subscribe(_ => _isAnimationEndDetection = AnimType.NotSet);
+            await UniTask.DelayFrame(2);
+            _isAnimationEndDetection = AnimType.NotSet;
         }
         public void OnActiveWeapon()
         {
             if (_stateMachine.CurrentState is PlayerState05AttackBase)
             {
+                // ここにフェードイン（ディゾルヴ）処理を記述する
                 (_stateMachine.CurrentState as PlayerState05AttackBase).Weapon.SetActive(true);
             }
             else
@@ -191,6 +188,7 @@ namespace Player
             }
             if (_stateMachine.CurrentState is PlayerState05AttackBase)
             {
+                // ここにフェードアウト（ディゾルヴ）処理を記述する
                 (_stateMachine.CurrentState as PlayerState05AttackBase).Weapon.SetActive(false);
             }
             else
@@ -452,6 +450,11 @@ namespace Player
         Attack,
         /// <summary> 武器の構えを解く </summary>
         UnarmWeapon,
+
+        /// <summary> 武器の表示アニメーション（フェードアウト） </summary>
+        WeaponFadeIn,
+        /// <summary> 武器の非表示アニメーション（フェードイン） </summary>
+        WeaponFadeOut,
     }
     #endregion
 }
