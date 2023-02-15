@@ -44799,7 +44799,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.3333334
+  - time: 0.6666667
     functionName: OnDisableWeapon
     data: 
     objectReferenceParameter: {fileID: 0}

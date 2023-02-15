@@ -171,15 +171,16 @@ namespace Player
         {
             if (_stateMachine.CurrentState is PlayerState05AttackBase)
             {
-                // ここにフェードイン（ディゾルヴ）処理を記述する
-                (_stateMachine.CurrentState as PlayerState05AttackBase).Weapon.SetActive(true);
+                var attckState = (_stateMachine.CurrentState as PlayerState05AttackBase);
+                attckState.Weapon.SetActive(true);
+                attckState.WeaponAnimator?.Play("FadeIn");
             }
             else
             {
                 Debug.LogWarning("無効な命令が発行されました。");
             }
         }
-        public void OnDisableWeapon()
+        public async void OnDisableWeapon()
         {
             // 遷移中なら無視する
             if (_animator.IsInTransition(1))
@@ -189,7 +190,17 @@ namespace Player
             if (_stateMachine.CurrentState is PlayerState05AttackBase)
             {
                 // ここにフェードアウト（ディゾルヴ）処理を記述する
-                (_stateMachine.CurrentState as PlayerState05AttackBase).Weapon.SetActive(false);
+                var attckState = (_stateMachine.CurrentState as PlayerState05AttackBase);
+                attckState.WeaponAnimator?.Play("FadeOut");
+                try
+                {
+                    await UniTask.WaitUntil(() => IsAnimEnd(AnimType.WeaponFadeOut));
+                }
+                catch (OperationCanceledException)
+                {
+                    Debug.LogWarning("cancelされました");
+                }
+                attckState.Weapon.SetActive(false);
             }
             else
             {

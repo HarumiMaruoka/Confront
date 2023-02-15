@@ -29,9 +29,12 @@ namespace Player
         [Tooltip("この攻撃ステートのIDNumber"), SerializeField]
         protected int _myID = -1;
 
+        private Animator _weaponAnimator = null;
+
         public WeaponType WeaponType => _weaponType;
         public GameObject Weapon => _weapon;
         public int MyID => _myID;
+        public Animator WeaponAnimator => _weaponAnimator;
 
         /// <summary> 現在 何コンボ目を実行中か表す値 （0からカウントアップ） </summary>
         public int CurrentAnimOrderNumber { get; protected set; } = 0;
@@ -40,6 +43,7 @@ namespace Player
         {
             _stateMachine = stateMachine;
             _attackStateManager = attackStateController;
+            if (_weapon != null) _weaponAnimator = _weapon.GetComponent<Animator>();
         }
 
         /// <summary> 攻撃ステートの開始処理 </summary>

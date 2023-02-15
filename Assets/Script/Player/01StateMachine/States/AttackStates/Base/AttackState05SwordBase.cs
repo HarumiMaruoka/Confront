@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
+using UnityEngine;
 
 namespace Player
 {
@@ -12,12 +15,22 @@ namespace Player
 
         public int MaxComboNumber => _maxComboNumber;
 
-        public override void Enter()
+        private CancellationTokenSource _fadeOutCanceller = new CancellationTokenSource();
+
+        public override void Init(PlayerStateMachine stateMachine, AttackStateManager attackStateController)
+        {
+            base.Init(stateMachine, attackStateController);
+        }
+        public async override void Enter()
         {
             // 最初のアニメーションを再生する
             ChangeAnimation(CurrentAnimOrderNumber);
             // 武器をアクティブにする。
             _weapon?.SetActive(true);
+            WeaponAnimator?.SetBool("OnFadeIn", true);
+            _fadeOutCanceller.Cancel();
+            await UniTask.DelayFrame(1);
+            WeaponAnimator?.SetBool("OnFadeIn", false);
         }
         private bool _isComboUpdate = false;
         public override void Update()
@@ -57,13 +70,16 @@ namespace Player
                     _stateMachine.PlayerController.Input.IsAttack2InputButtonDown();
             }
         }
-        public override void Exit()
+        public async override void Exit()
         {
             // このステートの状態を初期化する。
             CurrentAnimOrderNumber = 0;
-            // 武器を非アクティブにする。
-            _weapon?.SetActive(false);
             _isComboUpdate = false;
+
+            WeaponAnimator?.SetBool("OnFadeOut", true);
+            await UniTask.DelayFrame(1);
+            WeaponAnimator?.SetBool("OnFadeOut", false);
+
         }
         protected override void Transition()
         {

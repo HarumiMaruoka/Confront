@@ -129,7 +129,7 @@ namespace Player
         private void InitState(PlayerState05AttackBase landState, PlayerState05AttackBase midairState)
         {
             InitState(LandStates, landState);
-            InitState(MidairStates, midairState);
+            //InitState(MidairStates, midairState);
         }
         /// <summary>
         /// ”z—ñ‚É“o˜^‚·‚éˆ—
