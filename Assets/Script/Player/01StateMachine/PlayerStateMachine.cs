@@ -119,7 +119,7 @@ namespace Player
             _attackStateController.Init(this);
 
             // =================== テスト用処理 =================== //
-            _attackStateController.SetBothState(0, 2);
+            _attackStateController.SetBothState(1, 3);
             // ==================================================== //
         }
         protected override void StateInit()
