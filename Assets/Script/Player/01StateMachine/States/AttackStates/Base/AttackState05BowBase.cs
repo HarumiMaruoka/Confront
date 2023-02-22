@@ -94,7 +94,8 @@ namespace Player
             {
                 // 攻撃ボタンが押下されていたらAimへ, そうでなければShootへ遷移する。
                 if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
-                    _stateMachine.PlayerController.Input.IsAttack2InputButton())
+                    _stateMachine.PlayerController.Input.IsAttack2InputButton() ||
+                    _stateMachine.PlayerController.Input.IsAttack3InputButton())
                 {
                     _currentState = AttackState.AimIdle;
                     _currentShootArrowPower = 0f;
@@ -116,17 +117,12 @@ namespace Player
             if (_currentShootArrowPower > _maxShootArrowPower) _currentShootArrowPower = _maxShootArrowPower;
             // 攻撃ボタンが開放されとき、Shootへ遷移する。
             if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
-                !_stateMachine.PlayerController.Input.IsAttack2InputButton())
+                !_stateMachine.PlayerController.Input.IsAttack2InputButton() &&
+                !_stateMachine.PlayerController.Input.IsAttack3InputButton())
             {
                 _currentState = AttackState.Shoot;
                 ChangeAnimation(2);
                 return;
-            }
-            // キャンセルボタン(TalkButton)が押された時, 武装解除する
-            if (_stateMachine.PlayerController.Input.IsTalkInput)
-            {
-                _currentState = AttackState.Unarm;
-                ChangeAnimation(3);
             }
         }
         private void Shoot()
@@ -138,7 +134,8 @@ namespace Player
             if (_stateMachine.PlayerController.IsAnimEnd(AnimType.Attack))
             {
                 if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
-                    _stateMachine.PlayerController.Input.IsAttack2InputButton())
+                    _stateMachine.PlayerController.Input.IsAttack2InputButton() ||
+                    _stateMachine.PlayerController.Input.IsAttack3InputButton())
                 {
                     _currentState = AttackState.AimIdle;
                     _currentShootArrowPower = 0f;
@@ -155,7 +152,8 @@ namespace Player
         {
             // 攻撃ボタンが押下されたときAimへ遷移する。
             if (_stateMachine.PlayerController.Input.IsAttack1InputButton() ||
-                _stateMachine.PlayerController.Input.IsAttack2InputButton())
+                _stateMachine.PlayerController.Input.IsAttack2InputButton() ||
+                _stateMachine.PlayerController.Input.IsAttack3InputButton())
             {
                 _currentState = AttackState.AimIdle;
                 _currentShootArrowPower = 0f;

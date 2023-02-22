@@ -11,6 +11,14 @@ namespace Player
     /// </summary>
     public class AttackState05GunBase : PlayerState05AttackBase
     {
+        [SerializeField]
+        private GameObject _effect = default;
+        [SerializeField]
+        private Vector3 _offset = default;
+        [SerializeField]
+        private Transform _parent = default;
+
+        GameObject _effectclone = default;
         private AttackState _currentState = AttackState.NotSet;
         public override void Enter()
         {
@@ -86,13 +94,15 @@ namespace Player
                 // 武器をアクティブにする。
                 _weapon?.SetActive(true);
                 if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
-                    !_stateMachine.PlayerController.Input.IsAttack2InputButton())
+                    !_stateMachine.PlayerController.Input.IsAttack2InputButton() &&
+                    !_stateMachine.PlayerController.Input.IsAttack3InputButton())
                 {
                     _currentState = AttackState.Unarm;
                     ChangeAnimation(2);
                 }
                 else
                 {
+                    _effectclone = GameObject.Instantiate(_effect, _stateMachine.PlayerController.transform.position + _offset, Quaternion.identity, _parent);
                     _currentState = AttackState.Shoot;
                     ChangeAnimation(1);
                 }
@@ -113,8 +123,10 @@ namespace Player
             }
             _timer += Time.deltaTime;
             if (!_stateMachine.PlayerController.Input.IsAttack1InputButton() &&
-                !_stateMachine.PlayerController.Input.IsAttack2InputButton())
+                !_stateMachine.PlayerController.Input.IsAttack2InputButton() &&
+                !_stateMachine.PlayerController.Input.IsAttack3InputButton())
             {
+                GameObject.Destroy(_effectclone);
                 _currentState = AttackState.Unarm;
                 ChangeAnimation(2);
             }

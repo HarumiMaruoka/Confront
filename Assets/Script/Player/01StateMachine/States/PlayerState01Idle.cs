@@ -14,13 +14,6 @@ namespace Player
                 _stateMachine.TransitionTo(_stateMachine.Midair);
                 return;
             }
-            // 会話入力が検出されたとき かつ プレイヤーの前方にHumanが検出されたとき、Talkに遷移する
-            if (_stateMachine.PlayerController.Input.IsTalkInput &&
-                _stateMachine.PlayerController.TalkChecker.IsHit())
-            {
-                _stateMachine.TransitionTo(_stateMachine.Talk);
-                return;
-            }
             // 攻撃入力が検知されたとき、Attackに遷移する
             if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() &&
                 _stateMachine.Attack1 != null &&
@@ -34,6 +27,13 @@ namespace Player
                 !_stateMachine.IsAttackIntervalNow)
             {
                 _stateMachine.TransitionTo(_stateMachine.Attack2);
+                return;
+            }
+            if (_stateMachine.PlayerController.Input.IsAttack3InputButtonDown() &&
+                _stateMachine.Attack3 != null &&
+                !_stateMachine.IsAttackIntervalNow)
+            {
+                _stateMachine.TransitionTo(_stateMachine.Attack3);
                 return;
             }
             // ジャンプ入力が検知されたとき、ステートをJumpに遷移する。

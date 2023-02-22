@@ -17,21 +17,6 @@ namespace Player
         }
         public override void Update()
         {
-            // 攻撃入力が検知されたとき、MidairAttackに遷移する
-            if (_stateMachine.PlayerController.Input.IsAttack1InputButtonDown() &&
-                _stateMachine.MidairAttack1 != null &&
-                !_stateMachine.IsAttackIntervalNow)
-            {
-                _stateMachine.TransitionTo(_stateMachine.MidairAttack1);
-                return;
-            }
-            if (_stateMachine.PlayerController.Input.IsAttack2InputButtonDown() &&
-                _stateMachine.MidairAttack2 != null &&
-                !_stateMachine.IsAttackIntervalNow)
-            {
-                _stateMachine.TransitionTo(_stateMachine.MidairAttack2);
-                return;
-            }
             // 接地状態が検出されたとき、Landに遷移する
             if (_stateMachine.PlayerController.GroundChecker.IsHit())
             {

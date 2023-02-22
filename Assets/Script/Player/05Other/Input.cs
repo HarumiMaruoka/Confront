@@ -18,13 +18,11 @@ namespace Player
         private string _attack1 = default;
         [InputName, SerializeField]
         private string _attack2 = default;
+        [InputName, SerializeField]
+        private string _attack3 = default;
 
         [InputName, SerializeField]
         private string _menu = default;
-        [InputName, SerializeField]
-        private string _talk = default;
-
-        public string TalkButtonName => _talk;
 
         public bool IsAcceptingAttackInput { get; set; } = true;
 
@@ -32,8 +30,6 @@ namespace Player
         public bool IsJumpInput => UnityEngine.Input.GetButtonDown(_jump);
         // ƒƒjƒ…[
         public bool IsMenuInput => UnityEngine.Input.GetButtonDown(_menu);
-        // ‰ï˜b
-        public bool IsTalkInput => UnityEngine.Input.GetButtonDown(_talk);
         // ˆÚ“®
         public bool IsMoveInput => MoveHorizontalDir.sqrMagnitude > 0.5f;
         public Vector3 MoveHorizontalDir =>
@@ -56,6 +52,13 @@ namespace Player
             else
                 return false;
         }
+        public bool IsAttack3InputButtonDown()
+        {
+            if (IsAcceptingAttackInput)
+                return UnityEngine.Input.GetButtonDown(_attack3);
+            else
+                return false;
+        }
         public bool IsAttack1InputButton()
         {
             if (IsAcceptingAttackInput)
@@ -67,6 +70,13 @@ namespace Player
         {
             if (IsAcceptingAttackInput)
                 return UnityEngine.Input.GetButton(_attack2);
+            else
+                return false;
+        }
+        public bool IsAttack3InputButton()
+        {
+            if (IsAcceptingAttackInput)
+                return UnityEngine.Input.GetButton(_attack3);
             else
                 return false;
         }

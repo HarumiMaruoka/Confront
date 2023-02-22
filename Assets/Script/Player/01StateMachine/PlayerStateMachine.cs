@@ -36,6 +36,7 @@ namespace Player
 
         private PlayerState05AttackBase _attack1 = null;
         private PlayerState05AttackBase _attack2 = null;
+        private PlayerState05AttackBase _attack3 = null;
         private PlayerState05AttackBase _midairAttack1 = null;
         private PlayerState05AttackBase _midairAttack2 = null;
 
@@ -45,6 +46,7 @@ namespace Player
         public PlayerState04Midair Midair => _midair;
         public PlayerState05AttackBase Attack1 { get => _attack1; set => _attack1 = value; }
         public PlayerState05AttackBase Attack2 { get => _attack2; set => _attack2 = value; }
+        public PlayerState05AttackBase Attack3 { get => _attack3; set => _attack3 = value; }
         public PlayerState05AttackBase MidairAttack1 { get => _midairAttack1; set => _midairAttack1 = value; }
         public PlayerState05AttackBase MidairAttack2 { get => _midairAttack2; set => _midairAttack2 = value; }
         public PlayerState06BigDamage BigDamage => _bigDamage;
@@ -119,7 +121,7 @@ namespace Player
             _attackStateController.Init(this);
 
             // =================== テスト用処理 =================== //
-            _attackStateController.SetBothState(1, 3);
+            _attackStateController.SetAllState(2, 1, 0);
             // ==================================================== //
         }
         protected override void StateInit()

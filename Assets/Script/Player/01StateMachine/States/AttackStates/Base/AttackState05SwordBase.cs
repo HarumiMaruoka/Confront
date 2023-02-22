@@ -67,7 +67,8 @@ namespace Player
             {
                 _isComboUpdate =
                     _stateMachine.PlayerController.Input.IsAttack1InputButtonDown() ||
-                    _stateMachine.PlayerController.Input.IsAttack2InputButtonDown();
+                    _stateMachine.PlayerController.Input.IsAttack2InputButtonDown() ||
+                    _stateMachine.PlayerController.Input.IsAttack3InputButtonDown();
             }
         }
         public async override void Exit()

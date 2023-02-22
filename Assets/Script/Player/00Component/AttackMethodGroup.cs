@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +45,10 @@ namespace Player
         private Helper.Raycast _gunRay = default;
         [SerializeField, Range(1, 10)]
         private float _testGunDamage = 1;
+        [SerializeField]
+        private GameObject _hitEffect = default;
+        [SerializeField]
+        private float _deathTime = 1f;
         /// <summary>
         /// 前方にレイを飛ばしヒットした対象にダメージを加える
         /// </summary>
@@ -55,6 +60,9 @@ namespace Player
                 {
                     target.TakenDamage(_testGunDamage);
                 }
+                
+                var a = Instantiate(_hitEffect, _gunRay.Result.point, Quaternion.identity);
+                Destroy(a, _deathTime);
             }
         }
 
@@ -63,10 +71,17 @@ namespace Player
         private Helper.OverLapBox _nomalSword = default;
         [SerializeField, Range(1, 100)]
         private float _testNomalSwordDamage = 1;
+        [SerializeField]
+        private GameObject _fireEffect = default;
+        [SerializeField]
+        private Transform _firePos = default;
+        [SerializeField]
+        private float _fireDestroyTime = 0.2f;
+
         /// <summary>
         /// 前方にレイを飛ばしヒットした対象にダメージを加える
         /// </summary>
-        public void AttackNomalSword()
+        public async void AttackNomalSword()
         {
             // 上半身と下半身で同じアニメーションを使用しているため、
             // アニメーションイベントが二回呼ばれ、二倍のダメージが敵に入る。
@@ -82,6 +97,9 @@ namespace Player
                     }
                 }
             }
+            var effect = Instantiate(_fireEffect, _firePos.position, Quaternion.identity);
+            await UniTask.Delay((int)(_fireDestroyTime * 1000f));
+            effect.GetComponent<ParticleSystem>().Stop();
         }
     }
 }

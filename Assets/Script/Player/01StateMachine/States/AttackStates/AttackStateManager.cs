@@ -98,10 +98,11 @@ namespace Player
         /// </summary>
         /// <param name="oneID"> 攻撃ボタン1用ステート </param>
         /// <param name="twoID"> 攻撃ボタン2用ステート </param>
-        public void SetBothState(int oneID, int twoID)
+        public void SetAllState(int oneID, int twoID, int threeID)
         {
             SetOneState(oneID);
             SetTwoState(twoID);
+            SetThreeState(threeID);
         }
         /// <summary>
         /// 渡されたIDを使用する攻撃として設定する
@@ -120,6 +121,14 @@ namespace Player
         {
             _stateMachine.Attack2 = LandStates[id];
             _stateMachine.MidairAttack2 = MidairStates[id];
+        }
+        /// <summary>
+        /// 渡されたIDを使用する攻撃として設定する
+        /// </summary>
+        /// <param name="id"> 攻撃ボタン1用ステートID </param>
+        public void SetThreeState(int id)
+        {
+            _stateMachine.Attack3 = LandStates[id];
         }
         /// <summary>
         /// ステートの初期化処理
