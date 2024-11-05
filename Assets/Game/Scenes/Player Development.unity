@@ -551,9 +551,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 171447713}
-  - component: {fileID: 171447718}
   - component: {fileID: 171447715}
   - component: {fileID: 171447717}
+  - component: {fileID: 171447718}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -596,7 +596,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.57
   m_Radius: 0.3
   m_SlopeLimit: 46
   m_StepOffset: 0
@@ -619,6 +619,12 @@ MonoBehaviour:
   _defaultMovementSettings: {fileID: 11400000, guid: abc8ef6fdf6242b42bd25a44da6060d9, type: 2}
   _groundSensor: {fileID: 11400000, guid: 23f69f0f19dffb54b947acbede8207e6, type: 2}
   _jumpForce: 12
+  _isGizmoVisible: 1
+  _directionController:
+    RightDirectionAngle: {x: 0, y: 0, z: 0}
+    LeftDirectionAngle: {x: 0, y: 180, z: 0}
+    RotationSpeed: 15
+    CurrentDirection: 0
 --- !u!114 &171447718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +642,7 @@ MonoBehaviour:
   _ignoreCollisionZoneLayer:
     serializedVersion: 2
     m_Bits: 256
+  _isGizmoVisible: 1
 --- !u!1001 &180353192
 PrefabInstance:
   m_ObjectHideFlags: 0

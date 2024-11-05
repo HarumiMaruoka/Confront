@@ -17,6 +17,10 @@ namespace Confront.Player
         private GroundSensor _groundSensor;
         [SerializeField]
         private float _jumpForce = 10f;
+        [SerializeField]
+        private bool _isGizmoVisible = true;
+        [SerializeField]
+        private DirectionController _directionController;
 
         private MovementSystem _movementSystem;
         private CharacterController _characterController;
@@ -35,7 +39,8 @@ namespace Confront.Player
             _layerController = GetComponent<LayerController>();
             _stateMachine = new PlayerStateMachine(this);
             _stateMachine.ChangeState<States.Idle>();
-            _movementSystem = new MovementSystem(_characterController, _defaultMovementSettings, _groundSensor, _layerController);
+            _movementSystem = new MovementSystem(_characterController, _defaultMovementSettings, _groundSensor);
+            _directionController.Initialize(transform);
         }
 
         private void Update()
@@ -47,11 +52,15 @@ namespace Confront.Player
             _movementSystem.Update(moveInput.x);
             if (isJump) _movementSystem.Jump(_jumpForce);
             _stateMachine.Update();
+            _directionController.UpdateVelocity(_movementSystem.Velocity);
         }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
+
+        private void OnDrawGizmos()
         {
+            if (!_isGizmoVisible) return;
+
             if (_groundSensor)
             {
                 if (_characterController == null) _characterController = GetComponent<CharacterController>();
