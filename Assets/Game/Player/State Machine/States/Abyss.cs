@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Confront.Player
 {
     public class Abyss : IState
     {
+        public string AnimationName => "MidAir";
+
         public void Enter(PlayerController player)
         {
 
@@ -33,7 +35,7 @@ namespace Confront.Player
 
             if (Mathf.Abs(velocity.x) < player.MovementParameters.AbyssXMinSpeed)
             {
-                // �Œᑬ�x��ۏ؂���B
+                // 最低速度を保証する。
                 fallDirection = player.MovementParameters.AbyssXMinSpeed * fallDirection;
             }
 

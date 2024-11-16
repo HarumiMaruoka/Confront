@@ -32,10 +32,7 @@ namespace Confront.Player
         public float GrabInterval;
         public Vector2 GrabPositionOffset;
         public float GrabDuration;
-        public float ClimbHeight;
-        public float CLimbDurationY;
-        public float ClimbDurationX;
-        public float ClimbedPositionDistance; // 掴み状態から登った後、足場に向かって移動する距離。
+        public Vector2 ClimbPositionOffset;
 
         [HideInInspector]
         public Vector3 GrabbablePosition;

@@ -1,4 +1,4 @@
-using Confront.Input;
+﻿using Confront.Input;
 using System;
 using UnityEngine;
 
@@ -6,6 +6,8 @@ namespace Confront.Player
 {
     public class Jump : IState
     {
+        public string AnimationName => "MidAir";
+
         public void Enter(PlayerController player)
         {
             player.MovementParameters.Velocity.y = player.MovementParameters.JumpForce;

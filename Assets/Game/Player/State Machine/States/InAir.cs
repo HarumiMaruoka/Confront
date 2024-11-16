@@ -6,6 +6,8 @@ namespace Confront.Player
 {
     public class InAir : IState
     {
+        public string AnimationName => "MidAir";
+
         public void Enter(PlayerController player)
         {
 

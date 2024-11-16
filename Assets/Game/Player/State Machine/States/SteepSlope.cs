@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Confront.Player
 {
     public class SteepSlope : IState
     {
+        public string AnimationName => "MidAir";
+
         public void Enter(PlayerController player)
         {
 

@@ -12,29 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f80ad56963d5af4ebf2c751a0bfa31c, type: 3}
   m_Name: Sensor
   m_EditorClassIdentifier: 
-  _groundCheckRayOffset: {x: 0, y: -0.35}
-  _groundCheckRayRadius: 0.5
+  _groundCheckRayOffset: {x: 0, y: 0.6}
+  _groundCheckRayRadius: 0.3
   _groundCheckRayLength: 0.5
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 384
-  _isGroundCheckGizmoEnabled: 0
+  _isGroundCheckGizmoEnabled: 1
   _isGroundCheckGizmoAlpha: 0.5
-  _abyssCheckRayOffset: {x: 0, y: -0.75}
-  _abyssCheckRayRadius: 0.15
-  _abyssCheckRayLength: 2
-  _isAbyssCheckGizmoEnabled: 0
+  _abyssCheckRayOffset: {x: 0, y: 1.29}
+  _abyssCheckRayRadius: 0.08
+  _abyssCheckRayLength: 2.29
+  _isAbyssCheckGizmoEnabled: 1
   _isAbyssCheckGizmoAlpha: 0.5
-  _aboveCheckRayOffset: {x: 0, y: 0}
-  _aboveCheckRayLength: 1.25
+  _aboveCheckRayOffset: {x: -0, y: 2.28}
+  _aboveCheckRayLength: 0.65
   _aboveLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  _isAboveCheckGizmoEnabled: 0
+  _isAboveCheckGizmoEnabled: 1
   _isAboveCheckGizmoAlpha: 0.5
-  _grabbablePointOffset: {x: -0.45, y: 0.35}
-  _grabbablePointRadius: 0.4
-  _grabbablePointLength: 1.5
+  _grabbablePointOffset: {x: 0, y: 2.21}
+  _grabbablePointRadius: 0.18
+  _grabbablePointLength: 0.6
   _grabbablePointLayerMask:
     serializedVersion: 2
     m_Bits: 512

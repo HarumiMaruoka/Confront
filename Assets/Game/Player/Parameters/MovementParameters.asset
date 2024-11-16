@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: MovementParameters
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0}
-  JumpForce: 16
+  JumpForce: 32
   GrabInterval: 0.2
-  GrabPositionOffset: {x: -0.5, y: -0.5}
-  GrabDuration: 0.2
-  ClimbHeight: 1.5
-  CLimbDurationY: 0.2
-  ClimbDurationX: 0.2
-  ClimbedPositionDistance: 1.5
-  GrabbablePosition: {x: -38.160004, y: 2.6199994, z: 0}
-  GrabIntervalTimer: -0.0027633898
+  GrabPositionOffset: {x: -0.58, y: -2.2}
+  GrabDuration: 0.1
+  ClimbPositionOffset: {x: 1, y: 3.3}
+  GrabbablePosition: {x: -38.160004, y: 3.2971997, z: 0}
+  GrabIntervalTimer: -0.0025407271
   Acceleration: 1
   Deceleration: 18
   TurnDeceleration: 20

@@ -104,7 +104,7 @@ namespace Confront.Player
 
             // 掴めるポイントを探す
             var position = player.transform.position + player.transform.rotation * (Vector3)_grabbablePointOffset;
-            UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.right, out var grabPointHit, _grabbablePointLength, _grabbablePointLayerMask);
+            UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.forward, out var grabPointHit, _grabbablePointLength, _grabbablePointLayerMask);
             result.GrabbablePoint = grabPointHit.transform;
 
             return result;
@@ -125,7 +125,7 @@ namespace Confront.Player
                 Gizmos.DrawWireSphere(groundCheckRayEnd, _groundCheckRayRadius);
 
                 Vector3 leftOffset = Vector3.left * _groundCheckRayRadius;
-                Vector3 rightOffset = Vector3.right * _groundCheckRayRadius;
+                Vector3 rightOffset = Vector3.forward * _groundCheckRayRadius;
                 Gizmos.DrawLine(groundCheckRayPosition + leftOffset, groundCheckRayEnd + leftOffset);
                 Gizmos.DrawLine(groundCheckRayPosition + rightOffset, groundCheckRayEnd + rightOffset);
             }
@@ -141,7 +141,7 @@ namespace Confront.Player
                 Gizmos.DrawWireSphere(abyssCheckRayEnd, _abyssCheckRayRadius);
 
                 Vector3 leftOffset = Vector3.left * _abyssCheckRayRadius;
-                Vector3 rightOffset = Vector3.right * _abyssCheckRayRadius;
+                Vector3 rightOffset = Vector3.forward * _abyssCheckRayRadius;
                 Gizmos.DrawLine(abyssCheckRayPosition + leftOffset, abyssCheckRayEnd + leftOffset);
                 Gizmos.DrawLine(abyssCheckRayPosition + rightOffset, abyssCheckRayEnd + rightOffset);
             }
@@ -159,7 +159,7 @@ namespace Confront.Player
             if (_isGrabbablePointCheckGizmoEnabled)
             {
                 var position = player.transform.position + player.transform.rotation * (Vector3)_grabbablePointOffset;
-                var grabPointEnd = position + player.transform.rotation * Vector3.right * _grabbablePointLength;
+                var grabPointEnd = position + player.transform.rotation * Vector3.forward * _grabbablePointLength;
                 Gizmos.color = result.GrabbablePoint ? new Color(1, 0, 0, _isGrabPointCheckGizmoAlpha) : new Color(0, 1, 0, _isGrabPointCheckGizmoAlpha);
                 Gizmos.DrawWireSphere(position, _grabbablePointRadius);
                 Gizmos.DrawWireSphere(grabPointEnd, _grabbablePointRadius);

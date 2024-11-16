@@ -15,8 +15,9 @@ namespace Confront.StageGimmick
         {
             get
             {
-                var distance = MovementParameters.Instance.ClimbedPositionDistance;
-                return (Vector2)transform.position + (Vector2)(Quaternion.Euler(0f, 0f, _groundAngle) * Vector2.up * distance);
+                // var distance = MovementParameters.Instance.ClimbedPositionDistance;
+                //return (Vector2)transform.position + (Vector2)(Quaternion.Euler(0f, 0f, _groundAngle) * Vector2.up * distance);
+                return default;
             }
         }
 
@@ -25,23 +26,23 @@ namespace Confront.StageGimmick
 
         private void OnDrawGizmos()
         {
-            if (!UnityEditor.EditorPrefs.GetBool(gizmoName)) return;
+            //if (!UnityEditor.EditorPrefs.GetBool(gizmoName)) return;
 
-            Vector3 direction = Quaternion.Euler(0f, 0f, _groundAngle) * Vector3.up * MovementParameters.Instance.ClimbedPositionDistance;
-            Vector3 arrowHead = transform.position + direction;
+            //Vector3 direction = Quaternion.Euler(0f, 0f, _groundAngle) * Vector3.up * MovementParameters.Instance.ClimbedPositionDistance;
+            //Vector3 arrowHead = transform.position + direction;
 
-            // Handlesの色を設定
-            UnityEditor.Handles.color = Color.blue;
+            //// Handlesの色を設定
+            //UnityEditor.Handles.color = Color.blue;
 
-            // 矢印の線を描画
-            UnityEditor.Handles.DrawLine(transform.position, arrowHead);
+            //// 矢印の線を描画
+            //UnityEditor.Handles.DrawLine(transform.position, arrowHead);
 
-            // 矢印の先端を描画
-            float arrowHeadSize = 0.15f;
-            Vector3 right = Quaternion.Euler(0f, 0f, 135f) * direction.normalized * arrowHeadSize;
-            Vector3 left = Quaternion.Euler(0f, 0f, -135f) * direction.normalized * arrowHeadSize;
-            UnityEditor.Handles.DrawLine(arrowHead, arrowHead + right);
-            UnityEditor.Handles.DrawLine(arrowHead, arrowHead + left);
+            //// 矢印の先端を描画
+            //float arrowHeadSize = 0.15f;
+            //Vector3 right = Quaternion.Euler(0f, 0f, 135f) * direction.normalized * arrowHeadSize;
+            //Vector3 left = Quaternion.Euler(0f, 0f, -135f) * direction.normalized * arrowHeadSize;
+            //UnityEditor.Handles.DrawLine(arrowHead, arrowHead + right);
+            //UnityEditor.Handles.DrawLine(arrowHead, arrowHead + left);
         }
 #endif
     }

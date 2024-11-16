@@ -8,6 +8,8 @@ namespace Confront.Player
 {
     public class Grab : IState
     {
+        public string AnimationName => "Grab";
+
         private CancellationTokenSource _cancellationTokenSource;
 
         public async void Enter(PlayerController player)
@@ -36,19 +38,21 @@ namespace Confront.Player
         public void Exit(PlayerController player)
         {
             _cancellationTokenSource.Cancel();
+            player.Animator.SetBool("Climb", false);
 
             player.DirectionController.IsEnable = true;
             player.CharacterController.enabled = true;
 
             player.MovementParameters.GrabIntervalTimer = player.MovementParameters.GrabInterval;
-            TimerUpdateAsync(player);
         }
 
         private async UniTask GrabAsync(PlayerController player)
         {
-            var rotation = player.DirectionController.CurrentRotation;
+            var sign = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
+            var offset = new Vector3(player.MovementParameters.GrabPositionOffset.x * sign, player.MovementParameters.GrabPositionOffset.y);
+
             var startPoint = player.transform.position;
-            var endPoint = player.MovementParameters.GrabbablePosition + rotation * (Vector3)player.MovementParameters.GrabPositionOffset;
+            var endPoint = player.MovementParameters.GrabbablePosition + offset;
             var duration = player.MovementParameters.GrabDuration;
 
             for (float t = 0; t < duration; t += Time.deltaTime)
@@ -79,39 +83,23 @@ namespace Confront.Player
 
         private async UniTask ClimbAsync(PlayerController player)
         {
-            if (player == null) return;
-            var startPoint = player.transform.position;
-            var endPoint = player.transform.position + player.MovementParameters.ClimbHeight * Vector3.up;
-            var duration = player.MovementParameters.CLimbDurationY;
+            player.CharacterController.enabled = false;
 
-            for (float t = 0; t < duration; t += Time.deltaTime)
+            player.Animator.SetBool("Grab", false);
+            player.Animator.SetBool("Climb", true);
+
+            await UniTask.Yield();
+            while (!player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Climb"))
             {
                 if (player == null) return;
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
-                player.transform.position = Vector3.Lerp(startPoint, endPoint, t / duration);
+                await UniTask.Yield();
+            }
+            while (player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            {
+                if (player == null) return;
                 await UniTask.Yield();
             }
 
-            player.transform.position = endPoint;
-            await UniTask.Yield();
-
-            var direction = player.DirectionController.CurrentRotation * Vector3.right;
-            startPoint = player.transform.position;
-            endPoint = player.transform.position + player.MovementParameters.ClimbedPositionDistance * direction;
-            duration = player.MovementParameters.ClimbDurationX;
-
-            for (float t = 0; t < duration; t += Time.deltaTime)
-            {
-                if (player == null) return;
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
-                player.transform.position = Vector3.Lerp(startPoint, endPoint, t / duration);
-                await UniTask.Yield();
-            }
-
-            player.transform.position = endPoint;
-            await UniTask.Yield();
         }
 
         private bool IsClimb(PlayerController player, Vector2 leftStick)
@@ -159,16 +147,6 @@ namespace Confront.Player
                 case GroundType.Ground:
                     player.StateMachine.ChangeState<Grounded>();
                     break;
-            }
-        }
-
-        public async void TimerUpdateAsync(PlayerController player)
-        {
-            while (player.MovementParameters.GrabIntervalTimer > 0)
-            {
-                if (player == null) return;
-                player.MovementParameters.GrabIntervalTimer -= Time.deltaTime;
-                await UniTask.Yield();
             }
         }
     }

@@ -1,4 +1,4 @@
-using Confront.Input;
+ï»¿using Confront.Input;
 using System;
 using UnityEngine;
 
@@ -6,6 +6,8 @@ namespace Confront.Player
 {
     public class Grounded : IState
     {
+        public string AnimationName => "Run";
+
         public void Enter(PlayerController player)
         {
             player.MovementParameters.Velocity.y = 0f;
@@ -35,7 +37,7 @@ namespace Confront.Player
 
         private void Move(PlayerController player)
         {
-            // “ü—Í‚É‰‚¶‚Äx‘¬“x‚ğXV‚·‚éB
+            // å…¥åŠ›ã«å¿œã˜ã¦xé€Ÿåº¦ã‚’æ›´æ–°ã™ã‚‹ã€‚
             var inputX = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x;
             var groundNormal = player.Sensor.Calculate(player).GroundNormal;
 

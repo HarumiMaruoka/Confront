@@ -13,6 +13,7 @@ namespace Confront.Player
         public Sensor Sensor;
         public StateMachine StateMachine;
         public DirectionController DirectionController;
+        public Animator Animator;
 
         public CharacterController CharacterController { get => _characterController ??= GetComponent<CharacterController>(); }
 
@@ -26,13 +27,17 @@ namespace Confront.Player
         private void Update()
         {
             StateMachine.Update();
-            if (CharacterController.enabled)
-                CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
+            if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
+            Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
             DirectionController.UpdateVelocity(MovementParameters.Velocity);
 
-            if (PlayerInputHandler.InGameInput.Jump.IsPressed())
+            if (PlayerInputHandler.InGameInput.Jump.triggered)
             {
                 StateMachine.ChangeState<Jump>();
+            }
+            if (MovementParameters.GrabIntervalTimer > 0)
+            {
+                MovementParameters.GrabIntervalTimer -= Time.deltaTime;
             }
         }
 
@@ -61,6 +66,14 @@ namespace Confront.Player
             var leftStickInput = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
             var leftStick = Mathf.Atan2(leftStickInput.y, leftStickInput.x) * Mathf.Rad2Deg;
             GUILayout.Label($"LeftStick:{(leftStick).ToString("0.00")}", guiStyle);
+
+            guiStyle = new GUIStyle(GUI.skin.button);
+            guiStyle.fontSize = 40;
+
+            if (GUILayout.Button("Speed 0.1", guiStyle)) Time.timeScale = 0.1f;
+            if (GUILayout.Button("Speed 0.5", guiStyle)) Time.timeScale = 0.5f;
+            if (GUILayout.Button("Speed 1", guiStyle)) Time.timeScale = 1;
+            if (GUILayout.Button("Speed 2", guiStyle)) Time.timeScale = 2;
         }
     }
 
