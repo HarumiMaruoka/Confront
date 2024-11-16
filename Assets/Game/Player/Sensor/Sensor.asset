@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f80ad56963d5af4ebf2c751a0bfa31c, type: 3}
+  m_Name: Sensor
+  m_EditorClassIdentifier: 
+  _groundCheckRayOffset: {x: 0, y: -0.35}
+  _groundCheckRayRadius: 0.5
+  _groundCheckRayLength: 0.5
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 384
+  _isGroundCheckGizmoEnabled: 0
+  _isGroundCheckGizmoAlpha: 0.5
+  _abyssCheckRayOffset: {x: 0, y: -0.75}
+  _abyssCheckRayRadius: 0.15
+  _abyssCheckRayLength: 2
+  _isAbyssCheckGizmoEnabled: 0
+  _isAbyssCheckGizmoAlpha: 0.5
+  _aboveCheckRayOffset: {x: 0, y: 0}
+  _aboveCheckRayLength: 1.25
+  _aboveLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _isAboveCheckGizmoEnabled: 0
+  _isAboveCheckGizmoAlpha: 0.5
+  _grabbablePointOffset: {x: -0.45, y: 0.35}
+  _grabbablePointRadius: 0.4
+  _grabbablePointLength: 1.5
+  _grabbablePointLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _isGrabbablePointCheckGizmoEnabled: 1
+  _isGrabPointCheckGizmoAlpha: 0.5
