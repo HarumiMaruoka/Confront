@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 namespace Confront.Player
@@ -88,18 +89,49 @@ namespace Confront.Player
             player.Animator.SetBool("Grab", false);
             player.Animator.SetBool("Climb", true);
 
-            await UniTask.Yield();
-            while (!player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Climb"))
+            var animationCurve = player.MovementParameters.ClimbUpFlow;
+            var startPoint = player.transform.position;
+            var time = 0f;
+            var index = 0;
+            while (true)
             {
                 if (player == null) return;
+                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+                var value = animationCurve.Evaluate(time);
+                player.transform.position = startPoint + Vector3.up * value;
+                time += Time.deltaTime;
+                if (time >= animationCurve.keys[index].time)
+                {
+                    index++;
+                    if (index >= animationCurve.length) break;
+                }
                 await UniTask.Yield();
             }
-            while (player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            player.transform.position = startPoint + Vector3.up * animationCurve.keys[animationCurve.length - 1].value;
+            await UniTask.Yield();
+
+            var sign = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
+            animationCurve = player.MovementParameters.TraverseFlow;
+            startPoint = player.transform.position;
+            time = 0f;
+            index = 0;
+            while (true)
             {
                 if (player == null) return;
+                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+                var value = animationCurve.Evaluate(time);
+                time += Time.deltaTime;
+                player.transform.position = startPoint + Vector3.right * value * sign;
+                if (time >= animationCurve.keys[index].time)
+                {
+                    index++;
+                    if (index >= animationCurve.length) break;
+                }
                 await UniTask.Yield();
             }
 
+            player.transform.position = startPoint + Vector3.right * animationCurve.keys[animationCurve.length - 1].value * sign;
+            await UniTask.Yield();
         }
 
         private bool IsClimb(PlayerController player, Vector2 leftStick)

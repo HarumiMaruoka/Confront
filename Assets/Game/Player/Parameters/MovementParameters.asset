@@ -18,8 +18,110 @@ MonoBehaviour:
   GrabPositionOffset: {x: -0.58, y: -2.2}
   GrabDuration: 0.1
   ClimbPositionOffset: {x: 1, y: 3.3}
+  ClimbUpFlow:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -7.9457335
+      outSlope: -7.9457335
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.033458456
+      value: -0.26585197
+      inSlope: -0.66933167
+      outSlope: -0.66933167
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23494154
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2167882
+      value: -0.41981152
+      inSlope: -0.066950575
+      outSlope: -0.066950575
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.42964706
+      value: -0.22037733
+      inSlope: 3.4092774
+      outSlope: 3.4092774
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.31400263
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5947922
+      value: 1.3069726
+      inSlope: 15.705324
+      outSlope: 15.705324
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13207172
+      outWeight: 0.6290831
+    - serializedVersion: 3
+      time: 0.6021611
+      value: 1.3558424
+      inSlope: 0.10436949
+      outSlope: 0.10436949
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.58387524
+      outWeight: 0.35534042
+    - serializedVersion: 3
+      time: 0.7037073
+      value: 1.3539945
+      inSlope: -0.34514222
+      outSlope: -0.34514222
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.63453025
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8227439
+      value: 2.2666113
+      inSlope: 5.559585
+      outSlope: 5.559585
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.24503861
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TraverseFlow:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 10.047115
+      outSlope: 10.047115
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.20003875
+      value: 2.0098124
+      inSlope: 10.047115
+      outSlope: 10.047115
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   GrabbablePosition: {x: -38.160004, y: 3.2971997, z: 0}
-  GrabIntervalTimer: -0.0025407271
+  GrabIntervalTimer: -0.002242098
   Acceleration: 1
   Deceleration: 18
   TurnDeceleration: 20
