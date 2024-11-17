@@ -89,50 +89,47 @@ namespace Confront.Player
             player.Animator.SetBool("Grab", false);
             player.Animator.SetBool("Climb", true);
 
-            var animationCurve = player.MovementParameters.ClimbUpFlow;
-            var startPoint = player.transform.position;
-            var time = 0f;
-            var index = 0;
-            while (true)
-            {
-                if (player == null) return;
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-                var value = animationCurve.Evaluate(time);
-                player.transform.position = startPoint + Vector3.up * value;
-                time += Time.deltaTime;
-                if (time >= animationCurve.keys[index].time)
-                {
-                    index++;
-                    if (index >= animationCurve.length) break;
-                }
-                await UniTask.Yield();
-            }
-            player.transform.position = startPoint + Vector3.up * animationCurve.keys[animationCurve.length - 1].value;
-            await UniTask.Yield();
-
             var sign = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-            animationCurve = player.MovementParameters.TraverseFlow;
-            startPoint = player.transform.position;
-            time = 0f;
-            index = 0;
-            while (true)
+
+            // 上昇と水平方向のアニメーションカーブ
+            var climbCurve = player.MovementParameters.ClimbUpFlow;
+            var traverseCurve = player.MovementParameters.TraverseFlow;
+
+            var maxTime = Mathf.Max(climbCurve.keys[climbCurve.length - 1].time, traverseCurve.keys[traverseCurve.length - 1].time);
+            var threshold = player.MovementParameters.ClimbToRunThreshold;
+            var previousTime = 0f;
+            float time = 0f;
+            Vector3 startPosition = player.transform.position;
+
+            while (time < maxTime)
             {
                 if (player == null) return;
                 if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-                var value = animationCurve.Evaluate(time);
-                time += Time.deltaTime;
-                player.transform.position = startPoint + Vector3.right * value * sign;
-                if (time >= animationCurve.keys[index].time)
+
+                float verticalValue = climbCurve.Evaluate(time);
+                float horizontalValue = traverseCurve.Evaluate(time);
+
+                player.transform.position = startPosition + Vector3.up * verticalValue + Vector3.right * horizontalValue * sign;
+
+                if (previousTime < maxTime - threshold && time >= maxTime - threshold)
                 {
-                    index++;
-                    if (index >= animationCurve.length) break;
+                    player.Animator.SetBool("Climb", false);
+                    player.Animator.SetBool("Run", true);
                 }
+
+                previousTime = time;
+                time += Time.deltaTime;
                 await UniTask.Yield();
             }
 
-            player.transform.position = startPoint + Vector3.right * animationCurve.keys[animationCurve.length - 1].value * sign;
+            // 最終位置を設定
+            float finalVerticalValue = climbCurve.Evaluate(climbCurve.keys[climbCurve.length - 1].time);
+            float finalHorizontalValue = traverseCurve.Evaluate(traverseCurve.keys[traverseCurve.length - 1].time);
+            player.transform.position = startPosition + Vector3.up * finalVerticalValue + Vector3.right * finalHorizontalValue * sign;
+
             await UniTask.Yield();
         }
+
 
         private bool IsClimb(PlayerController player, Vector2 leftStick)
         {

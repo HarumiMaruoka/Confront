@@ -35,6 +35,7 @@ namespace Confront.Player
         public Vector2 ClimbPositionOffset;
         public AnimationCurve ClimbUpFlow; // 上昇アニメーション
         public AnimationCurve TraverseFlow; // 横移動アニメーション
+        public float ClimbToRunThreshold;
 
         [HideInInspector]
         public Vector3 GrabbablePosition;
