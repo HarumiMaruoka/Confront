@@ -17,7 +17,7 @@ namespace Confront.Player
 
         }
 
-        public void Update(PlayerController player)
+        public void Execute(PlayerController player)
         {
             Move(player);
             StateTransition(player);

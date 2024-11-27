@@ -7,7 +7,7 @@ namespace Confront.Player
     {
         string AnimationName { get; }
         void Enter(PlayerController player);
-        void Update(PlayerController player);
+        void Execute(PlayerController player);
         void Exit(PlayerController player);
     }
 }

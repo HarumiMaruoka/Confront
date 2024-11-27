@@ -13,7 +13,7 @@ namespace Confront.Player
             player.MovementParameters.Velocity.y = 0f;
         }
 
-        public void Update(PlayerController player)
+        public void Execute(PlayerController player)
         {
             Move(player);
             StateTransition(player);
@@ -35,11 +35,14 @@ namespace Confront.Player
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
+        private Vector2 _previousPosition;
+
         private void Move(PlayerController player)
         {
             // 入力に応じてx速度を更新する。
             var inputX = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x;
-            var groundNormal = player.Sensor.Calculate(player).GroundNormal;
+            var groundSensorResult = player.Sensor.Calculate(player);
+            var groundNormal = groundSensorResult.GroundNormal;
 
             var acceleration = player.MovementParameters.Acceleration;
             var deceleration = player.MovementParameters.Deceleration;
@@ -50,7 +53,15 @@ namespace Confront.Player
             float velocityMagnitude = player.MovementParameters.Velocity.magnitude * velocitySign;
             var isInputZero = inputDirection == 0f;
 
-            if (isInputZero)
+            var slopeAngle = Vector3.Angle(Vector3.up, groundNormal);
+            var groundNormalSign = CalculateDirection(groundNormal.x);
+            var IsFacingSteepSlope = (groundNormalSign == 1 && inputDirection == -1) || (groundNormalSign == -1 && inputDirection == 1);
+
+            if (slopeAngle >= player.CharacterController.slopeLimit && IsFacingSteepSlope)
+            {
+                velocityMagnitude = Mathf.Lerp(velocityMagnitude, 0f, deceleration * Time.deltaTime);
+            }
+            else if (isInputZero)
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, 0f, deceleration * Time.deltaTime);
             }
@@ -69,6 +80,13 @@ namespace Confront.Player
         private void StateTransition(PlayerController player)
         {
             SensorResult sensorResult = player.Sensor.Calculate(player);
+
+            var slopeAngle = Vector3.Angle(Vector3.up, sensorResult.GroundNormal);
+            if (slopeAngle >= player.CharacterController.slopeLimit &&
+                Mathf.Sign(sensorResult.GroundNormal.x) != Mathf.Sign(player.MovementParameters.Velocity.x))
+            {
+                return;
+            }
 
             switch (sensorResult.GroundType)
             {

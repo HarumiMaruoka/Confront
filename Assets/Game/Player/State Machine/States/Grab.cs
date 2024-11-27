@@ -31,7 +31,7 @@ namespace Confront.Player
             StateTransition(player);
         }
 
-        public void Update(PlayerController player)
+        public void Execute(PlayerController player)
         {
 
         }

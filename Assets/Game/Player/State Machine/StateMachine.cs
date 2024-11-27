@@ -46,35 +46,11 @@ namespace Confront.Player
             _player.Animator.SetBool(CurrentState.AnimationName, true);
         }
 
-        public void ChangeState(Type type)
-        {
-            if (!typeof(IState).IsAssignableFrom(type))
-            {
-                Debug.LogError($"{type} is not assignable from IState");
-                return;
-            }
-            if (!_states.ContainsKey(type))
-            {
-                _states[type] = (IState)Activator.CreateInstance(type);
-            }
-            if (CurrentState != null)
-            {
-                CurrentState.Exit(_player);
-                _player.Animator.SetBool(CurrentState.AnimationName, false);
-            }
-
-            PreviousState = CurrentState;
-            CurrentState = _states[type];
-
-            CurrentState.Enter(_player);
-            _player.Animator.SetBool(CurrentState.AnimationName, true);
-        }
-
         public void Update()
         {
             if (CurrentState != null)
             {
-                CurrentState.Update(_player);
+                CurrentState.Execute(_player);
             }
         }
     }

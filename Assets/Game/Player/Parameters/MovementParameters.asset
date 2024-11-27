@@ -103,8 +103,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.23671842
     - serializedVersion: 3
-      time: 0.8448561
-      value: 2.4463792
+      time: 0.8445509
+      value: 2.3981805
       inSlope: 7.6815906
       outSlope: 7.6815906
       tangentMode: 0
@@ -148,8 +148,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   ClimbToRunThreshold: 0.25
-  GrabbablePosition: {x: -38.160004, y: 3.2971997, z: 0}
-  GrabIntervalTimer: -0.0016142201
+  GrabbablePosition: {x: -42.22, y: 3.2971997, z: 0}
+  GrabIntervalTimer: -0.00048839767
   Acceleration: 1
   Deceleration: 18
   TurnDeceleration: 20

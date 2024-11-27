@@ -13,7 +13,7 @@ namespace Confront.Player
             player.MovementParameters.Velocity.y = player.MovementParameters.JumpForce;
         }
 
-        public void Update(PlayerController player)
+        public void Execute(PlayerController player)
         {
             Move(player);
             StateTransition(player);

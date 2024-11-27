@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Player/Combo/Editor/ComboEditorWindow.uss?fileID=7433441132597879392&amp;guid=5a1a3b6ce37ab234da039d0642df6724&amp;type=3#ComboEditorWindow" />
+    <Confront.Player.ComboEditor.SplitView fixed-pane-initial-dimension="300">
+        <ui:VisualElement name="left-panel" style="flex-grow: 1; min-width: 300px;">
+            <ui:Label tabindex="-1" text=" Inspector" parse-escape-sequences="true" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37); font-size: 16px; color: rgb(226, 226, 226); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+            <Confront.Player.ComboEditor.InspectorView style="flex-grow: 1; background-color: rgb(56, 56, 56);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="right-panel" focusable="false" style="flex-grow: 1;">
+            <ui:Label tabindex="-1" text=" Node Graph" parse-escape-sequences="true" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37); color: rgb(226, 226, 226); font-size: 16px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+            <Confront.Player.ComboEditor.NodeGraphView focusable="true" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </Confront.Player.ComboEditor.SplitView>
+</ui:UXML>

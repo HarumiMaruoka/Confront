@@ -78,7 +78,6 @@ namespace Confront.Player
             if (result.IsGrounded)
             {
                 result.GroundNormal = groundHit.normal;
-                result.GroundPoint = groundHit.point;
                 result.IsSteepSlope = Vector3.Angle(Vector3.up, groundHit.normal) > slopeLimit;
             }
 
@@ -125,7 +124,7 @@ namespace Confront.Player
                 Gizmos.DrawWireSphere(groundCheckRayEnd, _groundCheckRayRadius);
 
                 Vector3 leftOffset = Vector3.left * _groundCheckRayRadius;
-                Vector3 rightOffset = Vector3.forward * _groundCheckRayRadius;
+                Vector3 rightOffset = Vector3.right * _groundCheckRayRadius;
                 Gizmos.DrawLine(groundCheckRayPosition + leftOffset, groundCheckRayEnd + leftOffset);
                 Gizmos.DrawLine(groundCheckRayPosition + rightOffset, groundCheckRayEnd + rightOffset);
             }
@@ -141,7 +140,7 @@ namespace Confront.Player
                 Gizmos.DrawWireSphere(abyssCheckRayEnd, _abyssCheckRayRadius);
 
                 Vector3 leftOffset = Vector3.left * _abyssCheckRayRadius;
-                Vector3 rightOffset = Vector3.forward * _abyssCheckRayRadius;
+                Vector3 rightOffset = Vector3.right * _abyssCheckRayRadius;
                 Gizmos.DrawLine(abyssCheckRayPosition + leftOffset, abyssCheckRayEnd + leftOffset);
                 Gizmos.DrawLine(abyssCheckRayPosition + rightOffset, abyssCheckRayEnd + rightOffset);
             }
@@ -178,7 +177,6 @@ namespace Confront.Player
         public bool IsSteepSlope; // 急斜面にいるか
         public bool IsAbove; // 頭上に何かあるか
 
-        public Vector3 GroundPoint; // 地面の接地点
         public Vector2 GroundNormal; // 地面の法線
 
         public GroundType GroundType;
