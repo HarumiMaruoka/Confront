@@ -3,11 +3,26 @@ using UnityEngine;
 
 namespace Confront.Player.Combo
 {
-    public abstract class AttackBehaviour : ScriptableObject, IState
+    public abstract class AttackBehaviour : ScriptableObject
     {
-        public ComboInput ComboInput = ComboInput.None;
+        private static LayerMask _layerMask;
+
+        public static LayerMask LayerMask
+        {
+            get
+            {
+                if (_layerMask == 0)
+                {
+                    _layerMask = LayerMask.GetMask("Enemy");
+                }
+                return _layerMask;
+            }
+        }
 
         public abstract string AnimationName { get; }
+        public Action<PlayerController> OnTransitionX;
+        public Action<PlayerController> OnTransitionY;
+        public Action<PlayerController> OnCompleted;
 
         public abstract void Enter(PlayerController player);
 

@@ -1,8 +1,9 @@
-using Confront.Player.Combo;
+ï»¿using Confront.Player.Combo;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Confront.Player
+namespace Confront.Player.Combo
 {
     public class ComboNode : ScriptableObject
     {
@@ -22,9 +23,13 @@ namespace Confront.Player
 
         public AttackBehaviour Behaviour;
 
-        // ƒcƒŠ[\‘¢‚ğ•¡»‚·‚éBŠî–{“I‚É‚ÍRootƒm[ƒh‚©‚ç•¡»‚·‚é‚±‚Æ‚ğ‘z’è‚µ‚Ä‚¢‚éB
+        // ãƒ„ãƒªãƒ¼æ§‹é€ ã‚’è¤‡è£½ã™ã‚‹ã€‚åŸºæœ¬çš„ã«ã¯Rootãƒãƒ¼ãƒ‰ã‹ã‚‰è¤‡è£½ã™ã‚‹ã“ã¨ã‚’æƒ³å®šã—ã¦ã„ã‚‹ã€‚
         public ComboNode DuplicateNode(ComboNode original)
         {
+            var a = new List<int>();
+            a.Remove(1);
+
+
             if (original == null) return null;
 
             var clone = CreateInstance<ComboNode>();

@@ -1,4 +1,5 @@
 ﻿using Confront.Input;
+using Confront.Player.Combo;
 using System;
 using UnityEngine;
 
@@ -9,16 +10,21 @@ namespace Confront.Player
     {
         private CharacterController _characterController;
 
+        public CharacterStats CharacterStats;
         public MovementParameters MovementParameters;
         public Sensor Sensor;
         public StateMachine StateMachine;
         public DirectionController DirectionController;
         public Animator Animator;
 
+        public ComboTree AttackComboTree;
+        public AttackStateMachine AttackStateMachine;
+
         public CharacterController CharacterController { get => _characterController ??= GetComponent<CharacterController>(); }
 
         private void Start()
         {
+            AttackStateMachine = new AttackStateMachine();
             DirectionController.Initialize(transform);
             StateMachine = new StateMachine(this);
             StateMachine.ChangeState<Grounded>();
@@ -30,15 +36,11 @@ namespace Confront.Player
             if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
             Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
             DirectionController.UpdateVelocity(MovementParameters.Velocity);
+            MovementParameters.TimerUpdate();
 
-            if (PlayerInputHandler.InGameInput.Jump.triggered)
-            {
-                StateMachine.ChangeState<Jump>();
-            }
-            if (MovementParameters.GrabIntervalTimer > 0)
-            {
-                MovementParameters.GrabIntervalTimer -= Time.deltaTime;
-            }
+            if (IsJumpable) StateMachine.ChangeState<Jump>();
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         }
 
 #if UNITY_EDITOR
@@ -75,6 +77,26 @@ namespace Confront.Player
             if (GUILayout.Button("Speed 1", guiStyle)) Time.timeScale = 1;
             if (GUILayout.Button("Speed 2", guiStyle)) Time.timeScale = 2;
         }
+
+        private bool IsJumpable
+        {
+            get
+            {
+                var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
+                if (leftStick.sqrMagnitude > 0.1f)
+                {
+                    var angle = Vector2.Angle(leftStick, Vector2.down);
+                    if (PlayerInputHandler.InGameInput.Jump.triggered && angle < 45f)
+                    {
+                        return false;
+                    }
+                }
+
+                if (PlayerInputHandler.InGameInput.Jump.triggered) return true;
+
+                return false;
+            }
+        }
     }
 
 #if UNITY_EDITOR
@@ -85,6 +107,7 @@ namespace Confront.Player
 
         private string MovementParametersKey = "isMovementParametersFoldout";
         private string SensorKey = "isSensorFoldout";
+        private string CharacterStatsKey = "isCharacterStatsFoldout";
 
         private void OnEnable()
         {
@@ -95,6 +118,7 @@ namespace Confront.Player
         {
             base.OnInspectorGUI();
 
+            DrawFoldout("Character Stats", _playerController.CharacterStats, CharacterStatsKey);
             DrawFoldout("Movement Parameters", _playerController.MovementParameters, MovementParametersKey);
             DrawFoldout("Sensor", _playerController.Sensor, SensorKey);
         }

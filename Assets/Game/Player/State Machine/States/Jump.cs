@@ -71,18 +71,10 @@ namespace Confront.Player
 
             switch (sensorResult.GroundType)
             {
-                case GroundType.Abyss:
-                    player.StateMachine.ChangeState<Abyss>();
-                    break;
-                case GroundType.SteepSlope:
-                    player.StateMachine.ChangeState<SteepSlope>();
-                    break;
-                case GroundType.InAir:
-                    player.StateMachine.ChangeState<InAir>();
-                    break;
-                case GroundType.Ground:
-                    player.StateMachine.ChangeState<Grounded>();
-                    break;
+                case GroundType.Abyss: player.StateMachine.ChangeState<Abyss>(); break;
+                case GroundType.SteepSlope: player.StateMachine.ChangeState<SteepSlope>(); break;
+                case GroundType.InAir: player.StateMachine.ChangeState<InAir>(); break;
+                case GroundType.Ground: player.StateMachine.ChangeState<Grounded>(); break;
             }
         }
     }

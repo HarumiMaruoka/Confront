@@ -1,4 +1,5 @@
 ﻿using Confront.Input;
+using Confront.StageGimmick;
 using System;
 using UnityEngine;
 
@@ -69,18 +70,18 @@ namespace Confront.Player
 
             switch (sensorResult.GroundType)
             {
-                case GroundType.SteepSlope:
-                    player.StateMachine.ChangeState<SteepSlope>();
-                    break;
-                case GroundType.Abyss:
-                    player.StateMachine.ChangeState<Abyss>();
-                    break;
-                case GroundType.Ground:
-                    player.StateMachine.ChangeState<Grounded>();
-                    break;
+                case GroundType.SteepSlope: player.StateMachine.ChangeState<SteepSlope>(); break;
+                case GroundType.Abyss: player.StateMachine.ChangeState<Abyss>(); break;
+                case GroundType.Ground: player.StateMachine.ChangeState<Grounded>(); break;
             }
 
-            if (player.MovementParameters.IsGrabbableTimerFinished && sensorResult.GrabbablePoint != null)
+            var isGrabbable =
+                player.MovementParameters.IsGrabbableTimerFinished &&
+                sensorResult.GrabbablePoint != null &&
+                player.DirectionController.CurrentDirection == sensorResult.GrabbablePoint.Direction;
+
+
+            if (isGrabbable)
             {
                 player.MovementParameters.GrabbablePosition = sensorResult.GrabbablePoint.transform.position;
                 player.StateMachine.ChangeState<Grab>();

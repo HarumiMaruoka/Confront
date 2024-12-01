@@ -32,18 +32,26 @@ namespace Confront.Player
         public void ChangeState<T>() where T : IState
         {
             var newState = GetState<T>();
+            ChangeState(newState);
+        }
 
+        public void ChangeState(IState newState)
+        {
             if (CurrentState != null)
             {
                 CurrentState.Exit(_player);
-                _player.Animator.SetBool(CurrentState.AnimationName, false);
+                if (!string.IsNullOrEmpty(CurrentState.AnimationName))
+                    _player.Animator.SetBool(CurrentState.AnimationName, false);
             }
 
             PreviousState = CurrentState;
             CurrentState = newState;
 
             CurrentState.Enter(_player);
-            _player.Animator.SetBool(CurrentState.AnimationName, true);
+            if (!string.IsNullOrEmpty(CurrentState.AnimationName))
+                _player.Animator.SetBool(CurrentState.AnimationName, true);
+
+            // Debug.Log($"New State: {CurrentState.GetType().Name}");
         }
 
         public void Update()

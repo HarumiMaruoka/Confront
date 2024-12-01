@@ -53,6 +53,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AttackX"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfe65c01-38ea-4a26-95ed-90a0d1b753f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackY"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec7ecca6-137f-4cc1-adf7-a3707bc13a33"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -176,6 +194,50 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f761b31f-a065-4a0d-b02d-e219dc26dfa0"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6190541d-26a7-41ce-9701-d8b715e8dba8"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf5c8774-d5b7-48c4-aac9-19f921c1e0f1"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea0e6032-2677-4870-be54-527e222188b9"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +249,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGameInput_Movement = m_InGameInput.FindAction("Movement", throwIfNotFound: true);
         m_InGameInput_Jump = m_InGameInput.FindAction("Jump", throwIfNotFound: true);
         m_InGameInput_Dash = m_InGameInput.FindAction("Dash", throwIfNotFound: true);
+        m_InGameInput_AttackX = m_InGameInput.FindAction("AttackX", throwIfNotFound: true);
+        m_InGameInput_AttackY = m_InGameInput.FindAction("AttackY", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +315,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGameInput_Movement;
     private readonly InputAction m_InGameInput_Jump;
     private readonly InputAction m_InGameInput_Dash;
+    private readonly InputAction m_InGameInput_AttackX;
+    private readonly InputAction m_InGameInput_AttackY;
     public struct InGameInputActions
     {
         private @PlayerInput m_Wrapper;
@@ -258,6 +324,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_InGameInput_Movement;
         public InputAction @Jump => m_Wrapper.m_InGameInput_Jump;
         public InputAction @Dash => m_Wrapper.m_InGameInput_Dash;
+        public InputAction @AttackX => m_Wrapper.m_InGameInput_AttackX;
+        public InputAction @AttackY => m_Wrapper.m_InGameInput_AttackY;
         public InputActionMap Get() { return m_Wrapper.m_InGameInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -276,6 +344,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
+            @AttackX.started += instance.OnAttackX;
+            @AttackX.performed += instance.OnAttackX;
+            @AttackX.canceled += instance.OnAttackX;
+            @AttackY.started += instance.OnAttackY;
+            @AttackY.performed += instance.OnAttackY;
+            @AttackY.canceled += instance.OnAttackY;
         }
 
         private void UnregisterCallbacks(IInGameInputActions instance)
@@ -289,6 +363,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
+            @AttackX.started -= instance.OnAttackX;
+            @AttackX.performed -= instance.OnAttackX;
+            @AttackX.canceled -= instance.OnAttackX;
+            @AttackY.started -= instance.OnAttackY;
+            @AttackY.performed -= instance.OnAttackY;
+            @AttackY.canceled -= instance.OnAttackY;
         }
 
         public void RemoveCallbacks(IInGameInputActions instance)
@@ -311,5 +391,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnAttackX(InputAction.CallbackContext context);
+        void OnAttackY(InputAction.CallbackContext context);
     }
 }

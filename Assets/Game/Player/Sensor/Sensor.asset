@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f80ad56963d5af4ebf2c751a0bfa31c, type: 3}
   m_Name: Sensor
   m_EditorClassIdentifier: 
-  _groundCheckRayOffset: {x: 0, y: 0.96}
+  _groundCheckRayOffset: {x: 0, y: 0.55}
   _groundCheckRayRadius: 0.3
-  _groundCheckRayLength: 0.86
-  _groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 384
+  _groundCheckRayLength: 0.6
   _isGroundCheckGizmoEnabled: 1
   _isGroundCheckGizmoAlpha: 0.5
   _abyssCheckRayOffset: {x: 0, y: 1.29}
@@ -26,17 +23,20 @@ MonoBehaviour:
   _isAbyssCheckGizmoEnabled: 1
   _isAbyssCheckGizmoAlpha: 0.5
   _aboveCheckRayOffset: {x: -0, y: 2.28}
-  _aboveCheckRayLength: 0.65
-  _aboveLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
+  _aboveCheckRayLength: 1.5
   _isAboveCheckGizmoEnabled: 1
   _isAboveCheckGizmoAlpha: 0.5
-  _grabbablePointOffset: {x: 0, y: 2.21}
+  _grabbablePointOffset: {x: 0, y: 2.21, z: -0.25}
   _grabbablePointRadius: 0.18
-  _grabbablePointLength: 0.6
+  _grabbablePointLength: 1.25
+  _isGrabbablePointCheckGizmoEnabled: 1
+  _isGrabPointCheckGizmoAlpha: 0.5
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _passThroughPlatform:
+    serializedVersion: 2
+    m_Bits: 256
   _grabbablePointLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  _isGrabbablePointCheckGizmoEnabled: 1
-  _isGrabPointCheckGizmoAlpha: 0.5

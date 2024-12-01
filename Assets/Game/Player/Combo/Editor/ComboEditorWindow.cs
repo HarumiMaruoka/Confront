@@ -1,7 +1,8 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Callbacks;
+using Confront.Player.Combo;
 
 namespace Confront.Player.ComboEditor
 {
@@ -61,6 +62,15 @@ namespace Confront.Player.ComboEditor
             if (comboTree)
             {
                 _nodeGraphView.PopulateView(comboTree);
+                return;
+            }
+
+            var gameObject = Selection.activeObject as GameObject;
+            var player = gameObject?.GetComponent<PlayerController>();
+            if (player && player.AttackComboTree)
+            {
+                _nodeGraphView.PopulateView(player.AttackComboTree);
+                return;
             }
         }
 

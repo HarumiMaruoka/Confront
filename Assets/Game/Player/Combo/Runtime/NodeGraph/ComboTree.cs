@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Confront.Player
+namespace Confront.Player.Combo
 {
     [CreateAssetMenu(fileName = "ComboTree", menuName = "Confront/Player/Combo/ComboTree", order = -100)]
     public class ComboTree : ScriptableObject
@@ -15,7 +15,9 @@ namespace Confront.Player
 
         public event Action<ComboNode> OnRootDuplicated;
 
+        [HideInInspector]
         public Vector3 Position = Vector3.zero;
+        [HideInInspector]
         public Vector3 Scale = Vector3.one;
 
         public List<ComboNode> Children = new List<ComboNode>();
@@ -172,6 +174,18 @@ namespace Confront.Player
                     Children.Add(attackState);
                     break;
             }
+        }
+
+        public ComboNode GetRoot(NodeType nodeType)
+        {
+            return nodeType switch
+            {
+                NodeType.GroundRootX => GroundRootX,
+                NodeType.GroundRootY => GroundRootY,
+                NodeType.AirRootX => AirRootX,
+                NodeType.AirRootY => AirRootY,
+                _ => null,
+            };
         }
 #endif
     }

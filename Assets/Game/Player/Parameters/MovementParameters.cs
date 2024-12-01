@@ -41,7 +41,6 @@ namespace Confront.Player
         public Vector3 GrabbablePosition;
         [HideInInspector]
         public float GrabIntervalTimer = -1;
-
         public bool IsGrabbableTimerFinished => GrabIntervalTimer <= 0;
 
         [Header("Grounded")]
@@ -62,5 +61,23 @@ namespace Confront.Player
 
         [Header("Steep Slope")]
         public float SlopeAcceleration;
+
+        [Header("Pass Through Platform")]
+        public float PassThroughPlatformDisableTime = 1f;
+        [HideInInspector]
+        public float PassThroughPlatformDisableTimer = -1f;
+        public bool IsPassThroughPlatformTimerFinished => PassThroughPlatformDisableTimer <= 0;
+
+        public void TimerUpdate()
+        {
+            if (GrabIntervalTimer > 0)
+            {
+                GrabIntervalTimer -= Time.deltaTime;
+            }
+            if (PassThroughPlatformDisableTimer > 0)
+            {
+                PassThroughPlatformDisableTimer -= Time.deltaTime;
+            }
+        }
     }
 }

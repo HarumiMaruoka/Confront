@@ -1,3 +1,4 @@
+﻿using Confront.Player.Combo;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -32,12 +33,14 @@ namespace Confront.Player.ComboEditor
                 if (node != null && node.Behaviour != null)
                 {
                     var serializedObject = new SerializedObject(node.Behaviour);
+                    serializedObject.Update();
                     var iterator = serializedObject.GetIterator();
                     iterator.NextVisible(true);
                     while (iterator.NextVisible(false))
                     {
                         EditorGUILayout.PropertyField(iterator, true);
                     }
+                    serializedObject.ApplyModifiedProperties();
                 }
 
                 if (_editor.serializedObject.ApplyModifiedProperties())

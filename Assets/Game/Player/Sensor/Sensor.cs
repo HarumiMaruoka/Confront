@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.StageGimmick;
+using System;
 using UnityEngine;
 
 namespace Confront.Player
@@ -13,8 +14,6 @@ namespace Confront.Player
         private float _groundCheckRayRadius = 0f;
         [SerializeField]
         private float _groundCheckRayLength = 0f;
-        [SerializeField]
-        private LayerMask _groundLayerMask = 0;
         [SerializeField]
         private bool _isGroundCheckGizmoEnabled = true;
         [SerializeField]
@@ -40,8 +39,6 @@ namespace Confront.Player
         [SerializeField]
         private float _aboveCheckRayLength = 0f;
         [SerializeField]
-        private LayerMask _aboveLayerMask = 0;
-        [SerializeField]
         private bool _isAboveCheckGizmoEnabled = true;
         [SerializeField]
         [Range(0.3f, 1f)]
@@ -49,18 +46,24 @@ namespace Confront.Player
 
         [Header("Check Grabbable Point")]
         [SerializeField]
-        private Vector2 _grabbablePointOffset = new Vector2(0, 0f);
+        private Vector3 _grabbablePointOffset = new Vector3(0, 2.21f);
         [SerializeField]
         private float _grabbablePointRadius = 0f;
         [SerializeField]
         private float _grabbablePointLength = 0f;
         [SerializeField]
-        private LayerMask _grabbablePointLayerMask = 0;
-        [SerializeField]
         private bool _isGrabbablePointCheckGizmoEnabled = true;
         [SerializeField]
         [Range(0.3f, 1f)]
         private float _isGrabPointCheckGizmoAlpha = 0.5f;
+
+        [Header("Layer Mask")]
+        [SerializeField]
+        private LayerMask _groundLayerMask;
+        [SerializeField]
+        private LayerMask _passThroughPlatform;
+        [SerializeField]
+        private LayerMask _grabbablePointLayerMask = 0;
 
         public SensorResult Calculate(PlayerController player)
         {
@@ -70,10 +73,17 @@ namespace Confront.Player
             var abyssCheckRayPosition = player.transform.position + (Vector3)_abyssCheckRayOffset;
             var slopeLimit = player.CharacterController.slopeLimit;
 
+            LayerMask groundCheckLayerMask;
+
+            if (player.MovementParameters.IsPassThroughPlatformTimerFinished) 
+                groundCheckLayerMask = _groundLayerMask | _passThroughPlatform;
+            else 
+                groundCheckLayerMask = _groundLayerMask;
+
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
-            result.IsGrounded = UnityEngine.Physics.SphereCast(groundCheckRayPosition, _groundCheckRayRadius, Vector3.down, out var groundHit, _groundCheckRayLength, _groundLayerMask);
+            result.IsGrounded = UnityEngine.Physics.SphereCast(groundCheckRayPosition, _groundCheckRayRadius, Vector3.down, out var groundHit, _groundCheckRayLength, groundCheckLayerMask);
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
-            result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayPosition, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, _groundLayerMask);
+            result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayPosition, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, groundCheckLayerMask);
 
             if (result.IsGrounded)
             {
@@ -99,12 +109,12 @@ namespace Confront.Player
             }
 
             // 頭上にレイを飛ばして、ヒットした場合には、頭上に何かあると判定する。
-            result.IsAbove = UnityEngine.Physics.Raycast(player.transform.position + (Vector3)_aboveCheckRayOffset, Vector3.up, _aboveCheckRayLength, _aboveLayerMask);
+            result.IsAbove = UnityEngine.Physics.Raycast(player.transform.position + (Vector3)_aboveCheckRayOffset, Vector3.up, _aboveCheckRayLength, _groundLayerMask);
 
             // 掴めるポイントを探す
             var position = player.transform.position + player.transform.rotation * (Vector3)_grabbablePointOffset;
             UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.forward, out var grabPointHit, _grabbablePointLength, _grabbablePointLayerMask);
-            result.GrabbablePoint = grabPointHit.transform;
+            if (grabPointHit.transform) result.GrabbablePoint = grabPointHit.transform.GetComponent<GrabbablePoint>();
 
             return result;
         }
@@ -181,7 +191,7 @@ namespace Confront.Player
 
         public GroundType GroundType;
 
-        public Transform GrabbablePoint; // 掴めるポイント
+        public GrabbablePoint GrabbablePoint; // 掴めるポイント
     }
 
     public enum GroundType

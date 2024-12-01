@@ -28,7 +28,11 @@ namespace Confront.Player
             {
                 await ClimbAsync(player);
             }
-            StateTransition(player);
+
+            if (!_cancellationTokenSource.IsCancellationRequested)
+            {
+                StateTransition(player);
+            }
         }
 
         public void Execute(PlayerController player)
@@ -133,6 +137,8 @@ namespace Confront.Player
 
         private bool IsClimb(PlayerController player, Vector2 leftStick)
         {
+            if (_cancellationTokenSource.Token.IsCancellationRequested) return false;
+
             var direction = player.DirectionController.CurrentDirection;
             var inputAngle = Mathf.Atan2(leftStick.y, leftStick.x) * Mathf.Rad2Deg;
             if (direction == Direction.Right)

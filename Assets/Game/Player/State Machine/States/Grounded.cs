@@ -35,12 +35,22 @@ namespace Confront.Player
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
-        private Vector2 _previousPosition;
-
         private void Move(PlayerController player)
         {
+            var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
+            var jumpInput = PlayerInputHandler.InGameInput.Jump.triggered;
+            if (leftStick.sqrMagnitude > 0.1f)
+            {
+                var angle = Vector2.Angle(leftStick, Vector2.down);
+                if (jumpInput && angle < 45f)
+                {
+                    var disableTime = player.MovementParameters.PassThroughPlatformDisableTime;
+                    player.MovementParameters.PassThroughPlatformDisableTimer = disableTime;
+                }
+            }
+
             // 入力に応じてx速度を更新する。
-            var inputX = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x;
+            var inputX = leftStick.x;
             var groundSensorResult = player.Sensor.Calculate(player);
             var groundNormal = groundSensorResult.GroundNormal;
 
@@ -79,6 +89,19 @@ namespace Confront.Player
 
         private void StateTransition(PlayerController player)
         {
+            if (PlayerInputHandler.InGameInput.AttackX.triggered)
+            {
+                var attackStateMachine = player.AttackStateMachine;
+                attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.GroundRootX);
+                player.StateMachine.ChangeState(attackStateMachine);
+            }
+            if (PlayerInputHandler.InGameInput.AttackY.triggered)
+            {
+                var attackStateMachine = player.AttackStateMachine;
+                attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.GroundRootY);
+                player.StateMachine.ChangeState(attackStateMachine);
+            }
+
             SensorResult sensorResult = player.Sensor.Calculate(player);
 
             var slopeAngle = Vector3.Angle(Vector3.up, sensorResult.GroundNormal);
@@ -90,15 +113,9 @@ namespace Confront.Player
 
             switch (sensorResult.GroundType)
             {
-                case GroundType.SteepSlope:
-                    player.StateMachine.ChangeState<SteepSlope>();
-                    break;
-                case GroundType.Abyss:
-                    player.StateMachine.ChangeState<Abyss>();
-                    break;
-                case GroundType.InAir:
-                    player.StateMachine.ChangeState<InAir>();
-                    break;
+                case GroundType.SteepSlope: player.StateMachine.ChangeState<SteepSlope>(); break;
+                case GroundType.Abyss: player.StateMachine.ChangeState<Abyss>(); break;
+                case GroundType.InAir: player.StateMachine.ChangeState<InAir>(); break;
             }
         }
     }
