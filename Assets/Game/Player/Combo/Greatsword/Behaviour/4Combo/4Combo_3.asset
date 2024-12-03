@@ -35,7 +35,7 @@ MonoBehaviour:
   _hitDetectionActivationTime: 0.1
   _hitDetectionDeactivationTime: 0.2
   _comboInputAcceptanceTime: 0.2
-  _comboInputDeactivationTime: 0.2
-  _nextAttackTransitionTime: 0.2
-  _attackCompletionTime: 0.3
+  _comboInputDeactivationTime: 0.6
+  _nextAttackTransitionTime: 0.6
+  _attackCompletionTime: 0.8
   _showLog: 0

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
-  m_Name: 4Combo_4
+  m_Name: JumpCombo_1
   m_EditorClassIdentifier: 
-  _animationName: GS_4Combo_4
+  _animationName: GS_JumpCombo_1
   _xAxisMovementCurve:
     serializedVersion: 2
     m_Curve: []
@@ -34,8 +34,8 @@ MonoBehaviour:
   _isGizmosVisible: 1
   _hitDetectionActivationTime: 0.1
   _hitDetectionDeactivationTime: 0.2
-  _comboInputAcceptanceTime: 0
-  _comboInputDeactivationTime: 0
-  _nextAttackTransitionTime: 0
-  _attackCompletionTime: 1.4
+  _comboInputAcceptanceTime: 0.2
+  _comboInputDeactivationTime: 0.9
+  _nextAttackTransitionTime: 0.9
+  _attackCompletionTime: 1.2
   _showLog: 0

@@ -148,8 +148,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   ClimbToRunThreshold: 0.25
-  GrabbablePosition: {x: -58.60829, y: 12.041321, z: 0}
-  GrabIntervalTimer: -0.00094639324
+  GrabbablePosition: {x: -88.23, y: 5.029999, z: 0}
+  GrabIntervalTimer: -0.000939982
   Acceleration: 1
   Deceleration: 18
   TurnDeceleration: 20
@@ -163,3 +163,6 @@ MonoBehaviour:
   SlopeAcceleration: 6
   PassThroughPlatformDisableTime: 0.5
   PassThroughPlatformDisableTimer: -0.0068257973
+  DodgeMaxSpeed: 20
+  DodgeAccelerationDuration: 0.4
+  DodgeDecelerationDuration: 0.3

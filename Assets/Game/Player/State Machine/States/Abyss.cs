@@ -15,7 +15,7 @@ namespace Confront.Player
         public void Execute(PlayerController player)
         {
             Move(player);
-            StateTransition(player);
+            this.TransitionToDefaultState(player);
         }
 
         public void Exit(PlayerController player)
@@ -40,24 +40,6 @@ namespace Confront.Player
             }
 
             player.MovementParameters.Velocity += new Vector2(fallDirection, -1f) * acceleration * Time.deltaTime;
-        }
-
-        private void StateTransition(PlayerController player)
-        {
-            var sensorResult = player.Sensor.Calculate(player);
-
-            switch (sensorResult.GroundType)
-            {
-                case GroundType.SteepSlope:
-                    player.StateMachine.ChangeState<SteepSlope>();
-                    break;
-                case GroundType.InAir:
-                    player.StateMachine.ChangeState<InAir>();
-                    break;
-                case GroundType.Ground:
-                    player.StateMachine.ChangeState<Grounded>();
-                    break;
-            }
         }
     }
 }

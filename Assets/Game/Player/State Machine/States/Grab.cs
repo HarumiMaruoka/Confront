@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 namespace Confront.Player
@@ -31,7 +30,7 @@ namespace Confront.Player
 
             if (!_cancellationTokenSource.IsCancellationRequested)
             {
-                StateTransition(player);
+                this.TransitionToDefaultState(player);
             }
         }
 
@@ -160,28 +159,6 @@ namespace Confront.Player
                 }
                 // それ以外は登る。
                 return true;
-            }
-        }
-
-        private void StateTransition(PlayerController player)
-        {
-            if (player == null) return;
-            var sensorResult = player.Sensor.Calculate(player);
-
-            switch (sensorResult.GroundType)
-            {
-                case GroundType.InAir:
-                    player.StateMachine.ChangeState<InAir>();
-                    break;
-                case GroundType.SteepSlope:
-                    player.StateMachine.ChangeState<SteepSlope>();
-                    break;
-                case GroundType.Abyss:
-                    player.StateMachine.ChangeState<Abyss>();
-                    break;
-                case GroundType.Ground:
-                    player.StateMachine.ChangeState<Grounded>();
-                    break;
             }
         }
     }

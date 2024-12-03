@@ -33,7 +33,7 @@ MonoBehaviour:
   _isGrabPointCheckGizmoAlpha: 0.5
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   _passThroughPlatform:
     serializedVersion: 2
     m_Bits: 256

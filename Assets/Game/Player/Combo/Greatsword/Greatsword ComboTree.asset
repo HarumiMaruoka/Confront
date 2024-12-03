@@ -76,6 +76,25 @@ MonoBehaviour:
   Position: {x: 100, y: 550}
   NodeType: 3
   Behaviour: {fileID: 11400000, guid: bc2dfe07d7d48e445aa82a7d86e729b3, type: 2}
+--- !u!114 &-2962020650911946863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 6253161052007878142}
+  XChild: {fileID: 8508749892779559032}
+  YChild: {fileID: 0}
+  Guid: 1f55af4659bffe442b522a29d29ce7c4
+  Position: {x: 313, y: 400}
+  NodeType: 4
+  Behaviour: {fileID: 11400000, guid: 5e59089133df81c4cb9d5348b3a032ac, type: 2}
 --- !u!114 &-1494683099180906992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +220,8 @@ MonoBehaviour:
   - {fileID: -1494683099180906992}
   - {fileID: -1316838004746354559}
   - {fileID: -753341370856455961}
+  - {fileID: -2962020650911946863}
+  - {fileID: 8508749892779559032}
 --- !u!114 &2021224645600706799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,12 +254,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
-  XChild: {fileID: 0}
+  XChild: {fileID: -2962020650911946863}
   YChild: {fileID: 0}
   Guid: 5609a3e43c3940b4a86ff116b2470781
   Position: {x: 100, y: 400}
   NodeType: 2
-  Behaviour: {fileID: 0}
+  Behaviour: {fileID: 11400000, guid: 54a276d20b656234a8506f220572a53a, type: 2}
 --- !u!114 &6388125849666823108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,3 +336,22 @@ MonoBehaviour:
   Position: {x: 100.000015, y: 101}
   NodeType: 0
   Behaviour: {fileID: 11400000, guid: 40a89f45193420f429446defb83c9844, type: 2}
+--- !u!114 &8508749892779559032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: -2962020650911946863}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: 8269134d19796fe40ac3c649981a0003
+  Position: {x: 526, y: 400}
+  NodeType: 4
+  Behaviour: {fileID: 11400000, guid: 627bccb7687a91343a6c64215681d169, type: 2}

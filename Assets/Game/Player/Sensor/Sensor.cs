@@ -75,9 +75,9 @@ namespace Confront.Player
 
             LayerMask groundCheckLayerMask;
 
-            if (player.MovementParameters.IsPassThroughPlatformTimerFinished) 
+            if (player.MovementParameters.IsPassThroughPlatformTimerFinished)
                 groundCheckLayerMask = _groundLayerMask | _passThroughPlatform;
-            else 
+            else
                 groundCheckLayerMask = _groundLayerMask;
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
@@ -192,6 +192,37 @@ namespace Confront.Player
         public GroundType GroundType;
 
         public GrabbablePoint GrabbablePoint; // 掴めるポイント
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public static bool operator ==(SensorResult a, SensorResult b)
+        {
+            return a.IsGrounded == b.IsGrounded &&
+                   a.IsAbyss == b.IsAbyss &&
+                   a.IsSteepSlope == b.IsSteepSlope &&
+                   a.IsAbove == b.IsAbove &&
+                   a.GroundNormal == b.GroundNormal &&
+                   a.GroundType == b.GroundType &&
+                   a.GrabbablePoint == b.GrabbablePoint;
+        }
+
+        public static bool operator !=(SensorResult a, SensorResult b)
+        {
+            return !(a == b);
+        }
     }
 
     public enum GroundType

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Confront.Input;
+using System;
 using UnityEngine;
 
 namespace Confront.Player.Combo
 {
     public class AttackStateMachine : IState
     {
+        #region IState
         private ComboTree _tree;
         private ComboNode _currentNode;
         private ComboNode _begin;
@@ -21,77 +23,81 @@ namespace Confront.Player.Combo
         public void Enter(PlayerController player)
         {
             player.MovementParameters.Velocity = Vector3.zero;
-            ChangeState(player, _begin);
+            ChangeAttackState(player, _begin);
         }
 
         public void Execute(PlayerController player)
         {
-            if (_currentNode == null)
+            if (_currentNode == null) // 次のノードがない場合は終了する。
             {
-                Debug.LogError("Current Node is null");
-                ChangePlayerState(player);
+                Debug.LogWarning("Current Node is null");
+                this.TransitionToDefaultState(player);
                 return;
             }
+            if (_currentNode.Behaviour == null) // 次のノードに振る舞いが設定されてない場合は終了する。
+            {
+                Debug.LogWarning("Current Node Behaviour is null");
+                this.TransitionToDefaultState(player);
+                return;
+            }
+
+            // 入力に応じて回避状態に遷移する。
+            if (PlayerInputHandler.InGameInput.Dodge.triggered)
+            {
+                player.StateMachine.ChangeState<GroundDodge>();
+                return;
+            }
+
             _currentNode.Behaviour.Execute(player);
         }
 
         public void Exit(PlayerController player)
         {
-            ExitCurrentNode(player);
+            ExitAttackState(player);
         }
+        #endregion
 
-        public void ChangeState(PlayerController player, ComboNode node)
+        #region AttackStateMachine
+        public void ChangeAttackState(PlayerController player, ComboNode node)
         {
-            ExitCurrentNode(player);
+            ExitAttackState(player);
             _currentNode = node;
-            EnterCurrentNode(player);
+            EnterAttackState(player);
         }
 
-        private void ExitCurrentNode(PlayerController player)
+        private void ExitAttackState(PlayerController player)
         {
-            if (_currentNode)
+            if (_currentNode && _currentNode.Behaviour)
             {
                 player.Animator.SetBool(_currentNode.Behaviour.AnimationName, false);
                 _currentNode.Behaviour.Exit(player);
                 _currentNode.Behaviour.OnTransitionX -= ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY -= ChangeToYChild;
-                _currentNode.Behaviour.OnCompleted -= ChangePlayerState;
+                _currentNode.Behaviour.OnCompleted -= this.TransitionToDefaultState;
             }
         }
 
-        private void EnterCurrentNode(PlayerController player)
+        private void EnterAttackState(PlayerController player)
         {
-            if (_currentNode)
+            if (_currentNode && _currentNode.Behaviour)
             {
                 player.Animator.SetBool(_currentNode.Behaviour.AnimationName, true);
                 _currentNode.Behaviour.Enter(player);
                 _currentNode.Behaviour.OnTransitionX += ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY += ChangeToYChild;
-                _currentNode.Behaviour.OnCompleted += ChangePlayerState;
+                _currentNode.Behaviour.OnCompleted += this.TransitionToDefaultState;
             }
         }
 
         private void ChangeToXChild(PlayerController player)
         {
-            ChangeState(player, _currentNode.XChild);
+            ChangeAttackState(player, _currentNode.XChild);
         }
 
         private void ChangeToYChild(PlayerController player)
         {
-            ChangeState(player, _currentNode.YChild);
+            ChangeAttackState(player, _currentNode.YChild);
         }
-
-        private void ChangePlayerState(PlayerController player)
-        {
-            var sensorResult = player.Sensor.Calculate(player);
-
-            switch (sensorResult.GroundType)
-            {
-                case GroundType.Ground: player.StateMachine.ChangeState<Grounded>(); break;
-                case GroundType.Abyss: player.StateMachine.ChangeState<Abyss>(); break;
-                case GroundType.SteepSlope: player.StateMachine.ChangeState<SteepSlope>(); break;
-                case GroundType.InAir: player.StateMachine.ChangeState<InAir>(); break;
-            }
-        }
+        #endregion
     }
 }

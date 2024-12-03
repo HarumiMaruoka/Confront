@@ -20,7 +20,7 @@ namespace Confront.Player
         public void Execute(PlayerController player)
         {
             Move(player);
-            StateTransition(player);
+            this.TransitionToDefaultState(player);
         }
 
         private void Move(PlayerController player)
@@ -36,24 +36,6 @@ namespace Confront.Player
             var velocityMagnitude = velocity.magnitude;
             velocityMagnitude += acceleration * Time.deltaTime;
             player.MovementParameters.Velocity = downhillDirection * velocityMagnitude;
-        }
-
-        private void StateTransition(PlayerController player)
-        {
-            var sensorResult = player.Sensor.Calculate(player);
-
-            switch (sensorResult.GroundType)
-            {
-                case GroundType.InAir:
-                    player.StateMachine.ChangeState<InAir>();
-                    break;
-                case GroundType.Abyss:
-                    player.StateMachine.ChangeState<Abyss>();
-                    break;
-                case GroundType.Ground:
-                    player.StateMachine.ChangeState<Grounded>();
-                    break;
-            }
         }
     }
 }

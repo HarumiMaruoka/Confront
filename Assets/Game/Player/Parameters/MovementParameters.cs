@@ -68,6 +68,11 @@ namespace Confront.Player
         public float PassThroughPlatformDisableTimer = -1f;
         public bool IsPassThroughPlatformTimerFinished => PassThroughPlatformDisableTimer <= 0;
 
+        [Header("Dodge")]
+        public float DodgeMaxSpeed;
+        public float DodgeAccelerationDuration;
+        public float DodgeDecelerationDuration;
+
         public void TimerUpdate()
         {
             if (GrabIntervalTimer > 0)

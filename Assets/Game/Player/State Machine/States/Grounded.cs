@@ -89,34 +89,30 @@ namespace Confront.Player
 
         private void StateTransition(PlayerController player)
         {
+            // 入力に応じて攻撃状態に遷移する。
             if (PlayerInputHandler.InGameInput.AttackX.triggered)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.GroundRootX);
                 player.StateMachine.ChangeState(attackStateMachine);
+                return;
             }
             if (PlayerInputHandler.InGameInput.AttackY.triggered)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.GroundRootY);
                 player.StateMachine.ChangeState(attackStateMachine);
-            }
-
-            SensorResult sensorResult = player.Sensor.Calculate(player);
-
-            var slopeAngle = Vector3.Angle(Vector3.up, sensorResult.GroundNormal);
-            if (slopeAngle >= player.CharacterController.slopeLimit &&
-                Mathf.Sign(sensorResult.GroundNormal.x) != Mathf.Sign(player.MovementParameters.Velocity.x))
-            {
                 return;
             }
 
-            switch (sensorResult.GroundType)
+            // 入力に応じて回避状態に遷移する。
+            if (PlayerInputHandler.InGameInput.Dodge.triggered)
             {
-                case GroundType.SteepSlope: player.StateMachine.ChangeState<SteepSlope>(); break;
-                case GroundType.Abyss: player.StateMachine.ChangeState<Abyss>(); break;
-                case GroundType.InAir: player.StateMachine.ChangeState<InAir>(); break;
+                player.StateMachine.ChangeState<GroundDodge>();
+                return;
             }
+
+            this.TransitionToDefaultState(player);
         }
     }
 }

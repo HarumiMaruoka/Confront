@@ -65,17 +65,24 @@ namespace Confront.Player
 
         private void StateTransition(PlayerController player)
         {
+            if (PlayerInputHandler.InGameInput.AttackX.triggered)
+            {
+                var attackStateMachine = player.AttackStateMachine;
+                attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootX);
+                player.StateMachine.ChangeState(attackStateMachine);
+                return;
+            }
+            if (PlayerInputHandler.InGameInput.AttackY.triggered)
+            {
+                var attackStateMachine = player.AttackStateMachine;
+                attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootY);
+                player.StateMachine.ChangeState(attackStateMachine);
+                return;
+            }
+
             if (player.MovementParameters.Velocity.y > 0f) return;
 
-            var sensorResult = player.Sensor.Calculate(player);
-
-            switch (sensorResult.GroundType)
-            {
-                case GroundType.Abyss: player.StateMachine.ChangeState<Abyss>(); break;
-                case GroundType.SteepSlope: player.StateMachine.ChangeState<SteepSlope>(); break;
-                case GroundType.InAir: player.StateMachine.ChangeState<InAir>(); break;
-                case GroundType.Ground: player.StateMachine.ChangeState<Grounded>(); break;
-            }
+            this.TransitionToDefaultState(player);
         }
     }
 }

@@ -66,26 +66,39 @@ namespace Confront.Player
 
         private void StateTransition(PlayerController player)
         {
-            var sensorResult = player.Sensor.Calculate(player);
-
-            switch (sensorResult.GroundType)
+            // 攻撃入力があれば攻撃ステートに遷移する。
+            if (PlayerInputHandler.InGameInput.AttackX.triggered)
             {
-                case GroundType.SteepSlope: player.StateMachine.ChangeState<SteepSlope>(); break;
-                case GroundType.Abyss: player.StateMachine.ChangeState<Abyss>(); break;
-                case GroundType.Ground: player.StateMachine.ChangeState<Grounded>(); break;
+                var attackStateMachine = player.AttackStateMachine;
+                attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootX);
+                player.StateMachine.ChangeState(attackStateMachine);
+                return;
             }
+            if (PlayerInputHandler.InGameInput.AttackY.triggered)
+            {
+                var attackStateMachine = player.AttackStateMachine;
+                attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootY);
+                player.StateMachine.ChangeState(attackStateMachine);
+                return;
+            }
+
+            // 掴みポイントがセンサーにヒットすれば掴みステートに遷移する。
+            var sensorResult = player.Sensor.Calculate(player);
 
             var isGrabbable =
                 player.MovementParameters.IsGrabbableTimerFinished &&
                 sensorResult.GrabbablePoint != null &&
                 player.DirectionController.CurrentDirection == sensorResult.GrabbablePoint.Direction;
 
-
             if (isGrabbable)
             {
                 player.MovementParameters.GrabbablePosition = sensorResult.GrabbablePoint.transform.position;
                 player.StateMachine.ChangeState<Grab>();
+                return;
             }
+
+            // 特に何もなければデフォルトステートに遷移する。
+            this.TransitionToDefaultState(player);
         }
     }
 }
