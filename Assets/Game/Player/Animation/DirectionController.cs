@@ -8,7 +8,6 @@ namespace Confront.Player
     [Serializable]
     public class DirectionController
     {
-        private Vector2 _velocity;
         private Transform _transform;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -34,7 +33,6 @@ namespace Confront.Player
         public void UpdateVelocity(Vector2 velocity)
         {
             if (!IsEnable) return;
-            _velocity = velocity;
 
             if (Mathf.Abs(velocity.x) <= 0.001f) return;
 

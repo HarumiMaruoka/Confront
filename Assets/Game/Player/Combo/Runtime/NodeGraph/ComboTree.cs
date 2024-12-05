@@ -15,6 +15,7 @@ namespace Confront.Player.Combo
 
         public event Action<ComboNode> OnRootDuplicated;
 
+        // NodeGraphGUIで使用する変数
         [HideInInspector]
         public Vector3 Position = Vector3.zero;
         [HideInInspector]

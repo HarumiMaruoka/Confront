@@ -18,20 +18,24 @@ namespace Confront.Player
             _player = player;
         }
 
-        public IState GetState<T>() where T : IState
+        public IState GetState(Type type)
         {
-            var type = typeof(T);
             if (!_states.ContainsKey(type))
             {
                 _states[type] = (IState)Activator.CreateInstance(type);
             }
-
             return _states[type];
         }
 
         public void ChangeState<T>() where T : IState
         {
-            var newState = GetState<T>();
+            var newState = GetState(typeof(T));
+            ChangeState(newState);
+        }
+
+        public void ChangeState(Type type)
+        {
+            var newState = GetState(type);
             ChangeState(newState);
         }
 

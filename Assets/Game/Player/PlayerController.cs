@@ -1,33 +1,63 @@
 ﻿using Confront.Input;
 using Confront.Player.Combo;
+using Confront.SaveSystem;
 using System;
 using UnityEngine;
 
 namespace Confront.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, ISavable
     {
-        private CharacterController _characterController;
-
-        public CharacterStats CharacterStats;
+        // インゲーム制御
+        public StateMachine StateMachine;
+        // 移動系
         public MovementParameters MovementParameters;
         public Sensor Sensor;
-        public StateMachine StateMachine;
         public DirectionController DirectionController;
-        public Animator Animator;
-
+        // ステータス系
+        public CharacterStats CharacterStats;
+        public HealthManager HealthManager;
+        // 攻撃系
         public ComboTree AttackComboTree;
         public AttackStateMachine AttackStateMachine;
+        // Unityコンポーネント
+        private CharacterController _characterController;
+        private Animator _animator;
 
         public CharacterController CharacterController { get => _characterController ??= GetComponent<CharacterController>(); }
+        public Animator Animator { get => _animator ??= GetComponent<Animator>(); }
 
         private void Start()
         {
-            AttackStateMachine = new AttackStateMachine();
-            DirectionController.Initialize(transform);
-            StateMachine = new StateMachine(this);
-            StateMachine.ChangeState<Grounded>();
+            SavableRegistry.Register(this);
+            Initialize(SaveDataController.Loaded);
+        }
+
+        private bool _isInitialized = false;
+
+        public void Initialize(SaveData saveData = null)
+        {
+            if (!_isInitialized)
+            {
+                StateMachine = new StateMachine(this);
+                StateMachine.ChangeState<Grounded>();
+                DirectionController.Initialize(transform);
+                AttackStateMachine = new AttackStateMachine();
+                HealthManager = new HealthManager(CharacterStats.MaxHealth, CharacterStats.MaxHealth);
+                _isInitialized = true;
+            }
+            if (saveData != null && saveData.PlayerData.HasValue)
+            {
+                var value = saveData.PlayerData.Value;
+                transform.position = value.Position;
+                transform.rotation = value.Rotation;
+                StateMachine.ChangeState(value.PlayerStateType);
+                MovementParameters.Velocity = value.Velocity;
+                MovementParameters.GrabIntervalTimer = value.GrabIntervalTimer;
+                MovementParameters.PassThroughPlatformDisableTimer = value.PassThroughPlatformDisableTimer;
+                saveData.PlayerData = null; // 何度もロードしないようにするため
+            }
         }
 
         private void Update()
@@ -41,6 +71,11 @@ namespace Confront.Player
             if (IsJumpable) StateMachine.ChangeState<Jump>();
 
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        }
+
+        private void OnDestroy()
+        {
+            SavableRegistry.Unregister(this);
         }
 
 #if UNITY_EDITOR
@@ -76,6 +111,26 @@ namespace Confront.Player
             if (GUILayout.Button("Speed 0.5", guiStyle)) Time.timeScale = 0.5f;
             if (GUILayout.Button("Speed 1", guiStyle)) Time.timeScale = 1;
             if (GUILayout.Button("Speed 2", guiStyle)) Time.timeScale = 2;
+        }
+
+        public void Save(SaveData saveData)
+        {
+            saveData.PlayerData = new PlayerData
+            {
+                // Transform
+                Position = transform.position,
+                Rotation = transform.rotation,
+                // StateMachine
+                PlayerStateType = StateMachine.CurrentState.GetType(),
+                // MovementParameters
+                Velocity = MovementParameters.Velocity,
+                GrabIntervalTimer = MovementParameters.GrabIntervalTimer,
+                PassThroughPlatformDisableTimer = MovementParameters.PassThroughPlatformDisableTimer,
+                // HealthManager
+                Health = HealthManager.CurrentHealth,
+                MaxHealth = CharacterStats.MaxHealth,
+            };
+
         }
 
         private bool IsJumpable

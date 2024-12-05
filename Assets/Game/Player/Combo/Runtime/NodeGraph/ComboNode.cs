@@ -1,5 +1,4 @@
-﻿using Confront.Player.Combo;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,10 +25,6 @@ namespace Confront.Player.Combo
         // ツリー構造を複製する。基本的にはRootノードから複製することを想定している。
         public ComboNode DuplicateNode(ComboNode original)
         {
-            var a = new List<int>();
-            a.Remove(1);
-
-
             if (original == null) return null;
 
             var clone = CreateInstance<ComboNode>();

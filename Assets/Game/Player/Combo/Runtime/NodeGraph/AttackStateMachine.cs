@@ -12,6 +12,7 @@ namespace Confront.Player.Combo
         private ComboNode _begin;
 
         public string AnimationName => "";
+        public ComboNode CurrentNode => _currentNode;
 
         public void Initialize(ComboTree tree, ComboTree.NodeType beginNode)
         {

@@ -16,12 +16,13 @@ namespace Confront.Player
 
         public void Enter(PlayerController player)
         {
-            // 敵との当たり判定を遮断する。
-            Physics.IgnoreLayerCollision(player.gameObject.layer, EnemyLayer, true);
             // 各種パラメータを初期化する。
-            if (EnemyLayer == 0) EnemyLayer = LayerMask.NameToLayer(EnemyLayerName);
             _elapsed = 0f;
             _initialSpeed = player.MovementParameters.Velocity.magnitude;
+            if (EnemyLayer == 0) EnemyLayer = LayerMask.NameToLayer(EnemyLayerName);
+
+            // 敵との当たり判定を遮断する。
+            Physics.IgnoreLayerCollision(player.gameObject.layer, EnemyLayer, true);
         }
 
         public void Execute(PlayerController player)
