@@ -1,6 +1,4 @@
 ﻿using System;
-using Confront.Player;
-using Confront.Player.Combo;
 using UnityEngine;
 
 namespace Confront.SaveSystem

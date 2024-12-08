@@ -25,18 +25,6 @@ namespace Confront.Player.Combo
         [SerializeField]
         private float _attackPowerFactor = 1; // 攻撃力係数
 
-        [Header("当たり判定_ヒットボックス")]
-        [SerializeField]
-        private AttackHitBox _hitBox;
-        [SerializeField]
-        private GizmoOption _isGizmosVisible = GizmoOption.AlwaysVisible;
-
-        [Header("当たり判定_タイミング")]
-        [SerializeField]
-        private float _hitDetectionActivationTime = 0.1f; // 当たり判定を有効にする時間
-        [SerializeField]
-        private float _hitDetectionDeactivationTime = 0.2f; // 当たり判定を無効にする時間
-
         [Header("コンボ入力")]
         [SerializeField]
         private float _comboInputAcceptanceTime = 0.2f; // コンボ入力を受け付ける時間
@@ -49,14 +37,13 @@ namespace Confront.Player.Combo
         [SerializeField]
         private float _attackCompletionTime = 0.3f; // 攻撃を完了する時間
 
-        [Header("デバッグ")]
+        [Header("当たり判定_ヒットボックス")]
         [SerializeField]
-        private bool _showLog = false;
+        private AttackHitBox[] _hitBoxes;
 
         private float _elapsed = 0;
         private ComboInput _lastInput = ComboInput.None;
 
-        public bool IsHitDetectionEnabled => _elapsed >= _hitDetectionActivationTime && _elapsed < _hitDetectionDeactivationTime;
         public bool IsComboInputEnabled => _elapsed >= _comboInputAcceptanceTime && _elapsed < _comboInputDeactivationTime;
         public override string AnimationName => _animationName;
 
@@ -73,17 +60,12 @@ namespace Confront.Player.Combo
         private void OnDrawGizmos()
         {
 #if UNITY_EDITOR
-            var isRuntime = Application.isPlaying;
-            var isHitDetectionEnabled = IsHitDetectionEnabled;
-
-            if (_isGizmosVisible == GizmoOption.None) return;
-            if (_isGizmosVisible == GizmoOption.RuntimeOnlyVisible && !isRuntime) return;
-            if (_isGizmosVisible == GizmoOption.RuntimeAndHitDetectionOnlyVisible && (!isRuntime || !isHitDetectionEnabled)) return;
-
-            if (!_hitBox.Center) _hitBox.Center = GameObject.FindGameObjectWithTag("Player").transform;
-            Gizmos.color = _hitBox.IsOverlapping(LayerMask) ? Color.red : Color.blue;
-            Gizmos.matrix = Matrix4x4.TRS(_hitBox.Position, _hitBox.Center.rotation, Vector3.one);
-            Gizmos.DrawWireCube(Vector3.zero, _hitBox.Size);
+            if (_hitBoxes == null) return;
+            foreach (var hitBox in _hitBoxes)
+            {
+                if (hitBox == null) continue;
+                hitBox.DrawGizmos(_elapsed, LayerMask);
+            }
 #endif
         }
 
@@ -92,8 +74,11 @@ namespace Confront.Player.Combo
             _elapsed = 0f;
             _lastInput = ComboInput.None;
 
-            _hitBox.Clear();
-            _hitBox.Center = player.transform;
+            foreach (var hitBox in _hitBoxes)
+            {
+                hitBox.Clear();
+                hitBox.Center = player.transform;
+            }
         }
 
         public override void Execute(PlayerController player)
@@ -112,10 +97,11 @@ namespace Confront.Player.Combo
             var yAxisMovement = (_yAxisMovementCurve.Evaluate(_elapsed) - _yAxisMovementCurve.Evaluate(_elapsed - Time.deltaTime));
             player.CharacterController.Move(Vector3.up * yAxisMovement);
 
-            if (IsHitDetectionEnabled)
+            foreach (var hitBox in _hitBoxes)
             {
-                var attackPower = _baseAttackPower + player.CharacterStats.AttackPower * _attackPowerFactor;
-                _hitBox.Update(attackPower, LayerMask);
+                var additionalAttackPower = _baseAttackPower;
+                var multiplierAttackPower = player.CharacterStats.AttackPower * _attackPowerFactor;
+                hitBox.Update(additionalAttackPower, multiplierAttackPower, _elapsed, LayerMask);
             }
             if (IsComboInputEnabled)
             {
@@ -135,57 +121,11 @@ namespace Confront.Player.Combo
                 // 攻撃を完了する
                 OnCompleted?.Invoke(player);
             }
-
-            DebugLog(previousElapsed, _elapsed);
         }
 
         public override void Exit(PlayerController player)
         {
 
-        }
-
-        private void DebugLog(float previousElapsed, float elapsed)
-        {
-            if (!_showLog) return;
-
-            if (previousElapsed < _hitDetectionActivationTime && elapsed >= _hitDetectionActivationTime)
-            {
-                // 当たり判定を有効にする
-                Debug.Log("Hit Detection Enabled");
-            }
-            if (previousElapsed < _hitDetectionDeactivationTime && elapsed >= _hitDetectionDeactivationTime)
-            {
-                // 当たり判定を無効にする
-                Debug.Log("Hit Detection Disabled");
-            }
-            if (previousElapsed < _comboInputAcceptanceTime && elapsed >= _comboInputAcceptanceTime)
-            {
-                // コンボ入力を受け付ける
-                Debug.Log("Combo Input Enabled");
-            }
-            if (previousElapsed < _comboInputDeactivationTime && elapsed >= _comboInputDeactivationTime)
-            {
-                // コンボ入力を無効にする
-                Debug.Log("Combo Input Disabled");
-            }
-            if (previousElapsed < _nextAttackTransitionTime && elapsed >= _nextAttackTransitionTime)
-            {
-                // 次の攻撃に遷移する
-                Debug.Log("Next Attack Transition");
-            }
-            if (previousElapsed < _attackCompletionTime && elapsed >= _attackCompletionTime)
-            {
-                // 攻撃を完了する
-                Debug.Log("Attack Completed");
-            }
-        }
-
-        public enum GizmoOption
-        {
-            None,
-            AlwaysVisible, // 常に表示
-            RuntimeOnlyVisible, // 実行時のみ表示
-            RuntimeAndHitDetectionOnlyVisible, // 実行時かつ有効時のみ表示
         }
     }
 }

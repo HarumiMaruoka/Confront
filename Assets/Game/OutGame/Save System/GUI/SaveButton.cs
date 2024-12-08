@@ -33,8 +33,8 @@ namespace Confront.SaveSystem.GUI
             _description.text = string.IsNullOrEmpty(saveFileData?.SceneName) ? "None" : saveFileData?.SceneName;
             _lastPlayed.text = saveFileData == null ? "0000/00/00 0:00:00" : saveFileData.LastPlayed.ToString();
 
-            var width = Camera.main.pixelWidth;
-            var height = Camera.main.pixelHeight;
+            var width = SaveDataController.SaveButtonIconWidth;
+            var height = SaveDataController.SaveButtonIconHeight;
             Texture2D texture2D = new Texture2D(width, height);
             if (saveFileData != null && ImageConversion.LoadImage(texture2D, saveFileData.ScreenShot))
             {

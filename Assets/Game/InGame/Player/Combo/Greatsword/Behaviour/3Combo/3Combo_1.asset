@@ -54,15 +54,32 @@ MonoBehaviour:
     m_RotationOrder: 4
   _baseAttackPower: 1
   _attackPowerFactor: 1
-  _hitBox:
-    Center: {fileID: 0}
-    Offset: {x: 0, y: 1.5, z: 3.4}
-    Size: {x: 1, y: 2.5, z: 4.43}
-  _isGizmosVisible: 3
-  _hitDetectionActivationTime: 0.1
-  _hitDetectionDeactivationTime: 0.2
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0.6
   _nextAttackTransitionTime: 0.6
   _attackCompletionTime: 0.9
-  _showLog: 0
+  _hitBoxes:
+  - _startTime: 0.2
+    _endTime: 0.3
+    _additionalAttackPower: 2
+    _multiplierAttackPower: 1
+    _offset: {x: 0, y: 1.5, z: 2}
+    _size: {x: 0, y: 3, z: 3}
+    _gizmoOption: 0
+    Center: {fileID: 0}
+  - _startTime: 0.3
+    _endTime: 0.4
+    _additionalAttackPower: 1
+    _multiplierAttackPower: 2
+    _offset: {x: 0, y: 1.5, z: 2}
+    _size: {x: 0, y: 3, z: 3}
+    _gizmoOption: 0
+    Center: {fileID: 0}
+  - _startTime: 0.4
+    _endTime: 0.5
+    _additionalAttackPower: 2
+    _multiplierAttackPower: 2
+    _offset: {x: 0, y: 1.5, z: 2}
+    _size: {x: 0, y: 3, z: 3}
+    _gizmoOption: 0
+    Center: {fileID: 0}

@@ -8,6 +8,10 @@ namespace Confront.SaveSystem
 {
     public class SaveDataController
     {
+        public const int SaveButtonIconWidth = 1920 / 8;
+        public const int SaveButtonIconHeight = 1080 / 8;
+        public const int SaveButtonIconQuality = 40;
+
         public static SaveData Loaded { get; private set; }
 
         public SaveDataController(string key)
@@ -23,7 +27,12 @@ namespace Confront.SaveSystem
             var saveFileData = new SaveFileData();
             saveData.SceneName = SceneManager.GetActiveScene().name;
             saveFileData.SceneName = SceneManager.GetActiveScene().name;
-            saveFileData.ScreenShot = Camera.main.CaptureScreenShot();
+
+            var quality = SaveButtonIconQuality;
+            var width = SaveButtonIconWidth;
+            var height = SaveButtonIconHeight;
+
+            saveFileData.ScreenShot = Camera.main.CaptureScreenShotJPG(quality, width, height);
             saveFileData.LastPlayed = DateTime.Now;
             foreach (var savable in SavableRegistry.Savables)
             {
