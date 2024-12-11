@@ -55,6 +55,7 @@ namespace Confront.Player
 
         public void Initialize(SaveData saveData = null)
         {
+            CharacterController.enabled = false;
             if (!_isInitialized)
             {
                 StateMachine = new StateMachine(this);
@@ -72,6 +73,7 @@ namespace Confront.Player
                 transform.position = value.Position;
                 transform.rotation = value.Rotation;
                 StateMachine.ChangeState(value.PlayerStateType);
+                HealthManager = value.HealthManager;
                 MovementParameters.Velocity = value.Velocity;
                 MovementParameters.GrabIntervalTimer = value.GrabIntervalTimer;
                 MovementParameters.PassThroughPlatformDisableTimer = value.PassThroughPlatformDisableTimer;
@@ -80,6 +82,7 @@ namespace Confront.Player
 
                 saveData.PlayerData = null; // 何度もロードしないようにするため
             }
+            CharacterController.enabled = true;
         }
 
         private void Update()
@@ -167,8 +170,7 @@ namespace Confront.Player
                 GrabIntervalTimer = MovementParameters.GrabIntervalTimer,
                 PassThroughPlatformDisableTimer = MovementParameters.PassThroughPlatformDisableTimer,
                 // HealthManager
-                Health = HealthManager.CurrentHealth,
-                MaxHealth = CharacterStats.MaxHealth,
+                HealthManager = HealthManager,
                 // Inventory
                 Inventory = ItemInventory,
                 HotBar = HotBar

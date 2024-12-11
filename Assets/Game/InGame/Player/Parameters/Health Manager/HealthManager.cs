@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
-using UnityEditor.AddressableAssets.Build;
 using UnityEngine;
 
 namespace Confront.Player
@@ -14,6 +13,7 @@ namespace Confront.Player
             _maxHealth = initialMaxHealth;
         }
 
+        [SerializeField]
         private float _currentHealth;
         public float CurrentHealth
         {
@@ -28,6 +28,7 @@ namespace Confront.Player
             }
         }
 
+        [SerializeField]
         private float _maxHealth;
         public float MaxHealth
         {

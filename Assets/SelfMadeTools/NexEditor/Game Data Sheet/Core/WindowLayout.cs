@@ -1,3 +1,4 @@
+ï»¿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,9 +168,9 @@ namespace NexEditor.GameDataSheet
             // Draw vertical lines
             for (int i = 0; i < _labelWidths.Count; i++)
             {
-                // label•‚Ü‚Å‚Ì‡Œv
+                // labelå¹…ã¾ã§ã®åˆè¨ˆ
                 var lx = _labelWidths.Take(i).Sum() + i * padding.x;
-                // value•‚Ü‚Å‚Ì‡Œv
+                // valueå¹…ã¾ã§ã®åˆè¨ˆ
                 var vx = _valueWidths.Take(i).Sum() + i * padding.x;
                 var x = lx + vx + offset.x;
                 EditorGUI.DrawRect(new Rect(x, offset.y, 1, height), color);
@@ -180,3 +181,4 @@ namespace NexEditor.GameDataSheet
 
     }
 }
+#endif

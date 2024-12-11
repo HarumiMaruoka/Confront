@@ -1,4 +1,5 @@
 ﻿using Confront.Item;
+using Confront.Player;
 using System;
 using UnityEngine;
 
@@ -37,8 +38,7 @@ namespace Confront.SaveSystem
         public float GrabIntervalTimer;
         public float PassThroughPlatformDisableTimer;
         //   HealthManager 
-        public float Health;
-        public float MaxHealth;
+        public HealthManager HealthManager;
 
         //   Inventory
         public ItemInventory Inventory;

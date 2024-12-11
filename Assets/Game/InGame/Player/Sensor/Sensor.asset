@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f80ad56963d5af4ebf2c751a0bfa31c, type: 3}
   m_Name: Sensor
   m_EditorClassIdentifier: 
-  _groundCheckRayOffset: {x: 0, y: 0.4}
-  angleRange: 45
-  rayCount: 16
-  rayDistance: 0.75
+  _groundCheckRayOffset: {x: 0, y: 0.3}
+  angleRange: 85
+  rayCount: 52
+  rayDistance: 0.58
   _isGroundCheckGizmoEnabled: 1
   _isGroundCheckGizmoAlpha: 1
   _abyssCheckRayOffset: {x: 0, y: 1.29}
@@ -33,7 +33,7 @@ MonoBehaviour:
   _isGrabbablePointCheckGizmoEnabled: 1
   _isGrabPointCheckGizmoAlpha: 0.5
   _frontCheckRayOffset: {x: 0, y: 2.14}
-  _frontCheckRayLength: 0.8
+  _frontCheckRayLength: 1
   _isFrontCheckGizmoEnabled: 1
   _isFrontCheckGizmoAlpha: 1
   GroundLayerMask:

@@ -102,6 +102,7 @@ namespace Confront.Player
             var threshold = player.MovementParameters.ClimbToRunThreshold;
             var previousTime = 0f;
             float time = 0f;
+            if (player == null) return;
             Vector3 startPosition = player.transform.position;
 
             while (time < maxTime)

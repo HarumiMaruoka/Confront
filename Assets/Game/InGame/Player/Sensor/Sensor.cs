@@ -108,18 +108,21 @@ namespace Confront.Player
                 groundCheckLayerMask = GroundLayerMask;
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
-            var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down);
+            var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down, out float averageHitRayLength);
             result.IsGrounded = groundNormal != default;
+            result.AverageHitRayLength = averageHitRayLength;
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
             result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayPosition, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, groundCheckLayerMask);
+
+            var groundAngle = Vector3.Angle(Vector3.up, groundNormal);
 
             if (result.IsGrounded)
             {
                 result.GroundNormal = groundNormal;
-                result.IsSteepSlope = Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
+                result.IsSteepSlope = groundAngle < 89.999f && Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
             }
 
-            if (result.IsGrounded && result.IsAbyss)
+            if (result.IsGrounded && result.IsAbyss && groundAngle < 89.999f)
             {
                 result.GroundType = GroundType.Abyss;
             }
@@ -213,7 +216,7 @@ namespace Confront.Player
             }
         }
 
-        private Vector3 CastFanRaysAndGetAveragedNormal(PlayerController player, Vector3 direction)
+        private Vector3 CastFanRaysAndGetAveragedNormal(PlayerController player, Vector3 direction, out float averageHitRayLength)
         {
             var origin = player.transform.position + (Vector3)_groundCheckRayOffset;
             LayerMask groundCheckLayerMask;
@@ -229,6 +232,7 @@ namespace Confront.Player
 
             float halfAngle = angleRange * 0.5f;
 
+            averageHitRayLength = 0f;
             for (int i = 0; i < rayCount; i++)
             {
                 float t = (float)i / (rayCount - 1);
@@ -245,6 +249,7 @@ namespace Confront.Player
                 {
                     hitNormals.Add(hit.normal);
                     rayInfos.Add(new RayInfo { start = origin, end = hit.point, hit = true });
+                    averageHitRayLength += hit.distance;
                 }
                 else
                 {
@@ -253,7 +258,10 @@ namespace Confront.Player
             }
 
             if (hitNormals.Count == 0)
+            {
+                averageHitRayLength = rayDistance;
                 return Vector3.zero;
+            }
 
             Vector3 sum = Vector3.zero;
             foreach (var normal in hitNormals)
@@ -261,6 +269,7 @@ namespace Confront.Player
                 sum += normal;
             }
             Vector3 averageNormal = sum / hitNormals.Count;
+            averageHitRayLength /= hitNormals.Count;
             averageNormal.Normalize();
 
             return averageNormal;
@@ -280,6 +289,7 @@ namespace Confront.Player
         public bool IsAbyss; // 崖にいるか
         public bool IsSteepSlope; // 急斜面にいるか
         public bool IsAbove; // 頭上に何かあるか
+        public float AverageHitRayLength; // 平均のヒットしたレイの長さ
 
         public Vector2 GroundNormal; // 地面の法線
 

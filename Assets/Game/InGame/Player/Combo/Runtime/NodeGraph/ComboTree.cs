@@ -176,6 +176,7 @@ namespace Confront.Player.Combo
                     break;
             }
         }
+#endif
 
         public ComboNode GetRoot(NodeType nodeType)
         {
@@ -188,7 +189,6 @@ namespace Confront.Player.Combo
                 _ => null,
             };
         }
-#endif
     }
     public static class NodeTypeExtension
     {

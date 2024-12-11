@@ -38,10 +38,26 @@ namespace Confront.Player
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
+        private float CalculateDirection(float direction)
+        {
+            if (Mathf.Abs(direction) < 0.01f) return 0;
+            return Mathf.Sign(direction);
+        }
+
         private void Move(PlayerController player)
         {
             var sensorResult = player.Sensor.Calculate(player);
             var inputX = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x;
+
+            // 進行方向にモノがあるか
+            var playerDirection = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
+            var velocityDirection = CalculateDirection(player.MovementParameters.Velocity.x);
+            var hit = player.Sensor.FrontCheck(player, playerDirection);
+            if (playerDirection == velocityDirection && hit)
+            {
+                inputX = 0f;
+                player.MovementParameters.Velocity.x = 0f;
+            }
 
             if (player.MovementParameters.Velocity.y > 0.0001f && sensorResult.IsAbove)
             {

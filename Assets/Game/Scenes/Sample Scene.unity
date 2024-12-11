@@ -1014,7 +1014,7 @@ Transform:
   m_GameObject: {fileID: 264235132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -111.7, y: 16.567015, z: -10}
+  m_LocalPosition: {x: 37.5, y: 16.837013, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9316,7 +9316,7 @@ Transform:
   m_GameObject: {fileID: 1275641712}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.42, y: 2.77, z: 0.16948293}
+  m_LocalPosition: {x: 3.42, y: 3.18, z: 0.16948293}
   m_LocalScale: {x: 5, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13190,7 +13190,7 @@ Transform:
   m_GameObject: {fileID: 2068263869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -111.7, y: 16.567015, z: -10}
+  m_LocalPosition: {x: 37.5, y: 16.837013, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14560,7 +14560,7 @@ MonoBehaviour:
     CurrentDirection: 0
     IsEnable: 1
   CharacterStats: {fileID: 11400000, guid: 522d1ad639e3b5345a3c98deccec275f, type: 2}
-  AttackComboTree: {fileID: 0}
+  AttackComboTree: {fileID: 11400000, guid: 4aa6c899124ddab429084ae40880b35d, type: 2}
   MenuController: {fileID: 567855155}
   _guiFontSize: 32
 --- !u!1 &2209999003258930669
@@ -15164,7 +15164,7 @@ Transform:
   m_GameObject: {fileID: 4150559820497237042}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -111.7, y: 11.8, z: 0}
+  m_LocalPosition: {x: 37.5, y: 12.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:

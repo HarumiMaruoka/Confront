@@ -1,7 +1,6 @@
+﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using System.Reflection;
-using System.ComponentModel;
 
 namespace NexEditor.GameDataSheet
 {
@@ -82,3 +81,4 @@ namespace NexEditor.GameDataSheet
         }
     }
 }
+#endif
