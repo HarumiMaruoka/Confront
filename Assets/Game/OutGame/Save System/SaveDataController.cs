@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Confront.Item;
 using Confront.Utility;
 using OdinSerializer;
 using UnityEngine;
@@ -22,6 +24,10 @@ namespace Confront.SaveSystem
 
         public void Save()
         {
+            // シリアライズする際に参照するUnityオブジェクトをリストに追加する。
+            List<UnityEngine.Object> unityReferences = new List<UnityEngine.Object>();
+            unityReferences.AddRange(ItemManager.ItemSheet);
+
             // セーブデータを作成する。
             var saveData = new SaveData();
             var saveFileData = new SaveFileData();
@@ -38,7 +44,7 @@ namespace Confront.SaveSystem
             {
                 savable.Save(saveData);
             }
-            var bytes = SerializationUtility.SerializeValue(saveData, DataFormat.Binary);
+            var bytes = SerializationUtility.SerializeValue(saveData, DataFormat.Binary, out unityReferences);
             PlayerPrefs.SetString(Key, Convert.ToBase64String(bytes));
             bytes = SerializationUtility.SerializeValue(saveFileData, DataFormat.Binary);
             PlayerPrefs.SetString(Key + "_file", Convert.ToBase64String(bytes));
@@ -46,6 +52,10 @@ namespace Confront.SaveSystem
 
         public void Load()
         {
+            // デシリアライズする際に参照するUnityオブジェクトをリストに追加する。
+            List<UnityEngine.Object> unityReferences = new List<UnityEngine.Object>();
+            unityReferences.AddRange(ItemManager.ItemSheet);
+
             var data = PlayerPrefs.GetString(Key);
             if (string.IsNullOrEmpty(data))
             {
@@ -54,7 +64,7 @@ namespace Confront.SaveSystem
             }
 
             var bytes = Convert.FromBase64String(data);
-            Loaded = SerializationUtility.DeserializeValue<SaveData>(bytes, DataFormat.Binary);
+            Loaded = SerializationUtility.DeserializeValue<SaveData>(bytes, DataFormat.Binary, unityReferences);
             // ここでゲームシーンを復元する。
             SceneManager.LoadScene(Loaded.SceneName);
         }

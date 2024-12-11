@@ -1,5 +1,6 @@
 ﻿using Confront.GameUI;
 using Confront.Input;
+using Confront.Item;
 using Confront.Player.Combo;
 using Confront.SaveSystem;
 using System;
@@ -11,6 +12,21 @@ namespace Confront.Player
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour, ISavable
     {
+        public static PlayerController Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Debug.LogError("PlayerController is already exist.");
+                return;
+            }
+
+            Instance = this;
+            SavableRegistry.Register(this);
+            Initialize(SaveDataController.Loaded);
+        }
+
         // インゲーム制御
         public StateMachine StateMachine;
         // 移動系
@@ -25,18 +41,15 @@ namespace Confront.Player
         public AttackStateMachine AttackStateMachine;
         // メニュー
         public MenuController MenuController;
+        // アイテム
+        public ItemInventory ItemInventory = new ItemInventory();
+        public HotBar HotBar = new HotBar();
         // Unityコンポーネント
         private CharacterController _characterController;
         private Animator _animator;
 
         public CharacterController CharacterController { get => _characterController ??= GetComponent<CharacterController>(); }
         public Animator Animator { get => _animator ??= GetComponent<Animator>(); }
-
-        private void Start()
-        {
-            SavableRegistry.Register(this);
-            Initialize(SaveDataController.Loaded);
-        }
 
         private bool _isInitialized = false;
 
@@ -62,6 +75,9 @@ namespace Confront.Player
                 MovementParameters.Velocity = value.Velocity;
                 MovementParameters.GrabIntervalTimer = value.GrabIntervalTimer;
                 MovementParameters.PassThroughPlatformDisableTimer = value.PassThroughPlatformDisableTimer;
+                ItemInventory = value.Inventory;
+                HotBar = value.HotBar;
+
                 saveData.PlayerData = null; // 何度もロードしないようにするため
             }
         }
@@ -89,6 +105,7 @@ namespace Confront.Player
                 MenuController.OnOpenedMenu -= OnOpenedMenu;
                 MenuController.OnClosedMenu -= OnClosedMenu;
             }
+            Instance = null;
         }
 
 #if UNITY_EDITOR
@@ -152,6 +169,9 @@ namespace Confront.Player
                 // HealthManager
                 Health = HealthManager.CurrentHealth,
                 MaxHealth = CharacterStats.MaxHealth,
+                // Inventory
+                Inventory = ItemInventory,
+                HotBar = HotBar
             };
 
         }

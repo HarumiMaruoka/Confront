@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Confront.Player
 {
-    [CreateAssetMenu(fileName = "CharacterStats", menuName = "Confront/Player/CharacterStats")]
+    [CreateAssetMenu(fileName = "CharacterStats", menuName = "ConfrontSO/Player/CharacterStats")]
     public class CharacterStats : ScriptableObject
     {
         public float MaxHealth = 100;

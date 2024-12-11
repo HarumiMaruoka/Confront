@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7cac501a538924093acd4a42b3029f, type: 3}
   m_Name: MovementParameters
   m_EditorClassIdentifier: 
-  Velocity: {x: -0.008942392, y: -0.0051628947}
-  JumpForce: 32
+  Velocity: {x: 0, y: 0}
+  JumpForce: 40
   GrabInterval: 0.2
   GrabPositionOffset: {x: -0.58, y: -2.2}
   GrabDuration: 0.1
@@ -148,17 +148,17 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   ClimbToRunThreshold: 0.25
-  GrabbablePosition: {x: -51.535, y: 6.226, z: 0}
-  GrabIntervalTimer: -0.002992528
+  GrabbablePosition: {x: -64.065, y: 3.7259998, z: 0}
+  GrabIntervalTimer: -0.0033394927
   Acceleration: 1
   Deceleration: 18
   TurnDeceleration: 20
   MaxSpeed: 12
-  Gravity: 64
+  Gravity: 95
   InAirXAcceleration: 10
   InAirXDeceleration: 10
   InAirXMaxSpeed: 15
-  InAirMaxFallSpeed: -80
+  InAirMaxFallSpeed: -999
   AbyssAcceleration: 2.2
   AbyssXMinSpeed: 8
   SlopeAcceleration: 6

@@ -1,4 +1,4 @@
-﻿using Confront.DebugTools;
+﻿using Confront.Debugger;
 using Confront.Input;
 using Confront.Player.Combo;
 using Confront.Utility;
@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Confront.Player.Combo
 {
-    [CreateAssetMenu(fileName = "SwiftAttackState", menuName = "Confront/Player/Combo/SwiftAttackState")]
+    [CreateAssetMenu(fileName = "SwiftAttackState", menuName = "ConfrontSO/Player/Combo/SwiftAttackState")]
     public class SwiftAttackState : AttackBehaviour
     {
         [Header("アニメーション")]

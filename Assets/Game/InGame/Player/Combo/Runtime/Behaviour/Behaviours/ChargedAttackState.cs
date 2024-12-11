@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Confront.Player.Combo
 {
-    [CreateAssetMenu(fileName = "ChargedAttackState", menuName = "Confront/Player/Combo/ChargedAttackState")]
+    [CreateAssetMenu(fileName = "ChargedAttackState", menuName = "ConfrontSO/Player/Combo/ChargedAttackState")]
     public class ChargedAttackState : AttackBehaviour
     {
         public override string AnimationName => "ChargedAttack";

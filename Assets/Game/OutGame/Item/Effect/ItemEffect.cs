@@ -6,6 +6,6 @@ namespace Confront.Item
 {
     public abstract class ItemEffect : ScriptableObject
     {
-        public abstract void ApplyEffect(PlayerController player);
+        public abstract void UseItem(PlayerController player, InventorySlot slot);
     }
 }

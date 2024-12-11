@@ -1,4 +1,5 @@
-﻿using Confront.Input;
+﻿using Confront.Debugger;
+using Confront.Input;
 using System;
 using UnityEngine;
 
@@ -65,14 +66,14 @@ namespace Confront.Player
 
         private void StateTransition(PlayerController player)
         {
-            if (PlayerInputHandler.InGameInput.AttackX.triggered)
+            if (PlayerInputHandler.InGameInput.AttackX.triggered && DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootX);
                 player.StateMachine.ChangeState(attackStateMachine);
                 return;
             }
-            if (PlayerInputHandler.InGameInput.AttackY.triggered)
+            if (PlayerInputHandler.InGameInput.AttackY.triggered && DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootY);

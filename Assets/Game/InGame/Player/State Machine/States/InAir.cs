@@ -1,4 +1,5 @@
-﻿using Confront.Input;
+﻿using Confront.Debugger;
+using Confront.Input;
 using Confront.StageGimmick;
 using System;
 using UnityEngine;
@@ -9,13 +10,20 @@ namespace Confront.Player
     {
         public string AnimationName => "MidAir";
 
+        private Vector2 _prevPosition;
+        private Vector2 _nextPosition;
+
         public void Enter(PlayerController player)
         {
-
+            _prevPosition = player.transform.position;
+            _nextPosition = player.transform.position;
         }
 
         public void Execute(PlayerController player)
         {
+            _prevPosition = _nextPosition;
+            _nextPosition = player.transform.position;
+
             Move(player);
             StateTransition(player);
         }
@@ -65,19 +73,28 @@ namespace Confront.Player
             var fallSpeed = player.MovementParameters.Velocity.y;
             var maxFallSpeed = player.MovementParameters.InAirMaxFallSpeed;
             if (fallSpeed < maxFallSpeed) player.MovementParameters.Velocity.y = maxFallSpeed;
+
+            if (Physics.Linecast(_prevPosition, _nextPosition, out RaycastHit hitInfo, player.Sensor.PassThroughPlatform))
+            {
+                var hitPoint = hitInfo.point;
+                player.CharacterController.enabled = false;
+                player.transform.position = new Vector3(hitPoint.x, hitPoint.y, 0f);
+                player.MovementParameters.Velocity = new Vector2(player.MovementParameters.Velocity.x, 0f);
+                player.CharacterController.enabled = true;
+            }
         }
 
         private void StateTransition(PlayerController player)
         {
             // 攻撃入力があれば攻撃ステートに遷移する。
-            if (PlayerInputHandler.InGameInput.AttackX.triggered)
+            if (PlayerInputHandler.InGameInput.AttackX.triggered && DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootX);
                 player.StateMachine.ChangeState(attackStateMachine);
                 return;
             }
-            if (PlayerInputHandler.InGameInput.AttackY.triggered)
+            if (PlayerInputHandler.InGameInput.AttackY.triggered && DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootY);

@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Confront.Player
 {
-    [CreateAssetMenu(fileName = "MovementParameters", menuName = "Confront/Player/Movement Parameters")]
+    [CreateAssetMenu(fileName = "MovementParameters", menuName = "ConfrontSO/Player/Movement Parameters")]
     public class MovementParameters : ScriptableObject
     {
         private static readonly string _addressablePath = "MovementParameters";

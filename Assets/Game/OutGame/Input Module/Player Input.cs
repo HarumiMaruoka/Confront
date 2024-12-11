@@ -151,17 +151,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""859059f3-9320-4aeb-85e9-5e07b5a39c75"",
-                    ""path"": ""<Gamepad>/dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""cc507c0a-8417-4880-b058-3dcc20bc85e6"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -302,6 +291,60 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae8c3f19-90ff-4c50-bbf7-ab6f3ae75254"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HotBar Top"",
+                    ""type"": ""Button"",
+                    ""id"": ""3aaf471e-a5c7-449f-b5ef-3280e50f6e05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HotBar Bottom"",
+                    ""type"": ""Button"",
+                    ""id"": ""abab81fd-6d9d-4bca-a2c7-aaeb5dc8e184"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HotBar Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""143dd372-d7a7-4055-84cc-b6998f98d4a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HotBar Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""1bab9a40-0542-488d-93a3-81951b59b41e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""31ed8a00-d9da-43e0-98f3-a4ee16c826e9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -370,6 +413,226 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SaveShortcut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eef9c3b8-52f1-40e7-95da-70bf226a8a98"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""522f8fb1-0780-4c29-84cc-eeb768056b2f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4530c4d3-7e2e-4eb2-8c98-2f049ebded45"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Top"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""f5d0084f-baff-4381-b51d-91c95fc252a8"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Top"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""3c1889f3-6b0b-47d1-a07e-63520927ff59"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Top"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""f963c7ac-fb46-43c0-9447-b036a43c9d14"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Top"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3f6a0bd-820c-4aaa-b8a7-036ad1bd5180"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Bottom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""91bce4b4-fe9e-47bc-9c99-45c24fdd5af4"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Bottom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""29802260-6cbb-45ea-9cad-691b2813fcdd"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Bottom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""4dbeb562-76ba-4bb6-93e1-2392661555c4"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Bottom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30d6c116-0d3e-4493-9152-449311e9cec5"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""9d35d46b-66cf-44ed-b091-efb600f03fd0"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Left"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""656daf2b-397f-43b1-a19c-41cdbd092760"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""3aa8d4fc-c8e0-41fa-80f7-d1a063b7dcf6"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c39315dc-1d74-4770-8e79-1f8d8957a891"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""6e650fe0-3a87-4166-aa81-e03203be9699"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Right"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""1778ec82-3fc1-4217-a872-29deeddf4678"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""1df3dd29-d11b-424d-8923-b18e63a18015"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HotBar Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17cb9a05-4d3f-45a0-9323-11e1cc9d8ae8"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eea37d3f-142f-4b55-b2c6-7129819ff027"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -389,6 +652,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OutGameInput_OpenMenu = m_OutGameInput.FindAction("OpenMenu", throwIfNotFound: true);
         m_OutGameInput_CloseMenu = m_OutGameInput.FindAction("CloseMenu", throwIfNotFound: true);
         m_OutGameInput_SaveShortcut = m_OutGameInput.FindAction("SaveShortcut", throwIfNotFound: true);
+        m_OutGameInput_Click = m_OutGameInput.FindAction("Click", throwIfNotFound: true);
+        m_OutGameInput_HotBarTop = m_OutGameInput.FindAction("HotBar Top", throwIfNotFound: true);
+        m_OutGameInput_HotBarBottom = m_OutGameInput.FindAction("HotBar Bottom", throwIfNotFound: true);
+        m_OutGameInput_HotBarLeft = m_OutGameInput.FindAction("HotBar Left", throwIfNotFound: true);
+        m_OutGameInput_HotBarRight = m_OutGameInput.FindAction("HotBar Right", throwIfNotFound: true);
+        m_OutGameInput_RightClick = m_OutGameInput.FindAction("Right Click", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -539,6 +808,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OutGameInput_OpenMenu;
     private readonly InputAction m_OutGameInput_CloseMenu;
     private readonly InputAction m_OutGameInput_SaveShortcut;
+    private readonly InputAction m_OutGameInput_Click;
+    private readonly InputAction m_OutGameInput_HotBarTop;
+    private readonly InputAction m_OutGameInput_HotBarBottom;
+    private readonly InputAction m_OutGameInput_HotBarLeft;
+    private readonly InputAction m_OutGameInput_HotBarRight;
+    private readonly InputAction m_OutGameInput_RightClick;
     public struct OutGameInputActions
     {
         private @PlayerInput m_Wrapper;
@@ -546,6 +821,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @OpenMenu => m_Wrapper.m_OutGameInput_OpenMenu;
         public InputAction @CloseMenu => m_Wrapper.m_OutGameInput_CloseMenu;
         public InputAction @SaveShortcut => m_Wrapper.m_OutGameInput_SaveShortcut;
+        public InputAction @Click => m_Wrapper.m_OutGameInput_Click;
+        public InputAction @HotBarTop => m_Wrapper.m_OutGameInput_HotBarTop;
+        public InputAction @HotBarBottom => m_Wrapper.m_OutGameInput_HotBarBottom;
+        public InputAction @HotBarLeft => m_Wrapper.m_OutGameInput_HotBarLeft;
+        public InputAction @HotBarRight => m_Wrapper.m_OutGameInput_HotBarRight;
+        public InputAction @RightClick => m_Wrapper.m_OutGameInput_RightClick;
         public InputActionMap Get() { return m_Wrapper.m_OutGameInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -564,6 +845,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SaveShortcut.started += instance.OnSaveShortcut;
             @SaveShortcut.performed += instance.OnSaveShortcut;
             @SaveShortcut.canceled += instance.OnSaveShortcut;
+            @Click.started += instance.OnClick;
+            @Click.performed += instance.OnClick;
+            @Click.canceled += instance.OnClick;
+            @HotBarTop.started += instance.OnHotBarTop;
+            @HotBarTop.performed += instance.OnHotBarTop;
+            @HotBarTop.canceled += instance.OnHotBarTop;
+            @HotBarBottom.started += instance.OnHotBarBottom;
+            @HotBarBottom.performed += instance.OnHotBarBottom;
+            @HotBarBottom.canceled += instance.OnHotBarBottom;
+            @HotBarLeft.started += instance.OnHotBarLeft;
+            @HotBarLeft.performed += instance.OnHotBarLeft;
+            @HotBarLeft.canceled += instance.OnHotBarLeft;
+            @HotBarRight.started += instance.OnHotBarRight;
+            @HotBarRight.performed += instance.OnHotBarRight;
+            @HotBarRight.canceled += instance.OnHotBarRight;
+            @RightClick.started += instance.OnRightClick;
+            @RightClick.performed += instance.OnRightClick;
+            @RightClick.canceled += instance.OnRightClick;
         }
 
         private void UnregisterCallbacks(IOutGameInputActions instance)
@@ -577,6 +876,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SaveShortcut.started -= instance.OnSaveShortcut;
             @SaveShortcut.performed -= instance.OnSaveShortcut;
             @SaveShortcut.canceled -= instance.OnSaveShortcut;
+            @Click.started -= instance.OnClick;
+            @Click.performed -= instance.OnClick;
+            @Click.canceled -= instance.OnClick;
+            @HotBarTop.started -= instance.OnHotBarTop;
+            @HotBarTop.performed -= instance.OnHotBarTop;
+            @HotBarTop.canceled -= instance.OnHotBarTop;
+            @HotBarBottom.started -= instance.OnHotBarBottom;
+            @HotBarBottom.performed -= instance.OnHotBarBottom;
+            @HotBarBottom.canceled -= instance.OnHotBarBottom;
+            @HotBarLeft.started -= instance.OnHotBarLeft;
+            @HotBarLeft.performed -= instance.OnHotBarLeft;
+            @HotBarLeft.canceled -= instance.OnHotBarLeft;
+            @HotBarRight.started -= instance.OnHotBarRight;
+            @HotBarRight.performed -= instance.OnHotBarRight;
+            @HotBarRight.canceled -= instance.OnHotBarRight;
+            @RightClick.started -= instance.OnRightClick;
+            @RightClick.performed -= instance.OnRightClick;
+            @RightClick.canceled -= instance.OnRightClick;
         }
 
         public void RemoveCallbacks(IOutGameInputActions instance)
@@ -608,5 +925,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnOpenMenu(InputAction.CallbackContext context);
         void OnCloseMenu(InputAction.CallbackContext context);
         void OnSaveShortcut(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
+        void OnHotBarTop(InputAction.CallbackContext context);
+        void OnHotBarBottom(InputAction.CallbackContext context);
+        void OnHotBarLeft(InputAction.CallbackContext context);
+        void OnHotBarRight(InputAction.CallbackContext context);
+        void OnRightClick(InputAction.CallbackContext context);
     }
 }

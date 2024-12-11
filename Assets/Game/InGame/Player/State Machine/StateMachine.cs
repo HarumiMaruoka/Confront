@@ -27,19 +27,19 @@ namespace Confront.Player
             return _states[type];
         }
 
-        public void ChangeState<T>() where T : IState
+        public T ChangeState<T>() where T : class, IState
         {
             var newState = GetState(typeof(T));
-            ChangeState(newState);
+            return ChangeState(newState) as T;
         }
 
-        public void ChangeState(Type type)
+        public IState ChangeState(Type type)
         {
             var newState = GetState(type);
-            ChangeState(newState);
+            return ChangeState(newState);
         }
 
-        public void ChangeState(IState newState)
+        public IState ChangeState(IState newState)
         {
             if (CurrentState != null)
             {
@@ -55,7 +55,7 @@ namespace Confront.Player
             if (!string.IsNullOrEmpty(CurrentState.AnimationName))
                 _player.Animator.SetBool(CurrentState.AnimationName, true);
 
-            // Debug.Log($"New State: {CurrentState.GetType().Name}");
+            return CurrentState;
         }
 
         public void Update()

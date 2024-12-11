@@ -74,10 +74,4 @@ namespace Confront.Player
             }
         }
     }
-
-    public enum Direction
-    {
-        Right,
-        Left,
-    }
 }

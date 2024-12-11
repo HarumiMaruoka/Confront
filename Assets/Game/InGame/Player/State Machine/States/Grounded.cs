@@ -1,4 +1,5 @@
-﻿using Confront.Input;
+﻿using Confront.Debugger;
+using Confront.Input;
 using System;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Confront.Player
         public void Execute(PlayerController player)
         {
             Move(player);
+            HandleHotBarInput(player);
             StateTransition(player);
         }
 
@@ -99,14 +101,14 @@ namespace Confront.Player
         private void StateTransition(PlayerController player)
         {
             // 入力に応じて攻撃状態に遷移する。
-            if (PlayerInputHandler.InGameInput.AttackX.triggered)
+            if (PlayerInputHandler.InGameInput.AttackX.triggered && DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.GroundRootX);
                 player.StateMachine.ChangeState(attackStateMachine);
                 return;
             }
-            if (PlayerInputHandler.InGameInput.AttackY.triggered)
+            if (PlayerInputHandler.InGameInput.AttackY.triggered && DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.GroundRootY);
@@ -135,6 +137,30 @@ namespace Confront.Player
             }
 
             this.TransitionToDefaultState(player);
+        }
+
+        private void HandleHotBarInput(PlayerController player)
+        {
+            if (PlayerInputHandler.OutGameInput.HotBarTop.triggered)
+            {
+                var slot = player.HotBar.GetSlot(Direction.Top);
+                slot?.Item?.ItemEffect?.UseItem(player, slot);
+            }
+            if (PlayerInputHandler.OutGameInput.HotBarBottom.triggered)
+            {
+                var slot = player.HotBar.GetSlot(Direction.Bottom);
+                slot?.Item?.ItemEffect?.UseItem(player, slot);
+            }
+            if (PlayerInputHandler.OutGameInput.HotBarLeft.triggered)
+            {
+                var slot = player.HotBar.GetSlot(Direction.Left);
+                slot?.Item?.ItemEffect?.UseItem(player, slot);
+            }
+            if (PlayerInputHandler.OutGameInput.HotBarRight.triggered)
+            {
+                var slot = player.HotBar.GetSlot(Direction.Right);
+                slot?.Item?.ItemEffect?.UseItem(player, slot);
+            }
         }
     }
 }

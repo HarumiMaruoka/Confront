@@ -11,6 +11,17 @@ namespace Confront.StageGimmick
 
         public Direction Direction => _direction;
 
+        private void Start()
+        {
+            if (_direction == Direction.Top || _direction == Direction.Bottom)
+            {
+                var name = gameObject.name;
+                Debug.LogWarning(
+                    $"GrabbablePointの方向が上下に設定されています。\n" +
+                    $"Game Object:{name}");
+            }
+        }
+
 #if UNITY_EDITOR
         public const string gizmoName = "Grab Point";
 

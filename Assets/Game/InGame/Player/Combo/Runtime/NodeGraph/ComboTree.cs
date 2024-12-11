@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Confront.Player.Combo
 {
-    [CreateAssetMenu(fileName = "ComboTree", menuName = "Confront/Player/Combo/ComboTree", order = -100)]
+    [CreateAssetMenu(fileName = "ComboTree", menuName = "ConfrontSO/Player/Combo/ComboTree", order = -100)]
     public class ComboTree : ScriptableObject
     {
         public ComboNode GroundRootX;

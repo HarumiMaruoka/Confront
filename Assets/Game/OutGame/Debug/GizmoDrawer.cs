@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Confront.DebugTools
+namespace Confront.Debugger
 {
     public class GizmoDrawer : MonoBehaviour
     {

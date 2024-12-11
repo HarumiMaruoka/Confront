@@ -8,6 +8,7 @@ namespace Confront.Item
         public int ID;
         public string Name;
         public string Description;
+        public int MaxStack;
         public Sprite Icon;
         public ItemEffect ItemEffect;
     }

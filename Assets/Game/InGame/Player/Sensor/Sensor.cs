@@ -1,24 +1,29 @@
 ﻿using Confront.StageGimmick;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Confront.Player
 {
-    [CreateAssetMenu(fileName = "Sensor", menuName = "Confront/Player/Sensor", order = 1)]
+    [CreateAssetMenu(fileName = "Sensor", menuName = "ConfrontSO/Player/Sensor", order = 1)]
     public class Sensor : ScriptableObject
     {
         [Header("Check Ground")]
         [SerializeField]
         private Vector2 _groundCheckRayOffset = new Vector2(0, 0f);
         [SerializeField]
-        private float _groundCheckRayRadius = 0f;
+        private float angleRange = 180f;
         [SerializeField]
-        private float _groundCheckRayLength = 0f;
+        private int rayCount = 32;
+        [SerializeField]
+        public float rayDistance = 1;
         [SerializeField]
         private bool _isGroundCheckGizmoEnabled = true;
         [SerializeField]
         [Range(0.3f, 1f)]
         private float _isGroundCheckGizmoAlpha = 0.5f;
+
+        private List<RayInfo> rayInfos = new List<RayInfo>();
 
         [Header("Check Abyss")]
         [SerializeField]
@@ -69,21 +74,26 @@ namespace Confront.Player
         private float _isFrontCheckGizmoAlpha = 0.5f;
 
         [Header("Layer Mask")]
-        [SerializeField]
-        private LayerMask _groundLayerMask;
-        [SerializeField]
-        private LayerMask _passThroughPlatform;
-        [SerializeField]
-        private LayerMask _grabbablePointLayerMask = 0;
+        public LayerMask GroundLayerMask;
+        public LayerMask PassThroughPlatform;
+        public LayerMask GrabbablePointLayerMask;
 
         public bool FrontCheck(PlayerController player, float sign)
         {
             var frontCheckRayPosition = player.transform.position + (Vector3)_frontCheckRayOffset;
-            return UnityEngine.Physics.Raycast(frontCheckRayPosition, Vector3.right * sign, _frontCheckRayLength, _groundLayerMask);
+            return UnityEngine.Physics.Raycast(frontCheckRayPosition, Vector3.right * sign, _frontCheckRayLength, GroundLayerMask);
         }
+
+        private int _prevFrameCount = -1;
+        private SensorResult _prevResult;
 
         public SensorResult Calculate(PlayerController player)
         {
+            if (_prevFrameCount == Time.frameCount)
+            {
+                return _prevResult;
+            }
+
             var result = new SensorResult();
 
             var groundCheckRayPosition = player.transform.position + (Vector3)_groundCheckRayOffset;
@@ -93,19 +103,20 @@ namespace Confront.Player
             LayerMask groundCheckLayerMask;
 
             if (player.MovementParameters.IsPassThroughPlatformTimerFinished)
-                groundCheckLayerMask = _groundLayerMask | _passThroughPlatform;
+                groundCheckLayerMask = GroundLayerMask | PassThroughPlatform;
             else
-                groundCheckLayerMask = _groundLayerMask;
+                groundCheckLayerMask = GroundLayerMask;
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
-            result.IsGrounded = UnityEngine.Physics.SphereCast(groundCheckRayPosition, _groundCheckRayRadius, Vector3.down, out var groundHit, _groundCheckRayLength, groundCheckLayerMask);
+            var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down);
+            result.IsGrounded = groundNormal != default;
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
             result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayPosition, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, groundCheckLayerMask);
 
             if (result.IsGrounded)
             {
-                result.GroundNormal = groundHit.normal;
-                result.IsSteepSlope = Vector3.Angle(Vector3.up, groundHit.normal) > slopeLimit;
+                result.GroundNormal = groundNormal;
+                result.IsSteepSlope = Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
             }
 
             if (result.IsGrounded && result.IsAbyss)
@@ -126,12 +137,15 @@ namespace Confront.Player
             }
 
             // 頭上にレイを飛ばして、ヒットした場合には、頭上に何かあると判定する。
-            result.IsAbove = UnityEngine.Physics.Raycast(player.transform.position + (Vector3)_aboveCheckRayOffset, Vector3.up, _aboveCheckRayLength, _groundLayerMask);
+            result.IsAbove = UnityEngine.Physics.Raycast(player.transform.position + (Vector3)_aboveCheckRayOffset, Vector3.up, _aboveCheckRayLength, GroundLayerMask);
 
             // 掴めるポイントを探す
             var position = player.transform.position + player.transform.rotation * (Vector3)_grabbablePointOffset;
-            UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.forward, out var grabPointHit, _grabbablePointLength, _grabbablePointLayerMask);
+            UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.forward, out var grabPointHit, _grabbablePointLength, GrabbablePointLayerMask);
             if (grabPointHit.transform) result.GrabbablePoint = grabPointHit.transform.GetComponent<GrabbablePoint>();
+
+            _prevFrameCount = Time.frameCount;
+            _prevResult = result;
 
             return result;
         }
@@ -140,20 +154,13 @@ namespace Confront.Player
         {
             var result = Calculate(player);
 
-            if (_isGroundCheckGizmoEnabled)
+            if (_isGroundCheckGizmoEnabled && rayInfos != null)
             {
-                var groundCheckRayPosition = player.transform.position + (Vector3)_groundCheckRayOffset;
-                var groundCheckRayEnd = groundCheckRayPosition + Vector3.down * _groundCheckRayLength;
-
-                Gizmos.color = result.IsGrounded ? new Color(1, 0, 0, _isGroundCheckGizmoAlpha) : new Color(0, 1, 0, _isGroundCheckGizmoAlpha);
-
-                Gizmos.DrawWireSphere(groundCheckRayPosition, _groundCheckRayRadius);
-                Gizmos.DrawWireSphere(groundCheckRayEnd, _groundCheckRayRadius);
-
-                Vector3 leftOffset = Vector3.left * _groundCheckRayRadius;
-                Vector3 rightOffset = Vector3.right * _groundCheckRayRadius;
-                Gizmos.DrawLine(groundCheckRayPosition + leftOffset, groundCheckRayEnd + leftOffset);
-                Gizmos.DrawLine(groundCheckRayPosition + rightOffset, groundCheckRayEnd + rightOffset);
+                foreach (var rayInfo in rayInfos)
+                {
+                    Gizmos.color = rayInfo.hit ? new Color(1, 0, 0, _isGroundCheckGizmoAlpha) : new Color(0, 0, 1, _isGroundCheckGizmoAlpha);
+                    Gizmos.DrawLine(rayInfo.start, rayInfo.end);
+                }
             }
 
             if (_isAbyssCheckGizmoEnabled)
@@ -204,6 +211,66 @@ namespace Confront.Player
                 Gizmos.color = isFront ? new Color(1, 0, 0, _isFrontCheckGizmoAlpha) : new Color(0, 1, 0, _isFrontCheckGizmoAlpha);
                 Gizmos.DrawLine(frontCheckRayPosition, frontCheckRayEnd);
             }
+        }
+
+        private Vector3 CastFanRaysAndGetAveragedNormal(PlayerController player, Vector3 direction)
+        {
+            var origin = player.transform.position + (Vector3)_groundCheckRayOffset;
+            LayerMask groundCheckLayerMask;
+
+            if (player.MovementParameters.IsPassThroughPlatformTimerFinished)
+                groundCheckLayerMask = GroundLayerMask | PassThroughPlatform;
+            else
+                groundCheckLayerMask = GroundLayerMask;
+
+            List<Vector3> hitNormals = new List<Vector3>();
+            rayInfos.Clear(); // 前回のRay情報をクリア
+            direction = direction.normalized;
+
+            float halfAngle = angleRange * 0.5f;
+
+            for (int i = 0; i < rayCount; i++)
+            {
+                float t = (float)i / (rayCount - 1);
+                float angle = Mathf.Lerp(-halfAngle, halfAngle, t);
+
+                Quaternion rot = Quaternion.Euler(0, 0, angle);
+                Vector3 dir = rot * direction;
+
+                Ray ray = new Ray(origin, dir);
+                RaycastHit hit;
+                bool isHit = Physics.Raycast(ray, out hit, rayDistance, groundCheckLayerMask);
+
+                if (isHit)
+                {
+                    hitNormals.Add(hit.normal);
+                    rayInfos.Add(new RayInfo { start = origin, end = hit.point, hit = true });
+                }
+                else
+                {
+                    rayInfos.Add(new RayInfo { start = origin, end = origin + dir * rayDistance, hit = false });
+                }
+            }
+
+            if (hitNormals.Count == 0)
+                return Vector3.zero;
+
+            Vector3 sum = Vector3.zero;
+            foreach (var normal in hitNormals)
+            {
+                sum += normal;
+            }
+            Vector3 averageNormal = sum / hitNormals.Count;
+            averageNormal.Normalize();
+
+            return averageNormal;
+        }
+
+        private struct RayInfo
+        {
+            public Vector3 start;
+            public Vector3 end;
+            public bool hit;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.Item;
+using System;
 using UnityEngine;
 
 namespace Confront.SaveSystem
@@ -38,5 +39,9 @@ namespace Confront.SaveSystem
         //   HealthManager 
         public float Health;
         public float MaxHealth;
+
+        //   Inventory
+        public ItemInventory Inventory;
+        public HotBar HotBar;
     }
 }
