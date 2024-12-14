@@ -1,5 +1,7 @@
-﻿using Confront.Item;
+﻿using Confront.ActionItem;
+using Confront.ForgeItem;
 using Confront.Player;
+using Confront.Weapon;
 using System;
 using UnityEngine;
 
@@ -39,9 +41,13 @@ namespace Confront.SaveSystem
         public float PassThroughPlatformDisableTimer;
         //   HealthManager 
         public HealthManager HealthManager;
-
-        //   Inventory
-        public ItemInventory Inventory;
+        //   Action Item
+        public ActionItemInventory ActionItemInventory;
         public HotBar HotBar;
+        //   Forge Item
+        public ForgeItemInventory ForgeItemInventory;
+        //   Weapon
+        public WeaponInstance EquippedWeapon;
+        public WeaponInventory WeaponInventory;
     }
 }

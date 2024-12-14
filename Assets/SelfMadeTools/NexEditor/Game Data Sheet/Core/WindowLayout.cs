@@ -128,6 +128,11 @@ namespace NexEditor.GameDataSheet
             {
                 iterator.stringValue = EditorGUILayout.TextArea(iterator.stringValue, GUILayout.Width(width), GUILayout.Height(height));
             }
+            else if (iterator.IsSprite())
+            {
+                // Sprite型のObjectFieldを描画
+                iterator.objectReferenceValue = EditorGUILayout.ObjectField(iterator.objectReferenceValue, typeof(Sprite), false, GUILayout.Width(width), GUILayout.Height(height));
+            }
             else
             {
                 EditorGUILayout.PropertyField(iterator, GUIContent.none, GUILayout.Width(width), GUILayout.Height(height));

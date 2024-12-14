@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Confront.Item;
+using Confront.ActionItem;
+using Confront.ForgeItem;
 using Confront.Utility;
+using Confront.Weapon;
 using OdinSerializer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +28,9 @@ namespace Confront.SaveSystem
         {
             // シリアライズする際に参照するUnityオブジェクトをリストに追加する。
             List<UnityEngine.Object> unityReferences = new List<UnityEngine.Object>();
-            unityReferences.AddRange(ItemManager.ItemSheet);
+            unityReferences.AddRange(ActionItemManager.ActionItemSheet);
+            unityReferences.AddRange(ForgeItemManager.ForgeItemSheet);
+            unityReferences.AddRange(WeaponManager.WeaponSheet);
 
             // セーブデータを作成する。
             var saveData = new SaveData();
@@ -54,7 +58,9 @@ namespace Confront.SaveSystem
         {
             // デシリアライズする際に参照するUnityオブジェクトをリストに追加する。
             List<UnityEngine.Object> unityReferences = new List<UnityEngine.Object>();
-            unityReferences.AddRange(ItemManager.ItemSheet);
+            unityReferences.AddRange(ActionItemManager.ActionItemSheet);
+            unityReferences.AddRange(ForgeItemManager.ForgeItemSheet);
+            unityReferences.AddRange(WeaponManager.WeaponSheet);
 
             var data = PlayerPrefs.GetString(Key);
             if (string.IsNullOrEmpty(data))

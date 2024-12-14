@@ -1,0 +1,219 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8924700827929554575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 0
+  Name: "\u3072\u3073\u5272\u308C\u305F\u9244\u7247"
+  Description: "\u53E4\u3073\u305F\u9244\u306E\u6B20\u7247\u3002\u5F37\u5316\u306B\u306F\u5FC3\u3082\u3068\u306A\u3044\u304C\u3001\u521D\u6B69\u7684\u306A\u7528\u9014\u306B\u306F\u5341\u5206\u3002"
+  Icon: {fileID: 21300000, guid: d559022b83393e64fadf6ce72411427c, type: 3}
+--- !u!114 &-8130171342893704536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 9
+  Name: "\u7ADC\u9C57\u306E\u7834\u7247"
+  Description: "\u7ADC\u306E\u9C57\u306E\u4E00\u90E8\u3002\u4E26\u5916\u308C\u305F\u8010\u4E45\u529B\u3092\u88C5\u5099\u306B\u4E0E\u3048\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 09038dce04ea0834986ba53cae57c02b, type: 3}
+--- !u!114 &-6594265944409409555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 2
+  Name: "\u304F\u3059\u3093\u3060\u9285\u584A"
+  Description: "\u304B\u3064\u3066\u306F\u8F1D\u3044\u3066\u3044\u305F\u9285\u306E\u584A\u3002\u7C21\u5358\u306A\u52A0\u5DE5\u3067\u5229\u7528\u53EF\u80FD\u3002"
+  Icon: {fileID: 21300000, guid: 663f4cb884c07b9408acd681aa879ffa, type: 3}
+--- !u!114 &-5672468040205483583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 11
+  Name: "\u5929\u7FD4\u3051\u308B\u767D\u91D1"
+  Description: "\u5929\u754C\u306E\u91D1\u5C5E\u3068\u79F0\u3055\u308C\u308B\u5E0C\u5C11\u7D20\u6750\u3002\u6975\u9650\u307E\u3067\u306E\u5F37\u5316\u3092\u53EF\u80FD\u306B\u3059\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 15fa20aad0037ee439f0ef471e648b76, type: 3}
+--- !u!114 &-2829845749753673307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 6
+  Name: "\u9ED2\u66DC\u92FC\u306E\u584A"
+  Description: "\u9ED2\u66DC\u77F3\u3068\u92FC\u3092\u878D\u5408\u3055\u305B\u305F\u5805\u56FA\u306A\u7D20\u6750\u3002\u9AD8\u6027\u80FD\u306E\u88C5\u5099\u5F37\u5316\u306B\u9069\u3057\u3066\u3044\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 293897b5dec4a0348969dd0f8753a534, type: 3}
+--- !u!114 &-2755028930727741140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 1
+  Name: "\u673D\u3061\u305F\u6728\u7247"
+  Description: "\u9577\u3044\u5E74\u6708\u3092\u7D4C\u3066\u52A3\u5316\u3057\u305F\u6728\u6750\u3002\u8EFD\u3044\u5F37\u5316\u306B\u4F7F\u7528\u3067\u304D\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 1d71d27ee629c7d49925f71d840830ae, type: 3}
+--- !u!114 &-2210824724787439173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 8
+  Name: "\u5996\u7CBE\u306E\u7C89\u5875"
+  Description: "\u9B54\u6CD5\u751F\u7269\u306E\u4F4F\u51E6\u3067\u898B\u3064\u304B\u308B\u7C89\u3002\u9B54\u6CD5\u88C5\u5099\u306E\u5F37\u5316\u306B\u6700\u9069\u3002"
+  Icon: {fileID: 21300000, guid: 557e96594385b16478f2a2524bb5e1c0, type: 3}
+--- !u!114 &-2085007260244946670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 7
+  Name: "\u661F\u5F71\u306E\u6C34\u6676"
+  Description: "\u661F\u306E\u5149\u3092\u5BBF\u3059\u6C34\u6676\u3002\u7279\u6B8A\u52B9\u679C\u3092\u4ED8\u4E0E\u3059\u308B\u529B\u3092\u6301\u3064\u3002"
+  Icon: {fileID: 21300000, guid: de5620c2268ba0847b2fe9832821fad9, type: 3}
+--- !u!114 &-1095941621591591178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 4
+  Name: "\u8F1D\u304F\u7425\u73C0\u77F3"
+  Description: "\u7F8E\u3057\u3044\u7425\u73C0\u306E\u5C0F\u77F3\u3002\u9B54\u529B\u306E\u6D41\u308C\u3092\u5B89\u5B9A\u3055\u305B\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 2ac477c74e3e32c4ea675fe9e82b7140, type: 3}
+--- !u!114 &-680933423178797976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 10
+  Name: "\u6DF1\u6DF5\u306E\u5B9D\u7389"
+  Description: "\u95C7\u306E\u6DF1\u6DF5\u304B\u3089\u6398\u308A\u51FA\u3055\u308C\u305F\u5B9D\u7389\u3002\u88C5\u5099\u306B\u7121\u9650\u306E\u529B\u3092\u5F15\u304D\u51FA\u3059\u6F5C\u5728\u80FD\u529B\u3092\u6301\u3064\u3002"
+  Icon: {fileID: 21300000, guid: 7182c7ec8ab216a42ad75bf32cb0b810, type: 3}
+--- !u!114 &-549045470779213324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 3
+  Name: "\u935B\u932C\u306E\u92FC\u7247"
+  Description: "\u935B\u3048\u3089\u308C\u305F\u92FC\u306E\u6B20\u7247\u3002\u6B66\u5668\u3084\u9632\u5177\u306E\u57FA\u790E\u3092\u5F37\u56FA\u306B\u3059\u308B\u306E\u306B\u5F79\u7ACB\u3064\u3002"
+  Icon: {fileID: 21300000, guid: 701a187467332fd44b911878105e04d0, type: 3}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e449ba31f98bbb544806ef0737415304, type: 3}
+  m_Name: ForgeItemSheet
+  m_EditorClassIdentifier: 
+  _collection:
+  - {fileID: -8924700827929554575}
+  - {fileID: -2755028930727741140}
+  - {fileID: -6594265944409409555}
+  - {fileID: -549045470779213324}
+  - {fileID: -1095941621591591178}
+  - {fileID: 2366577443625991517}
+  - {fileID: -2829845749753673307}
+  - {fileID: -2085007260244946670}
+  - {fileID: -2210824724787439173}
+  - {fileID: -8130171342893704536}
+  - {fileID: -680933423178797976}
+  - {fileID: -5672468040205483583}
+--- !u!114 &2366577443625991517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 5
+  Name: "\u7CBE\u5BC6\u306A\u6B6F\u8ECA"
+  Description: "\u6A5F\u68B0\u6587\u660E\u306E\u907A\u7269\u3002\u6B63\u78BA\u306A\u5F37\u5316\u306B\u5FC5\u8981\u4E0D\u53EF\u6B20\u3002"
+  Icon: {fileID: 21300000, guid: 5af513d3846091148a259d03b860446f, type: 3}

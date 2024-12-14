@@ -21,6 +21,7 @@ namespace NexEditor.GameDataSheet
                 case SerializedPropertyType.Color:
                     return "00000000";
                 case SerializedPropertyType.ObjectReference:
+                    if (serializedProperty.IsSprite()) return "000000000000000";
                     return serializedProperty.objectReferenceValue != null
                         ? serializedProperty.objectReferenceValue.ToString()
                         : "000000000000000000";
@@ -73,12 +74,35 @@ namespace NexEditor.GameDataSheet
 
             switch (serializedProperty.propertyType)
             {
+                case SerializedPropertyType.ObjectReference:
+                    if (serializedProperty.IsSprite())
+                    {
+                        return new Vector2(16f * 3.5f, 16f * 3f) + padding;
+                    }
+                    var style = new GUIStyle(GUI.skin.textArea);
+                    style.fontSize = 9;
+                    return style.CalcSize(new GUIContent(serializedProperty.GetValueString())) + padding;
                 case SerializedPropertyType.String:
                     return new GUIStyle(GUI.skin.textArea).CalcSize(new GUIContent(serializedProperty.stringValue)) + padding;
                 default:
                     return new GUIStyle(GUI.skin.label).CalcSize(new GUIContent(serializedProperty.GetValueString())) + padding;
             }
         }
+
+        public static bool IsSprite(this SerializedProperty property)
+        {
+            // SerializedPropertyがオブジェクト参照型かチェック
+            if (property.propertyType == SerializedPropertyType.ObjectReference)
+            {
+                // 参照しているオブジェクトを取得
+                Object obj = property.objectReferenceValue;
+                // そのオブジェクトがSpriteか判定
+                return obj is Sprite;
+            }
+
+            return false;
+        }
+
     }
 }
 #endif

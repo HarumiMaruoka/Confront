@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sensor
   m_EditorClassIdentifier: 
   _groundCheckRayOffset: {x: 0, y: 0.3}
-  angleRange: 85
+  angleRange: 180
   rayCount: 52
   rayDistance: 0.58
   _isGroundCheckGizmoEnabled: 1

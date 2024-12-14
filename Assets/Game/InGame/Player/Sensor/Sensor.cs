@@ -109,12 +109,12 @@ namespace Confront.Player
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
             var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down, out float averageHitRayLength);
-            result.IsGrounded = groundNormal != default;
             result.AverageHitRayLength = averageHitRayLength;
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
             result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayPosition, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, groundCheckLayerMask);
 
             var groundAngle = Vector3.Angle(Vector3.up, groundNormal);
+            result.IsGrounded = groundNormal != Vector3.zero && groundAngle < 89.999f;
 
             if (result.IsGrounded)
             {

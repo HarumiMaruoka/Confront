@@ -1,11 +1,14 @@
-﻿using Confront.GameUI;
+﻿using Confront.Debugger;
+using Confront.GameUI;
 using Confront.Input;
-using Confront.Item;
+using Confront.ActionItem;
 using Confront.Player.Combo;
 using Confront.SaveSystem;
+using Confront.Weapon;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using Confront.ForgeItem;
 
 namespace Confront.Player
 {
@@ -41,15 +44,45 @@ namespace Confront.Player
         public AttackStateMachine AttackStateMachine;
         // メニュー
         public MenuController MenuController;
-        // アイテム
-        public ItemInventory ItemInventory = new ItemInventory();
+        // アクションアイテム
+        public ActionItemInventory ActionItemInventory = new ActionItemInventory();
         public HotBar HotBar = new HotBar();
+        // フォージアイテム
+        public ForgeItemInventory ForgeItemInventory = new ForgeItemInventory();
+        // 武器
+        private WeaponInstance _equippedWeapon;
+        public WeaponInventory WeaponInventory = new WeaponInventory();
         // Unityコンポーネント
         private CharacterController _characterController;
         private Animator _animator;
 
-        public CharacterController CharacterController { get => _characterController ??= GetComponent<CharacterController>(); }
-        public Animator Animator { get => _animator ??= GetComponent<Animator>(); }
+        public WeaponInstance EquippedWeapon
+        {
+            get => _equippedWeapon;
+            set
+            {
+                _equippedWeapon = value;
+                OnWeaponEquipped?.Invoke(value);
+            }
+        }
+        public event Action<WeaponInstance> OnWeaponEquipped;
+
+        public CharacterController CharacterController
+        {
+            get
+            {
+                if (!_characterController) _characterController = GetComponent<CharacterController>();
+                return _characterController;
+            }
+        }
+        public Animator Animator
+        {
+            get
+            {
+                if (!_animator) _animator = GetComponent<Animator>();
+                return _animator;
+            }
+        }
 
         private bool _isInitialized = false;
 
@@ -77,7 +110,10 @@ namespace Confront.Player
                 MovementParameters.Velocity = value.Velocity;
                 MovementParameters.GrabIntervalTimer = value.GrabIntervalTimer;
                 MovementParameters.PassThroughPlatformDisableTimer = value.PassThroughPlatformDisableTimer;
-                ItemInventory = value.Inventory;
+                ActionItemInventory = value.ActionItemInventory;
+                ForgeItemInventory = value.ForgeItemInventory;
+                _equippedWeapon = value.EquippedWeapon;
+                WeaponInventory = value.WeaponInventory;
                 HotBar = value.HotBar;
 
                 saveData.PlayerData = null; // 何度もロードしないようにするため
@@ -133,9 +169,11 @@ namespace Confront.Player
             GUILayout.Label($"IsAbyss:{sensorResult.IsAbyss}", guiStyle);
             GUILayout.Label($"IsSteepSlope:{sensorResult.IsSteepSlope}", guiStyle);
             GUILayout.Label($"IsAbove:{sensorResult.IsAbove}", guiStyle);
+            GUILayout.Label($"GroundNormalAngle: {Vector3.Angle(Vector3.up, sensorResult.GroundNormal)}", guiStyle);
             var leftStickInput = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
             var leftStick = Mathf.Atan2(leftStickInput.y, leftStickInput.x) * Mathf.Rad2Deg;
             GUILayout.Label($"LeftStick:{(leftStick).ToString("0.00")}", guiStyle);
+            DebugParams.Instance.CanPlayerAttack = GUILayout.Toggle(DebugParams.Instance.CanPlayerAttack, "CanPlayerAttack", GUILayout.Height(80f));
 
             guiStyle = new GUIStyle(GUI.skin.button);
             guiStyle.fontSize = 40;
@@ -171,11 +209,15 @@ namespace Confront.Player
                 PassThroughPlatformDisableTimer = MovementParameters.PassThroughPlatformDisableTimer,
                 // HealthManager
                 HealthManager = HealthManager,
-                // Inventory
-                Inventory = ItemInventory,
-                HotBar = HotBar
+                // Action Item
+                ActionItemInventory = ActionItemInventory,
+                HotBar = HotBar,
+                // Forge Item
+                ForgeItemInventory = ForgeItemInventory,
+                // Weapon
+                EquippedWeapon = _equippedWeapon,
+                WeaponInventory = WeaponInventory,
             };
-
         }
 
         private bool IsJumpable

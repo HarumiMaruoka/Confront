@@ -23,12 +23,22 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba203323a1ee1334e8e8c2797ce941b1
-    m_Address: ItemSheet
+    m_Address: ActionItemSheet
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 312084e1dcf8e554baeaca9c9e4e1b36
     m_Address: DebugParams
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24982c7a783f8e846b9e22cba0fa6c34
+    m_Address: ForgeItemSheet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6123716283029c4386ee838938567d5
+    m_Address: WeaponSheet
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

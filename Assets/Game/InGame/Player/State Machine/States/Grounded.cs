@@ -107,6 +107,13 @@ namespace Confront.Player
             }
 
             player.MovementParameters.Velocity = Vector3.ProjectOnPlane(new Vector3(velocityMagnitude, 0f), groundNormal).normalized * Mathf.Abs(velocityMagnitude);
+
+            if (groundSensorResult.AverageHitRayLength < 0.1f)
+            {
+                player.CharacterController.enabled = false;
+                player.transform.position += (Vector3)groundSensorResult.GroundNormal * 0.1f;
+                player.CharacterController.enabled = true;
+            }
         }
 
         private void StateTransition(PlayerController player)
