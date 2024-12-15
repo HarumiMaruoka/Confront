@@ -9,7 +9,7 @@ namespace Confront.Player
 
         public void Enter(PlayerController player)
         {
-            // player.HandlePlatformCollision();
+            var groundSensorResult = player.Sensor.Calculate(player);
         }
 
         public void Exit(PlayerController player)
@@ -40,7 +40,7 @@ namespace Confront.Player
             if (groundSensorResult.AverageHitRayLength < 0.1f)
             {
                 player.CharacterController.enabled = false;
-                player.transform.position += (Vector3)groundSensorResult.GroundNormal * 0.1f;
+                player.transform.position = groundSensorResult.GroundPoint + groundSensorResult.GroundNormal * 0.1f;
                 player.CharacterController.enabled = true;
             }
         }

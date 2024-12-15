@@ -139,29 +139,31 @@ namespace Confront.Player
             Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
             DirectionController.UpdateVelocity(MovementParameters.Velocity);
             MovementParameters.TimerUpdate();
+            HandleDebugInput();
 
             if (IsJumpable) StateMachine.ChangeState<Jump>();
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            if (StateMachine.CurrentState is not Jump)
+            {
+                HandlePlatformCollision();
+            }
+        }
 
+        private static void HandleDebugInput()
+        {
+#if UNITY_EDITOR
             if (UnityEngine.Input.GetKeyDown(KeyCode.F))
             {
-#if UNITY_EDITOR
                 var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
                 var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
                 clearMethod?.Invoke(null, null);
-#endif
             }
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.V))
             {
                 UnityEditor.EditorApplication.isPaused = !UnityEditor.EditorApplication.isPaused;
             }
-
-            if (StateMachine.CurrentState is not Jump)
-            {
-                HandlePlatformCollision();
-            }
+#endif
         }
 
         private RaycastHit _platformHitInfo;

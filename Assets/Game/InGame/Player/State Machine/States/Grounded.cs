@@ -16,6 +16,18 @@ namespace Confront.Player
 
         public void Execute(PlayerController player)
         {
+            var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
+            var jumpInput = PlayerInputHandler.InGameInput.Jump.triggered;
+            if (leftStick.sqrMagnitude > 0.1f)
+            {
+                var angle = Vector2.Angle(leftStick, Vector2.down);
+                if (jumpInput && angle < 45f)
+                {
+                    var disableTime = player.MovementParameters.PassThroughPlatformDisableTime;
+                    player.MovementParameters.PassThroughPlatformDisableTimer = disableTime;
+                }
+            }
+
             Move(player);
             HandleHotBarInput(player);
             StateTransition(player);
@@ -39,19 +51,8 @@ namespace Confront.Player
 
         public static void Move(PlayerController player)
         {
-            var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
-            var jumpInput = PlayerInputHandler.InGameInput.Jump.triggered;
-            if (leftStick.sqrMagnitude > 0.1f)
-            {
-                var angle = Vector2.Angle(leftStick, Vector2.down);
-                if (jumpInput && angle < 45f)
-                {
-                    var disableTime = player.MovementParameters.PassThroughPlatformDisableTime;
-                    player.MovementParameters.PassThroughPlatformDisableTimer = disableTime;
-                }
-            }
-
             // 入力に応じてx速度を更新する。
+            var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
             var inputX = leftStick.x;
             var groundSensorResult = player.Sensor.Calculate(player);
             var groundNormal = groundSensorResult.GroundNormal;
