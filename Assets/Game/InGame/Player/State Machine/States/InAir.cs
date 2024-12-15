@@ -90,15 +90,7 @@ namespace Confront.Player
             var maxFallSpeed = player.MovementParameters.InAirMaxFallSpeed;
             if (fallSpeed < maxFallSpeed) player.MovementParameters.Velocity.y = maxFallSpeed;
 
-            if (player.MovementParameters.IsPassThroughPlatformTimerFinished
-                && Physics.Linecast(_prevPosition, _nextPosition, out RaycastHit hitInfo, player.Sensor.PassThroughPlatform))
-            {
-                var hitPoint = hitInfo.point;
-                player.CharacterController.enabled = false;
-                player.transform.position = new Vector3(hitPoint.x, hitPoint.y, 0f);
-                player.MovementParameters.Velocity = new Vector2(player.MovementParameters.Velocity.x, 0f);
-                player.CharacterController.enabled = true;
-            }
+            player.HandlePlatformCollision();
         }
 
         private void StateTransition(PlayerController player)

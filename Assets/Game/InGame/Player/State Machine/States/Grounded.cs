@@ -12,17 +12,6 @@ namespace Confront.Player
         public void Enter(PlayerController player)
         {
             player.MovementParameters.Velocity.y = 0f;
-
-            // 接地用のレイがとても短い距離でヒットすることがあるので、
-            // その場合はキャラクターの位置を少し上にずらす。
-            var groundSensorResult = player.Sensor.Calculate(player);
-
-            if (groundSensorResult.AverageHitRayLength < 0.1f)
-            {
-                player.CharacterController.enabled = false;
-                player.transform.position += (Vector3)groundSensorResult.GroundNormal * 0.1f;
-                player.CharacterController.enabled = true;
-            }
         }
 
         public void Execute(PlayerController player)
@@ -37,18 +26,18 @@ namespace Confront.Player
 
         }
 
-        private float CalculateDirection(float direction)
+        private static float CalculateDirection(float direction)
         {
             if (Mathf.Abs(direction) < 0.01f) return 0;
             return Mathf.Sign(direction);
         }
 
-        private bool IsTurning(float inputDirection, float velocityX)
+        private static bool IsTurning(float inputDirection, float velocityX)
         {
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
-        private void Move(PlayerController player)
+        public static void Move(PlayerController player)
         {
             var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
             var jumpInput = PlayerInputHandler.InGameInput.Jump.triggered;
@@ -111,7 +100,7 @@ namespace Confront.Player
             if (groundSensorResult.AverageHitRayLength < 0.1f)
             {
                 player.CharacterController.enabled = false;
-                player.transform.position += (Vector3)groundSensorResult.GroundNormal * 0.1f;
+                player.transform.position = groundSensorResult.GroundPoint + groundSensorResult.GroundNormal * 0.1f;
                 player.CharacterController.enabled = true;
             }
         }

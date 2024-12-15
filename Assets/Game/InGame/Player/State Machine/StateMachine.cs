@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.Debugger;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,6 +55,9 @@ namespace Confront.Player
             CurrentState.Enter(_player);
             if (!string.IsNullOrEmpty(CurrentState.AnimationName))
                 _player.Animator.SetBool(CurrentState.AnimationName, true);
+
+            if (DebugParams.Instance.StateTransitionLogging)
+                Debug.Log($"Transitioning from {PreviousState} to {CurrentState}");
 
             return CurrentState;
         }

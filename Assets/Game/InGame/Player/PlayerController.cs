@@ -28,6 +28,9 @@ namespace Confront.Player
             Instance = this;
             SavableRegistry.Register(this);
             Initialize(SaveDataController.Loaded);
+
+            PrevPosition = transform.position;
+            NextPosition = transform.position;
         }
 
         // インゲーム制御
@@ -121,9 +124,15 @@ namespace Confront.Player
             CharacterController.enabled = true;
         }
 
+        public Vector3 PrevPosition;
+        public Vector3 NextPosition;
+
         private void Update()
         {
             if (MenuController.IsOpenedMenu) return;
+
+            PrevPosition = NextPosition;
+            NextPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset;
 
             StateMachine.Update();
             if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
@@ -134,6 +143,40 @@ namespace Confront.Player
             if (IsJumpable) StateMachine.ChangeState<Jump>();
 
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F))
+            {
+#if UNITY_EDITOR
+                var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
+                var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                clearMethod?.Invoke(null, null);
+#endif
+            }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.V))
+            {
+                UnityEditor.EditorApplication.isPaused = !UnityEditor.EditorApplication.isPaused;
+            }
+
+            if (StateMachine.CurrentState is not Jump)
+            {
+                HandlePlatformCollision();
+            }
+        }
+
+        private RaycastHit _platformHitInfo;
+
+        public void HandlePlatformCollision()
+        {
+            if (MovementParameters.IsPassThroughPlatformTimerFinished
+                && Physics.Linecast(PrevPosition, NextPosition, out _platformHitInfo, Sensor.PassThroughPlatform))
+            {
+                var hitPoint = _platformHitInfo.point + (Vector3)Sensor._groundCheckRayOffset;
+                CharacterController.enabled = false;
+                transform.position = new Vector3(hitPoint.x, hitPoint.y, 0f);
+                MovementParameters.Velocity = new Vector2(MovementParameters.Velocity.x, 0f);
+                CharacterController.enabled = true;
+            }
         }
 
         private void OnDestroy()
@@ -151,6 +194,10 @@ namespace Confront.Player
         private void OnDrawGizmos()
         {
             if (Sensor) Sensor.DrawGizmos(this);
+
+            // PrevPositionからNextPositionまでの線を描画
+            Gizmos.color = _platformHitInfo.collider ? Color.red : Color.blue;
+            Gizmos.DrawLine(PrevPosition, NextPosition);
         }
 #endif
 
@@ -173,15 +220,28 @@ namespace Confront.Player
             var leftStickInput = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
             var leftStick = Mathf.Atan2(leftStickInput.y, leftStickInput.x) * Mathf.Rad2Deg;
             GUILayout.Label($"LeftStick:{(leftStick).ToString("0.00")}", guiStyle);
-            DebugParams.Instance.CanPlayerAttack = GUILayout.Toggle(DebugParams.Instance.CanPlayerAttack, "CanPlayerAttack", GUILayout.Height(80f));
+
+            guiStyle = new GUIStyle(GUI.skin.toggle);
+            guiStyle.fontSize = _guiFontSize;
+            guiStyle.normal.textColor = Color.black;
+            DebugParams.Instance.CanPlayerAttack = GUILayout.Toggle(DebugParams.Instance.CanPlayerAttack, "CanPlayerAttack", guiStyle);
+            DebugParams.Instance.StateTransitionLogging = GUILayout.Toggle(DebugParams.Instance.StateTransitionLogging, "StateTransitionLogging", guiStyle);
 
             guiStyle = new GUIStyle(GUI.skin.button);
             guiStyle.fontSize = 40;
 
+            // スピード変更
             if (GUILayout.Button("Speed 0.1", guiStyle)) Time.timeScale = 0.1f;
             if (GUILayout.Button("Speed 0.5", guiStyle)) Time.timeScale = 0.5f;
             if (GUILayout.Button("Speed 1", guiStyle)) Time.timeScale = 1;
             if (GUILayout.Button("Speed 2", guiStyle)) Time.timeScale = 2;
+
+            // フレームレート変更
+            if (GUILayout.Button("FrameRate 15", guiStyle)) Application.targetFrameRate = 15;
+            if (GUILayout.Button("FrameRate 30", guiStyle)) Application.targetFrameRate = 30;
+            if (GUILayout.Button("FrameRate 60", guiStyle)) Application.targetFrameRate = 60;
+            if (GUILayout.Button("FrameRate 120", guiStyle)) Application.targetFrameRate = 120;
+            if (GUILayout.Button("FrameRate 999", guiStyle)) Application.targetFrameRate = 999;
         }
 
         private void OnOpenedMenu()

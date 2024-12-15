@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5441508549735034926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: 
+  Position: {x: 100, y: 550}
+  NodeType: 3
+  Behaviour: {fileID: 0}
+--- !u!114 &-5135359482463651617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: e83c380c7fd97a047a99658d94d2861e
+  Position: {x: 100, y: 250}
+  NodeType: 1
+  Behaviour: {fileID: 0}
+--- !u!114 &-3714956643334770413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: 
+  Position: {x: 429, y: 213}
+  NodeType: 4
+  Behaviour: {fileID: 0}
+--- !u!114 &-2205933781974716115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: 09236fa4ccd0da44896595d8ac642f7b
+  Position: {x: 100, y: 400}
+  NodeType: 2
+  Behaviour: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6439ad19c364d4582cc702e3716faf, type: 3}
+  m_Name: ComboTree
+  m_EditorClassIdentifier: 
+  GroundRootX: {fileID: 8280372885089300759}
+  GroundRootY: {fileID: -5135359482463651617}
+  AirRootX: {fileID: -2205933781974716115}
+  AirRootY: {fileID: -5441508549735034926}
+  Position: {x: 0, y: 0, z: 0}
+  Scale: {x: 1, y: 1, z: 1}
+  Children:
+  - {fileID: -3714956643334770413}
+--- !u!114 &8280372885089300759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: 8d4ab429dc753244a8956443138eb59f
+  Position: {x: 100, y: 100}
+  NodeType: 0
+  Behaviour: {fileID: 0}

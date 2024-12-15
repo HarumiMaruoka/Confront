@@ -10,7 +10,7 @@ namespace Confront.Player
     {
         [Header("Check Ground")]
         [SerializeField]
-        private Vector2 _groundCheckRayOffset = new Vector2(0, 0f);
+        public Vector2 _groundCheckRayOffset = new Vector2(0, 0f);
         [SerializeField]
         private float angleRange = 180f;
         [SerializeField]
@@ -89,10 +89,10 @@ namespace Confront.Player
 
         public SensorResult Calculate(PlayerController player)
         {
-            if (_prevFrameCount == Time.frameCount)
-            {
-                return _prevResult;
-            }
+            //if (_prevFrameCount == Time.frameCount)
+            //{
+            //    return _prevResult;
+            //}
 
             var result = new SensorResult();
 
@@ -119,6 +119,7 @@ namespace Confront.Player
             if (result.IsGrounded)
             {
                 result.GroundNormal = groundNormal;
+                result.GroundPoint = groundCheckRayPosition + (Vector3)groundNormal * averageHitRayLength;
                 result.IsSteepSlope = groundAngle < 89.999f && Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
             }
 
@@ -292,6 +293,7 @@ namespace Confront.Player
         public float AverageHitRayLength; // 平均のヒットしたレイの長さ
 
         public Vector2 GroundNormal; // 地面の法線
+        internal Vector2 GroundPoint;
 
         public GroundType GroundType;
 

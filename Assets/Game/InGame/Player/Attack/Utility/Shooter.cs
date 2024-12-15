@@ -8,9 +8,8 @@ namespace Confront.AttackUtility
     [Serializable]
     public class Shooter
     {
-        public Projectile ProjectilePrefab;
+        public ChargedProjectile ProjectilePrefab;
         public float FireTime;
-        public Vector3 SpawnOffset;
 
         private float _prevElapsed;
 
@@ -26,8 +25,7 @@ namespace Confront.AttackUtility
 
         public void Fire(PlayerController player, float chargeAmount)
         {
-            var position = player.transform.position + player.transform.rotation * SpawnOffset;
-            var projectile = GameObject.Instantiate(ProjectilePrefab, position, player.transform.rotation);
+            var projectile = GameObject.Instantiate(ProjectilePrefab, player.transform.position, player.transform.rotation);
             projectile.Initialize(player, chargeAmount);
         }
     }

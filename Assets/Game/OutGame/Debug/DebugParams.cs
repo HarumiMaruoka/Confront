@@ -23,5 +23,6 @@ namespace Confront.Debugger
         }
 
         public bool CanPlayerAttack = true;
+        public bool StateTransitionLogging = false;
     }
 }

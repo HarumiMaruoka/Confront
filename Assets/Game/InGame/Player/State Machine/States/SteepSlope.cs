@@ -9,7 +9,7 @@ namespace Confront.Player
 
         public void Enter(PlayerController player)
         {
-
+            // player.HandlePlatformCollision();
         }
 
         public void Exit(PlayerController player)
@@ -36,6 +36,13 @@ namespace Confront.Player
             var velocityMagnitude = velocity.magnitude;
             velocityMagnitude += acceleration * Time.deltaTime;
             player.MovementParameters.Velocity = downhillDirection * velocityMagnitude;
+
+            if (groundSensorResult.AverageHitRayLength < 0.1f)
+            {
+                player.CharacterController.enabled = false;
+                player.transform.position += (Vector3)groundSensorResult.GroundNormal * 0.1f;
+                player.CharacterController.enabled = true;
+            }
         }
     }
 }
