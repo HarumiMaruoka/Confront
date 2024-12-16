@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.Player;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +13,9 @@ namespace Confront.AttackUtility
         [SerializeField]
         private float _endTime;
         [SerializeField]
-        private float _additionalAttackPower; // 足す攻撃力
+        private float _baseDamage;
         [SerializeField]
-        private float _multiplierAttackPower; // 掛ける攻撃力
+        private float _factor;
 
         [SerializeField]
         private Vector3 _offset;
@@ -35,10 +36,7 @@ namespace Confront.AttackUtility
 
         public bool IsOverlapping(LayerMask layerMask) => Physics.OverlapBoxNonAlloc(Position, _size * 0.5f, _colliderBuffer, Rotation, layerMask) != 0;
 
-        public void Update(
-            float attackStateAdditionalAttackPower,
-            float attackStateMultiplierAttackPower,
-            float elapsed, LayerMask layerMask)
+        public void Update(PlayerController player, float elapsed, LayerMask layerMask)
         {
             if (_startTime <= elapsed && elapsed <= _endTime)
             {
@@ -51,9 +49,8 @@ namespace Confront.AttackUtility
                     if (!_alreadyHits.Add(instanceId)) continue;
                     if (collider.gameObject.TryGetComponent(out IDamageable damageable))
                     {
-                        var additionalAttackPower = attackStateAdditionalAttackPower + _additionalAttackPower;
-                        var multiplierAttackPower = attackStateMultiplierAttackPower * _multiplierAttackPower;
-                        var damage = additionalAttackPower + multiplierAttackPower;
+                        var playerAttackPower = player.CharacterStats.AttackPower;
+                        var damage = _baseDamage + playerAttackPower * _factor;
                         damageable.TakeDamage(damage);
                     }
                 }

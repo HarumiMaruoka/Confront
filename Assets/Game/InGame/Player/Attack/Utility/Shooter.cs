@@ -1,5 +1,4 @@
 ﻿using Confront.Player;
-using Cysharp.Threading.Tasks.Triggers;
 using System;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ namespace Confront.AttackUtility
 
         public void Fire(PlayerController player, float chargeAmount)
         {
-            var projectile = GameObject.Instantiate(ProjectilePrefab, player.transform.position, player.transform.rotation);
+            var projectile = GameObject.Instantiate(ProjectilePrefab, player.transform.position, Quaternion.identity);
             projectile.Initialize(player, chargeAmount);
         }
     }

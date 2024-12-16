@@ -25,10 +25,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseAttackPower: 1
-  _attackPowerFactor: 1
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0.8
   _nextAttackTransitionTime: 0.8
   _attackCompletionTime: 1
   _hitBoxes: []
+  _shooters:
+  - ProjectilePrefab: {fileID: 6369903804010466800, guid: d7ed93e948e98804fbb99d23a84ad15d, type: 3}
+    FireTime: 0.5
+  - ProjectilePrefab: {fileID: 6369903804010466800, guid: 216953482df5077469093c40fb0abe31, type: 3}
+    FireTime: 0.5
+  - ProjectilePrefab: {fileID: 6369903804010466800, guid: c8841447c1061c5428623c100f77d196, type: 3}
+    FireTime: 0.5

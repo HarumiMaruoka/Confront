@@ -36,6 +36,11 @@ namespace Confront.Player.Combo
         [SerializeField]
         private float _nextAttackInputEndTime; // 次の攻撃入力を無効にする時間
 
+        [Header("当たり判定")]
+        [SerializeField]
+        private AttackHitBox[] _hitBoxes;
+
+        [Header("射出")]
         [SerializeField]
         private Shooter[] _shooters;
 
@@ -50,6 +55,7 @@ namespace Confront.Player.Combo
         public override void Enter(PlayerController player)
         {
             _lastInput = ComboInput.None;
+            _state = ChargeState.Ready;
             _elapsed = 0;
             player.Animator.CrossFade(_readyAnimationName, 0.1f);
         }
@@ -103,8 +109,13 @@ namespace Confront.Player.Combo
 
         private void HandleFireState(PlayerController player)
         {
+            var previousElapsed = _elapsed;
             _elapsed += Time.deltaTime;
 
+            foreach (var hitBox in _hitBoxes)
+            {
+                hitBox.Update(player, _elapsed, LayerMask);
+            }
             foreach (var shooter in _shooters)
             {
                 shooter.Update(player, _elapsed, _chargeAmount);
@@ -123,12 +134,12 @@ namespace Confront.Player.Combo
                 }
             }
 
-            if (_elapsed >= _nextAttackTransitionTime && _lastInput != ComboInput.None)
+            if (previousElapsed < _nextAttackTransitionTime && _elapsed >= _nextAttackTransitionTime && _lastInput != ComboInput.None)
             {
                 if (_lastInput == ComboInput.X) OnTransitionX?.Invoke(player);
                 else if (_lastInput == ComboInput.Y) OnTransitionY?.Invoke(player);
             }
-            else if (_elapsed >= _defaultStateTransitionTime)
+            if (previousElapsed < _defaultStateTransitionTime && _elapsed >= _defaultStateTransitionTime)
             {
                 OnCompleted?.Invoke(player);
             }

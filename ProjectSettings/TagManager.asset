@@ -16,7 +16,7 @@ TagManager:
   - PassThroughPlatform
   - GrabbablePoint
   - Enemy
-  - 
+  - PlayerBullet
   - 
   - 
   - 

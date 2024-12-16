@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326761b2b720eb144a7081c43c15a7e4, type: 3}
   m_Name: Bow_Ground_Y_Charged
   m_EditorClassIdentifier: 
-  _readyAnimationName: None
-  _holdAnimationName: None
-  _fireAnimationName: None
-  _readyTime: 0.2
-  _holdTime: 0.5
+  _readyAnimationName: Bow_ChargeShot_1_Start
+  _holdAnimationName: Bow_ChargeShot_2_A_Charging_Loop
+  _fireAnimationName: Bow_ChargeShot_3_Shoot
+  _readyTime: 0.8
+  _holdTime: 3
   _nextAttackTransitionTime: 0
-  _defaultStateTransitionTime: 0
+  _defaultStateTransitionTime: 1
   _canMoveWhileCharging: 0
   _nextAttackInputBeginTime: 0
   _nextAttackInputEndTime: 0

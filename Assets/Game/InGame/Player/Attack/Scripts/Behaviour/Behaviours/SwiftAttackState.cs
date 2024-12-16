@@ -18,12 +18,6 @@ namespace Confront.Player.Combo
         [SerializeField]
         private AnimationCurve _yAxisMovementCurve;
 
-        [Header("攻撃力")]
-        [SerializeField]
-        private float _baseAttackPower = 1; // 基本攻撃力
-        [SerializeField]
-        private float _attackPowerFactor = 1; // 攻撃力係数
-
         [Header("コンボ入力")]
         [SerializeField]
         private float _comboInputAcceptanceTime = 0.2f; // コンボ入力を受け付ける時間
@@ -36,9 +30,13 @@ namespace Confront.Player.Combo
         [SerializeField]
         private float _attackCompletionTime = 0.3f; // 攻撃を完了する時間
 
-        [Header("当たり判定_ヒットボックス")]
+        [Header("当たり判定")]
         [SerializeField]
         private AttackHitBox[] _hitBoxes;
+
+        [Header("射出")]
+        [SerializeField]
+        private Shooter[] _shooters;
 
         private float _elapsed = 0;
         private ComboInput _lastInput = ComboInput.None;
@@ -104,10 +102,13 @@ namespace Confront.Player.Combo
 
             foreach (var hitBox in _hitBoxes)
             {
-                var additionalAttackPower = _baseAttackPower;
-                var multiplierAttackPower = player.CharacterStats.AttackPower * _attackPowerFactor;
-                hitBox.Update(additionalAttackPower, multiplierAttackPower, _elapsed, LayerMask);
+                hitBox.Update(player, _elapsed, LayerMask);
             }
+            foreach (var shooter in _shooters)
+            {
+                shooter.Update(player, _elapsed, 0.5f);
+            }
+
             if (IsComboInputEnabled)
             {
                 // コンボ入力を受け付ける

@@ -18,7 +18,7 @@ MonoBehaviour:
   Guid: cb7091349830c3d488057b1edfc4b26f
   Position: {x: 100, y: 250}
   NodeType: 1
-  Behaviour: {fileID: 0}
+  Behaviour: {fileID: 11400000, guid: e6c021a809a81be4e8d26f5cadb42062, type: 2}
 --- !u!114 &-5055402744114627643
 MonoBehaviour:
   m_ObjectHideFlags: 0
