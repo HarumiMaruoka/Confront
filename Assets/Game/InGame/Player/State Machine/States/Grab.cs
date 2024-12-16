@@ -42,7 +42,6 @@ namespace Confront.Player
         public void Exit(PlayerController player)
         {
             _cancellationTokenSource.Cancel();
-            player.Animator.SetBool("Climb", false);
 
             player.DirectionController.IsEnable = true;
             player.CharacterController.enabled = true;
@@ -89,8 +88,7 @@ namespace Confront.Player
         {
             player.CharacterController.enabled = false;
 
-            player.Animator.SetBool("Grab", false);
-            player.Animator.SetBool("Climb", true);
+            player.Animator.CrossFade("Climb", 0.2f);
 
             var sign = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
 
@@ -117,8 +115,7 @@ namespace Confront.Player
 
                 if (previousTime < maxTime - threshold && time >= maxTime - threshold)
                 {
-                    player.Animator.SetBool("Climb", false);
-                    player.Animator.SetBool("Run", true);
+                    player.Animator.CrossFade("Run", 0.2f);
                 }
 
                 previousTime = time;

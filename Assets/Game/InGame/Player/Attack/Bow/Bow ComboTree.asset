@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5441508549735034926
+--- !u!114 &-6908548774447846683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15,30 +15,11 @@ MonoBehaviour:
   Parent: {fileID: 0}
   XChild: {fileID: 0}
   YChild: {fileID: 0}
-  Guid: 
-  Position: {x: 100, y: 550}
-  NodeType: 3
-  Behaviour: {fileID: 0}
---- !u!114 &-5135359482463651617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
-  XChild: {fileID: 0}
-  YChild: {fileID: 0}
-  Guid: e83c380c7fd97a047a99658d94d2861e
+  Guid: cb7091349830c3d488057b1edfc4b26f
   Position: {x: 100, y: 250}
   NodeType: 1
   Behaviour: {fileID: 0}
---- !u!114 &-3714956643334770413
+--- !u!114 &-5055402744114627643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,28 +34,9 @@ MonoBehaviour:
   Parent: {fileID: 0}
   XChild: {fileID: 0}
   YChild: {fileID: 0}
-  Guid: 
-  Position: {x: 429, y: 213}
-  NodeType: 4
-  Behaviour: {fileID: 0}
---- !u!114 &-2205933781974716115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
-  XChild: {fileID: 0}
-  YChild: {fileID: 0}
-  Guid: 09236fa4ccd0da44896595d8ac642f7b
-  Position: {x: 100, y: 400}
-  NodeType: 2
+  Guid: 618d3a05c73448541965a2ddcc10a944
+  Position: {x: 100, y: 550}
+  NodeType: 3
   Behaviour: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -86,17 +48,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da6439ad19c364d4582cc702e3716faf, type: 3}
-  m_Name: ComboTree
+  m_Name: Bow ComboTree
   m_EditorClassIdentifier: 
-  GroundRootX: {fileID: 8280372885089300759}
-  GroundRootY: {fileID: -5135359482463651617}
-  AirRootX: {fileID: -2205933781974716115}
-  AirRootY: {fileID: -5441508549735034926}
+  GroundRootX: {fileID: 4416380736852338247}
+  GroundRootY: {fileID: -6908548774447846683}
+  AirRootX: {fileID: 2700868713898728139}
+  AirRootY: {fileID: -5055402744114627643}
   Position: {x: 0, y: 0, z: 0}
   Scale: {x: 1, y: 1, z: 1}
   Children:
-  - {fileID: -3714956643334770413}
---- !u!114 &8280372885089300759
+  - {fileID: 8458876102592824639}
+  - {fileID: 5215483274869631374}
+--- !u!114 &2700868713898728139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +74,64 @@ MonoBehaviour:
   Parent: {fileID: 0}
   XChild: {fileID: 0}
   YChild: {fileID: 0}
-  Guid: 8d4ab429dc753244a8956443138eb59f
+  Guid: 4a1f228c6470a874094a3e149532bbb0
+  Position: {x: 100, y: 400}
+  NodeType: 2
+  Behaviour: {fileID: 0}
+--- !u!114 &4416380736852338247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  XChild: {fileID: 8458876102592824639}
+  YChild: {fileID: 0}
+  Guid: 9b8178746f2dd4c49b69bb47a6857425
   Position: {x: 100, y: 100}
   NodeType: 0
-  Behaviour: {fileID: 0}
+  Behaviour: {fileID: 11400000, guid: 8c755b74aad64c743982a41d3faee7aa, type: 2}
+--- !u!114 &5215483274869631374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 8458876102592824639}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: ba7245a6ae71e01478159be5001f6be0
+  Position: {x: 580.8, y: 100}
+  NodeType: 4
+  Behaviour: {fileID: 11400000, guid: cf619ee9175287e449d9cdc76d9fc7bc, type: 2}
+--- !u!114 &8458876102592824639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 4416380736852338247}
+  XChild: {fileID: 5215483274869631374}
+  YChild: {fileID: 0}
+  Guid: 704b5905b07403c409d96c8735a75ac8
+  Position: {x: 332.8, y: 100}
+  NodeType: 4
+  Behaviour: {fileID: 11400000, guid: ab8b011f70ef76a4589bcbb2e1200e1c, type: 2}

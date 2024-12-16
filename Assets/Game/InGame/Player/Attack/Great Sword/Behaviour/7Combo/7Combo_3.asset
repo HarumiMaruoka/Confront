@@ -45,15 +45,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   _baseAttackPower: 1
   _attackPowerFactor: 1
-  _hitBox:
-    Center: {fileID: 0}
-    Offset: {x: 0, y: 0, z: 0}
-    Size: {x: 0, y: 0, z: 0}
-  _isGizmosVisible: 1
-  _hitDetectionActivationTime: 0.1
-  _hitDetectionDeactivationTime: 0.2
   _comboInputAcceptanceTime: 0.2
   _comboInputDeactivationTime: 1.1
   _nextAttackTransitionTime: 1.1
   _attackCompletionTime: 1.3
-  _showLog: 0
+  _hitBoxes: []

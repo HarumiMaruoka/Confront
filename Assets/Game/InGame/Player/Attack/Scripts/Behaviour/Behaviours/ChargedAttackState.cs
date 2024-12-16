@@ -41,7 +41,6 @@ namespace Confront.Player.Combo
 
         private ChargeState _state = ChargeState.Ready;
 
-
         private ComboInput _lastInput = ComboInput.None;
         private float _elapsed = 0;
         private float _chargeAmount = 0; // 0 ~ 1
@@ -52,7 +51,7 @@ namespace Confront.Player.Combo
         {
             _lastInput = ComboInput.None;
             _elapsed = 0;
-            player.Animator.SetBool(_readyAnimationName, true);
+            player.Animator.CrossFade(_readyAnimationName, 0.1f);
         }
 
         public override void Execute(PlayerController player)
@@ -76,9 +75,8 @@ namespace Confront.Player.Combo
             _elapsed += Time.deltaTime;
             if (_elapsed >= _readyTime)
             {
-                player.Animator.SetBool(_readyAnimationName, false);
                 _state = ChargeState.Hold;
-                player.Animator.SetBool(_holdAnimationName, true);
+                player.Animator.CrossFade(_holdAnimationName, 0.1f);
                 _elapsed = 0;
             }
         }
@@ -92,9 +90,8 @@ namespace Confront.Player.Combo
 
             if (!attackButtonPressed) // 攻撃ボタンが離されたら
             {
-                player.Animator.SetBool(_holdAnimationName, false);
                 _state = ChargeState.Fire;
-                player.Animator.SetBool(_fireAnimationName, true);
+                player.Animator.CrossFade(_fireAnimationName, 0.1f);
                 _elapsed = 0;
             }
 
@@ -128,13 +125,11 @@ namespace Confront.Player.Combo
 
             if (_elapsed >= _nextAttackTransitionTime && _lastInput != ComboInput.None)
             {
-                player.Animator.SetBool(_fireAnimationName, false);
                 if (_lastInput == ComboInput.X) OnTransitionX?.Invoke(player);
                 else if (_lastInput == ComboInput.Y) OnTransitionY?.Invoke(player);
             }
             else if (_elapsed >= _defaultStateTransitionTime)
             {
-                player.Animator.SetBool(_fireAnimationName, false);
                 OnCompleted?.Invoke(player);
             }
         }

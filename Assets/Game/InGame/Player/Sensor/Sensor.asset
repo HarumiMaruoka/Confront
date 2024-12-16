@@ -16,7 +16,7 @@ MonoBehaviour:
   angleRange: 180
   rayCount: 52
   rayDistance: 0.58
-  _isGroundCheckGizmoEnabled: 0
+  _isGroundCheckGizmoEnabled: 1
   _isGroundCheckGizmoAlpha: 1
   _abyssCheckRayOffset: {x: 0, y: 1.29}
   _abyssCheckRayRadius: 0.08

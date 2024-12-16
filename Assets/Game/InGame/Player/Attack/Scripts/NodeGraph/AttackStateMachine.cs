@@ -70,8 +70,6 @@ namespace Confront.Player.Combo
         {
             if (_currentNode && _currentNode.Behaviour)
             {
-                if (!string.IsNullOrEmpty(_currentNode.Behaviour.AnimationName))
-                    player.Animator.SetBool(_currentNode.Behaviour.AnimationName, false);
                 _currentNode.Behaviour.Exit(player);
                 _currentNode.Behaviour.OnTransitionX -= ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY -= ChangeToYChild;
@@ -84,7 +82,9 @@ namespace Confront.Player.Combo
             if (_currentNode && _currentNode.Behaviour)
             {
                 if (!string.IsNullOrEmpty(_currentNode.Behaviour.AnimationName))
-                    player.Animator.SetBool(_currentNode.Behaviour.AnimationName, true);
+                {
+                    player.Animator.CrossFade(_currentNode.Behaviour.AnimationName, 0.1f);
+                }
                 _currentNode.Behaviour.Enter(player);
                 _currentNode.Behaviour.OnTransitionX += ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY += ChangeToYChild;

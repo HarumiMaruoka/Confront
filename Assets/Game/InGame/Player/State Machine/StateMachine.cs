@@ -45,8 +45,6 @@ namespace Confront.Player
             if (CurrentState != null)
             {
                 CurrentState.Exit(_player);
-                if (!string.IsNullOrEmpty(CurrentState.AnimationName))
-                    _player.Animator.SetBool(CurrentState.AnimationName, false);
             }
 
             PreviousState = CurrentState;
@@ -54,7 +52,7 @@ namespace Confront.Player
 
             CurrentState.Enter(_player);
             if (!string.IsNullOrEmpty(CurrentState.AnimationName))
-                _player.Animator.SetBool(CurrentState.AnimationName, true);
+                _player.Animator.CrossFade(CurrentState.AnimationName, 0.2f);
 
             if (DebugParams.Instance.StateTransitionLogging)
                 Debug.Log($"Transitioning from {PreviousState} to {CurrentState}");
