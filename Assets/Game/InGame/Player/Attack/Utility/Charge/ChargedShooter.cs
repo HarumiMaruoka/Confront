@@ -5,21 +5,25 @@ using UnityEngine;
 namespace Confront.AttackUtility
 {
     [Serializable]
-    public class Shooter
+    public class ChargedShooter
     {
         public ChargedProjectile ProjectilePrefab;
         public float FireTime;
 
-        private float _prevElapsed;
+        private bool _fired = false;
+
+        public void Reset()
+        {
+            _fired = false;
+        }
 
         public void Update(PlayerController player, float elapsed, float chargeAmount)
         {
-            if (_prevElapsed < FireTime && FireTime <= elapsed)
+            if (FireTime <= elapsed && !_fired)
             {
                 Fire(player, chargeAmount);
+                _fired = true;
             }
-
-            _prevElapsed = elapsed;
         }
 
         public void Fire(PlayerController player, float chargeAmount)

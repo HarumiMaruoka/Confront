@@ -10,6 +10,12 @@ namespace Confront.Player.Combo
     {
         [Header("")]
         [SerializeField]
+        private AnimationCurve _xAxisMovementCurve;
+        [SerializeField]
+        private AnimationCurve _yAxisMovementCurve;
+
+        [Header("")]
+        [SerializeField]
         private string _readyAnimationName = "None";
         [SerializeField]
         private string _holdAnimationName = "None";
@@ -38,11 +44,11 @@ namespace Confront.Player.Combo
 
         [Header("当たり判定")]
         [SerializeField]
-        private AttackHitBox[] _hitBoxes;
+        private ChargedAttackHitBox[] _hitBoxes;
 
         [Header("射出")]
         [SerializeField]
-        private Shooter[] _shooters;
+        private ChargedShooter[] _shooters;
 
         private ChargeState _state = ChargeState.Ready;
 
@@ -57,6 +63,7 @@ namespace Confront.Player.Combo
             _lastInput = ComboInput.None;
             _state = ChargeState.Ready;
             _elapsed = 0;
+            Clear();
             player.Animator.CrossFade(_readyAnimationName, 0.1f);
         }
 
@@ -114,11 +121,11 @@ namespace Confront.Player.Combo
 
             foreach (var hitBox in _hitBoxes)
             {
-                hitBox.Update(player, _elapsed, LayerMask);
+                hitBox.Update(player, previousElapsed, _chargeAmount, LayerMask);
             }
             foreach (var shooter in _shooters)
             {
-                shooter.Update(player, _elapsed, _chargeAmount);
+                shooter.Update(player, previousElapsed, _chargeAmount);
             }
 
             // 次の攻撃入力を受け付ける
@@ -143,6 +150,31 @@ namespace Confront.Player.Combo
             {
                 OnCompleted?.Invoke(player);
             }
+        }
+
+
+        private void Clear()
+        {
+            foreach (var hitBox in _hitBoxes)
+            {
+                hitBox.Clear();
+            }
+            foreach (var shooter in _shooters)
+            {
+                shooter.Reset();
+            }
+        }
+
+        protected override void OnDrawGizmos()
+        {
+#if UNITY_EDITOR
+            if (_hitBoxes == null) return;
+            foreach (var hitBox in _hitBoxes)
+            {
+                if (hitBox == null) continue;
+                hitBox.DrawGizmos(_elapsed, LayerMask);
+            }
+#endif
         }
         #endregion
 

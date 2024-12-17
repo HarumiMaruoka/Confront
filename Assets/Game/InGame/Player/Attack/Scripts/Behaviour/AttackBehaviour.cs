@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.Debugger;
+using System;
 using UnityEngine;
 
 namespace Confront.Player.Combo
@@ -29,6 +30,19 @@ namespace Confront.Player.Combo
         public abstract void Execute(PlayerController player);
 
         public abstract void Exit(PlayerController player);
+
+
+        private void OnEnable()
+        {
+            GizmoDrawer.OnDrawGizmosEvent += OnDrawGizmos;
+        }
+
+        private void OnDisable()
+        {
+            GizmoDrawer.OnDrawGizmosEvent -= OnDrawGizmos;
+        }
+
+        protected virtual void OnDrawGizmos() { }
     }
 
     public enum ComboInput

@@ -44,17 +44,7 @@ namespace Confront.Player.Combo
         public bool IsComboInputEnabled => _elapsed >= _comboInputAcceptanceTime && _elapsed < _comboInputDeactivationTime;
         public override string AnimationName => _animationName;
 
-        private void OnEnable()
-        {
-            GizmoDrawer.OnDrawGizmosEvent += OnDrawGizmos;
-        }
-
-        private void OnDisable()
-        {
-            GizmoDrawer.OnDrawGizmosEvent -= OnDrawGizmos;
-        }
-
-        private void OnDrawGizmos()
+        protected override void OnDrawGizmos()
         {
 #if UNITY_EDITOR
             if (_hitBoxes == null) return;
@@ -76,18 +66,29 @@ namespace Confront.Player.Combo
                 hitBox.Clear();
                 hitBox.Center = player.transform;
             }
+            foreach (var shooter in _shooters)
+            {
+                shooter.Reset();
+            }
         }
 
         public override void Execute(PlayerController player)
         {
-            var groundSensorResult = player.Sensor.Calculate(player);
 
             var previousElapsed = _elapsed;
             _elapsed += Time.deltaTime;
 
+            UpdatePlayerMovement(player, _xAxisMovementCurve, _yAxisMovementCurve, _elapsed);
+            UpdateHitBoxesAndShooters(player);
+            HandleTransition(player, previousElapsed);
+        }
+
+        public static void UpdatePlayerMovement(PlayerController player, AnimationCurve xAxisMovementCurve, AnimationCurve yAxisMovementCurve, float elapsed)
+        {
             // アニメーションの進行度に応じてプレイヤーを移動させる
+            var groundSensorResult = player.Sensor.Calculate(player);
             var sign = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-            var xAxisMovement = (_xAxisMovementCurve.Evaluate(_elapsed) - _xAxisMovementCurve.Evaluate(_elapsed - Time.deltaTime));
+            var xAxisMovement = (xAxisMovementCurve.Evaluate(elapsed) - xAxisMovementCurve.Evaluate(elapsed - Time.deltaTime));
             var groundNormal = groundSensorResult.GroundNormal;
             var angle = Vector3.Angle(Vector3.up, groundNormal);
             if (angle > player.CharacterController.slopeLimit)
@@ -97,18 +98,24 @@ namespace Confront.Player.Combo
 
             player.CharacterController.Move(Vector3.ProjectOnPlane(Vector3.right * sign, groundNormal) * xAxisMovement);
 
-            var yAxisMovement = (_yAxisMovementCurve.Evaluate(_elapsed) - _yAxisMovementCurve.Evaluate(_elapsed - Time.deltaTime));
+            var yAxisMovement = (yAxisMovementCurve.Evaluate(elapsed) - yAxisMovementCurve.Evaluate(elapsed - Time.deltaTime));
             player.CharacterController.Move(Vector3.up * yAxisMovement);
+        }
 
+        private void UpdateHitBoxesAndShooters(PlayerController player)
+        {
             foreach (var hitBox in _hitBoxes)
             {
                 hitBox.Update(player, _elapsed, LayerMask);
             }
             foreach (var shooter in _shooters)
             {
-                shooter.Update(player, _elapsed, 0.5f);
+                shooter.Update(player, _elapsed);
             }
+        }
 
+        private void HandleTransition(PlayerController player, float previousElapsed)
+        {
             if (IsComboInputEnabled)
             {
                 // コンボ入力を受け付ける

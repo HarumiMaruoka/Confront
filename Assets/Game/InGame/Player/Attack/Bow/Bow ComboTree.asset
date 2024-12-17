@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
   XChild: {fileID: 0}
-  YChild: {fileID: 0}
+  YChild: {fileID: 6258309340584459479}
   Guid: cb7091349830c3d488057b1edfc4b26f
   Position: {x: 100, y: 250}
   NodeType: 1
-  Behaviour: {fileID: 11400000, guid: e6c021a809a81be4e8d26f5cadb42062, type: 2}
+  Behaviour: {fileID: 11400000, guid: 8c755b74aad64c743982a41d3faee7aa, type: 2}
 --- !u!114 &-5055402744114627643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +59,8 @@ MonoBehaviour:
   Children:
   - {fileID: 8458876102592824639}
   - {fileID: 5215483274869631374}
+  - {fileID: 6258309340584459479}
+  - {fileID: 4209920534490964541}
 --- !u!114 &2700868713898728139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +80,25 @@ MonoBehaviour:
   Position: {x: 100, y: 400}
   NodeType: 2
   Behaviour: {fileID: 0}
+--- !u!114 &4209920534490964541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 6258309340584459479}
+  XChild: {fileID: 0}
+  YChild: {fileID: 0}
+  Guid: 7188f0c22d4ae1f4982956596af6615c
+  Position: {x: 589, y: 250}
+  NodeType: 4
+  Behaviour: {fileID: 11400000, guid: ab8b011f70ef76a4589bcbb2e1200e1c, type: 2}
 --- !u!114 &4416380736852338247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +137,25 @@ MonoBehaviour:
   Position: {x: 580.8, y: 100}
   NodeType: 4
   Behaviour: {fileID: 11400000, guid: cf619ee9175287e449d9cdc76d9fc7bc, type: 2}
+--- !u!114 &6258309340584459479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49dfdec252abf40b93452c2889b8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: -6908548774447846683}
+  XChild: {fileID: 0}
+  YChild: {fileID: 4209920534490964541}
+  Guid: d3ce0b1c7f1d7a441947bf7627a09fcf
+  Position: {x: 343, y: 250}
+  NodeType: 4
+  Behaviour: {fileID: 11400000, guid: e6c021a809a81be4e8d26f5cadb42062, type: 2}
 --- !u!114 &8458876102592824639
 MonoBehaviour:
   m_ObjectHideFlags: 0

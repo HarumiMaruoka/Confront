@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4389300237402723519}
-  - component: {fileID: 6369903804010466800}
+  - component: {fileID: 337095474890734460}
   - component: {fileID: 3123385240970828146}
   - component: {fileID: 7267408116865306288}
   - component: {fileID: 8717852991939994135}
@@ -36,7 +36,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6369903804010466800
+--- !u!114 &337095474890734460
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,19 +45,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6375227577849702185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9610713d9217b4a44bfb1a7df6b35379, type: 3}
+  m_Script: {fileID: 11500000, guid: b31e508e7e412bf4a8624bde3c5f5cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 3123385240970828146}
   _spawnOffset: {x: 0, y: 2.4}
-  _direction: {x: 1, y: 0.5}
-  _minSpeed: 40
-  _maxSpeed: 40
-  _minLifeTime: 0.5
-  _maxLifeTime: 0.5
+  _direction: {x: 1, y: 0.2}
+  _speed: 40
+  _lifeTime: 0.5
   _baseDamage: 10
-  _minFactor: 0.5
-  _maxFactor: 1.5
+  _factor: 1
 --- !u!54 &3123385240970828146
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -113,7 +110,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f834c62d7fe8f3b429bf34d27a91c828, type: 2}
+  - {fileID: 2100000, guid: 24c6f6ed0b93646439a589de3e5d1d41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

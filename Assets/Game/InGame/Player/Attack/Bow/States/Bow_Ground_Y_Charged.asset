@@ -12,14 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326761b2b720eb144a7081c43c15a7e4, type: 3}
   m_Name: Bow_Ground_Y_Charged
   m_EditorClassIdentifier: 
+  _xAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.52860475
+      outSlope: -0.52860475
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _yAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _readyAnimationName: Bow_ChargeShot_1_Start
   _holdAnimationName: Bow_ChargeShot_2_A_Charging_Loop
   _fireAnimationName: Bow_ChargeShot_3_Shoot
   _readyTime: 0.8
   _holdTime: 3
-  _nextAttackTransitionTime: 0
+  _nextAttackTransitionTime: 0.2
   _defaultStateTransitionTime: 1
   _canMoveWhileCharging: 0
   _nextAttackInputBeginTime: 0
-  _nextAttackInputEndTime: 0
-  _shooters: []
+  _nextAttackInputEndTime: 1
+  _hitBoxes: []
+  _shooters:
+  - ProjectilePrefab: {fileID: 6369903804010466800, guid: f37d72541aaaf004899311bf39f854bb, type: 3}
+    FireTime: 0.1

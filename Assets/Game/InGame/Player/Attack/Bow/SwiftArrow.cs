@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Confront.Player.Combo
 {
-    public class Arrow : ChargedProjectile
+    public class SwiftArrow : Projectile
     {
         [SerializeField]
         private Rigidbody _rigidbody;
@@ -19,26 +19,19 @@ namespace Confront.Player.Combo
 
         [Header("Speed")]
         [SerializeField]
-        private float _minSpeed = 10;
-        [SerializeField]
-        private float _maxSpeed = 20;
+        private float _speed = 10;
 
         [Header("Life Time")]
         [SerializeField]
-        private float _minLifeTime = 0.5f;
-        [SerializeField]
-        private float _maxLifeTime = 0.5f;
+        private float _lifeTime = 0.5f;
 
         [Header("Damage")]
         [SerializeField]
         private float _baseDamage = 10;
         [SerializeField]
-        private float _minFactor = 0.5f;
-        [SerializeField]
-        private float _maxFactor = 1.5f;
+        private float _factor = 1f;
 
         private PlayerController _player;
-        private float _factor;
         private HashSet<int> _alreadyHits = new HashSet<int>();
 
         private static LayerMask CollisionDestructionLayer;
@@ -49,21 +42,19 @@ namespace Confront.Player.Combo
             CollisionDestructionLayer = LayerMask.GetMask("Ground");
         }
 
-        public override void Initialize(PlayerController player, float chargeAmount)
+        public override void Initialize(PlayerController player)
         {
             transform.position += new Vector3(_spawnOffset.x, _spawnOffset.y);
 
             var sign = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
             _direction = _direction.normalized;
-            var velocity = new Vector3(_direction.x * sign, _direction.y) * Mathf.Lerp(_minSpeed, _maxSpeed, chargeAmount);
+            var velocity = new Vector3(_direction.x * sign, _direction.y) * _speed;
 
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg);
             _player = player;
-            _factor = Mathf.Lerp(_minFactor, _maxFactor, chargeAmount);
             _rigidbody.velocity = velocity;
 
-            var lifeTime = Mathf.Lerp(_minLifeTime, _maxLifeTime, chargeAmount); ;
-            Destroy(gameObject, lifeTime);
+            Destroy(gameObject, _lifeTime);
         }
 
         private void OnTriggerEnter(Collider other)
