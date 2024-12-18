@@ -111,7 +111,7 @@ namespace Confront.Player.Combo
             {
                 Grounded.Move(player);
                 var groundSensorResult = player.Sensor.Calculate(player);
-                if (groundSensorResult.GroundType!= GroundType.Ground)
+                if (groundSensorResult.GroundType != GroundType.Ground)
                 {
                     OnCompleted?.Invoke(player);
                 }
@@ -134,7 +134,7 @@ namespace Confront.Player.Combo
 
             foreach (var hitBox in _hitBoxes)
             {
-                hitBox.Update(player, previousElapsed, _chargeAmount, LayerMask);
+                hitBox.Update(player.transform, player.CharacterStats.AttackPower, previousElapsed, _chargeAmount, LayerMask);
             }
             foreach (var shooter in _shooters)
             {
@@ -178,6 +178,8 @@ namespace Confront.Player.Combo
             }
         }
 
+        private static PlayerController _player;
+
         protected override void OnDrawGizmos()
         {
 #if UNITY_EDITOR
@@ -185,7 +187,8 @@ namespace Confront.Player.Combo
             foreach (var hitBox in _hitBoxes)
             {
                 if (hitBox == null) continue;
-                hitBox.DrawGizmos(_elapsed, LayerMask);
+                if (_player == null) _player = FindAnyObjectByType<PlayerController>();
+                hitBox.DrawGizmos(_player.transform, _elapsed, LayerMask);
             }
 #endif
         }

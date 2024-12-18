@@ -16,8 +16,6 @@ namespace Confront.Enemy
         private RaycastHit _hit;
 
         public bool IsGizmosVisible = true;
-        public Color GizmosVisibleColor = Color.red;
-        public Color GizmosInvisibleColor = Color.blue;
 
         public bool IsVisiblePlayer(Transform eyeTransform, PlayerController player)
         {
@@ -25,7 +23,7 @@ namespace Confront.Enemy
             var origin = eyeTransform.position + (Vector3)Offset;
             var playerCenter = player.transform.position + player.CharacterController.center;
 
-            var sqrDistance = (origin - player.CharacterController.center).sqrMagnitude;
+            var sqrDistance = (origin - playerCenter).sqrMagnitude;
             if (sqrDistance > ViewDistance * ViewDistance) return _isVisibleRecord = false;
 
             // プレイヤーが視界角内にいるかどうか
@@ -46,7 +44,7 @@ namespace Confront.Enemy
             // 視界の描画
             if (!IsGizmosVisible) return;
 
-            Gizmos.color = _isVisibleRecord ? GizmosVisibleColor : GizmosInvisibleColor;
+            Gizmos.color = _isVisibleRecord ? Color.red : Color.blue;
 
             var halfAngle = ViewAngle / 2;
             var forward = transform.forward;
@@ -65,7 +63,7 @@ namespace Confront.Enemy
 
 
 #if UNITY_EDITOR
-            UnityEditor.Handles.color = _isVisibleRecord ? GizmosVisibleColor : GizmosInvisibleColor;
+            UnityEditor.Handles.color = _isVisibleRecord ? Color.red : Color.blue;
 
             // 弧を描くためのパラメータ設定
             var center = transform.position + (Vector3)Offset;

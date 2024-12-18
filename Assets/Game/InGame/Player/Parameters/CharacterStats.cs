@@ -8,5 +8,6 @@ namespace Confront.Player
     {
         public float MaxHealth = 100;
         public float AttackPower = 1;
+        public float Defense = 1;
     }
 }

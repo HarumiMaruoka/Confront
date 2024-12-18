@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7cac501a538924093acd4a42b3029f, type: 3}
   m_Name: MovementParameters
   m_EditorClassIdentifier: 
-  Velocity: {x: 0, y: 0}
+  Velocity: {x: -2.0393922, y: -10.157218}
   JumpForce: 40
   GrabInterval: 0.2
   GrabPositionOffset: {x: -0.58, y: -2.2}
@@ -163,7 +163,9 @@ MonoBehaviour:
   AbyssXMinSpeed: 8
   SlopeAcceleration: 6
   PassThroughPlatformDisableTime: 0.5
-  PassThroughPlatformDisableTimer: -0.0035877656
+  PassThroughPlatformDisableTimer: -0.012876028
   DodgeMaxSpeed: 20
   DodgeAccelerationDuration: 0.2
   DodgeDecelerationDuration: 0.4
+  SmallDamageDuration: 0.5
+  SmallDamageHorizontalDecelerationRate: 2

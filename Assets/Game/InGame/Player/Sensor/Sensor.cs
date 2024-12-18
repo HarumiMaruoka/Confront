@@ -76,11 +76,19 @@ namespace Confront.Player
 
         [Header("Layer Mask")]
         public LayerMask GroundLayerMask;
+        public LayerMask EnemyLayerMask;
         public LayerMask PassThroughPlatform;
         public LayerMask GrabbablePointLayerMask;
 
         public bool FrontCheck(PlayerController player, float sign)
         {
+            LayerMask groundCheckLayerMask = GroundLayerMask;
+
+            if (player.MovementParameters.IsPassThroughPlatformTimerFinished)
+                groundCheckLayerMask |= PassThroughPlatform;
+            if (player.StateMachine.CurrentState is not GroundDodge)
+                groundCheckLayerMask |= EnemyLayerMask;
+
             var frontCheckRayPosition = player.transform.position + (Vector3)_frontCheckRayOffset;
             return UnityEngine.Physics.Raycast(frontCheckRayPosition, Vector3.right * sign, _frontCheckRayLength, GroundLayerMask);
         }
@@ -90,11 +98,6 @@ namespace Confront.Player
 
         public SensorResult Calculate(PlayerController player)
         {
-            //if (_prevFrameCount == Time.frameCount)
-            //{
-            //    return _prevResult;
-            //}
-
             var result = new SensorResult();
 
             var groundCheckRayPosition = player.transform.position + (Vector3)_groundCheckRayOffset;
@@ -104,9 +107,9 @@ namespace Confront.Player
             LayerMask groundCheckLayerMask;
 
             if (player.MovementParameters.IsPassThroughPlatformTimerFinished)
-                groundCheckLayerMask = GroundLayerMask | PassThroughPlatform;
+                groundCheckLayerMask = GroundLayerMask | EnemyLayerMask | PassThroughPlatform;
             else
-                groundCheckLayerMask = GroundLayerMask;
+                groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
             var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down, out float averageHitRayLength);

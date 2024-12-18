@@ -10,12 +10,13 @@ namespace Confront.Enemy
 {
     public class SlimeyController : EnemyBase, IDamageable
     {
+        [Header("Components")]
         public Rigidbody Rigidbody;
         public Animator Animator;
         public SlimeyStats Stats;
         public SlimeyEye Eye;
-        public DirectionController DirectionController;
 
+        [Header("States")]
         [SerializeField]
         private IdleState _idleState;
         [SerializeField]
@@ -29,10 +30,23 @@ namespace Confront.Enemy
         [SerializeField]
         private DeadState _deadState;
 
+        [Header("Utility")]
+        public AttackHitBoxOneFrame AttackHitBox;
+        public DirectionController DirectionController;
+
+        [Header("For Checking (Do not modify from the editor)")]
+        public SlimeyState CurrentState;
+
         private Dictionary<Type, SlimeyState> _states = new Dictionary<Type, SlimeyState>();
         private PlayerController _player;
 
-        public SlimeyState CurrentState;
+        private static LayerMask AttackableLayer;
+
+        [RuntimeInitializeOnLoadMethod]
+        private static void InitializeLayerMask()
+        {
+            AttackableLayer = LayerMask.GetMask("Player");
+        }
 
         private void Start()
         {
@@ -43,12 +57,16 @@ namespace Confront.Enemy
         {
             CurrentState.Execute(_player, this);
             DirectionController.UpdateVelocity(Rigidbody.velocity);
-
-            // Test
-            Eye.IsVisiblePlayer(transform, _player);
         }
 
-        public void TakeDamage(float attackPower)
+        public void Attack()
+        {
+            AttackHitBox.Clear();
+            var sign = DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
+            AttackHitBox.Fire(transform, sign, Stats.AttackPower, AttackableLayer);
+        }
+
+        public void TakeDamage(float attackPower, Vector2 damageVector)
         {
             var damage = DefaultCalculateDamage(attackPower, Stats.Defense);
 
@@ -82,8 +100,10 @@ namespace Confront.Enemy
 
         private void OnDrawGizmos()
         {
-            if (Eye == null) return;
-            Eye.DrawGizmos(transform);
+            if (Eye != null) Eye.DrawGizmos(transform);
+
+            if (AttackableLayer == 0) InitializeLayerMask();
+            AttackHitBox.DrawGizmos(transform, AttackableLayer);
         }
 
         private void Initialize()

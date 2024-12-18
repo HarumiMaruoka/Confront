@@ -26,10 +26,17 @@ namespace Confront.Enemy.Slimey
 
         public override void Execute(PlayerController player, SlimeyController slimey)
         {
+            if (slimey.Eye.IsVisiblePlayer(slimey.transform, player))
+            {
+                slimey.ChangeState<ApproachState>();
+                return;
+            }
+
             _timer += Time.deltaTime;
             if (_timer >= _duration)
             {
                 slimey.ChangeState<WanderState>();
+                return;
             }
 
             var xSpeed = Mathf.MoveTowards(slimey.Rigidbody.velocity.x, 0, Deceleration * Time.deltaTime);

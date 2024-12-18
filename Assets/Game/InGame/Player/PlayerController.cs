@@ -9,11 +9,13 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using Confront.ForgeItem;
+using Confront.AttackUtility;
+using System.Threading;
 
 namespace Confront.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerController : MonoBehaviour, ISavable
+    public class PlayerController : MonoBehaviour, ISavable, IDamageable
     {
         public static PlayerController Instance { get; private set; }
 
@@ -137,20 +139,93 @@ namespace Confront.Player
             StateMachine.Update();
             if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
             Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
-            DirectionController.UpdateVelocity(MovementParameters.Velocity);
             MovementParameters.TimerUpdate();
             HandleDebugInput();
 
             if (IsJumpable) StateMachine.ChangeState<Jump>();
+
+            if (StateMachine.CurrentState is not InAir &&
+                StateMachine.CurrentState is not Grounded)
+            {
+                DirectionController.UpdateVelocity(MovementParameters.Velocity);
+            }
 
             if (StateMachine.CurrentState is not Jump)
             {
                 HandlePlatformCollision();
             }
 
+            var prev = CharacterController.enabled;
+
             CharacterController.enabled = false;
             transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-            CharacterController.enabled = true;
+            CharacterController.enabled = prev;
+        }
+
+        /// <summary>
+        /// プレイヤーにダメージを与える
+        /// </summary>
+        /// <param name="attackPower"> 最終攻撃ダメージ </param>
+        /// <param name="damageDirection"> ノックバックに使用する </param>
+        public void TakeDamage(float attackPower, Vector2 damageDirection)
+        {
+            var damage = DefaultCalculateDamage(attackPower, CharacterStats.Defense);
+            HealthManager.Damage(damage);
+
+            var damageType = CalculateDamageType();
+
+            //if (HealthManager.IsDead)
+            //{
+            //    // StateMachine.ChangeState<Dead>();
+            //}
+            //else
+            //{
+            switch (damageType)
+            {
+                case DamageType.Mini: Animator.CrossFade("Mini Damage", 0.1f, 1); break;
+                case DamageType.Small:
+                    {
+                        var state = StateMachine.ChangeState<SmallDamage>();
+                        state.DamageDirection = damageDirection;
+                        break;
+                    }
+                case DamageType.Big:
+                    {
+                        var state = StateMachine.ChangeState<BigDamage>();
+                        state.DamageDirection = damageDirection;
+                        break;
+                    }
+            }
+            //}
+        }
+
+        public enum DamageType
+        {
+            Mini,
+            Small,
+            Big,
+        }
+
+        private DamageType CalculateDamageType()
+        {
+            // return DamageType.Mini;
+            return DamageType.Small;
+        }
+
+        private float DefaultCalculateDamage(float attackPower, float defense)
+        {
+            float defenseDamageFactor;
+            if (defense > 0)
+            {
+                defenseDamageFactor = 100 / (100 + defense);
+            }
+            else
+            {
+                defenseDamageFactor = 1 + (defense * -1) / 100;
+            }
+
+            var damage = attackPower * defenseDamageFactor;
+            return damage;
         }
 
         private static void HandleDebugInput()

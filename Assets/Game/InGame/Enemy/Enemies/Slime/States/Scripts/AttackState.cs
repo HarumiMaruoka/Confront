@@ -8,16 +8,38 @@ namespace Confront.Enemy.Slimey
     [CreateAssetMenu(fileName = "AttackState", menuName = "Enemy/Slimey/States/AttackState")]
     public class AttackState : SlimeyState
     {
-        public override string AnimationName => string.Empty;
+        public float Cooldown = 1.0f;
+        public float AttackRange = 1.0f;
+
+        private float _timer;
+
+        public override string AnimationName => "Attack02";
 
         public override void Enter(PlayerController player, SlimeyController slimey)
         {
-
+            _timer = 0;
         }
 
         public override void Execute(PlayerController player, SlimeyController slimey)
         {
+            if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player))
+            {
+                slimey.ChangeState<IdleState>();
+            }
 
+            var sqrDistance = (player.transform.position - slimey.transform.position).sqrMagnitude;
+            if (sqrDistance > AttackRange * AttackRange)
+            {
+                slimey.ChangeState<ApproachState>();
+            }
+
+            _timer -= Time.deltaTime;
+            if (_timer <= 0)
+            {
+                // 体当たりする。
+                slimey.Animator.CrossFade(AnimationName, 0.1f);
+                _timer = Cooldown;
+            }
         }
 
         public override void Exit(PlayerController player, SlimeyController slimey)

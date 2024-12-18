@@ -82,7 +82,8 @@ namespace Confront.Player.Combo
             if (other.TryGetComponent(out IDamageable damageable))
             {
                 var damage = _baseDamage + _player.CharacterStats.AttackPower * _factor;
-                damageable.TakeDamage(damage);
+                var damageVector = transform.right * _rigidbody.velocity.magnitude;
+                damageable.TakeDamage(damage, damageVector);
             }
         }
     }

@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e05e80e06fc878247990b46a742473aa, type: 3}
-  m_Name: SlimeyEye
+  m_Script: {fileID: 11500000, guid: 879810d8abcd6ef408412bb5bb3b0faa, type: 3}
+  m_Name: AttackState
   m_EditorClassIdentifier: 
-  Offset: {x: -0.08, y: 0.45}
-  ViewDistance: 7.5
-  ViewAngle: 160
-  IsGizmosVisible: 1
+  Cooldown: 3
+  AttackRange: 1

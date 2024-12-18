@@ -74,6 +74,10 @@ namespace Confront.Player
         public float DodgeAccelerationDuration;
         public float DodgeDecelerationDuration;
 
+        [Header("Small Damage")]
+        public float SmallDamageDuration = 0.5f;
+        public float SmallDamageHorizontalDecelerationRate = 0.1f;
+
         public void TimerUpdate()
         {
             if (GrabIntervalTimer > 0)

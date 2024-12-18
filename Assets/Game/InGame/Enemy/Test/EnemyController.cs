@@ -9,7 +9,7 @@ namespace Confront.Enemy
     {
         public float health = 100f;
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, Vector2 damageVector)
         {
             health -= damage;
             DamageDisplaySystem.Instance.ShowDamage((int)damage, transform.position);

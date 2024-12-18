@@ -38,7 +38,10 @@ MonoBehaviour:
   _isFrontCheckGizmoAlpha: 1
   GroundLayerMask:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 128
+  EnemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
   PassThroughPlatform:
     serializedVersion: 2
     m_Bits: 256

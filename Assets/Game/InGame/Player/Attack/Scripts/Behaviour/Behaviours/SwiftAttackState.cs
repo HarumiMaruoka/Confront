@@ -44,14 +44,19 @@ namespace Confront.Player.Combo
         public bool IsComboInputEnabled => _elapsed >= _comboInputAcceptanceTime && _elapsed < _comboInputDeactivationTime;
         public override string AnimationName => _animationName;
 
+        private static PlayerController _player;
+
         protected override void OnDrawGizmos()
         {
 #if UNITY_EDITOR
             if (_hitBoxes == null) return;
+
+            if (_player == null) _player = FindObjectOfType<PlayerController>();
+
             foreach (var hitBox in _hitBoxes)
             {
                 if (hitBox == null) continue;
-                hitBox.DrawGizmos(_elapsed, LayerMask);
+                hitBox.DrawGizmos(_player.transform, _elapsed, LayerMask);
             }
 #endif
         }
@@ -64,7 +69,6 @@ namespace Confront.Player.Combo
             foreach (var hitBox in _hitBoxes)
             {
                 hitBox.Clear();
-                hitBox.Center = player.transform;
             }
             foreach (var shooter in _shooters)
             {
@@ -106,7 +110,7 @@ namespace Confront.Player.Combo
         {
             foreach (var hitBox in _hitBoxes)
             {
-                hitBox.Update(player, _elapsed, LayerMask);
+                hitBox.Update(player.transform, player.CharacterStats.AttackPower, _elapsed, LayerMask);
             }
             foreach (var shooter in _shooters)
             {
