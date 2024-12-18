@@ -10,9 +10,14 @@ namespace Confront.Player.Combo
     {
         [Header("")]
         [SerializeField]
-        private AnimationCurve _xAxisMovementCurve;
+        private AnimationCurve _readyXAxisMovementCurve;
         [SerializeField]
-        private AnimationCurve _yAxisMovementCurve;
+        private AnimationCurve _readyYAxisMovementCurve;
+        [Header("")]
+        [SerializeField]
+        private AnimationCurve _fireXAxisMovementCurve;
+        [SerializeField]
+        private AnimationCurve _fireYAxisMovementCurve;
 
         [Header("")]
         [SerializeField]
@@ -86,6 +91,7 @@ namespace Confront.Player.Combo
         private void HandleReadyState(PlayerController player)
         {
             _elapsed += Time.deltaTime;
+            SwiftAttackState.UpdatePlayerMovement(player, _readyXAxisMovementCurve, _readyYAxisMovementCurve, _elapsed);
             if (_elapsed >= _readyTime)
             {
                 _state = ChargeState.Hold;
@@ -101,16 +107,22 @@ namespace Confront.Player.Combo
 
             var attackButtonPressed = PlayerInputHandler.InGameInput.AttackX.IsPressed() || PlayerInputHandler.InGameInput.AttackY.IsPressed();
 
-            if (!attackButtonPressed) // 攻撃ボタンが離されたら
-            {
-                _state = ChargeState.Fire;
-                player.Animator.CrossFade(_fireAnimationName, 0.1f);
-                _elapsed = 0;
-            }
-
             if (_canMoveWhileCharging)
             {
                 Grounded.Move(player);
+                var groundSensorResult = player.Sensor.Calculate(player);
+                if (groundSensorResult.GroundType!= GroundType.Ground)
+                {
+                    OnCompleted?.Invoke(player);
+                }
+            }
+
+            if (!attackButtonPressed) // 攻撃ボタンが離されたら
+            {
+                _state = ChargeState.Fire;
+                player.MovementParameters.Velocity = Vector2.zero;
+                player.Animator.CrossFade(_fireAnimationName, 0.1f);
+                _elapsed = 0;
             }
         }
 
@@ -118,6 +130,7 @@ namespace Confront.Player.Combo
         {
             var previousElapsed = _elapsed;
             _elapsed += Time.deltaTime;
+            SwiftAttackState.UpdatePlayerMovement(player, _fireXAxisMovementCurve, _fireYAxisMovementCurve, _elapsed);
 
             foreach (var hitBox in _hitBoxes)
             {

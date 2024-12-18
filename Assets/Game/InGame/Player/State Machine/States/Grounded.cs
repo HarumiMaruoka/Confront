@@ -49,10 +49,10 @@ namespace Confront.Player
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
-        public static void Move(PlayerController player)
+        public static void Move(PlayerController player, bool isInputReceived = true)
         {
             // 入力に応じてx速度を更新する。
-            var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
+            var leftStick = isInputReceived ? PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>() : Vector2.zero;
             var inputX = leftStick.x;
             var groundSensorResult = player.Sensor.Calculate(player);
             var groundNormal = groundSensorResult.GroundNormal;

@@ -41,6 +41,17 @@ namespace Confront.ActionItem
 
             base.OnInspectorGUI();
         }
+
+        [UnityEditor.Callbacks.OnOpenAsset]
+        public static bool OnOpenAsset(int instanceId, int line)
+        {
+            if (UnityEditor.Selection.activeObject is ActionItemSheet)
+            {
+                ActionItemSheetWindow.Init();
+                return true;
+            }
+            return false;
+        }
     }
 #endif
 }

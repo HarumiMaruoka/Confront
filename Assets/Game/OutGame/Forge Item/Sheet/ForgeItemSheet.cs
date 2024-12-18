@@ -53,6 +53,17 @@ namespace Confront.ForgeItem
 
             base.OnInspectorGUI();
         }
+
+        [UnityEditor.Callbacks.OnOpenAsset]
+        public static bool OnOpenAsset(int instanceId, int line)
+        {
+            if (UnityEditor.Selection.activeObject is ForgeItemSheet)
+            {
+                ForgeItemSheetWindow.Init();
+                return true;
+            }
+            return false;
+        }
     }
 #endif
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 
@@ -33,7 +33,7 @@ namespace NexEditor.GameDataSheet
             $"using UnityEngine;                                                                        \r\n" +
             $"                                                                                          \r\n" +
             $"[CreateAssetMenu(fileName = \"{sheetName}\",menuName = \"Game Data Sheets/{sheetName}\")] \r\n" +
-            $"public class {sheetName} : NexEditor.GameDataSheet.SheetBase<{dataName}>                       \r\n" +
+            $"public class {sheetName} : NexEditor.GameDataSheet.SheetBase<{dataName}>                  \r\n" +
             $"{{                                                                                        \r\n" +
             $"                                                                                          \r\n" +
             $"}}                                                                                        \r\n" +
@@ -52,6 +52,16 @@ namespace NexEditor.GameDataSheet
             $"                                                                                          \r\n" +
             $"        base.OnInspectorGUI();                                                            \r\n" +
             $"    }}                                                                                    \r\n" +
+            $"    [UnityEditor.Callbacks.OnOpenAsset]                                                   \r\n" +
+            $"    public static bool OnOpenAsset(int instanceId, int line)                              \r\n" +
+            $"    {{                                                                                    \r\n" +
+            $"        if (UnityEditor.Selection.activeObject is {sheetName})                            \r\n" +
+            $"        {{                                                                                \r\n" +
+            $"            {windowName}.Init();                                                          \r\n" +
+            $"            return true;                                                                  \r\n" +
+            $"        }}                                                                                \r\n" +
+            $"        return false;                                                                     \r\n" +
+            $"    }}                                                                                    \r\n" +
             $"}}                                                                                        \r\n" +
             $"#endif                                                                                    " :
 
@@ -61,7 +71,7 @@ namespace NexEditor.GameDataSheet
             $"namespace {@namespace}                                                                        \r\n" +
             $"{{                                                                                            \r\n" +
             $"    [CreateAssetMenu(fileName = \"{sheetName}\",menuName = \"Game Data Sheets/{sheetName}\")] \r\n" +
-            $"    public class {sheetName} : NexEditor.GameDataSheet.SheetBase<{dataName}>                       \r\n" +
+            $"    public class {sheetName} : NexEditor.GameDataSheet.SheetBase<{dataName}>                  \r\n" +
             $"    {{                                                                                        \r\n" +
             $"                                                                                              \r\n" +
             $"    }}                                                                                        \r\n" +
@@ -78,6 +88,17 @@ namespace NexEditor.GameDataSheet
             $"            }}                                                                                \r\n" +
             $"                                                                                              \r\n" +
             $"            base.OnInspectorGUI();                                                            \r\n" +
+            $"        }}                                                                                    \r\n" +
+            $"                                                                                              \r\n" +
+            $"        [UnityEditor.Callbacks.OnOpenAsset]                                                   \r\n" +
+            $"        public static bool OnOpenAsset(int instanceId, int line)                              \r\n" +
+            $"        {{                                                                                    \r\n" +
+            $"            if (UnityEditor.Selection.activeObject is {sheetName})                            \r\n" +
+            $"            {{                                                                                \r\n" +
+            $"                {windowName}.Init();                                                          \r\n" +
+            $"                return true;                                                                  \r\n" +
+            $"            }}                                                                                \r\n" +
+            $"            return false;                                                                     \r\n" +
             $"        }}                                                                                    \r\n" +
             $"    }}                                                                                        \r\n" +
             $"    #endif                                                                                    \r\n" +

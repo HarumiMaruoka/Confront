@@ -21,7 +21,70 @@ MonoBehaviour:
     m_RotationOrder: 4
   _yAxisMovementCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.9716171
+      value: -0.0010770857
+      inSlope: 0.014217728
+      outSlope: 0.014217728
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.1482811
+      value: -0.44209367
+      inSlope: 0.061616134
+      outSlope: 0.061616134
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1434051
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.2915289
+      value: 2.2181752
+      inSlope: -0.005244508
+      outSlope: -0.005244508
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1.4694831
+      value: 2.226406
+      inSlope: 0.01925733
+      outSlope: 0.01925733
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.32367772
+    - serializedVersion: 3
+      time: 1.7958924
+      value: 0.0023341617
+      inSlope: 0.020196555
+      outSlope: 0.020196555
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.21226378
+    - serializedVersion: 3
+      time: 2.1722414
+      value: -0.00206656
+      inSlope: 0.008849513
+      outSlope: 0.008849513
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1803817
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -30,6 +93,4 @@ MonoBehaviour:
   _nextAttackTransitionTime: 0
   _attackCompletionTime: 2.2
   _hitBoxes: []
-  _shooters:
-  - ProjectilePrefab: {fileID: 6369903804010466800, guid: 216953482df5077469093c40fb0abe31, type: 3}
-    FireTime: 0
+  _shooters: []

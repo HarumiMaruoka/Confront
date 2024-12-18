@@ -5,6 +5,6 @@ namespace Confront.AttackUtility
 {
     public interface IDamageable
     {
-        void TakeDamage(float damage);
+        void TakeDamage(float attackPower);
     }
 }

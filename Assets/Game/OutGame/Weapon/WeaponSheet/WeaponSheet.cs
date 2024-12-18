@@ -59,6 +59,17 @@ namespace Confront.Weapon
 
             base.OnInspectorGUI();
         }
+
+        [UnityEditor.Callbacks.OnOpenAsset]
+        public static bool OnOpenAsset(int instanceId, int line)
+        {
+            if (UnityEditor.Selection.activeObject is WeaponSheet)
+            {
+                WeaponSheetWindow.Init();
+                return true;
+            }
+            return false;
+        }
     }
 #endif
 }

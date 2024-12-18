@@ -28,6 +28,11 @@ namespace Confront.AttackUtility
 
         public void Fire(PlayerController player)
         {
+            if(ProjectilePrefab == null)
+            {
+                Debug.LogError("ProjectilePrefab is null.");
+                return;
+            }
             var projectile = GameObject.Instantiate(ProjectilePrefab, player.transform.position, Quaternion.identity);
             projectile.Initialize(player);
         }

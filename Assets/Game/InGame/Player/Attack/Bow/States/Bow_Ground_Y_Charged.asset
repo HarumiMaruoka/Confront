@@ -12,22 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326761b2b720eb144a7081c43c15a7e4, type: 3}
   m_Name: Bow_Ground_Y_Charged
   m_EditorClassIdentifier: 
-  _xAxisMovementCurve:
+  _readyXAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0010154229
+      value: 0.0030665486
+      inSlope: 0.33364218
+      outSlope: 0.33364218
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.04776423
+    - serializedVersion: 3
+      time: 0.7927981
+      value: 0.99945164
+      inSlope: 0.26031202
+      outSlope: 0.26031202
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05589428
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _readyYAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _fireXAxisMovementCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.52860475
-      outSlope: -0.52860475
-      tangentMode: 34
+      inSlope: -6.5599694
+      outSlope: -6.5599694
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0.035870716
+    - serializedVersion: 3
+      time: 0.51994497
+      value: -1.0876597
+      inSlope: -0.083181426
+      outSlope: -0.083181426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.18211353
+    - serializedVersion: 3
+      time: 0.998971
+      value: -1.1251549
+      inSlope: 0.06619765
+      outSlope: 0.06619765
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11868239
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _yAxisMovementCurve:
+  _fireYAxisMovementCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -40,7 +88,7 @@ MonoBehaviour:
   _holdTime: 3
   _nextAttackTransitionTime: 0.2
   _defaultStateTransitionTime: 1
-  _canMoveWhileCharging: 0
+  _canMoveWhileCharging: 1
   _nextAttackInputBeginTime: 0
   _nextAttackInputEndTime: 1
   _hitBoxes: []
