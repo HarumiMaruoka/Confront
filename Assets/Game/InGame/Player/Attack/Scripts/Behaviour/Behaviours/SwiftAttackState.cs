@@ -110,7 +110,8 @@ namespace Confront.Player.Combo
         {
             foreach (var hitBox in _hitBoxes)
             {
-                hitBox.Update(player.transform, player.CharacterStats.AttackPower, _elapsed, LayerMask);
+                var direction = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
+                hitBox.Update(player.transform, player.CharacterStats.AttackPower, direction, _elapsed, LayerMask);
             }
             foreach (var shooter in _shooters)
             {

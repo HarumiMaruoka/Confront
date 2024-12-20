@@ -6,11 +6,10 @@ using Confront.Player.Combo;
 using Confront.SaveSystem;
 using Confront.Weapon;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using Confront.ForgeItem;
 using Confront.AttackUtility;
-using System.Threading;
+using Cysharp.Threading.Tasks.Triggers;
 
 namespace Confront.Player
 {
@@ -44,9 +43,6 @@ namespace Confront.Player
         // ステータス系
         public CharacterStats CharacterStats;
         public HealthManager HealthManager;
-        // 攻撃系
-        public ComboTree AttackComboTree;
-        public AttackStateMachine AttackStateMachine;
         // メニュー
         public MenuController MenuController;
         // アクションアイテム
@@ -54,9 +50,13 @@ namespace Confront.Player
         public HotBar HotBar = new HotBar();
         // フォージアイテム
         public ForgeItemInventory ForgeItemInventory = new ForgeItemInventory();
+        // 攻撃系
+        public ComboTree AttackComboTree => _equippedWeapon?.Data.ComboTree;
+        public AttackStateMachine AttackStateMachine;
         // 武器
         private WeaponInstance _equippedWeapon;
         public WeaponInventory WeaponInventory = new WeaponInventory();
+        public WeaponActivator WeaponActivator;
         // Unityコンポーネント
         private CharacterController _characterController;
         private Animator _animator;
@@ -67,6 +67,8 @@ namespace Confront.Player
             set
             {
                 _equippedWeapon = value;
+                if (value != null) WeaponActivator.ActivateWeapon(value.Data.ID);
+
                 OnWeaponEquipped?.Invoke(value);
             }
         }
@@ -150,7 +152,7 @@ namespace Confront.Player
                 DirectionController.UpdateVelocity(MovementParameters.Velocity);
             }
 
-            if (StateMachine.CurrentState is not Jump)
+            if (ShouldHandlePlatformCollision())
             {
                 HandlePlatformCollision();
             }
@@ -162,17 +164,30 @@ namespace Confront.Player
             CharacterController.enabled = prev;
         }
 
+        private bool ShouldHandlePlatformCollision()
+        {
+            var groundSensorResult = Sensor.Calculate(this);
+            var isInDamageState = StateMachine.CurrentState is BigDamage or SmallDamage;
+            var isMovingUpwards = MovementParameters.Velocity.y > 0f;
+            return StateMachine.CurrentState is not Jump && !(isInDamageState && isMovingUpwards);
+        }
+
         /// <summary>
         /// プレイヤーにダメージを与える
         /// </summary>
         /// <param name="attackPower"> 最終攻撃ダメージ </param>
-        /// <param name="damageDirection"> ノックバックに使用する </param>
-        public void TakeDamage(float attackPower, Vector2 damageDirection)
+        /// <param name="damageVector"> ノックバックに使用する </param>
+        public void TakeDamage(float attackPower, Vector2 damageVector)
         {
+            if (StateMachine.CurrentState is GroundDodge or BigDamage) return;
+
             var damage = DefaultCalculateDamage(attackPower, CharacterStats.Defense);
             HealthManager.Damage(damage);
 
-            var damageType = CalculateDamageType();
+            var damageType = CalculateDamageType(damageVector);
+
+            damageVector /= CharacterStats.Weight;
+            damageVector = Vector2.ClampMagnitude(damageVector, MovementParameters.MaxDamageVector);
 
             //if (HealthManager.IsDead)
             //{
@@ -186,13 +201,13 @@ namespace Confront.Player
                 case DamageType.Small:
                     {
                         var state = StateMachine.ChangeState<SmallDamage>();
-                        state.DamageDirection = damageDirection;
+                        state.DamageDirection = damageVector;
                         break;
                     }
                 case DamageType.Big:
                     {
                         var state = StateMachine.ChangeState<BigDamage>();
-                        state.DamageDirection = damageDirection;
+                        state.DamageDirection = damageVector;
                         break;
                     }
             }
@@ -206,10 +221,14 @@ namespace Confront.Player
             Big,
         }
 
-        private DamageType CalculateDamageType()
+        private DamageType CalculateDamageType(Vector2 damageVector)
         {
-            // return DamageType.Mini;
-            return DamageType.Small;
+            var magnitude = damageVector.magnitude;
+            var factor = magnitude / CharacterStats.Weight;
+
+            if (factor < 5f) return DamageType.Mini;
+            if (factor < 15f && StateMachine.CurrentState is not SmallDamage) return DamageType.Small;
+            return DamageType.Big;
         }
 
         private float DefaultCalculateDamage(float attackPower, float defense)
@@ -359,6 +378,11 @@ namespace Confront.Player
                 EquippedWeapon = _equippedWeapon,
                 WeaponInventory = WeaponInventory,
             };
+        }
+
+        public void EquipWeapon(WeaponInstance instance)
+        {
+            EquippedWeapon = instance;
         }
 
         private bool IsJumpable

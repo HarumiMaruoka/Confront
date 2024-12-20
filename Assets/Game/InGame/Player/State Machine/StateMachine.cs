@@ -52,7 +52,7 @@ namespace Confront.Player
 
             CurrentState.Enter(_player);
             if (!string.IsNullOrEmpty(CurrentState.AnimationName))
-                _player.Animator.CrossFade(CurrentState.AnimationName, 0.2f);
+                _player.Animator.CrossFade(CurrentState.AnimationName, 0.1f);
 
             if (DebugParams.Instance.StateTransitionLogging)
                 Debug.Log($"Transitioning from {PreviousState} to {CurrentState}");

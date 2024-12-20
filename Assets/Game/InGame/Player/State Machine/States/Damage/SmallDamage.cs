@@ -6,8 +6,11 @@ namespace Confront.Player
     // 少しノックバックするダメージ状態
     public class SmallDamage : IState
     {
-        private float _timer = 0f;
+        private float _airTimer = 0f;
+        private float _exitTimer = 0f;
         private PlayerController _player;
+
+        private float _airDuration = 0.1f;
 
         public string AnimationName => "SmallDamage";
 
@@ -21,7 +24,6 @@ namespace Confront.Player
                     return;
                 }
                 // ダメージ方向を設定
-                _player.DirectionController.IsEnable = false;
                 _player.MovementParameters.Velocity = value;
             }
         }
@@ -29,7 +31,7 @@ namespace Confront.Player
         public void Enter(PlayerController player)
         {
             _player = player;
-            _timer = 0f;
+            _exitTimer = 0f;
         }
 
         public void Execute(PlayerController player)
@@ -37,21 +39,34 @@ namespace Confront.Player
             var duration = player.MovementParameters.SmallDamageDuration;
             var horizontalDecelerationRate = player.MovementParameters.SmallDamageHorizontalDecelerationRate;
 
-            _timer += Time.deltaTime;
-            if (_timer >= duration)
+            _exitTimer += Time.deltaTime;
+            if (_exitTimer >= duration)
             {
                 this.TransitionToDefaultState(player);
+                return;
             }
 
-            var velocity = player.MovementParameters.Velocity;
-            velocity.x = Mathf.MoveTowards(velocity.x, 0f, Time.deltaTime * horizontalDecelerationRate);
-            velocity.y -= player.MovementParameters.Gravity * Time.deltaTime;
-            player.MovementParameters.Velocity = velocity;
+            if (_airDuration > _airTimer || player.MovementParameters.Velocity.y >= 0f)
+            {
+                _airTimer += Time.deltaTime;
+                InAir.Move(player, true);
+                return;
+            }
+
+            var groundSensorResult = player.Sensor.Calculate(player);
+
+            switch (groundSensorResult.GroundType)
+            {
+                case GroundType.Ground: Grounded.Move(player, false); break;
+                case GroundType.Abyss: Abyss.Move(player); break;
+                case GroundType.SteepSlope: SteepSlope.Move(player); break;
+                case GroundType.InAir: InAir.Move(player, false); break;
+            }
         }
 
         public void Exit(PlayerController player)
         {
-            player.DirectionController.IsEnable = true;
+
         }
     }
 }

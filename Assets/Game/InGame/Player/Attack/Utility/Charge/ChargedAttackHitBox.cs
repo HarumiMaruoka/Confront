@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Confront.AttackUtility
 {
     [Serializable]
-    public class ChargedAttackHitBox
+    public class ChargedAttackHitBox : HitBoxBase
     {
         [SerializeField]
         private float _startTime;
@@ -18,45 +18,41 @@ namespace Confront.AttackUtility
         private float _minFactor;
         [SerializeField]
         private float _maxFactor;
-        [SerializeField]
-        private Vector2 _minDamageVector;
-        [SerializeField]
-        private Vector2 _maxDamageVector;
 
         [SerializeField]
-        private Vector3 _offset;
+        private Vector2 _minDamageDirection;
         [SerializeField]
-        private Vector3 _size;
+        private Vector2 _maxDamageDirection;
+
         [SerializeField]
-        private GizmoOption _gizmoOption;
+        private float _minDamageForce;
+        [SerializeField]
+        private float _maxDamageForce;
 
         private const int MAX_COLLIDER_BUFFER_SIZE = 16; // 一度に取得できるコライダーの最大数。
         private HashSet<int> _alreadyHits = new HashSet<int>();
         private Collider[] _colliderBuffer = new Collider[MAX_COLLIDER_BUFFER_SIZE];
 
-        //[HideInInspector]
-        //public Transform Center;
-
-        //public Vector3 Position => Center.position + Center.rotation * _offset;
-        //public Quaternion Rotation => Center.rotation;
-
-        public bool IsOverlapping(Transform center, LayerMask layerMask)
+        public override bool IsOverlapping(Transform center, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
             return Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask) != 0;
         }
 
-        public void Update(Transform center, float attackPower, float elapsed, float chargeAmount, LayerMask layerMask)
+        public void Update(Transform center, float attackPower, float sign, float elapsed, float chargeAmount, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
 
-            if (_startTime <= elapsed && elapsed <= _endTime)
+            if (_startTime <= elapsed && elapsed <= _endTime) // 有効な時間帯
             {
-                // 有効な時間帯
+                sign = Mathf.Sign(sign);
                 var factor = Mathf.Lerp(_minFactor, _maxFactor, chargeAmount);
-                var damageVector = Vector2.Lerp(_minDamageVector, _maxDamageVector, chargeAmount);
+                var damageDirection = Vector2.Lerp(_minDamageDirection, _maxDamageDirection, chargeAmount);
+                var damageForce = Mathf.Lerp(_minDamageForce, _maxDamageForce, chargeAmount);
+                var damageVector = CalcDamageVector(damageDirection, damageForce, sign);
+
                 var hitCount = Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask);
                 for (int i = 0; i < hitCount; i++)
                 {
@@ -72,12 +68,12 @@ namespace Confront.AttackUtility
             }
         }
 
-        public void Clear()
+        public override void Clear()
         {
             _alreadyHits.Clear();
         }
 
-        public void DrawGizmos(Transform center, float elapsed, LayerMask layerMask)
+        public override void DrawGizmos(Transform center, float elapsed, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;

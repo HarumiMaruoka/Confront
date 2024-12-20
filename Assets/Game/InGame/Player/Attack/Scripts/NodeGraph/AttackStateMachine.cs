@@ -14,15 +14,28 @@ namespace Confront.Player.Combo
         public string AnimationName => "";
         public ComboNode CurrentNode => _currentNode;
 
+        // プレイヤーステートを変更する前に呼び出す。
         public void Initialize(ComboTree tree, ComboTree.NodeType beginNode)
         {
             _tree = tree;
             _currentNode = null;
+
+            if (tree == null)
+            {
+                Debug.LogWarning("ComboTree is null");
+                return;
+            }
+
             _begin = _tree.GetRoot(beginNode);
         }
 
         public void Enter(PlayerController player)
         {
+            if (_tree == null)
+            {
+                return;
+            }
+
             player.MovementParameters.Velocity = Vector3.zero;
             ChangeAttackState(player, _begin);
         }

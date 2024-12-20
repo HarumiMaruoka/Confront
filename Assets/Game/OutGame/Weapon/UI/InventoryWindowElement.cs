@@ -24,16 +24,19 @@ namespace Confront.Weapon
             {
                 _weapon = value;
                 _icon.sprite = _weapon.Data.Icon;
-                OnWeaponEquipped(_weapon);
+
+                if (PlayerController.Instance)
+                {
+                    _isEquipped.gameObject.SetActive(PlayerController.Instance.EquippedWeapon == _weapon);
+                }
             }
         }
 
         private void OnEnable()
         {
-            var player = PlayerController.Instance;
-            if (player)
+            if (PlayerController.Instance)
             {
-                player.OnWeaponEquipped += OnWeaponEquipped;
+                PlayerController.Instance.OnWeaponEquipped += OnWeaponEquipped;
             }
         }
 
@@ -44,10 +47,9 @@ namespace Confront.Weapon
 
         private void OnDisable()
         {
-            var player = PlayerController.Instance;
-            if (player)
+            if (PlayerController.Instance)
             {
-                player.OnWeaponEquipped -= OnWeaponEquipped;
+                PlayerController.Instance.OnWeaponEquipped -= OnWeaponEquipped;
             }
         }
 

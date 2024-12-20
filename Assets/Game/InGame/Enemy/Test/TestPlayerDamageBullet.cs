@@ -1,4 +1,5 @@
-﻿using Confront.Player;
+﻿using Confront.AttackUtility;
+using Confront.Player;
 using System;
 using UnityEngine;
 
@@ -10,12 +11,17 @@ namespace Confront.Enemy.Test
     {
         [SerializeField]
         private float _damage = 1;
+        [SerializeField]
+        private Vector2 _damageDirection;
+        [SerializeField]
+        private float _damageForce;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out PlayerController player))
             {
-                player.HealthManager.Damage(_damage);
+                var damageVector = HitBoxBase.CalcDamageVector(_damageDirection, _damageForce, 1);
+                player.TakeDamage(_damage, damageVector);
             }
             Destroy(gameObject);
         }

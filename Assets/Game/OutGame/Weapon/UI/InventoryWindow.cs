@@ -1,6 +1,7 @@
 ﻿using Confront.Player;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Confront.Weapon
@@ -27,8 +28,25 @@ namespace Confront.Weapon
                 Debug.LogError("PlayerController is not found.");
                 return;
             }
+
             _inventory = _player.WeaponInventory;
+            OnElementClicked += _player.EquipWeapon;
             Open(_inventory);
+        }
+
+        private void OnDestroy()
+        {
+            if (_player != null)
+            {
+                OnElementClicked -= _player.EquipWeapon;
+            }
+
+            if (_inventory != null)
+            {
+                _inventory.OnWeaponAdded -= OnWeaponAdded;
+                _inventory.OnWeaponRemoved -= OnWeaponRemoved;
+                _inventory.OnWeaponSwapped -= OnWeaponSwapped;
+            }
         }
 
         private void OnEnable()
@@ -71,16 +89,6 @@ namespace Confront.Weapon
             }
         }
 
-        private void OnDestroy()
-        {
-            if (_inventory != null)
-            {
-                _inventory.OnWeaponAdded -= OnWeaponAdded;
-                _inventory.OnWeaponRemoved -= OnWeaponRemoved;
-                _inventory.OnWeaponSwapped -= OnWeaponSwapped;
-            }
-        }
-
         private void Clear()
         {
             foreach (var element in _elementMap.Values)
@@ -111,6 +119,7 @@ namespace Confront.Weapon
 
             element.OnClick += OnElementClickedBuffer;
             element.OnMouseEnter += OnElementMouseEnterBuffer;
+
             return element;
         }
 
@@ -157,17 +166,17 @@ namespace Confront.Weapon
         {
             add
             {
+                OnElementClickedBuffer += value;
                 foreach (var element in _elementMap.Values)
                 {
-                    OnElementClickedBuffer += value;
                     element.OnClick += value;
                 }
             }
             remove
             {
+                OnElementClickedBuffer -= value;
                 foreach (var element in _elementMap.Values)
                 {
-                    OnElementClickedBuffer -= value;
                     element.OnClick -= value;
                 }
             }
@@ -178,17 +187,17 @@ namespace Confront.Weapon
         {
             add
             {
+                OnElementMouseEnterBuffer += value;
                 foreach (var element in _elementMap.Values)
                 {
-                    OnElementMouseEnterBuffer += value;
                     element.OnMouseEnter += value;
                 }
             }
             remove
             {
+                OnElementMouseEnterBuffer -= value;
                 foreach (var element in _elementMap.Values)
                 {
-                    OnElementMouseEnterBuffer -= value;
                     element.OnMouseEnter -= value;
                 }
             }

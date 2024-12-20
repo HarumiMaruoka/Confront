@@ -9,7 +9,7 @@ namespace Confront.Player
 
         public void Enter(PlayerController player)
         {
-            var groundSensorResult = player.Sensor.Calculate(player);
+
         }
 
         public void Exit(PlayerController player)
@@ -23,7 +23,7 @@ namespace Confront.Player
             this.TransitionToDefaultState(player);
         }
 
-        private void Move(PlayerController player)
+        public static void Move(PlayerController player)
         {
             var sensorResult = player.Sensor.Calculate(player);
             var velocity = player.MovementParameters.Velocity;

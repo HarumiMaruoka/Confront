@@ -6,27 +6,23 @@ using UnityEngine;
 namespace Confront.AttackUtility
 {
     [Serializable]
-    public class AttackHitBoxOneFrame
+    public class AttackHitBoxOneFrame : HitBoxBase
     {
         [SerializeField]
         private float _baseDamage;
         [SerializeField]
         private float _factor;
-        [SerializeField]
-        private Vector2 _damageVector;
 
         [SerializeField]
-        private Vector3 _offset;
+        private Vector2 _damageDirection;
         [SerializeField]
-        private Vector3 _size;
-        [SerializeField]
-        private GizmoOption _gizmoOption;
+        private float _damageForce;
 
         private const int MAX_COLLIDER_BUFFER_SIZE = 16; // 一度に取得できるコライダーの最大数。
         private HashSet<int> _alreadyHits = new HashSet<int>();
         private Collider[] _colliderBuffer = new Collider[MAX_COLLIDER_BUFFER_SIZE];
 
-        public bool IsOverlapping(Transform center, LayerMask layerMask)
+        public override bool IsOverlapping(Transform center, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
@@ -38,7 +34,8 @@ namespace Confront.AttackUtility
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
             sign = Mathf.Sign(sign);
-            var damageVector = new Vector2(_damageVector.x * sign, _damageVector.y);
+
+            var damageVector = CalcDamageVector(_damageDirection, _damageForce, sign);
 
             bool isHit = false;
             var hitCount = Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask);
@@ -57,12 +54,12 @@ namespace Confront.AttackUtility
             return isHit;
         }
 
-        public void Clear()
+        public override void Clear()
         {
             _alreadyHits.Clear();
         }
 
-        public void DrawGizmos(Transform center, LayerMask layerMask)
+        public override void DrawGizmos(Transform center, float elapsed, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;

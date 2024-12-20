@@ -23,7 +23,7 @@ namespace Confront.Player
 
         }
 
-        private void Move(PlayerController player)
+        public static void Move(PlayerController player)
         {
             var velocity = player.MovementParameters.Velocity;
             var settings = player.MovementParameters;

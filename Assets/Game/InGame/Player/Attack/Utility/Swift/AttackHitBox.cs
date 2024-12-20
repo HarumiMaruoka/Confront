@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Confront.AttackUtility
 {
     [Serializable]
-    public class AttackHitBox
+    public class AttackHitBox : HitBoxBase
     {
         [SerializeField]
         private float _startTime;
@@ -16,41 +16,32 @@ namespace Confront.AttackUtility
         private float _baseDamage;
         [SerializeField]
         private float _factor;
-        [SerializeField]
-        private Vector2 _damageVector;
 
         [SerializeField]
-        private Vector3 _offset;
+        private Vector2 _damageDirection;
         [SerializeField]
-        private Vector3 _size;
-        [SerializeField]
-        private GizmoOption _gizmoOption;
+        private float _damageForce;
 
         private const int MAX_COLLIDER_BUFFER_SIZE = 16; // 一度に取得できるコライダーの最大数。
         private HashSet<int> _alreadyHits = new HashSet<int>();
         private Collider[] _colliderBuffer = new Collider[MAX_COLLIDER_BUFFER_SIZE];
 
-        //[HideInInspector]
-        //public Transform Center;
-
-        //public Vector3 Position => Center.position + Center.rotation * _offset;
-        //public Quaternion Rotation => Center.rotation;
-
-        public bool IsOverlapping(Transform center, LayerMask layerMask)
+        public override bool IsOverlapping(Transform center, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
             return Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask) != 0;
         }
 
-        public void Update(Transform center, float attackPower, float elapsed, LayerMask layerMask)
+        public void Update(Transform center, float attackPower, float sign, float elapsed, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
 
-            if (_startTime <= elapsed && elapsed <= _endTime)
+            var damageVector = CalcDamageVector(_damageDirection, _damageForce, sign);
+
+            if (_startTime <= elapsed && elapsed <= _endTime) // 有効な時間帯
             {
-                // 有効な時間帯
                 var hitCount = Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask);
                 for (int i = 0; i < hitCount; i++)
                 {
@@ -60,18 +51,18 @@ namespace Confront.AttackUtility
                     if (collider.gameObject.TryGetComponent(out IDamageable damageable))
                     {
                         var damage = _baseDamage + attackPower * _factor;
-                        damageable.TakeDamage(damage, _damageVector);
+                        damageable.TakeDamage(damage, damageVector);
                     }
                 }
             }
         }
 
-        public void Clear()
+        public override void Clear()
         {
             _alreadyHits.Clear();
         }
 
-        public void DrawGizmos(Transform center, float elapsed, LayerMask layerMask)
+        public override void DrawGizmos(Transform center, float elapsed, LayerMask layerMask)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
