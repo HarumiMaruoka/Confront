@@ -75,13 +75,9 @@ namespace NexEditor.GameDataSheet
             switch (serializedProperty.propertyType)
             {
                 case SerializedPropertyType.ObjectReference:
-                    if (serializedProperty.IsSprite())
-                    {
-                        return new Vector2(16f * 3.5f, 16f * 3f) + padding;
-                    }
-                    var style = new GUIStyle(GUI.skin.textArea);
-                    style.fontSize = 9;
-                    return style.CalcSize(new GUIContent(serializedProperty.GetValueString())) + padding;
+                    if (serializedProperty.IsSprite()) return new Vector2(16f * 3.5f, 16f * 3f) + padding;
+                    if (serializedProperty.objectReferenceValue == null) return new GUIStyle(GUI.skin.label).CalcSize(new GUIContent(serializedProperty.type)) + new Vector2(20f, 6f);
+                    return new GUIStyle(GUI.skin.label).CalcSize(new GUIContent(serializedProperty.objectReferenceValue.name)) + new Vector2(20f, 6f);
                 case SerializedPropertyType.String:
                     return new GUIStyle(GUI.skin.textArea).CalcSize(new GUIContent(serializedProperty.stringValue)) + padding;
                 default:

@@ -20,7 +20,14 @@ namespace Confront.Enemy.Slimey
         public override void Enter(PlayerController player, SlimeyController slimey)
         {
             _timer = 0;
-            Debug.Log("ここにアイテムドロップ処理を追加する");
+            if (slimey.UniqueDropItemTable != null)
+            {
+                Debug.Log("ユニークドロップアイテムをドロップする");
+            }
+            else
+            {
+                Debug.Log("通常ドロップアイテムをドロップする");
+            }
         }
 
         public override void Execute(PlayerController player, SlimeyController slimey)

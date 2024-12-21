@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2
   Amount: 9
-  Type: 1
+  Type: 4
   PickupDistance: 2
 --- !u!33 &6983482911409750982
 MeshFilter:

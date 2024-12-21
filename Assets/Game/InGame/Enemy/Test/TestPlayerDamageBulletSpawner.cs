@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Confront.Enemy.Test
 {
     public class TestPlayerDamageBulletSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private TestPlayerDamageBullet bulletPrefab;
         [SerializeField] private Vector3 _offset;
         [SerializeField] private float interval = 1f;
         [SerializeField] private bool _spawning = true;
+
+        private Stack<TestPlayerDamageBullet> _inactives = new Stack<TestPlayerDamageBullet>();
 
         private Renderer _renderer;
         private Color _matCol;
@@ -30,7 +33,7 @@ namespace Confront.Enemy.Test
             if (_timer >= interval)
             {
                 _timer = 0;
-                Instantiate(bulletPrefab, transform.position + _offset, transform.rotation);
+                CreateBullet();
             }
         }
 
@@ -50,6 +53,32 @@ namespace Confront.Enemy.Test
             {
                 _renderer.material.color = Color.gray;
             }
+        }
+
+        public TestPlayerDamageBullet CreateBullet()
+        {
+            TestPlayerDamageBullet bullet;
+            if (_inactives.Count > 0)
+            {
+                bullet = _inactives.Pop();
+                bullet.transform.position = transform.position + _offset;
+                bullet.gameObject.SetActive(true);
+            }
+            else
+            {
+                bullet = Instantiate(bulletPrefab, transform.position + _offset, transform.rotation);
+            }
+
+            bullet.OnHit -= ReturnBullet;
+            bullet.OnHit += ReturnBullet;
+
+            return bullet;
+        }
+
+        public void ReturnBullet(TestPlayerDamageBullet bullet)
+        {
+            bullet.gameObject.SetActive(false);
+            _inactives.Push(bullet);
         }
     }
 }

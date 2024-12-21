@@ -6,6 +6,11 @@ namespace Confront.Enemy
     public abstract class EnemyBase : MonoBehaviour
     {
         public int ID;
+        [Tooltip("このテーブルが設定されていない場合、EnemyDataのDefaultDropItemTableが使用される。")]
+        public TextAsset UniqueDropItemTable;
+
+        private DropItemData[] _dropItemData = null;
+        public DropItemData[] DropItemData => _dropItemData ??= UniqueDropItemTable.LoadDropItemTable();
 
         public EnemyData Data { get; private set; }
 

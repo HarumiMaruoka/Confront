@@ -1,4 +1,5 @@
-﻿using Confront.Player;
+﻿using Confront.DropItem;
+using Confront.Player;
 using System;
 using UnityEngine;
 
@@ -26,12 +27,5 @@ namespace Confront.Debugger
                 Destroy(gameObject);
             }
         }
-    }
-
-    public enum ItemType
-    {
-        Weapon,
-        ActionItem,
-        ForgeItem,
     }
 }
