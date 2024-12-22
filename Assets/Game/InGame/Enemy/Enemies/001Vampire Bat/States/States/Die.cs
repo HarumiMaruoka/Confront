@@ -1,4 +1,5 @@
 ﻿using Confront.Player;
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace Confront.Enemy.VampireBat
         public override void Enter(PlayerController player, VampireBatController vampireBat)
         {
             _timer = 0;
-            Debug.Log("ここにアイテムドロップ処理を追加する");
+            vampireBat.DropItem(player, vampireBat.transform.position).Forget();
         }
 
         public override void Execute(PlayerController player, VampireBatController vampireBat)

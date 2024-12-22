@@ -30,7 +30,7 @@ namespace Confront.DropItem
         private float _gravity = 9.8f;
         [SerializeField]
         private LayerMask _layerMask;
-        private CancellationTokenSource _trajectoryCancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _trajectoryCancellationTokenSource;
 
         [Header("アイテム取得")]
         [SerializeField]
@@ -45,7 +45,7 @@ namespace Confront.DropItem
         private float _pickupRotateSpeed = 1f;
         [SerializeField]
         private Vector3 _pickupOffset = new Vector3(0, 1, 0);
-        private CancellationTokenSource _pickupCancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _pickupCancellationTokenSource;
 
         public event Action<DropItem> OnComplete;
 
@@ -55,6 +55,9 @@ namespace Confront.DropItem
             _itemID = itemID;
             transform.position = position;
             _isPickedUp = false;
+
+            _trajectoryCancellationTokenSource = new CancellationTokenSource();
+            _pickupCancellationTokenSource = new CancellationTokenSource();
 
             _player = PlayerController.Instance;
             if (!_player) Debug.LogError("PlayerController is not found.");

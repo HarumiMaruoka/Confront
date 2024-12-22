@@ -68,6 +68,8 @@ namespace Confront.Enemy
             var table = UniqueDropItemTable;
             if (table == null) table = Data.DefaultDropItemTable;
 
+            position.y += 0.3f;
+
             await DropItem(player, position, table);
         }
 
