@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 956985493872363361}
   - component: {fileID: 6481001480248348535}
   - component: {fileID: 3309020481297763406}
+  - component: {fileID: 1053466442464863046}
   m_Layer: 10
   m_Name: Slimey
   m_TagString: Untagged
@@ -295,6 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
+  UniqueDropItemTableInput: {fileID: 0}
   Rigidbody: {fileID: 6481001480248348535}
   Animator: {fileID: 1871286195220584898}
   Stats: {fileID: 11400000, guid: d12c675fa3d235e4da231256ad3c8cbd, type: 2}
@@ -368,6 +370,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.45, z: 0}
+--- !u!65 &1053466442464863046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4653467683357215535}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1 &4677713789219190407
 GameObject:
   m_ObjectHideFlags: 0

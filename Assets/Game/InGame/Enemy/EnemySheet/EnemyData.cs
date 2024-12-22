@@ -27,6 +27,7 @@ namespace Confront.Enemy
         public DropItem.ItemType Type;
         public int ID;
         public float DropRate;
+        public int Amount;
     }
 
     public static class TextAssetExtensions
@@ -35,6 +36,7 @@ namespace Confront.Enemy
         {
             var lines = textAsset.text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var dropItemTable = new DropItemData[lines.Length - ignoreRows];
+
             for (int i = ignoreRows; i < lines.Length; i++)
             {
                 var columns = lines[i].Split(',');
@@ -43,6 +45,7 @@ namespace Confront.Enemy
                     Type = (DropItem.ItemType)Enum.Parse(typeof(DropItem.ItemType), columns[ignoreColumn]),
                     ID = int.Parse(columns[ignoreColumn + 1]),
                     DropRate = float.Parse(columns[ignoreColumn + 2]),
+                    Amount = int.Parse(columns[ignoreColumn + 3]),
                 };
             }
             return dropItemTable;

@@ -24,37 +24,37 @@ namespace Confront.DropItem
         }
 
         [SerializeField]
-        private DropItem _weaponDropItemPrefab;
+        private DropItemController _weaponDropItemPrefab;
         [SerializeField]
-        private DropItem _armorDropItemPrefab;
+        private DropItemController _armorDropItemPrefab;
         [SerializeField]
-        private DropItem _actionItemDropItemPrefab;
+        private DropItemController _actionItemDropItemPrefab;
         [SerializeField]
-        private DropItem _forgeItemDropItemPrefab;
+        private DropItemController _forgeItemDropItemPrefab;
         [SerializeField]
-        private DropItem _moneyDropItemPrefab;
+        private DropItemController _moneyDropItemPrefab;
         [SerializeField]
-        private DropItem _cardDropItemPrefab;
+        private DropItemController _cardDropItemPrefab;
 
-        private Dictionary<ItemType, HashSet<DropItem>> _inactives = new Dictionary<ItemType, HashSet<DropItem>>();
+        private Dictionary<ItemType, HashSet<DropItemController>> _inactives = new Dictionary<ItemType, HashSet<DropItemController>>();
 
         private void Start()
         {
-            _inactives.Add(ItemType.Weapon, new HashSet<DropItem>());
-            _inactives.Add(ItemType.Armor, new HashSet<DropItem>());
-            _inactives.Add(ItemType.ActionItem, new HashSet<DropItem>());
-            _inactives.Add(ItemType.ForgeItem, new HashSet<DropItem>());
-            _inactives.Add(ItemType.Money, new HashSet<DropItem>());
-            _inactives.Add(ItemType.Card, new HashSet<DropItem>());
+            _inactives.Add(ItemType.Weapon, new HashSet<DropItemController>());
+            _inactives.Add(ItemType.Armor, new HashSet<DropItemController>());
+            _inactives.Add(ItemType.ActionItem, new HashSet<DropItemController>());
+            _inactives.Add(ItemType.ForgeItem, new HashSet<DropItemController>());
+            _inactives.Add(ItemType.Money, new HashSet<DropItemController>());
+            _inactives.Add(ItemType.Card, new HashSet<DropItemController>());
         }
 
-        public DropItem Spawn(Vector3 position, ItemType type, int id)
+        public DropItemController Spawn(Vector3 position, ItemType type, int id, int amount = 1)
         {
-            DropItem dropItem = GetDropItemFromPool(type);
+            DropItemController dropItem = GetDropItemFromPool(type);
 
             dropItem.transform.position = position;
             dropItem.gameObject.SetActive(true);
-            dropItem.SetItem(position, type, id);
+            dropItem.SetItem(position, type, id, amount);
 
             dropItem.OnComplete -= Despawn; // 重複登録を避けるため。
             dropItem.OnComplete += Despawn;
@@ -62,7 +62,7 @@ namespace Confront.DropItem
             return dropItem;
         }
 
-        private DropItem GetDropItemFromPool(ItemType type)
+        private DropItemController GetDropItemFromPool(ItemType type)
         {
             if (_inactives[type].Count > 0)
             {
@@ -73,7 +73,7 @@ namespace Confront.DropItem
             return Instantiate(GetPrefab(type), transform);
         }
 
-        private DropItem GetPrefab(ItemType type)
+        private DropItemController GetPrefab(ItemType type)
         {
             return type switch
             {
@@ -87,7 +87,7 @@ namespace Confront.DropItem
             };
         }
 
-        public void Despawn(DropItem dropItem)
+        public void Despawn(DropItemController dropItem)
         {
             dropItem.gameObject.SetActive(false);
             _inactives[dropItem.ItemType].Add(dropItem);

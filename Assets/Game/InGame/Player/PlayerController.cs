@@ -54,6 +54,7 @@ namespace Confront.Player
         public ComboTree AttackComboTree => _equippedWeapon?.Data.ComboTree;
         public AttackStateMachine AttackStateMachine;
         // 武器
+        public int DefaultWeaponID;
         private WeaponInstance _equippedWeapon;
         public WeaponInventory WeaponInventory = new WeaponInventory();
         public WeaponActivator WeaponActivator;
@@ -104,6 +105,13 @@ namespace Confront.Player
                 AttackStateMachine = new AttackStateMachine();
                 HealthManager = new HealthManager(CharacterStats.MaxHealth, CharacterStats.MaxHealth);
                 _isInitialized = true;
+
+                if (EquippedWeapon == null)
+                {
+                    EquippedWeapon = new WeaponInstance(DefaultWeaponID);
+                    WeaponInventory.AddWeapon(EquippedWeapon);
+                }
+
                 MenuController.OnOpenedMenu += OnOpenedMenu;
                 MenuController.OnClosedMenu += OnClosedMenu;
             }
@@ -169,7 +177,11 @@ namespace Confront.Player
             var groundSensorResult = Sensor.Calculate(this);
             var isInDamageState = StateMachine.CurrentState is BigDamage or SmallDamage;
             var isMovingUpwards = MovementParameters.Velocity.y > 0f;
-            return StateMachine.CurrentState is not Jump && !(isInDamageState && isMovingUpwards);
+
+            var isNotGrabbing = StateMachine.CurrentState is not Grab;
+            var isNotJumping = StateMachine.CurrentState is not Jump;
+
+            return isNotGrabbing && isNotGrabbing && !(isInDamageState && isMovingUpwards);
         }
 
         /// <summary>

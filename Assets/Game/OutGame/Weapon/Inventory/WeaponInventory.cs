@@ -32,6 +32,16 @@ namespace Confront.Weapon
             return AddWeapon(weapon);
         }
 
+        public bool AddWeapon(int id, int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                var weapon = new WeaponInstance(id);
+                if (!AddWeapon(weapon)) return false;
+            }
+            return true;
+        }
+
         public bool AddWeapon(WeaponInstance weapon)
         {
             if (_weapons.Count >= _maxSize)
