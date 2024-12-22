@@ -108,14 +108,21 @@ namespace Confront.Player.Combo
 
         private void UpdateHitBoxesAndShooters(PlayerController player)
         {
-            foreach (var hitBox in _hitBoxes)
+            if (_hitBoxes != null)
             {
-                var direction = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-                hitBox.Update(player.transform, player.CharacterStats.AttackPower, direction, _elapsed, LayerMask);
+                foreach (var hitBox in _hitBoxes)
+                {
+                    var direction = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
+                    hitBox.Update(player.transform, player.CharacterStats.AttackPower, direction, _elapsed, LayerMask);
+                }
             }
-            foreach (var shooter in _shooters)
+
+            if (_shooters != null)
             {
-                shooter.Update(player, _elapsed);
+                foreach (var shooter in _shooters)
+                {
+                    shooter.Update(player, _elapsed);
+                }
             }
         }
 

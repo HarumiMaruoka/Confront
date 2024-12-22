@@ -1,5 +1,8 @@
-﻿using Confront.Player;
+﻿using Confront.DropItem;
+using Confront.Player;
+using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace Confront.Enemy.Slimey
@@ -20,14 +23,8 @@ namespace Confront.Enemy.Slimey
         public override void Enter(PlayerController player, SlimeyController slimey)
         {
             _timer = 0;
-            if (slimey.UniqueDropItemTable != null)
-            {
-                Debug.Log("ユニークドロップアイテムをドロップする");
-            }
-            else
-            {
-                Debug.Log("通常ドロップアイテムをドロップする");
-            }
+
+            slimey.DropItem(player, slimey.transform.position).Forget();
         }
 
         public override void Execute(PlayerController player, SlimeyController slimey)

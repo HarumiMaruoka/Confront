@@ -26,7 +26,7 @@ namespace Confront.Utility
 
                 var nextPosition = behaviour.transform.position;
 
-                if (Physics.Linecast(previousPosition, nextPosition, out RaycastHit hitInfo, layerMask))
+                if (Physics.Linecast(previousPosition, nextPosition, out RaycastHit hitInfo, layerMask, QueryTriggerInteraction.Ignore))
                 {
                     behaviour.transform.position = hitInfo.point;
                     break;

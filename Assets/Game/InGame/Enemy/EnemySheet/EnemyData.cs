@@ -9,10 +9,17 @@ namespace Confront.Enemy
         public string Name;
         public string Description;
         public GameObject Prefab;
-        public TextAsset DefaultDropItemTable;
+        public TextAsset DefaultDropItemTableInput;
 
         private DropItemData[] _dropItemTable = null;
-        public DropItemData[] DropItemTable => _dropItemTable ??= DefaultDropItemTable.LoadDropItemTable();
+        public DropItemData[] DefaultDropItemTable
+        {
+            get
+            {
+                if (DefaultDropItemTableInput == null) return null;
+                return _dropItemTable ??= DefaultDropItemTableInput?.LoadDropItemTable();
+            }
+        }
     }
 
     public struct DropItemData

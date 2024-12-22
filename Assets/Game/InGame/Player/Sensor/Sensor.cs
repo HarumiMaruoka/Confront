@@ -96,7 +96,8 @@ namespace Confront.Player
                 Vector3.right * sign,
                 Quaternion.identity,
                 _frontCheckRayLength,
-                groundCheckLayerMask);
+                groundCheckLayerMask,
+                QueryTriggerInteraction.Ignore);
         }
 
         public SensorResult Calculate(PlayerController player)
@@ -245,7 +246,7 @@ namespace Confront.Player
 
                 Ray ray = new Ray(origin, dir);
                 RaycastHit hit;
-                bool isHit = Physics.Raycast(ray, out hit, rayDistance, groundCheckLayerMask);
+                bool isHit = Physics.Raycast(ray, out hit, rayDistance, groundCheckLayerMask, QueryTriggerInteraction.Ignore);
 
                 if (isHit)
                 {

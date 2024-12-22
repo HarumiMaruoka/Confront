@@ -32,7 +32,7 @@ namespace Confront.Enemy
             if (angle > ViewAngle / 2f) return _isVisibleRecord = false;
 
             // プレイヤーが障害物に隠れていないかどうか
-            if (Physics.Raycast(origin, direction, out _hit, ViewDistance))
+            if (Physics.Raycast(origin, direction, out _hit, ViewDistance, EnemyBase.PlayerLayerMask))
             {
                 if (_hit.collider.transform == player.transform) return _isVisibleRecord = true;
             }

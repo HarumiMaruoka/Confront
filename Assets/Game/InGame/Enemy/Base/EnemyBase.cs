@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Confront.DropItem;
+using Confront.Player;
+using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 namespace Confront.Enemy
@@ -7,10 +10,17 @@ namespace Confront.Enemy
     {
         public int ID;
         [Tooltip("このテーブルが設定されていない場合、EnemyDataのDefaultDropItemTableが使用される。")]
-        public TextAsset UniqueDropItemTable;
+        public TextAsset UniqueDropItemTableInput;
 
-        private DropItemData[] _dropItemData = null;
-        public DropItemData[] DropItemData => _dropItemData ??= UniqueDropItemTable.LoadDropItemTable();
+        private DropItemData[] _dropItemTable = null;
+        public DropItemData[] UniqueDropItemTable
+        {
+            get
+            {
+                if (UniqueDropItemTableInput == null) return null;
+                return _dropItemTable ??= UniqueDropItemTableInput?.LoadDropItemTable();
+            }
+        }
 
         public EnemyData Data { get; private set; }
 
@@ -51,6 +61,43 @@ namespace Confront.Enemy
                 defenseDamageFactor = 1 + (-1f * defense) / 100;
             }
             return attackPower * defenseDamageFactor;
+        }
+
+        public virtual async UniTask DropItem(PlayerController player, Vector3 position)
+        {
+            var table = UniqueDropItemTable;
+            if (table == null) table = Data.DefaultDropItemTable;
+
+            await DropItem(player, position, table);
+        }
+
+        protected virtual async UniTask DropItem(PlayerController player, Vector3 position, DropItemData[] table)
+        {
+            var token = player.GetCancellationTokenOnDestroy();
+
+            try
+            {
+                foreach (var item in table)
+                {
+                    token.ThrowIfCancellationRequested();
+
+                    var rate = item.DropRate;
+                    var random = UnityEngine.Random.Range(0f, 100f);
+                    if (rate < random) continue;
+                    DropItemSpawner.Instance.Spawn(position, item.Type, item.ID);
+
+                    random = UnityEngine.Random.Range(0.1f, 0.3f);
+                    await UniTask.Delay(TimeSpan.FromSeconds(random), cancellationToken: token);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // 処理がキャンセルされた場合の例外を無視
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
     }
 }

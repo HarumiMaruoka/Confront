@@ -26,7 +26,7 @@ namespace Confront.AttackUtility
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
-            return Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask) != 0;
+            return Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask, QueryTriggerInteraction.Collide) != 0;
         }
 
         public bool Fire(Transform center, float sign, float attackPower, LayerMask layerMask)
@@ -38,7 +38,7 @@ namespace Confront.AttackUtility
             var damageVector = CalcDamageVector(_damageDirection, _damageForce, sign);
 
             bool isHit = false;
-            var hitCount = Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask);
+            var hitCount = Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask, QueryTriggerInteraction.Collide);
             for (int i = 0; i < hitCount; i++)
             {
                 var collider = _colliderBuffer[i];

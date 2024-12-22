@@ -8,7 +8,7 @@ using Confront.GameUI;
 
 namespace Confront.Enemy
 {
-    public class VampireBatController : EnemyBase
+    public class VampireBatController : EnemyBase, IDamageable
     {
         public Transform OrbitCenter;
 
