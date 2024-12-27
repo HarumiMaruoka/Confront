@@ -59,6 +59,7 @@ namespace Confront.Player
 
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource = new CancellationTokenSource();
+            var token = _cancellationTokenSource.Token;
 
             while (true)
             {
@@ -70,7 +71,7 @@ namespace Confront.Player
                     break;
                 }
 
-                await UniTask.Yield(PlayerLoopTiming.Update, _cancellationTokenSource.Token);
+                await UniTask.Yield(PlayerLoopTiming.Update, token);
             }
         }
     }

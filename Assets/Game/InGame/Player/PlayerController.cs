@@ -9,7 +9,7 @@ using System;
 using UnityEngine;
 using Confront.ForgeItem;
 using Confront.AttackUtility;
-using Cysharp.Threading.Tasks.Triggers;
+using UnityEngine.Animations;
 
 namespace Confront.Player
 {
@@ -141,11 +141,13 @@ namespace Confront.Player
             CharacterController.enabled = true;
         }
 
+        private bool _isPrevCCEnabled = true;
 
         private void Update()
         {
             if (MenuController.IsOpenedMenu) return;
 
+            CharacterController.enabled = _isPrevCCEnabled;
             PrevPosition = NextPosition;
             NextPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset;
 
@@ -168,20 +170,9 @@ namespace Confront.Player
                 HandlePlatformCollision();
             }
 
-            var prev = CharacterController.enabled;
-
+            _isPrevCCEnabled = CharacterController.enabled;
             CharacterController.enabled = false;
             transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-            Vector3 lossScale = transform.lossyScale;
-            Vector3 localScale = transform.localScale;
-
-            transform.localScale = new Vector3(
-                    localScale.x / lossScale.x,
-                    localScale.y / lossScale.y,
-                    localScale.z / lossScale.z
-            );
-            CharacterController.enabled = prev;
         }
 
         private bool ShouldHandlePlatformCollision()
@@ -285,7 +276,7 @@ namespace Confront.Player
 #endif
         }
 
-        private RaycastHit _platformHitInfo;
+        private RaycastHit _platformHitInfo; // Gizmoを描画するために保持
 
         public void HandlePlatformCollision()
         {
