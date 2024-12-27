@@ -3,6 +3,7 @@ using Confront.Utility;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Confront.DropItem
@@ -47,7 +48,25 @@ namespace Confront.DropItem
         private Vector3 _pickupOffset = new Vector3(0, 1, 0);
         private CancellationTokenSource _pickupCancellationTokenSource;
 
+        [Header("その他")]
+        [SerializeField]
+        private AnimationCurve _alphaCurve = AnimationCurve.Linear(0, 0, 1, 1);
+
+        private float _elapsedTime = 0f;
+        private float[] _defaultAlpha = null;
+        private ParticleSystem[] _particleSystems;
         public event Action<DropItemController> OnComplete;
+
+        private void Start()
+        {
+            _particleSystems = GetComponentsInChildren<ParticleSystem>();
+            _defaultAlpha = new float[_particleSystems.Length];
+            for (var i = 0; i < _particleSystems.Length; i++)
+            {
+                var main = _particleSystems[i].main;
+                _defaultAlpha[i] = main.startColor.color.a;
+            }
+        }
 
         public void SetItem(Vector3 position, ItemType itemType, int itemID, int amount = 1)
         {
@@ -55,7 +74,19 @@ namespace Confront.DropItem
             ItemID = itemID;
             transform.position = position;
             Amount = amount;
+            _elapsedTime = 0f;
             _isPickedUp = false;
+
+            if (_particleSystems != null && _defaultAlpha != null && _defaultAlpha.Length == _particleSystems.Length)
+            {
+                for (var i = 0; i < _particleSystems.Length; i++)
+                {
+                    var main = _particleSystems[i].main;
+                    var color = main.startColor.color;
+                    color.a = _defaultAlpha[i];
+                    main.startColor = color;
+                }
+            }
 
             _trajectoryCancellationTokenSource = new CancellationTokenSource();
             _pickupCancellationTokenSource = new CancellationTokenSource();
@@ -78,9 +109,38 @@ namespace Confront.DropItem
             var sqrDistance = Vector3.SqrMagnitude(_player.transform.position - transform.position);
             if (sqrDistance < _pickupDistance * _pickupDistance)
             {
+                for (var i = 0; i < _particleSystems.Length; i++)
+                {
+                    var main = _particleSystems[i].main;
+                    var color = main.startColor.color;
+                    color.a = _defaultAlpha[i];
+                    main.startColor = color;
+                }
+
                 _trajectoryCancellationTokenSource.Cancel();
                 _isPickedUp = true;
                 HandlePickup();
+                return;
+            }
+
+            _elapsedTime += Time.deltaTime;
+
+            var lifeTime = _alphaCurve.keys[_alphaCurve.length - 1].time;
+            var alpha = _alphaCurve.Evaluate(_elapsedTime);
+
+            foreach (var ps in _particleSystems)
+            {
+                var main = ps.main;
+                var color = main.startColor.color;
+                color.a = alpha;
+                main.startColor = color;
+            }
+
+            if (_elapsedTime > lifeTime)
+            {
+                _trajectoryCancellationTokenSource.Cancel();
+                _pickupCancellationTokenSource.Cancel();
+                OnComplete?.Invoke(this);
             }
         }
 
@@ -138,8 +198,8 @@ namespace Confront.DropItem
 
         private void OnDestroy()
         {
-            _trajectoryCancellationTokenSource.Cancel();
-            _pickupCancellationTokenSource.Cancel();
+            _trajectoryCancellationTokenSource?.Cancel();
+            _pickupCancellationTokenSource?.Cancel();
         }
 
         public void SkipTrajectory()

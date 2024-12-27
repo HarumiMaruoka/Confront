@@ -46,9 +46,11 @@ namespace Confront.DropItem
             _inactives.Add(ItemType.ForgeItem, new HashSet<DropItemController>());
             _inactives.Add(ItemType.Money, new HashSet<DropItemController>());
             _inactives.Add(ItemType.Card, new HashSet<DropItemController>());
+
+            CreateInitialObject();
         }
 
-        public DropItemController Spawn(Vector3 position, ItemType type, int id, int amount = 1)
+        public DropItemController Spawn(Vector3 position, ItemType type, int id, int amount)
         {
             DropItemController dropItem = GetDropItemFromPool(type);
 
@@ -87,10 +89,30 @@ namespace Confront.DropItem
             };
         }
 
-        public void Despawn(DropItemController dropItem)
+        private void Despawn(DropItemController dropItem)
         {
             dropItem.gameObject.SetActive(false);
             _inactives[dropItem.ItemType].Add(dropItem);
+        }
+
+        private void CreateInitialObject()
+        {
+            CreateInitialObject(ItemType.Weapon, 10);
+            CreateInitialObject(ItemType.Armor, 10);
+            CreateInitialObject(ItemType.ActionItem, 10);
+            CreateInitialObject(ItemType.ForgeItem, 10);
+            CreateInitialObject(ItemType.Money, 10);
+            CreateInitialObject(ItemType.Card, 10);
+        }
+
+        private void CreateInitialObject(ItemType type, int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var dropItem = Instantiate(GetPrefab(type), transform);
+                dropItem.gameObject.SetActive(false);
+                _inactives[type].Add(dropItem);
+            }
         }
     }
 }

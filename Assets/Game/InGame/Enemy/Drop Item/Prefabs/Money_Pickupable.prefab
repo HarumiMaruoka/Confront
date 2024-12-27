@@ -14657,6 +14657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f4ebde445a0094f855ed0db715a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemType: 0
+  ItemID: 0
+  Amount: 1
   _minInitialSpeed: 4
   _maxInitialSpeed: 7
   _minAngle: 45
@@ -14669,7 +14672,49 @@ MonoBehaviour:
   _pickupDuration: 2
   _pickupRotationDirection: 1
   _pickupRotateSpeed: 8
-  _pickupOffset: {x: 0, y: 1, z: 0}
+  _pickupOffset: {x: 0, y: 1.5, z: 0}
+  _alphaCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0020332336
+      value: 0.9984741
+      inSlope: -0.03460059
+      outSlope: -0.03460059
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 18.920288
+      value: 0.3438914
+      inSlope: -0.022947108
+      outSlope: -0.022947108
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.050632752
+      outWeight: 0.2976401
+    - serializedVersion: 3
+      time: 21.211185
+      value: 0.078573465
+      inSlope: -0.040137023
+      outSlope: -0.040137023
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11008689
+    - serializedVersion: 3
+      time: 29.924822
+      value: -0.1438995
+      inSlope: -0.09400763
+      outSlope: -0.09400763
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0663071
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!198 &5445652135016000910
 ParticleSystem:
   m_ObjectHideFlags: 0

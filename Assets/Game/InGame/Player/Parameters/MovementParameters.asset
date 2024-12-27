@@ -94,8 +94,8 @@ MonoBehaviour:
       inWeight: 0.8768775
       outWeight: 0.06452901
     - serializedVersion: 3
-      time: 0.75787354
-      value: 2.2075229
+      time: 0.7586791
+      value: 2.545838
       inSlope: 4.6201806
       outSlope: 4.6201806
       tangentMode: 0
@@ -103,8 +103,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.37218723
     - serializedVersion: 3
-      time: 0.797367
-      value: 2.2641814
+      time: 0.79817253
+      value: 2.6151388
       inSlope: -0.192337
       outSlope: -0.192337
       tangentMode: 0
@@ -112,8 +112,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.835768
-      value: 2.182035
+      time: 0.8382825
+      value: 2.5327404
       inSlope: -5.227641
       outSlope: -5.227641
       tangentMode: 0
@@ -157,8 +157,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   ClimbToRunThreshold: 0.25
-  GrabbablePosition: {x: -84.831276, y: 5.029999, z: 0}
-  GrabIntervalTimer: -0.0064022504
+  GrabbablePosition: {x: -59.08, y: 3.7259998, z: 0}
+  GrabIntervalTimer: -0.017110689
   Acceleration: 5
   Deceleration: 18
   TurnDeceleration: 20
@@ -172,10 +172,10 @@ MonoBehaviour:
   AbyssXMinSpeed: 8
   SlopeAcceleration: 6
   PassThroughPlatformDisableTime: 0.5
-  PassThroughPlatformDisableTimer: -0.002275939
-  DodgeMaxSpeed: 20
-  DodgeAccelerationDuration: 0.2
-  DodgeDecelerationDuration: 0.4
+  PassThroughPlatformDisableTimer: -0.0026095286
+  DodgeMaxSpeed: 25
+  DodgeAccelerationDuration: 0.08
+  DodgeDecelerationDuration: 0.65
   SmallDamageDuration: 0.7
   SmallDamageHorizontalDecelerationRate: 2
   BigDamageDuration: 1.4

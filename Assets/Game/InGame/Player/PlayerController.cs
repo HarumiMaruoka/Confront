@@ -62,6 +62,10 @@ namespace Confront.Player
         private CharacterController _characterController;
         private Animator _animator;
 
+        public Vector3 PrevPosition;
+        public Vector3 NextPosition;
+        public Vector3 InitialScale;
+
         public WeaponInstance EquippedWeapon
         {
             get => _equippedWeapon;
@@ -105,6 +109,7 @@ namespace Confront.Player
                 AttackStateMachine = new AttackStateMachine();
                 HealthManager = new HealthManager(CharacterStats.MaxHealth, CharacterStats.MaxHealth);
                 _isInitialized = true;
+                InitialScale = transform.localScale;
 
                 if (EquippedWeapon == null)
                 {
@@ -136,8 +141,6 @@ namespace Confront.Player
             CharacterController.enabled = true;
         }
 
-        public Vector3 PrevPosition;
-        public Vector3 NextPosition;
 
         private void Update()
         {
@@ -169,19 +172,25 @@ namespace Confront.Player
 
             CharacterController.enabled = false;
             transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+            Vector3 lossScale = transform.lossyScale;
+            Vector3 localScale = transform.localScale;
+
+            transform.localScale = new Vector3(
+                    localScale.x / lossScale.x,
+                    localScale.y / lossScale.y,
+                    localScale.z / lossScale.z
+            );
             CharacterController.enabled = prev;
         }
 
         private bool ShouldHandlePlatformCollision()
         {
-            var groundSensorResult = Sensor.Calculate(this);
-            var isInDamageState = StateMachine.CurrentState is BigDamage or SmallDamage;
-            var isMovingUpwards = MovementParameters.Velocity.y > 0f;
+            var isDamageStateMovingUp = StateMachine.CurrentState is BigDamage or SmallDamage && MovementParameters.Velocity.y > 0f;
 
-            var isNotGrabbing = StateMachine.CurrentState is not Grab;
-            var isNotJumping = StateMachine.CurrentState is not Jump;
+            var isInvalidState = StateMachine.CurrentState is Grab or Jump;
 
-            return isNotGrabbing && isNotGrabbing && !(isInDamageState && isMovingUpwards);
+            return !isInvalidState && !isDamageStateMovingUp;
         }
 
         /// <summary>

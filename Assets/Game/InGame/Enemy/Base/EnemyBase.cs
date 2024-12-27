@@ -49,7 +49,7 @@ namespace Confront.Enemy
             Data = EnemyManager.EnemySheet.GetData(ID);
         }
 
-        protected static float DefaultCalculateDamage(float attackPower, float defense)
+        public static float DefaultCalculateDamage(float attackPower, float defense)
         {
             float defenseDamageFactor;
             if (defense >= 0) // 防御力が正の場合
@@ -65,8 +65,13 @@ namespace Confront.Enemy
 
         public virtual async UniTask DropItem(PlayerController player, Vector3 position)
         {
-            var table = UniqueDropItemTable;
+            DropItemData[] table = UniqueDropItemTable;
             if (table == null) table = Data.DefaultDropItemTable;
+            if (table == null)
+            {
+                Debug.LogWarning("ドロップアイテムテーブルが設定されていません。");
+                return;
+            }
 
             position.y += 0.3f;
 
@@ -86,7 +91,7 @@ namespace Confront.Enemy
                     var rate = item.DropRate;
                     var random = UnityEngine.Random.Range(0f, 100f);
                     if (rate < random) continue;
-                    DropItemSpawner.Instance.Spawn(position, item.Type, item.ID);
+                    DropItemSpawner.Instance.Spawn(position, item.Type, item.ID, item.Amount);
 
                     random = UnityEngine.Random.Range(0.1f, 0.3f);
                     await UniTask.Delay(TimeSpan.FromSeconds(random), cancellationToken: token);
