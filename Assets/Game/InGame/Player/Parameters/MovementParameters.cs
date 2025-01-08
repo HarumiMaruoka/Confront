@@ -83,6 +83,9 @@ namespace Confront.Player
         public float BigDamageHorizontalDecelerationRate = 0.1f;
         public float MaxDamageVector = 50;
 
+        [NonSerialized]
+        public Vector3 MovingPlatformDelta = Vector3.zero;
+
         public void TimerUpdate()
         {
             if (GrabIntervalTimer > 0)

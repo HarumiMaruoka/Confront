@@ -13,7 +13,9 @@ namespace Confront.Weapon
 
         private Dictionary<int, WeaponActivationData> _weaponActivationDataDic = new Dictionary<int, WeaponActivationData>();
 
-        private void Awake()
+        private bool _isInitialized = false;
+
+        private void Initialize()
         {
             for (int i = 0; i < _weaponActivationDatas.Length; i++)
             {
@@ -24,6 +26,7 @@ namespace Confront.Weapon
                 }
                 _weaponActivationDataDic.Add(_weaponActivationDatas[i].ID, _weaponActivationDatas[i]);
             }
+            _isInitialized = true;
         }
 
         // Test
@@ -41,6 +44,8 @@ namespace Confront.Weapon
 
         public void ActivateWeapon(int id)
         {
+            if (!_isInitialized) Initialize();
+
             if (_current != null && _current.ID == id) return;
 
             _current?.Deactivation();

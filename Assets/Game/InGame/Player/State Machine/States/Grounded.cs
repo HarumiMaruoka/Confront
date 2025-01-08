@@ -18,8 +18,13 @@ namespace Confront.Player
         {
             HandlePassThroughPlatform(player);
             Move(player);
-            HandleHotBarInput(player);
-            StateTransition(player);
+            HandleHotBarInput(player); StateTransition(player);
+
+            //var groundPoint = player.Sensor.GetGroundPoint(player, out var maxDistance);
+            //if (groundPoint != null && maxDistance - groundPoint.Value.distance < 0.05f)
+            //{
+            //    player.CharacterController.Move(Vector3.down * 0.05f);
+            //}
         }
 
         public void Exit(PlayerController player)
@@ -103,14 +108,6 @@ namespace Confront.Player
             }
 
             player.MovementParameters.Velocity = Vector3.ProjectOnPlane(new Vector3(velocityMagnitude, 0f), groundNormal).normalized * Mathf.Abs(velocityMagnitude);
-
-            //var groundPoint = player.Sensor.GetGroundPoint(player);
-            //if (groundPoint.HasValue)
-            //{
-            //    player.CharacterController.enabled = false;
-            //    player.transform.position = groundPoint.Value;
-            //    player.CharacterController.enabled = true;
-            //}
         }
 
         private void StateTransition(PlayerController player)

@@ -99,14 +99,26 @@ namespace Confront.Player
                 QueryTriggerInteraction.Ignore);
         }
 
-        public Vector2? GetGroundPoint(PlayerController player)
+        public RaycastHit? GetGroundPoint(PlayerController player, out float maxDistance)
+        {
+            var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset;
+            var groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
+
+            if (player.MovementParameters.IsPassThroughPlatformTimerFinished) groundCheckLayerMask |= PassThroughPlatform;
+
+            maxDistance = _rayDistance;
+            return UnityEngine.Physics.Raycast(groundCheckRayOrigin, Vector3.down, out var hit, _rayDistance, groundCheckLayerMask) ? hit : null;
+        }
+
+        public LayerMask GetGroundLayer(PlayerController player)
         {
             var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset + new Vector3(0, 0.5f);
             var groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
 
             if (player.MovementParameters.IsPassThroughPlatformTimerFinished) groundCheckLayerMask |= PassThroughPlatform;
 
-            return UnityEngine.Physics.Raycast(groundCheckRayOrigin, Vector3.down, out var hit, _rayDistance + 1f, groundCheckLayerMask) ? hit.point : null;
+            var isHit = UnityEngine.Physics.Raycast(groundCheckRayOrigin, Vector3.down, out var hit, _rayDistance + 1f, groundCheckLayerMask);
+            return isHit ? hit.collider.gameObject.layer : 0;
         }
 
         public bool IsAbove(PlayerController player)
@@ -128,7 +140,6 @@ namespace Confront.Player
         {
             var result = new GroundSensorResult();
 
-            var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset;
             var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
             var slopeLimit = player.CharacterController.slopeLimit;
 
@@ -141,7 +152,8 @@ namespace Confront.Player
 
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
-            var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down, groundCheckLayerMask);
+            CastFanRays(player, Vector3.down, groundCheckLayerMask, ref result);
+            var groundNormal = (Vector3)result.GroundNormal;
             var groundAngle = Vector3.Angle(Vector3.up, groundNormal);
             result.IsGrounded = groundNormal != Vector3.zero && groundAngle <= 90f;
 
@@ -242,7 +254,7 @@ namespace Confront.Player
 
         private List<Vector3> _hitNormals = new List<Vector3>();
 
-        private Vector3 CastFanRaysAndGetAveragedNormal(PlayerController player, Vector3 direction, LayerMask groundCheckLayerMask)
+        private void CastFanRays(PlayerController player, Vector3 direction, LayerMask groundCheckLayerMask, ref GroundSensorResult result)
         {
             var origin = player.transform.position + (Vector3)_groundCheckRayOffset;
 
@@ -278,7 +290,8 @@ namespace Confront.Player
 
             if (_hitNormals.Count == 0)
             {
-                return Vector3.zero;
+                result.GroundNormal = Vector2.zero;
+                return;
             }
 
             Vector3 sum = Vector3.zero;
@@ -289,7 +302,7 @@ namespace Confront.Player
             Vector3 averageNormal = sum / _hitNormals.Count;
             averageNormal.Normalize();
 
-            return averageNormal;
+            result.GroundNormal = averageNormal;
         }
 
         private struct RayInfo

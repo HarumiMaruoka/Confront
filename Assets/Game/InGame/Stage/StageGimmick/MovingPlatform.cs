@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Confront.StageGimmick
 {
-    [DefaultExecutionOrder(10)]
     public class MovingPlatform : MonoBehaviour
     {
         private Vector3 _previousPosition;
@@ -37,10 +36,11 @@ namespace Confront.StageGimmick
             {
                 if (_collidersBuffer[i].gameObject == PlayerController.Instance.gameObject)
                 {
-                    if (PlayerController.Instance.StateMachine.CurrentState is Grounded)
-                    {
-                        PlayerController.Instance.CharacterController.Move(moveDelta);
-                    }
+                    //if (PlayerController.Instance.StateMachine.CurrentState is Grounded)
+                    //{
+                    //    PlayerController.Instance.CharacterController.Move(_moveDelta);
+                    //}
+                    PlayerController.Instance.MovementParameters.MovingPlatformDelta += moveDelta;
                 }
                 else
                 {

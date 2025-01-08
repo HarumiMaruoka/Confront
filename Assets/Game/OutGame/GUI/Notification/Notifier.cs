@@ -40,15 +40,6 @@ namespace Confront.NotificationManager
             OnNotificationAdded -= OnAdded;
         }
 
-        private void Update()
-        {
-            // Test
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
-            {
-                AddNotification("Title", "Message", null);
-            }
-        }
-
         private void UpdateTargetPosition()
         {
             foreach (var elem in _actives)

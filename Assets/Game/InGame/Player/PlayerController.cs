@@ -1,19 +1,17 @@
-﻿using Confront.Debugger;
+﻿using Confront.ActionItem;
+using Confront.AttackUtility;
+using Confront.ForgeItem;
 using Confront.GameUI;
 using Confront.Input;
-using Confront.ActionItem;
 using Confront.Player.Combo;
 using Confront.SaveSystem;
 using Confront.Weapon;
 using System;
 using UnityEngine;
-using Confront.ForgeItem;
-using Confront.AttackUtility;
-using Cinemachine;
 
 namespace Confront.Player
 {
-    [DefaultExecutionOrder(20)]
+    [DefaultExecutionOrder(9999)]
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour, ISavable, IDamageable
     {
@@ -32,10 +30,9 @@ namespace Confront.Player
             Initialize(SaveDataController.Loaded);
 
             PrevPosition = transform.position;
-            NextPosition = transform.position;
+            CurrentPosition = transform.position;
         }
 
-        public CinemachineBrain CinemachineBrain;
         // インゲーム制御
         public StateMachine StateMachine;
         // 移動系
@@ -65,7 +62,7 @@ namespace Confront.Player
         private Animator _animator;
 
         public Vector3 PrevPosition;
-        public Vector3 NextPosition;
+        public Vector3 CurrentPosition;
         public Vector3 InitialScale;
 
         public WeaponInstance EquippedWeapon
@@ -148,14 +145,13 @@ namespace Confront.Player
         {
             if (MenuController.IsOpenedMenu) return;
 
-            PrevPosition = NextPosition;
-            NextPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset;
+            if (CharacterController.enabled) CharacterController.Move(MovementParameters.MovingPlatformDelta);
+            MovementParameters.MovingPlatformDelta = Vector3.zero;
 
             StateMachine.Update();
             if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
             Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
             MovementParameters.TimerUpdate();
-            HandleDebugInput();
 
             if (IsJumpable) StateMachine.ChangeState<Jump>();
 
@@ -165,19 +161,22 @@ namespace Confront.Player
                 DirectionController.UpdateVelocity(MovementParameters.Velocity);
             }
 
-            if (ShouldHandlePlatformCollision())
-            {
-                HandlePlatformCollision();
-            }
-
-            CinemachineBrain.ManualUpdate();
-
             {
                 var prevCCEnabled = CharacterController.enabled;
 
                 CharacterController.enabled = false;
                 transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
                 CharacterController.enabled = prevCCEnabled;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            PrevPosition = CurrentPosition;
+            CurrentPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset;
+            if (ShouldHandlePlatformCollision())
+            {
+                HandlePlatformCollision();
             }
         }
 
@@ -265,35 +264,20 @@ namespace Confront.Player
             return damage;
         }
 
-        private static void HandleDebugInput()
-        {
-#if UNITY_EDITOR
-            if (UnityEngine.Input.GetKeyDown(KeyCode.F))
-            {
-                var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
-                var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-                clearMethod?.Invoke(null, null);
-            }
-
-            if (UnityEngine.Input.GetKeyDown(KeyCode.V))
-            {
-                UnityEditor.EditorApplication.isPaused = !UnityEditor.EditorApplication.isPaused;
-            }
-#endif
-        }
-
         private RaycastHit _platformHitInfo; // Gizmoを描画するために保持
 
         public void HandlePlatformCollision()
         {
-            if (MovementParameters.IsPassThroughPlatformTimerFinished
-                && Physics.Linecast(PrevPosition, NextPosition, out _platformHitInfo, Sensor.PassThroughPlatform))
+            if (MovementParameters.IsPassThroughPlatformTimerFinished &&
+                Physics.Linecast(PrevPosition, CurrentPosition, out _platformHitInfo, Sensor.PassThroughPlatform))
             {
                 var hitPoint = _platformHitInfo.point + (Vector3)Sensor._groundCheckRayOffset;
                 CharacterController.enabled = false;
                 transform.position = new Vector3(hitPoint.x, hitPoint.y, 0f);
-                MovementParameters.Velocity = new Vector2(MovementParameters.Velocity.x, 0f);
                 CharacterController.enabled = true;
+
+                MovementParameters.Velocity = new Vector2(0f, 0f);
+                StateMachine.ChangeState<Grounded>();
             }
         }
 
@@ -313,9 +297,9 @@ namespace Confront.Player
         {
             if (Sensor) Sensor.DrawGizmos(this);
 
-            // PrevPositionからNextPositionまでの線を描画
+            // PrevPositionからCurrentPositionまでの線を描画
             Gizmos.color = _platformHitInfo.collider ? Color.red : Color.blue;
-            Gizmos.DrawLine(PrevPosition, NextPosition);
+            Gizmos.DrawLine(PrevPosition, CurrentPosition);
         }
 #endif
 

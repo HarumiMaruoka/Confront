@@ -11,21 +11,23 @@ namespace Confront.Player
         {
             var min = 6f;
             var max = 15f;
-            var magnitude = player.MovementParameters.Velocity.magnitude;
+            var magnitude = Mathf.Clamp(player.MovementParameters.Velocity.magnitude, min, max);
 
-            if (magnitude < min) player.MovementParameters.Velocity = player.MovementParameters.Velocity.normalized * min;
-            if (magnitude > max) player.MovementParameters.Velocity = player.MovementParameters.Velocity.normalized * max;
-        }
+            var groundSensorResult = player.Sensor.CalculateGroundState(player);
+            var downhillDirection = Vector3.Cross(Vector3.Cross(Vector3.up, groundSensorResult.GroundNormal), groundSensorResult.GroundNormal).normalized;
 
-        public void Exit(PlayerController player)
-        {
-
+            player.MovementParameters.Velocity = downhillDirection * magnitude;
         }
 
         public void Execute(PlayerController player)
         {
             Move(player);
             this.TransitionToDefaultState(player);
+        }
+
+        public void Exit(PlayerController player)
+        {
+
         }
 
         public static void Move(PlayerController player)
