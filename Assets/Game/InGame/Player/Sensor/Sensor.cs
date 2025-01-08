@@ -12,11 +12,11 @@ namespace Confront.Player
         [SerializeField]
         public Vector2 _groundCheckRayOffset = new Vector2(0, 0f);
         [SerializeField]
-        private float angleRange = 180f;
+        private float _angleRange = 120f;
         [SerializeField]
-        private int rayCount = 32;
+        private int _rayCount = 52;
         [SerializeField]
-        public float rayDistance = 1;
+        public float _rayDistance = 0.58f;
         [SerializeField]
         private bool _isGroundCheckGizmoEnabled = true;
         [SerializeField]
@@ -99,12 +99,37 @@ namespace Confront.Player
                 QueryTriggerInteraction.Ignore);
         }
 
-        public SensorResult Calculate(PlayerController player)
+        public Vector2? GetGroundPoint(PlayerController player)
         {
-            var result = new SensorResult();
+            var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset + new Vector3(0, 0.5f);
+            var groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
 
-            var groundCheckRayPosition = player.transform.position + (Vector3)_groundCheckRayOffset;
-            var abyssCheckRayPosition = player.transform.position + (Vector3)_abyssCheckRayOffset;
+            if (player.MovementParameters.IsPassThroughPlatformTimerFinished) groundCheckLayerMask |= PassThroughPlatform;
+
+            return UnityEngine.Physics.Raycast(groundCheckRayOrigin, Vector3.down, out var hit, _rayDistance + 1f, groundCheckLayerMask) ? hit.point : null;
+        }
+
+        public bool IsAbove(PlayerController player)
+        {
+            // 頭上にレイを飛ばして、ヒットした場合には、頭上に何かあると判定する。
+            return UnityEngine.Physics.Raycast(player.transform.position + (Vector3)_aboveCheckRayOffset, Vector3.up, _aboveCheckRayLength, GroundLayerMask);
+        }
+
+        public GrabbablePoint GetGrabbablePoint(PlayerController player)
+        {
+            // 掴めるポイントを探す
+            var position = player.transform.position + player.transform.rotation * (Vector3)_grabbablePointOffset;
+            UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.forward, out var grabPointHit, _grabbablePointLength, GrabbablePointLayerMask);
+            if (grabPointHit.transform) return grabPointHit.transform.GetComponent<GrabbablePoint>();
+            return null;
+        }
+
+        public GroundSensorResult CalculateGroundState(PlayerController player)
+        {
+            var result = new GroundSensorResult();
+
+            var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset;
+            var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
             var slopeLimit = player.CharacterController.slopeLimit;
 
             LayerMask groundCheckLayerMask;
@@ -116,18 +141,16 @@ namespace Confront.Player
 
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
-            var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down, out float averageHitRayLength, groundCheckLayerMask);
+            var groundNormal = CastFanRaysAndGetAveragedNormal(player, Vector3.down, groundCheckLayerMask);
             var groundAngle = Vector3.Angle(Vector3.up, groundNormal);
             result.IsGrounded = groundNormal != Vector3.zero && groundAngle <= 90f;
-            result.AverageHitRayLength = averageHitRayLength;
 
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
-            result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayPosition, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, groundCheckLayerMask);
+            result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayOrigin, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, groundCheckLayerMask);
 
             if (result.IsGrounded)
             {
                 result.GroundNormal = groundNormal;
-                result.GroundPoint = groundCheckRayPosition + (Vector3)groundNormal * averageHitRayLength;
                 result.IsSteepSlope = Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
             }
 
@@ -148,20 +171,12 @@ namespace Confront.Player
                 result.GroundType = GroundType.InAir;
             }
 
-            // 頭上にレイを飛ばして、ヒットした場合には、頭上に何かあると判定する。
-            result.IsAbove = UnityEngine.Physics.Raycast(player.transform.position + (Vector3)_aboveCheckRayOffset, Vector3.up, _aboveCheckRayLength, GroundLayerMask);
-
-            // 掴めるポイントを探す
-            var position = player.transform.position + player.transform.rotation * (Vector3)_grabbablePointOffset;
-            UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.forward, out var grabPointHit, _grabbablePointLength, GrabbablePointLayerMask);
-            if (grabPointHit.transform) result.GrabbablePoint = grabPointHit.transform.GetComponent<GrabbablePoint>();
-
             return result;
         }
 
         public void DrawGizmos(PlayerController player)
         {
-            var result = Calculate(player);
+            var result = CalculateGroundState(player);
 
             if (_isGroundCheckGizmoEnabled && rayInfos != null)
             {
@@ -193,7 +208,7 @@ namespace Confront.Player
                 var aboveCheckRayPosition = player.transform.position + (Vector3)_aboveCheckRayOffset;
                 var aboveCheckRayEnd = aboveCheckRayPosition + Vector3.up * _aboveCheckRayLength;
 
-                Gizmos.color = result.IsAbove ? new Color(1, 0, 0, _isAboveCheckGizmoAlpha) : new Color(0, 1, 0, _isAboveCheckGizmoAlpha);
+                Gizmos.color = IsAbove(player) ? new Color(1, 0, 0, _isAboveCheckGizmoAlpha) : new Color(0, 1, 0, _isAboveCheckGizmoAlpha);
 
                 Gizmos.DrawLine(aboveCheckRayPosition, aboveCheckRayEnd);
             }
@@ -202,7 +217,7 @@ namespace Confront.Player
             {
                 var position = player.transform.position + player.transform.rotation * (Vector3)_grabbablePointOffset;
                 var grabPointEnd = position + player.transform.rotation * Vector3.forward * _grabbablePointLength;
-                Gizmos.color = result.GrabbablePoint ? new Color(1, 0, 0, _isGrabPointCheckGizmoAlpha) : new Color(0, 1, 0, _isGrabPointCheckGizmoAlpha);
+                Gizmos.color = GetGrabbablePoint(player) ? new Color(1, 0, 0, _isGrabPointCheckGizmoAlpha) : new Color(0, 1, 0, _isGrabPointCheckGizmoAlpha);
                 Gizmos.DrawWireSphere(position, _grabbablePointRadius);
                 Gizmos.DrawWireSphere(grabPointEnd, _grabbablePointRadius);
                 Vector3 upOffset = Vector3.up * _grabbablePointRadius;
@@ -225,20 +240,21 @@ namespace Confront.Player
             }
         }
 
-        private Vector3 CastFanRaysAndGetAveragedNormal(PlayerController player, Vector3 direction, out float averageHitRayLength, LayerMask groundCheckLayerMask)
+        private List<Vector3> _hitNormals = new List<Vector3>();
+
+        private Vector3 CastFanRaysAndGetAveragedNormal(PlayerController player, Vector3 direction, LayerMask groundCheckLayerMask)
         {
             var origin = player.transform.position + (Vector3)_groundCheckRayOffset;
 
-            List<Vector3> hitNormals = new List<Vector3>();
+            _hitNormals.Clear();
             rayInfos.Clear(); // 前回のRay情報をクリア
             direction = direction.normalized;
 
-            float halfAngle = angleRange * 0.5f;
+            float halfAngle = _angleRange * 0.5f;
 
-            averageHitRayLength = 0f;
-            for (int i = 0; i < rayCount; i++)
+            for (int i = 0; i < _rayCount; i++)
             {
-                float t = (float)i / (rayCount - 1);
+                float t = (float)i / (_rayCount - 1);
                 float angle = Mathf.Lerp(-halfAngle, halfAngle, t);
 
                 Quaternion rot = Quaternion.Euler(0, 0, angle);
@@ -246,33 +262,31 @@ namespace Confront.Player
 
                 Ray ray = new Ray(origin, dir);
                 RaycastHit hit;
-                bool isHit = Physics.Raycast(ray, out hit, rayDistance, groundCheckLayerMask, QueryTriggerInteraction.Ignore);
+                bool isHit = Physics.Raycast(ray, out hit, _rayDistance, groundCheckLayerMask, QueryTriggerInteraction.Ignore);
 
                 if (isHit)
                 {
-                    hitNormals.Add(hit.normal);
+                    hit.normal = new Vector3(hit.normal.x, hit.normal.y, 0);
+                    _hitNormals.Add(hit.normal);
                     rayInfos.Add(new RayInfo { start = origin, end = hit.point, hit = true });
-                    averageHitRayLength += hit.distance;
                 }
                 else
                 {
-                    rayInfos.Add(new RayInfo { start = origin, end = origin + dir * rayDistance, hit = false });
+                    rayInfos.Add(new RayInfo { start = origin, end = origin + dir * _rayDistance, hit = false });
                 }
             }
 
-            if (hitNormals.Count == 0)
+            if (_hitNormals.Count == 0)
             {
-                averageHitRayLength = rayDistance;
                 return Vector3.zero;
             }
 
             Vector3 sum = Vector3.zero;
-            foreach (var normal in hitNormals)
+            foreach (var normal in _hitNormals)
             {
                 sum += normal;
             }
-            Vector3 averageNormal = sum / hitNormals.Count;
-            averageHitRayLength /= hitNormals.Count;
+            Vector3 averageNormal = sum / _hitNormals.Count;
             averageNormal.Normalize();
 
             return averageNormal;
@@ -286,51 +300,15 @@ namespace Confront.Player
         }
     }
 
-    public struct SensorResult
+    public struct GroundSensorResult
     {
         public bool IsGrounded; // 地面と接地しているか
         public bool IsAbyss; // 崖にいるか
         public bool IsSteepSlope; // 急斜面にいるか
-        public bool IsAbove; // 頭上に何かあるか
-        public float AverageHitRayLength; // 平均のヒットしたレイの長さ
 
         public Vector2 GroundNormal; // 地面の法線
-        internal Vector2 GroundPoint;
 
         public GroundType GroundType;
-
-        public GrabbablePoint GrabbablePoint; // 掴めるポイント
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
-        public static bool operator ==(SensorResult a, SensorResult b)
-        {
-            return a.IsGrounded == b.IsGrounded &&
-                   a.IsAbyss == b.IsAbyss &&
-                   a.IsSteepSlope == b.IsSteepSlope &&
-                   a.IsAbove == b.IsAbove &&
-                   a.GroundNormal == b.GroundNormal &&
-                   a.GroundType == b.GroundType &&
-                   a.GrabbablePoint == b.GrabbablePoint;
-        }
-
-        public static bool operator !=(SensorResult a, SensorResult b)
-        {
-            return !(a == b);
-        }
     }
 
     public enum GroundType

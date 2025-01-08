@@ -110,7 +110,7 @@ namespace Confront.Player.Combo
             if (_canMoveWhileCharging)
             {
                 Grounded.Move(player);
-                var groundSensorResult = player.Sensor.Calculate(player);
+                var groundSensorResult = player.Sensor.CalculateGroundState(player);
                 if (groundSensorResult.GroundType != GroundType.Ground)
                 {
                     OnCompleted?.Invoke(player);

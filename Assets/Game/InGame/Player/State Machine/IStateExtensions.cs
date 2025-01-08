@@ -7,7 +7,7 @@ namespace Confront.Player
     {
         public static void TransitionToDefaultState(this IState state, PlayerController player)
         {
-            var sensorResult = player.Sensor.Calculate(player);
+            var sensorResult = player.Sensor.CalculateGroundState(player);
 
             if (sensorResult.GroundType == state.ToGroundType()) return;
 

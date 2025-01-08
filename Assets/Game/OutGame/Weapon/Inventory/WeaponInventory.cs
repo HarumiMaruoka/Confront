@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.NotificationManager;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,12 @@ namespace Confront.Weapon
         [SerializeField]
         private List<WeaponInstance> _weapons;
         [SerializeField]
-        private int _maxSize;
+        private int _capacity;
 
-        public WeaponInventory(int maxSize = 20)
+        public WeaponInventory(int capacity = 20)
         {
             _weapons = new List<WeaponInstance>();
-            _maxSize = maxSize;
+            _capacity = capacity;
         }
 
         public int Count => _weapons.Count;
@@ -44,14 +45,37 @@ namespace Confront.Weapon
 
         public bool AddWeapon(WeaponInstance weapon)
         {
-            if (_weapons.Count >= _maxSize)
+            if (_weapons.Count >= _capacity)
             {
                 Debug.LogWarning("Inventory is full");
+                A(weapon);
                 return false;
             }
             _weapons.Add(weapon);
             OnWeaponAdded?.Invoke(weapon);
+            ShowNotification(weapon);
+
             return true;
+        }
+
+        // 手に入った通知を行う
+        private void ShowNotification(WeaponInstance weapon)
+        {
+            var title = $"Weapon";
+            var message = $"Get:{weapon.Data.Name}";
+            var icon = weapon.Data.Icon;
+            Notifier.AddNotification(title, message, icon);
+        }
+
+        // 手に入らなかった通知を行う
+        private void A(WeaponInstance weapon)
+        {
+            var title = $"Weapon";
+            var message =
+                $"Not get:{weapon.Data.Name}\n" +
+                $"Inventory is full";
+            var icon = weapon.Data.Icon;
+            Notifier.AddNotification(title, message, icon);
         }
 
         public void RemoveWeapon(WeaponInstance weapon)
@@ -84,7 +108,7 @@ namespace Confront.Weapon
                 Debug.LogWarning("New size is smaller than current size");
                 return;
             }
-            _maxSize = newSize;
+            _capacity = newSize;
         }
 
         public IEnumerator<WeaponInstance> GetEnumerator()

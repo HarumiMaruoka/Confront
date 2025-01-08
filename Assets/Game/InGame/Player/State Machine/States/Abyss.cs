@@ -27,7 +27,7 @@ namespace Confront.Player
         {
             var velocity = player.MovementParameters.Velocity;
             var settings = player.MovementParameters;
-            var groundSensorResult = player.Sensor.Calculate(player);
+            var groundSensorResult = player.Sensor.CalculateGroundState(player);
 
             var fallDirection = Mathf.Sign(groundSensorResult.GroundNormal.x);
             var velocityDirection = Mathf.Sign(velocity.x);

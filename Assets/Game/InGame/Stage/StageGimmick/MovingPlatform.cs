@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Confront.Player;
+using System;
 using UnityEngine;
 
 namespace Confront.StageGimmick
 {
+    [DefaultExecutionOrder(10)]
     public class MovingPlatform : MonoBehaviour
     {
         private Vector3 _previousPosition;
@@ -17,23 +19,33 @@ namespace Confront.StageGimmick
         [Range(1, 30)]
         private int _capacity = 10;
 
-        private Collider[] _platformColliders;
+        private Collider[] _collidersBuffer;
 
         private void Start()
         {
             _previousPosition = transform.position;
-            _platformColliders = new Collider[_capacity];
+            _collidersBuffer = new Collider[_capacity];
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             var moveDelta = transform.position - _previousPosition;
+            moveDelta.z = 0;
 
-            int hitCount = Physics.OverlapBoxNonAlloc(transform.position + _offset, _halfSize, _platformColliders, transform.rotation, _detectableLayer);
+            int hitCount = Physics.OverlapBoxNonAlloc(transform.position + _offset, _halfSize, _collidersBuffer, transform.rotation, _detectableLayer);
             for (int i = 0; i < hitCount; i++)
             {
-                var platform = _platformColliders[i].transform;
-                platform.position += moveDelta;
+                if (_collidersBuffer[i].gameObject == PlayerController.Instance.gameObject)
+                {
+                    if (PlayerController.Instance.StateMachine.CurrentState is Grounded)
+                    {
+                        PlayerController.Instance.CharacterController.Move(moveDelta);
+                    }
+                }
+                else
+                {
+                    _collidersBuffer[i].transform.position += moveDelta;
+                }
             }
 
             _previousPosition = transform.position;

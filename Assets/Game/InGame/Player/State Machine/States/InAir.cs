@@ -38,7 +38,6 @@ namespace Confront.Player
 
         public static void Move(PlayerController player, bool isInputReceived = true)
         {
-            var sensorResult = player.Sensor.Calculate(player);
             var inputX = 0f;
             if (isInputReceived) inputX = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x;
 
@@ -53,7 +52,7 @@ namespace Confront.Player
             }
 
             // 上昇中に頭上に物体があれば 縦の速度を0にする。
-            if (player.MovementParameters.Velocity.y > 0.0001f && sensorResult.IsAbove)
+            if (player.MovementParameters.Velocity.y > 0.0001f && player.Sensor.IsAbove(player))
             {
                 player.MovementParameters.Velocity.y = 0;
             }
@@ -105,16 +104,16 @@ namespace Confront.Player
             }
 
             // 掴みポイントがセンサーにヒットすれば掴みステートに遷移する。
-            var sensorResult = player.Sensor.Calculate(player);
+            var grabbablePoint = player.Sensor.GetGrabbablePoint(player);
 
             var isGrabbable =
                 player.MovementParameters.IsGrabbableTimerFinished &&
-                sensorResult.GrabbablePoint != null &&
-                player.DirectionController.CurrentDirection == sensorResult.GrabbablePoint.Direction;
+                grabbablePoint != null &&
+                player.DirectionController.CurrentDirection == grabbablePoint.Direction;
 
             if (isGrabbable)
             {
-                player.MovementParameters.GrabbablePosition = sensorResult.GrabbablePoint.transform.position;
+                player.MovementParameters.GrabbablePosition = grabbablePoint.transform.position;
                 player.StateMachine.ChangeState<Grab>();
                 return;
             }

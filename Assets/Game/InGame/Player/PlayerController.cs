@@ -9,10 +9,11 @@ using System;
 using UnityEngine;
 using Confront.ForgeItem;
 using Confront.AttackUtility;
-using UnityEngine.Animations;
+using Cinemachine;
 
 namespace Confront.Player
 {
+    [DefaultExecutionOrder(20)]
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour, ISavable, IDamageable
     {
@@ -34,6 +35,7 @@ namespace Confront.Player
             NextPosition = transform.position;
         }
 
+        public CinemachineBrain CinemachineBrain;
         // インゲーム制御
         public StateMachine StateMachine;
         // 移動系
@@ -138,16 +140,14 @@ namespace Confront.Player
 
                 saveData.PlayerData = null; // 何度もロードしないようにするため
             }
+
             CharacterController.enabled = true;
         }
-
-        private bool _isPrevCCEnabled = true;
 
         private void Update()
         {
             if (MenuController.IsOpenedMenu) return;
 
-            CharacterController.enabled = _isPrevCCEnabled;
             PrevPosition = NextPosition;
             NextPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset;
 
@@ -170,9 +170,15 @@ namespace Confront.Player
                 HandlePlatformCollision();
             }
 
-            _isPrevCCEnabled = CharacterController.enabled;
-            CharacterController.enabled = false;
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+            CinemachineBrain.ManualUpdate();
+
+            {
+                var prevCCEnabled = CharacterController.enabled;
+
+                CharacterController.enabled = false;
+                transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+                CharacterController.enabled = prevCCEnabled;
+            }
         }
 
         private bool ShouldHandlePlatformCollision()
@@ -313,49 +319,6 @@ namespace Confront.Player
         }
 #endif
 
-        [SerializeField]
-        private int _guiFontSize = 32;
-
-        private void OnGUI()
-        {
-            var guiStyle = new GUIStyle();
-            guiStyle.fontSize = _guiFontSize;
-
-            var sensorResult = Sensor.Calculate(this);
-            GUILayout.Label($"CurrentState:{StateMachine.CurrentState.GetType().Name}", guiStyle);
-            GUILayout.Label($"Velocity:{MovementParameters.Velocity}", guiStyle);
-            GUILayout.Label($"IsGrounded:{sensorResult.IsGrounded}", guiStyle);
-            GUILayout.Label($"IsAbyss:{sensorResult.IsAbyss}", guiStyle);
-            GUILayout.Label($"IsSteepSlope:{sensorResult.IsSteepSlope}", guiStyle);
-            GUILayout.Label($"IsAbove:{sensorResult.IsAbove}", guiStyle);
-            GUILayout.Label($"GroundNormalAngle: {Vector3.Angle(Vector3.up, sensorResult.GroundNormal)}", guiStyle);
-            var leftStickInput = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
-            var leftStick = Mathf.Atan2(leftStickInput.y, leftStickInput.x) * Mathf.Rad2Deg;
-            GUILayout.Label($"LeftStick:{(leftStick).ToString("0.00")}", guiStyle);
-
-            guiStyle = new GUIStyle(GUI.skin.toggle);
-            guiStyle.fontSize = _guiFontSize;
-            guiStyle.normal.textColor = Color.black;
-            DebugParams.Instance.CanPlayerAttack = GUILayout.Toggle(DebugParams.Instance.CanPlayerAttack, "CanPlayerAttack", guiStyle);
-            DebugParams.Instance.StateTransitionLogging = GUILayout.Toggle(DebugParams.Instance.StateTransitionLogging, "StateTransitionLogging", guiStyle);
-
-            guiStyle = new GUIStyle(GUI.skin.button);
-            guiStyle.fontSize = 40;
-
-            // スピード変更
-            if (GUILayout.Button("Speed 0.1", guiStyle)) Time.timeScale = 0.1f;
-            if (GUILayout.Button("Speed 0.5", guiStyle)) Time.timeScale = 0.5f;
-            if (GUILayout.Button("Speed 1", guiStyle)) Time.timeScale = 1;
-            if (GUILayout.Button("Speed 2", guiStyle)) Time.timeScale = 2;
-
-            // フレームレート変更
-            if (GUILayout.Button("FrameRate 15", guiStyle)) Application.targetFrameRate = 15;
-            if (GUILayout.Button("FrameRate 30", guiStyle)) Application.targetFrameRate = 30;
-            if (GUILayout.Button("FrameRate 60", guiStyle)) Application.targetFrameRate = 60;
-            if (GUILayout.Button("FrameRate 120", guiStyle)) Application.targetFrameRate = 120;
-            if (GUILayout.Button("FrameRate 999", guiStyle)) Application.targetFrameRate = 999;
-        }
-
         private void OnOpenedMenu()
         {
             Animator.StartPlayback();
@@ -417,51 +380,4 @@ namespace Confront.Player
             }
         }
     }
-
-#if UNITY_EDITOR
-    [UnityEditor.CustomEditor(typeof(PlayerController))]
-    public class PlayerControllerEditor : UnityEditor.Editor
-    {
-        private PlayerController _playerController;
-
-        private string MovementParametersKey = "isMovementParametersFoldout";
-        private string SensorKey = "isSensorFoldout";
-        private string CharacterStatsKey = "isCharacterStatsFoldout";
-
-        private void OnEnable()
-        {
-            _playerController = (PlayerController)target;
-        }
-
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            DrawFoldout("Character Stats", _playerController.CharacterStats, CharacterStatsKey);
-            DrawFoldout("Movement Parameters", _playerController.MovementParameters, MovementParametersKey);
-            DrawFoldout("Sensor", _playerController.Sensor, SensorKey);
-        }
-
-        private void DrawFoldout(string label, UnityEngine.Object targetObject, string prefsKey)
-        {
-            bool isFoldout = UnityEditor.EditorPrefs.GetBool(prefsKey, false);
-            isFoldout = UnityEditor.EditorGUILayout.Foldout(isFoldout, label);
-            UnityEditor.EditorPrefs.SetBool(prefsKey, isFoldout);
-
-            if (isFoldout && targetObject)
-            {
-                UnityEditor.SerializedObject serializedObject = new UnityEditor.SerializedObject(targetObject);
-                serializedObject.Update();
-                UnityEditor.SerializedProperty iterator = serializedObject.GetIterator();
-                iterator.NextVisible(true);
-
-                while (iterator.NextVisible(false))
-                {
-                    UnityEditor.EditorGUILayout.PropertyField(iterator, true);
-                }
-                serializedObject.ApplyModifiedProperties();
-            }
-        }
-    }
-#endif
 }

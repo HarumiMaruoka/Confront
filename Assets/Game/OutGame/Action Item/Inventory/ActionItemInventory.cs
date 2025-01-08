@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.NotificationManager;
+using System;
 using UnityEngine;
 
 namespace Confront.ActionItem
@@ -38,7 +39,18 @@ namespace Confront.ActionItem
                     break;
                 }
             }
+
+            ShowNotification(item, amount - remainAmount, remainAmount);
             return remainAmount;
+        }
+
+        private void ShowNotification(ActionItemData item, int addAmount, int remainAmount)
+        {
+            var title = $"ActionItem";
+            var message = $"{item.Name}:addAmount:{addAmount}";
+            if (remainAmount > 0) message += $",remainAmount:{remainAmount}";
+            var icon = item.Icon;
+            Notifier.AddNotification(title, message, icon);
         }
 
         public void RemoveItem(ActionItemData item, int amount)

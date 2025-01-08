@@ -90,7 +90,7 @@ namespace Confront.Player.Combo
         public static void UpdatePlayerMovement(PlayerController player, AnimationCurve xAxisMovementCurve, AnimationCurve yAxisMovementCurve, float elapsed)
         {
             // アニメーションの進行度に応じてプレイヤーを移動させる
-            var groundSensorResult = player.Sensor.Calculate(player);
+            var groundSensorResult = player.Sensor.CalculateGroundState(player);
             var sign = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
             var xAxisMovement = (xAxisMovementCurve.Evaluate(elapsed) - xAxisMovementCurve.Evaluate(elapsed - Time.deltaTime));
             var groundNormal = groundSensorResult.GroundNormal;

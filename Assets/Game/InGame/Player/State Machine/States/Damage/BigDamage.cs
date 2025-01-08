@@ -50,7 +50,7 @@ namespace Confront.Player
                 return;
             }
 
-            var groundSensorResult = player.Sensor.Calculate(player);
+            var groundSensorResult = player.Sensor.CalculateGroundState(player);
 
             if (_airDuration > _airTimer || player.MovementParameters.Velocity.y >= 0f)
             {
@@ -67,7 +67,7 @@ namespace Confront.Player
             }
             switch (groundSensorResult.GroundType)
             {
-                case GroundType.Ground: Grounded.Move(player, false); break;
+                case GroundType.Ground: Grounded.Move(player, false, false); break;
                 case GroundType.Abyss: Abyss.Move(player); break;
                 case GroundType.SteepSlope: SteepSlope.Move(player); break;
                 case GroundType.InAir: InAir.Move(player, false); break;

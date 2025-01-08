@@ -16,6 +16,20 @@ namespace Confront.Player
 
         public void Execute(PlayerController player)
         {
+            HandlePassThroughPlatform(player);
+            Move(player);
+            HandleHotBarInput(player);
+            StateTransition(player);
+        }
+
+        public void Exit(PlayerController player)
+        {
+
+        }
+
+        private static void HandlePassThroughPlatform(PlayerController player)
+        {
+            // ジャンプ入力があり、下方向の入力が一定角度以内であれば、通り抜け可能な足場を通り抜ける。
             var leftStick = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
             var jumpInput = PlayerInputHandler.InGameInput.Jump.triggered;
             if (leftStick.sqrMagnitude > 0.1f)
@@ -27,15 +41,6 @@ namespace Confront.Player
                     player.MovementParameters.PassThroughPlatformDisableTimer = disableTime;
                 }
             }
-
-            Move(player);
-            HandleHotBarInput(player);
-            StateTransition(player);
-        }
-
-        public void Exit(PlayerController player)
-        {
-
         }
 
         private static float CalculateDirection(float direction)
@@ -49,12 +54,12 @@ namespace Confront.Player
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
-        public static void Move(PlayerController player, bool isInputReceived = true)
+        public static void Move(PlayerController player, bool isInputReceived = true, bool isFixedToGround = true)
         {
             // 入力に応じてx速度を更新する。
             var leftStick = isInputReceived ? PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>() : Vector2.zero;
             var inputX = leftStick.x;
-            var groundSensorResult = player.Sensor.Calculate(player);
+            var groundSensorResult = player.Sensor.CalculateGroundState(player);
             var groundNormal = groundSensorResult.GroundNormal;
 
             var acceleration = player.MovementParameters.Acceleration;
@@ -99,12 +104,13 @@ namespace Confront.Player
 
             player.MovementParameters.Velocity = Vector3.ProjectOnPlane(new Vector3(velocityMagnitude, 0f), groundNormal).normalized * Mathf.Abs(velocityMagnitude);
 
-            if (groundSensorResult.AverageHitRayLength < 0.1f)
-            {
-                player.CharacterController.enabled = false;
-                player.transform.position = groundSensorResult.GroundPoint + groundSensorResult.GroundNormal * 0.1f;
-                player.CharacterController.enabled = true;
-            }
+            //var groundPoint = player.Sensor.GetGroundPoint(player);
+            //if (groundPoint.HasValue)
+            //{
+            //    player.CharacterController.enabled = false;
+            //    player.transform.position = groundPoint.Value;
+            //    player.CharacterController.enabled = true;
+            //}
         }
 
         private void StateTransition(PlayerController player)
@@ -134,7 +140,7 @@ namespace Confront.Player
 
             // 上り坂に向かっている場合
             var playerVelocity = player.MovementParameters.Velocity;
-            var groundSensorResult = player.Sensor.Calculate(player);
+            var groundSensorResult = player.Sensor.CalculateGroundState(player);
             var groundNormal = groundSensorResult.GroundNormal;
             var isRightSlope = groundNormal.x < 0;
 

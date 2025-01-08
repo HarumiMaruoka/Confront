@@ -32,10 +32,9 @@ namespace Confront.Player
 
         private void Move(PlayerController player)
         {
-            var sensorResult = player.Sensor.Calculate(player);
             var inputX = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x;
 
-            if (player.MovementParameters.Velocity.y > 0.0001f && sensorResult.IsAbove)
+            if (player.MovementParameters.Velocity.y > 0.0001f && player.Sensor.IsAbove(player))
             {
                 player.MovementParameters.Velocity.y = 0;
             }
