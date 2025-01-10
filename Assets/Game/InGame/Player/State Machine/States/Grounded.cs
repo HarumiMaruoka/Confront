@@ -18,13 +18,20 @@ namespace Confront.Player
         {
             HandlePassThroughPlatform(player);
             Move(player);
-            HandleHotBarInput(player); StateTransition(player);
+            HandleHotBarInput(player);
 
-            //var groundPoint = player.Sensor.GetGroundPoint(player, out var maxDistance);
-            //if (groundPoint != null && maxDistance - groundPoint.Value.distance < 0.05f)
+            //if (stateTransitionCheck)
             //{
-            //    player.CharacterController.Move(Vector3.down * 0.05f);
+                StateTransition(player);
+                //stateTransitionCheck = false;
             //}
+        }
+
+        //private bool stateTransitionCheck = false;
+
+        public void FixedExecute(PlayerController player)
+        {
+            //stateTransitionCheck = true;
         }
 
         public void Exit(PlayerController player)

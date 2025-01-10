@@ -11,7 +11,6 @@ using UnityEngine;
 
 namespace Confront.Player
 {
-    [DefaultExecutionOrder(9999)]
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour, ISavable, IDamageable
     {
@@ -145,9 +144,6 @@ namespace Confront.Player
         {
             if (MenuController.IsOpenedMenu) return;
 
-            if (CharacterController.enabled) CharacterController.Move(MovementParameters.MovingPlatformDelta);
-            MovementParameters.MovingPlatformDelta = Vector3.zero;
-
             StateMachine.Update();
             if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
             Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
@@ -170,8 +166,15 @@ namespace Confront.Player
             }
         }
 
+        private void FixedUpdate()
+        {
+            StateMachine.FixedUpdate();
+        }
+
         private void LateUpdate()
         {
+            StateMachine.LateUpdate();
+
             PrevPosition = CurrentPosition;
             CurrentPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset;
             if (ShouldHandlePlatformCollision())

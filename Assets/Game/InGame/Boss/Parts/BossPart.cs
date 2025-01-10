@@ -23,11 +23,5 @@ namespace Confront.Boss
             Boss.TakeDamage(damage, damageVector);
             DamageDisplaySystem.Instance.ShowDamage((int)damage, transform.position);
         }
-
-        protected virtual void Update()
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
-        }
     }
 }

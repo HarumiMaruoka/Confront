@@ -23,8 +23,6 @@ namespace Confront.Player
         [Range(0.3f, 1f)]
         private float _isGroundCheckGizmoAlpha = 0.5f;
 
-        private List<RayInfo> rayInfos = new List<RayInfo>();
-
         [Header("Check Abyss")]
         [SerializeField]
         private Vector2 _abyssCheckRayOffset = new Vector2(0, 0f);
@@ -140,16 +138,12 @@ namespace Confront.Player
         {
             var result = new GroundSensorResult();
 
-            var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
-            var slopeLimit = player.CharacterController.slopeLimit;
-
             LayerMask groundCheckLayerMask;
 
             if (player.MovementParameters.IsPassThroughPlatformTimerFinished)
                 groundCheckLayerMask = GroundLayerMask | EnemyLayerMask | PassThroughPlatform;
             else
                 groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
-
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
             CastFanRays(player, Vector3.down, groundCheckLayerMask, ref result);
@@ -158,11 +152,13 @@ namespace Confront.Player
             result.IsGrounded = groundNormal != Vector3.zero && groundAngle <= 90f;
 
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
+            var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
             result.IsAbyss = !UnityEngine.Physics.SphereCast(abyssCheckRayOrigin, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, groundCheckLayerMask);
 
             if (result.IsGrounded)
             {
                 result.GroundNormal = groundNormal;
+                var slopeLimit = player.CharacterController.slopeLimit;
                 result.IsSteepSlope = Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
             }
 
@@ -190,9 +186,9 @@ namespace Confront.Player
         {
             var result = CalculateGroundState(player);
 
-            if (_isGroundCheckGizmoEnabled && rayInfos != null)
+            if (_isGroundCheckGizmoEnabled && _rayInfos != null)
             {
-                foreach (var rayInfo in rayInfos)
+                foreach (var rayInfo in _rayInfos)
                 {
                     Gizmos.color = rayInfo.hit ? new Color(1, 0, 0, _isGroundCheckGizmoAlpha) : new Color(0, 0, 1, _isGroundCheckGizmoAlpha);
                     Gizmos.DrawLine(rayInfo.start, rayInfo.end);
@@ -253,13 +249,16 @@ namespace Confront.Player
         }
 
         private List<Vector3> _hitNormals = new List<Vector3>();
+        private List<RayInfo> _rayInfos = new List<RayInfo>(); // Gizmo表示用
 
         private void CastFanRays(PlayerController player, Vector3 direction, LayerMask groundCheckLayerMask, ref GroundSensorResult result)
         {
             var origin = player.transform.position + (Vector3)_groundCheckRayOffset;
 
+            // 前回のRay情報をクリア
             _hitNormals.Clear();
-            rayInfos.Clear(); // 前回のRay情報をクリア
+            _rayInfos.Clear();
+
             direction = direction.normalized;
 
             float halfAngle = _angleRange * 0.5f;
@@ -280,11 +279,11 @@ namespace Confront.Player
                 {
                     hit.normal = new Vector3(hit.normal.x, hit.normal.y, 0);
                     _hitNormals.Add(hit.normal);
-                    rayInfos.Add(new RayInfo { start = origin, end = hit.point, hit = true });
+                    _rayInfos.Add(new RayInfo { start = origin, end = hit.point, hit = true });
                 }
                 else
                 {
-                    rayInfos.Add(new RayInfo { start = origin, end = origin + dir * _rayDistance, hit = false });
+                    _rayInfos.Add(new RayInfo { start = origin, end = origin + dir * _rayDistance, hit = false });
                 }
             }
 

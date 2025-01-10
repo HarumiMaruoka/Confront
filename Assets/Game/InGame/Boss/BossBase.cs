@@ -8,12 +8,12 @@ namespace Confront.Boss
     public class BossBase : EnemyBase, IDamageable
     {
         public float Health;
-        public BossPart[] DestructibleParts;
+        public BossPart[] BossParts;
 
         protected override void Awake()
         {
             base.Awake();
-            foreach (var part in DestructibleParts)
+            foreach (var part in BossParts)
             {
                 part.Initialize(this);
                 if (part is DestructiblePart destructiblePart)

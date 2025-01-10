@@ -36,11 +36,11 @@ namespace Confront.StageGimmick
             {
                 if (_collidersBuffer[i].gameObject == PlayerController.Instance.gameObject)
                 {
-                    //if (PlayerController.Instance.StateMachine.CurrentState is Grounded)
-                    //{
-                    //    PlayerController.Instance.CharacterController.Move(_moveDelta);
-                    //}
-                    PlayerController.Instance.MovementParameters.MovingPlatformDelta += moveDelta;
+                    if (PlayerController.Instance.StateMachine.CurrentState is Grounded)
+                    {
+                        PlayerController.Instance.CharacterController.Move(moveDelta);
+                    }
+                    // PlayerController.Instance.MovementParameters.MovingPlatformDelta += moveDelta;
                 }
                 else
                 {
