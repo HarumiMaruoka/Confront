@@ -13,6 +13,10 @@ namespace Confront.Debugger
         [SerializeField]
         private GameObject[] _debugPanels;
 
+        [Header("FPS")]
+        [SerializeField]
+        private TMPro.TextMeshProUGUI _fpsText;
+
         [Header("PlayerStates")]
         [SerializeField]
         private TMPro.TextMeshProUGUI _currentState;
@@ -97,6 +101,9 @@ namespace Confront.Debugger
             var player = PlayerController.Instance;
             if (!player) return;
 
+            UpdateFPSView();
+
+            var fps = 1 / Time.deltaTime;
             var currentState = player.StateMachine.CurrentState.GetType().Name;
             var velocity = player.MovementParameters.Velocity;
             var groundSensorResult = player.Sensor.CalculateGroundState(player);
@@ -182,6 +189,18 @@ namespace Confront.Debugger
             {
                 _farameRateSlider.value = Application.targetFrameRate;
             }
+        }
+
+        private float _elapsed = 0;
+        private float _fpsUpdateInterval = 0.1f;
+
+        private void UpdateFPSView()
+        {
+            _elapsed += Time.deltaTime;
+            if (_elapsed < _fpsUpdateInterval) return;
+            var fps = 1 / Time.deltaTime;
+            _fpsText.text = $"FPS: {fps.ToString("0.00")}";
+            _elapsed = 0;
         }
     }
 }

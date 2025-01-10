@@ -40,7 +40,6 @@ namespace Confront.StageGimmick
                     {
                         PlayerController.Instance.CharacterController.Move(moveDelta);
                     }
-                    // PlayerController.Instance.MovementParameters.MovingPlatformDelta += moveDelta;
                 }
                 else
                 {
