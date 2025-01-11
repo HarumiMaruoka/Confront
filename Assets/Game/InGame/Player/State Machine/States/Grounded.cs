@@ -20,18 +20,7 @@ namespace Confront.Player
             Move(player);
             HandleHotBarInput(player);
 
-            //if (stateTransitionCheck)
-            //{
-                StateTransition(player);
-                //stateTransitionCheck = false;
-            //}
-        }
-
-        //private bool stateTransitionCheck = false;
-
-        public void FixedExecute(PlayerController player)
-        {
-            //stateTransitionCheck = true;
+            StateTransition(player);
         }
 
         public void Exit(PlayerController player)

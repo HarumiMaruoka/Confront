@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Confront.Enemy
 {
-    [CreateAssetMenu(fileName = "Eye", menuName = "Enemy/Eye")]
+    [CreateAssetMenu(fileName = "Eye", menuName = "ConfrontSO/Enemy/Eye")]
     public class EnemyEye : ScriptableObject
     {
         public Vector2 Offset;

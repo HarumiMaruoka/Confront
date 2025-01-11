@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Confront.Enemy.VampireBat
 {
     // ランダムに飛行する。
-    [CreateAssetMenu(fileName = "Fly", menuName = "Enemy/VampireBat/States/Fly")]
+    [CreateAssetMenu(fileName = "Fly", menuName = "ConfrontSO/Enemy/VampireBat/States/Fly")]
     public class Fly : VampireBatState
     {
         public float OrbitRadius = 60f;

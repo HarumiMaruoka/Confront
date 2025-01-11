@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Confront.Enemy.Slimey
 {
     // 敵が死亡した状態を表すステートです。
-    [CreateAssetMenu(fileName = "DeadState", menuName = "Enemy/Slimey/States/DeadState")]
+    [CreateAssetMenu(fileName = "DeadState", menuName = "ConfrontSO/Enemy/Slimey/States/DeadState")]
 
     public class DeadState : SlimeyState
     {

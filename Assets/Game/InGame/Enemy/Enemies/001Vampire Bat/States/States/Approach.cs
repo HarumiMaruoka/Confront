@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Confront.Enemy.VampireBat
 {
-    [CreateAssetMenu(fileName = "Approach", menuName = "Enemy/VampireBat/States/Approach")]
+    [CreateAssetMenu(fileName = "Approach", menuName = "ConfrontSO/Enemy/VampireBat/States/Approach")]
     public class Approach : VampireBatState
     {
         public float Speed;

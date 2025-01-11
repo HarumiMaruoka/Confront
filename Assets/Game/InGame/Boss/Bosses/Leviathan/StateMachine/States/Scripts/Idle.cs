@@ -27,7 +27,7 @@ namespace Confront.Boss.Leviathan
             _elapsedTime += Time.deltaTime;
             if (_elapsedTime >= _idleTime)
             {
-                owner.ChangeState(owner.Walk);
+                // owner.ChangeState(owner.Walk);
             }
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Confront.Enemy.VampireBat
 {
-    [CreateAssetMenu(fileName = "Idle", menuName = "Enemy/VampireBat/States/Idle")]
+    [CreateAssetMenu(fileName = "Idle", menuName = "ConfrontSO/Enemy/VampireBat/States/Idle")]
     public class Idle : VampireBatState
     {
         public float Duration = 1.0f;

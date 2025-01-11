@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Confront.Enemy.Slimey
 {
-    [CreateAssetMenu(fileName = "SlimeyStats", menuName = "Enemy/Slimey/Stats")]
+    [CreateAssetMenu(fileName = "SlimeyStats", menuName = "ConfrontSO/Enemy/Slimey/Stats")]
     public class SlimeyStats : ScriptableObject
     {
         public float Health = 100f;

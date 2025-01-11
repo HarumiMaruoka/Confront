@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Confront.Enemy.Slimey
 {
     // 敵のダメージを受けた状態を表すステートです。
-    [CreateAssetMenu(fileName = "DamageState", menuName = "Enemy/Slimey/States/DamageState")]
+    [CreateAssetMenu(fileName = "DamageState", menuName = "ConfrontSO/Enemy/Slimey/States/DamageState")]
     public class DamageState : SlimeyState
     {
         public float Duration = 0.5f;

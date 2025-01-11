@@ -5,7 +5,7 @@ using Confront.Player;
 namespace Confront.Enemy.Slimey
 {
     // スライムが特に目的もなく、ゆっくりと周囲を動き回る行動。探索や巡回のように見えることがあります。
-    [CreateAssetMenu(fileName = "WanderState", menuName = "Enemy/Slimey/States/WanderState")]
+    [CreateAssetMenu(fileName = "WanderState", menuName = "ConfrontSO/Enemy/Slimey/States/WanderState")]
     public class WanderState : SlimeyState
     {
         [Header("移動系")]

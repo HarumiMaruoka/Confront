@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Confront.Enemy.VampireBat
 {
-    [CreateAssetMenu(fileName = "Die", menuName = "Enemy/VampireBat/States/Die")]
+    [CreateAssetMenu(fileName = "Die", menuName = "ConfrontSO/Enemy/VampireBat/States/Die")]
     public class Die : VampireBatState
     {
         public TextAsset DropItemTable;

@@ -5,7 +5,7 @@ using Confront.Player;
 namespace Confront.Enemy.Slimey
 {
     // 	スライムがその場で動かず、待機している状態。特に敵やプレイヤーが近づいていない時に見せる行動です。
-    [CreateAssetMenu(fileName = "IdleState", menuName = "Enemy/Slimey/States/IdleState")]
+    [CreateAssetMenu(fileName = "IdleState", menuName = "ConfrontSO/Enemy/Slimey/States/IdleState")]
     public class IdleState : SlimeyState
     {
         public float MinDuration = 1f;

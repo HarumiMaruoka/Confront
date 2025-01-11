@@ -5,6 +5,6 @@ namespace Confront.Boss.Leviathan
 {
     public class LeviathanController : BossBase
     {
-
+        public StateMachine StateMachine;
     }
 }

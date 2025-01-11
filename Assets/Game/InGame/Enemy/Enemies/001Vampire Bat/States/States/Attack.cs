@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Confront.Enemy.VampireBat
 {
-    [CreateAssetMenu(fileName = "Attack", menuName = "Enemy/VampireBat/States/Attack")]
+    [CreateAssetMenu(fileName = "Attack", menuName = "ConfrontSO/Enemy/VampireBat/States/Attack")]
     public class Attack : VampireBatState
     {
         public float AttackInterval = 1.0f;

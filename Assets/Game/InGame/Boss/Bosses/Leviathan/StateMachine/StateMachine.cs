@@ -7,30 +7,18 @@ namespace Confront.Boss.Leviathan
     [Serializable]
     public class StateMachine
     {
-        [SerializeField]
-        private Idle _idle;
-        [SerializeField]
-        private Walk _walk;
-        [SerializeField]
-        private Stunned _stunned;
-        [SerializeField]
-        private GetHit1 _getHit1;
-        [SerializeField]
-        private GetHit2 _getHit2;
-        [SerializeField]
-        private Die _die;
-        [SerializeField]
-        private Attack1 _attack;
-        [SerializeField]
-        private Attack2 _attack2;
-        [SerializeField]
-        private AttackHard _attackHard;
-        [SerializeField]
-        private AttackSpecial _attackSpecial;
-        [SerializeField]
-        private Roar _roar;
-        [SerializeField]
-        private Block _block;
+        public Idle Idle;
+        public Walk Walk;
+        public Stunned Stunned;
+        public GetHit1 GetHit1;
+        public GetHit2 GetHit2;
+        public Die Die;
+        public Attack1 Attack1;
+        public Attack2 Attack2;
+        public AttackHard AttackHard;
+        public AttackSpecial AttackSpecial;
+        public Roar Roar;
+        public Block Block;
 
         private Dictionary<Type, IState> _states;
 
@@ -38,18 +26,18 @@ namespace Confront.Boss.Leviathan
         {
             _states = new Dictionary<Type, IState>()
             {
-                { typeof(Idle), _idle},
-                { typeof(Walk), _walk},
-                { typeof(Stunned), _stunned},
-                { typeof(GetHit1), _getHit1},
-                { typeof(GetHit2), _getHit2},
-                { typeof(Die), _die},
-                { typeof(Attack1), _attack},
-                { typeof(Attack2), _attack2},
-                { typeof(AttackHard), _attackHard},
-                { typeof(AttackSpecial), _attackSpecial},
-                { typeof(Roar), _roar},
-                { typeof(Block), _block },
+                { typeof(Idle), Idle},
+                { typeof(Walk), Walk},
+                { typeof(Stunned), Stunned},
+                { typeof(GetHit1), GetHit1},
+                { typeof(GetHit2), GetHit2},
+                { typeof(Die), Die},
+                { typeof(Attack1), Attack1},
+                { typeof(Attack2), Attack2},
+                { typeof(AttackHard), AttackHard},
+                { typeof(AttackSpecial), AttackSpecial},
+                { typeof(Roar), Roar},
+                { typeof(Block), Block },
             };
         }
 
@@ -60,7 +48,7 @@ namespace Confront.Boss.Leviathan
         {
             _owner = leviathan;
             InitializeStates();
-            _currentState = _idle;
+            _currentState = Idle;
             _currentState.Enter(leviathan);
         }
 
