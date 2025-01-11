@@ -6,7 +6,12 @@ namespace Confront.Boss.Leviathan
     [CreateAssetMenu(menuName = "ConfrontSO/Boss/Leviathan/Stunned")]
     public class Stunned : ScriptableObject, IState
     {
-        public string AnimationName => "";
+        [SerializeField]
+        private float _duration = 1f;
+
+        private float _timer = 0f;
+
+        public string AnimationName => "Stunned";
 
         public void Enter(LeviathanController owner)
         {

@@ -9,6 +9,7 @@ namespace Confront.Boss.Leviathan
     {
         public Idle Idle;
         public Walk Walk;
+        public Rotate Rotate;
         public Stunned Stunned;
         public GetHit1 GetHit1;
         public GetHit2 GetHit2;
@@ -28,6 +29,7 @@ namespace Confront.Boss.Leviathan
             {
                 { typeof(Idle), Idle},
                 { typeof(Walk), Walk},
+                { typeof(Rotate), Rotate},
                 { typeof(Stunned), Stunned},
                 { typeof(GetHit1), GetHit1},
                 { typeof(GetHit2), GetHit2},

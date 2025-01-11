@@ -4,12 +4,23 @@ using UnityEngine;
 
 namespace Confront.Boss.Leviathan
 {
-    [CreateAssetMenu(menuName = "ConfrontSO/Boss/Leviathan/StateSelector")]
-    public class StateSelector : ScriptableObject
+    [Serializable]
+    public class StateSelector
     {
+        [HideInInspector]
         public LeviathanController Owner;
         public StateRegion[] Regions;
         public StateTable PlayerOutOfBoundsTable; // Playerが範囲外にいるときのStateTable
+
+        public void RefreshRegionCenters()
+        {
+            if (Owner == null || Regions == null || Regions.Length == 0) return;
+
+            foreach (var region in Regions)
+            {
+                region.Center = Owner.transform;
+            }
+        }
 
         public IState GetRandomState()
         {
@@ -52,10 +63,31 @@ namespace Confront.Boss.Leviathan
                 Debug.LogWarning("Regions is null or empty");
                 return;
             }
+            var player = PlayerController.Instance;
+            if (player == null)
+            {
+                Debug.LogWarning("PlayerController is null");
+                return;
+            }
 
+            bool previouslyContained = false;
             foreach (var region in Regions)
             {
-                region.Center = Owner.transform;
+                // 最初にPlayerが範囲内にいるときだけ赤色にする
+                if (previouslyContained)
+                {
+                    Gizmos.color = Color.green;
+                }
+                else if (region.Contains(player.transform.position))
+                {
+                    Gizmos.color = Color.red;
+                    previouslyContained = true;
+                }
+                else
+                {
+                    Gizmos.color = Color.green;
+                }
+
                 region.OnDrawGizmos();
             }
         }
@@ -64,18 +96,20 @@ namespace Confront.Boss.Leviathan
     [Serializable]
     public class StateRegion
     {
-        public Transform Center;
-        public StateTable Table;
         public Vector2 LocalTopLeft;
         public Vector2 LocalBottomRight;
 
-        public Vector2 GlobalTopLeft => new Vector2(Center.position.x + LocalTopLeft.x, Center.position.y + LocalTopLeft.y);
-        public Vector2 GlobalBottomRight => new Vector2(Center.position.x + LocalBottomRight.x, Center.position.y + LocalBottomRight.y);
+        [HideInInspector]
+        public Transform Center;
+        public StateTable Table;
+
+        public Vector2 GlobalTopLeft => Center.rotation * new Vector3(0, LocalTopLeft.y, -LocalTopLeft.x) + Center.position;
+        public Vector2 GlobalBottomRight => Center.rotation * new Vector3(0, LocalBottomRight.y, -LocalBottomRight.x) + Center.position;
 
         public bool Contains(Vector2 position)
         {
             return GlobalTopLeft.x <= position.x && position.x <= GlobalBottomRight.x &&
-                   GlobalTopLeft.y <= position.y && position.y <= GlobalBottomRight.y;
+                   GlobalTopLeft.y >= position.y && position.y >= GlobalBottomRight.y;
         }
 
         public StateType GetRandomState()
@@ -85,7 +119,6 @@ namespace Confront.Boss.Leviathan
 
         public void OnDrawGizmos()
         {
-            Gizmos.color = Color.red;
             Gizmos.DrawLine(GlobalTopLeft, new Vector2(GlobalBottomRight.x, GlobalTopLeft.y)); // 上辺
             Gizmos.DrawLine(GlobalTopLeft, new Vector2(GlobalTopLeft.x, GlobalBottomRight.y)); // 左辺
             Gizmos.DrawLine(new Vector2(GlobalBottomRight.x, GlobalTopLeft.y), GlobalBottomRight); // 右辺
@@ -139,6 +172,7 @@ namespace Confront.Boss.Leviathan
     {
         Idle,
         Walk,
+        Rotate,
         Stunned,
         GetHit1,
         GetHit2,

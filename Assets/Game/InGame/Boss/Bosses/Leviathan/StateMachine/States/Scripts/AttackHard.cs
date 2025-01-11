@@ -6,16 +6,25 @@ namespace Confront.Boss.Leviathan
     [CreateAssetMenu(menuName = "ConfrontSO/Boss/Leviathan/AttackHard")]
     public class AttackHard : ScriptableObject, IState
     {
-        public string AnimationName => "";
+        [SerializeField]
+        private float _duration = 1f;
+
+        private float _timer = 0f;
+
+        public string AnimationName => "AttackHard";
 
         public void Enter(LeviathanController owner)
         {
-
+            _timer = 0f;
         }
 
         public void Execute(LeviathanController owner)
         {
-
+            _timer += Time.deltaTime;
+            if (_timer >= _duration)
+            {
+                // owner.StateMachine.ChangeState(owner.Idle);
+            }
         }
 
         public void Exit(LeviathanController owner)

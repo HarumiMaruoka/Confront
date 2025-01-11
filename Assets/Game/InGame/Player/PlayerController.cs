@@ -16,14 +16,14 @@ namespace Confront.Player
     {
         public static PlayerController Instance { get; private set; }
 
+        private void OnValidate()
+        {
+            Instance = this;
+            Debug.Log("PlayerController is set to Instance.");
+        }
+
         private void Awake()
         {
-            if (Instance != null)
-            {
-                Debug.LogError("PlayerController is already exist.");
-                return;
-            }
-
             Instance = this;
             SavableRegistry.Register(this);
             Initialize(SaveDataController.Loaded);
