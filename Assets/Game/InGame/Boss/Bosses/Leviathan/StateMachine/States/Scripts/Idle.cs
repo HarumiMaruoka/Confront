@@ -4,30 +4,39 @@ using UnityEngine;
 namespace Confront.Boss.Leviathan
 {
     [CreateAssetMenu(menuName = "ConfrontSO/Boss/Leviathan/Idle")]
-    public class Idle : ScriptableObject, IState
+    public class Idle : TransitionableStateBase, IState
     {
+        [Header("Duration")]
         [SerializeField]
-        private float _minIdleTime = 3f;
+        private float _minDuration = 3f;
         [SerializeField]
-        private float _maxIdleTime = 5f;
+        private float _maxDuration = 5f;
 
-        private float _idleTime = 0f;
-        private float _elapsedTime = 0f;
+        private float _duration = 0f;
+        private float _elapsed = 0f;
+
+        private void OnValidate()
+        {
+            if (_minDuration > _maxDuration)
+            {
+                _maxDuration = _minDuration;
+            }
+        }
 
         public string AnimationName => "StandIdle";
 
         public void Enter(LeviathanController owner)
         {
-            _idleTime = UnityEngine.Random.Range(_minIdleTime, _maxIdleTime);
-            _elapsedTime = 0f;
+            _duration = UnityEngine.Random.Range(_minDuration, _maxDuration);
+            _elapsed = 0f;
         }
 
         public void Execute(LeviathanController owner)
         {
-            _elapsedTime += Time.deltaTime;
-            if (_elapsedTime >= _idleTime)
+            _elapsed += Time.deltaTime;
+            if (_elapsed >= _duration)
             {
-                // owner.ChangeState(owner.Walk);
+                TransitionToNextState(owner);
             }
         }
 

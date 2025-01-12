@@ -67,6 +67,20 @@ namespace Confront.Boss.Leviathan
             }
             _currentState = _states[stateType];
             _currentState.Enter(_owner);
+
+            _owner.Animator.CrossFade(_currentState.AnimationName, _currentState.AnimationCrossFadeTime);
+        }
+
+        public void ChangeState(IState state)
+        {
+            if (_currentState != null)
+            {
+                _currentState.Exit(_owner);
+            }
+            _currentState = state;
+            _currentState.Enter(_owner);
+
+            _owner.Animator.CrossFade(_currentState.AnimationName, _currentState.AnimationCrossFadeTime);
         }
 
         public void Update()

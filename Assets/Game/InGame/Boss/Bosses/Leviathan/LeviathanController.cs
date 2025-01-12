@@ -5,23 +5,25 @@ namespace Confront.Boss.Leviathan
 {
     public class LeviathanController : BossBase
     {
-        public CharacterController CharacterController;
+        public Animator Animator;
         public StateMachine StateMachine;
-        public StateSelector StateSelector;
+        public AttackStateSelector AttackStateSelector;
+        [NonSerialized]
+        public Direction Direction = Direction.Left;
 
         private void Start()
         {
             StateMachine.Initialize(this);
-            StateSelector.Owner = this;
-            StateSelector.RefreshRegionCenters();
+            AttackStateSelector.Owner = this;
+            AttackStateSelector.RefreshRegionCenters();
         }
 
         private void OnValidate()
         {
-            if (StateSelector != null)
+            if (AttackStateSelector != null)
             {
-                StateSelector.Owner = this;
-                StateSelector.RefreshRegionCenters();
+                AttackStateSelector.Owner = this;
+                AttackStateSelector.RefreshRegionCenters();
             }
         }
 
@@ -32,9 +34,9 @@ namespace Confront.Boss.Leviathan
 
         private void OnDrawGizmos()
         {
-            if (StateSelector != null)
+            if (AttackStateSelector != null)
             {
-                StateSelector.OnDrawGizmos();
+                AttackStateSelector.OnDrawGizmos();
             }
         }
     }

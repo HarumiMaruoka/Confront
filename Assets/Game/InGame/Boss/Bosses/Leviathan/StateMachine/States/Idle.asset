@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1a32263a1d2fe40a9d54f67e8d2be9, type: 3}
   m_Name: Idle
   m_EditorClassIdentifier: 
+  _minDuration: 3
+  _maxDuration: 3
+  _nextStateTable:
+    Table: []
+  _attackTransitionProbability: 0.5

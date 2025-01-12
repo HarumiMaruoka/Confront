@@ -16,6 +16,7 @@ namespace Confront.Boss.Leviathan
         public void Enter(LeviathanController owner)
         {
             _timer = 0f;
+            DisableColliders(owner);
         }
 
         public void Execute(LeviathanController owner)
@@ -23,13 +24,21 @@ namespace Confront.Boss.Leviathan
             _timer += Time.deltaTime;
             if (_timer >= _duration)
             {
-                // TODO: ownerを破棄する。
+                GameObject.Destroy(owner.gameObject);
             }
         }
 
         public void Exit(LeviathanController owner)
         {
 
+        }
+
+        private void DisableColliders(LeviathanController owner)
+        {
+            foreach (var part in owner.BossParts)
+            {
+                part.gameObject.SetActive(false);
+            }
         }
     }
 }

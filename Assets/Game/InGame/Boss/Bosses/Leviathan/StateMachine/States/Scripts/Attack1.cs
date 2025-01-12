@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Confront.Boss.Leviathan
 {
     [CreateAssetMenu(menuName = "ConfrontSO/Boss/Leviathan/Attack1")]
-    public class Attack1 : ScriptableObject, IState
+    public class Attack1 : TransitionableStateBase, IState
     {
         [SerializeField]
         private float _duration = 1f;
@@ -23,7 +23,7 @@ namespace Confront.Boss.Leviathan
             _timer += Time.deltaTime;
             if (_timer >= _duration)
             {
-                // owner.StateMachine.ChangeState(owner.Idle);
+                TransitionToNextState(owner);
             }
         }
 
