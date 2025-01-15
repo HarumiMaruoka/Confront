@@ -32,7 +32,7 @@ namespace Confront.Player.Combo
 
         [Header("当たり判定")]
         [SerializeField]
-        private AttackHitBox[] _hitBoxes;
+        private HitBox[] _hitBoxes;
 
         [Header("射出")]
         [SerializeField]

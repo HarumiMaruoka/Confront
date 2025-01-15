@@ -11,6 +11,7 @@ namespace Confront.Player.ComboEditor
         public new class UxmlFactory : UxmlFactory<InspectorView, VisualElement.UxmlTraits> { }
 
         private Editor _editor;
+        private Vector2 _scrollPosition;
 
         public InspectorView()
         {
@@ -25,6 +26,8 @@ namespace Confront.Player.ComboEditor
             IMGUIContainer container = new IMGUIContainer(() =>
             {
                 _editor.serializedObject.Update();
+
+                _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
                 var serializedProperty = _editor.serializedObject.FindProperty("Behaviour");
                 EditorGUILayout.PropertyField(serializedProperty);
@@ -47,6 +50,7 @@ namespace Confront.Player.ComboEditor
                 {
                     nodeView.UpdateNodeTitle();
                 }
+                EditorGUILayout.EndScrollView();
             });
             Add(container);
         }

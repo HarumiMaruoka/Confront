@@ -31,7 +31,7 @@ namespace Confront.Enemy
         private DeadState _deadState;
 
         [Header("Utility")]
-        public AttackHitBoxOneFrame AttackHitBox;
+        public HitBoxOneFrame AttackHitBox;
         public DirectionController DirectionController;
 
         [Header("For Checking (Do not modify from the editor)")]

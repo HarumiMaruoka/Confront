@@ -19,7 +19,7 @@ namespace Confront.Player
             var isPassThroughPlatformBelow = player.Sensor.IsGroundBelow(player, player.Sensor.PassThroughPlatform);
             if (!isPassThroughPlatformBelow)
             {
-                player.CharacterController.Move(new Vector3(0f, -100f * Time.deltaTime));
+                player.CharacterController.Move(new Vector3(0f, -50f * Time.deltaTime));
             }
             HandlePassThroughPlatform(player);
             Move(player);

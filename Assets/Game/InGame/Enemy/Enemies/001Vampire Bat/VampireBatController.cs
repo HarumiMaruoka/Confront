@@ -32,7 +32,7 @@ namespace Confront.Enemy
         private Die _dieState;
 
         [Header("Utility")]
-        public AttackHitBoxOneFrame AttackHitBox;
+        public HitBoxOneFrame AttackHitBox;
         public DirectionController DirectionController;
         public VampireBat.Sensor Sensor;
 
