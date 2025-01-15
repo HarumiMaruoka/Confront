@@ -30,18 +30,7 @@ namespace Confront.AttackUtility
 
                 var damageVector = CalcDamageVector(_damageDirection, _damageForce, sign);
 
-                var hitCount = Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask, QueryTriggerInteraction.Collide);
-                for (int i = 0; i < hitCount; i++)
-                {
-                    var collider = _colliderBuffer[i];
-                    var instanceId = collider.gameObject.GetInstanceID();
-                    if (!_alreadyHits.Add(instanceId)) continue;
-                    if (collider.gameObject.TryGetComponent(out IDamageable damageable))
-                    {
-                        var damage = _baseDamage + attackPower * _factor;
-                        damageable.TakeDamage(damage, damageVector);
-                    }
-                }
+                ProcessHitBox(attackPower, _baseDamage, _factor, layerMask, position, rotation, damageVector);
             }
         }
 
