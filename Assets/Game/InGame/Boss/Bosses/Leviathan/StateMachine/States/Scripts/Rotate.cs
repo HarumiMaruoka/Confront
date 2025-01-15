@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.Player;
+using System;
 using UnityEngine;
 
 namespace Confront.Boss.Leviathan
@@ -23,6 +24,14 @@ namespace Confront.Boss.Leviathan
 
         public void Enter(LeviathanController owner)
         {
+            var player = PlayerController.Instance;
+            var distanceToPlayer = owner.transform.position.x - player.transform.position.x > 0f ? Direction.Left : Direction.Right;
+            if (owner.Direction == distanceToPlayer)
+            {
+                TransitionToNextState(owner);
+                return;
+            }
+
             _timer = 0f;
             _beginRotationY = owner.Direction == Direction.Right ? _rightRotation.y : _leftRotation.y;
             _targetRotationY = owner.Direction == Direction.Right ? _leftRotation.y : _rightRotation.y;

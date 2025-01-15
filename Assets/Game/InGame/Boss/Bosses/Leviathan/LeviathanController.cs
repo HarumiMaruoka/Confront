@@ -11,6 +11,8 @@ namespace Confront.Boss.Leviathan
         [NonSerialized]
         public Direction Direction = Direction.Left;
 
+        public TMPro.TextMeshProUGUI DebugText;
+
         private void Start()
         {
             StateMachine.Initialize(this);
@@ -27,9 +29,12 @@ namespace Confront.Boss.Leviathan
             }
         }
 
-        private void Update()
+        protected override void Update()
         {
-            // StateMachine.Update();
+            base.Update();
+            StateMachine.Update();
+            DebugText.text = StateMachine.CurrentState.GetType().Name;
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         }
 
         private void OnDrawGizmos()

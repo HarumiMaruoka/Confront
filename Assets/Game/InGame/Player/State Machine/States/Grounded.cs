@@ -16,6 +16,11 @@ namespace Confront.Player
 
         public void Execute(PlayerController player)
         {
+            var isPassThroughPlatformBelow = player.Sensor.IsGroundBelow(player, player.Sensor.PassThroughPlatform);
+            if (!isPassThroughPlatformBelow)
+            {
+                player.CharacterController.Move(new Vector3(0f, -100f * Time.deltaTime));
+            }
             HandlePassThroughPlatform(player);
             Move(player);
             HandleHotBarInput(player);

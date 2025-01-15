@@ -36,7 +36,7 @@ namespace Confront.StageGimmick
             {
                 if (_collidersBuffer[i].gameObject == PlayerController.Instance.gameObject)
                 {
-                    if (PlayerController.Instance.StateMachine.CurrentState is Grounded)
+                    if (PlayerController.Instance.StateMachine.CurrentState is Grounded or GroundDodge)
                     {
                         PlayerController.Instance.CharacterController.Move(moveDelta);
                     }

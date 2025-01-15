@@ -272,7 +272,7 @@ namespace Confront.Player
         public void HandlePlatformCollision()
         {
             if (MovementParameters.IsPassThroughPlatformTimerFinished &&
-                Physics.Linecast(PrevPosition, CurrentPosition, out _platformHitInfo, Sensor.PassThroughPlatform))
+                Physics.Linecast(PrevPosition, CurrentPosition, out _platformHitInfo, Sensor.PassThroughPlatform | Sensor.GroundLayerMask))
             {
                 var hitPoint = _platformHitInfo.point + (Vector3)Sensor._groundCheckRayOffset;
                 CharacterController.enabled = false;

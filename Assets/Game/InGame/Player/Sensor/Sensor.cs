@@ -18,9 +18,9 @@ namespace Confront.Player
         public float _groundCheckRayLength = 0.58f;
         [SerializeField]
         private bool _isGroundCheckGizmoEnabled = true;
-        [SerializeField]
-        [Range(0.3f, 1f)]
-        private float _isGroundCheckGizmoAlpha = 0.5f;
+        //[SerializeField]
+        //[Range(0.3f, 1f)]
+        //private float _isGroundCheckGizmoAlpha = 0.5f;
 
         [Header("Check Abyss")]
         [SerializeField]
@@ -80,10 +80,7 @@ namespace Confront.Player
 
         public bool FrontCheck(PlayerController player, float sign)
         {
-            LayerMask groundCheckLayerMask = GroundLayerMask;
-
-            if (player.StateMachine?.CurrentState is not GroundDodge)
-                groundCheckLayerMask |= EnemyLayerMask;
+            LayerMask groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
 
             var frontCheckRayPosition = player.transform.position + (Vector3)_frontCheckRayOffset;
             return UnityEngine.Physics.BoxCast(
@@ -133,7 +130,13 @@ namespace Confront.Player
             return null;
         }
 
-        public GroundSensorResult CalculateGroundState(PlayerController player)
+        public bool IsGroundBelow(PlayerController player, LayerMask layerMask)
+        {
+            var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
+            return UnityEngine.Physics.SphereCast(abyssCheckRayOrigin, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, layerMask);
+        }
+
+        public GroundSensorResult CalculateGroundState(PlayerController player, bool ignoreBackfaceHits = false)
         {
             var result = new GroundSensorResult();
 
@@ -147,7 +150,7 @@ namespace Confront.Player
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
             var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset;
             // var groundNormal = HemisphereRaycastUtility.GetClosestHitNormalInHemisphereUniform(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 360, 90, groundCheckLayerMask);
-            var groundNormal = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask);
+            var groundNormal = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask, ignoreBackfaceHits);
             result.IsGrounded = groundNormal != Vector3.zero && Vector3.Dot(groundNormal, Vector3.down) < 0;
 
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。

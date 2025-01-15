@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Confront.AttackUtility
@@ -14,7 +15,17 @@ namespace Confront.AttackUtility
         [SerializeField]
         protected GizmoOption _gizmoOption;
 
-        public abstract bool IsOverlapping(Transform center, LayerMask layerMask);
+        private const int MAX_COLLIDER_BUFFER_SIZE = 16; // 一度に取得できるコライダーの最大数。
+        protected Collider[] _colliderBuffer = new Collider[MAX_COLLIDER_BUFFER_SIZE];
+
+        protected HashSet<int> _alreadyHits = new HashSet<int>();
+
+        public bool IsOverlapping(Transform center, LayerMask layerMask)
+        {
+            var position = center.position + center.rotation * _offset;
+            var rotation = center.rotation;
+            return Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask, QueryTriggerInteraction.Collide) != 0;
+        }
 
         public static Vector2 CalcDamageVector(Vector2 direction, float force, float sign)
         {
@@ -24,7 +35,10 @@ namespace Confront.AttackUtility
             return direction.normalized * force;
         }
 
-        public abstract void Clear();
+        public void Clear()
+        {
+            _alreadyHits.Clear();
+        }
 
         public abstract void DrawGizmos(Transform center, float elapsed, LayerMask layerMask);
     }

@@ -23,9 +23,6 @@ namespace Confront.NotificationManager
         [SerializeField]
         private RectTransform _container;
 
-        [SerializeField]
-        private float _delay = 1f;
-
         private HashSet<NotificationView> _actives = new HashSet<NotificationView>();
         private Stack<NotificationView> _inactives = new Stack<NotificationView>();
 

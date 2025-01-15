@@ -20,8 +20,7 @@ namespace Confront.Boss
         public virtual void TakeDamage(float attackPower, Vector2 damageVector)
         {
             var damage = EnemyBase.DefaultCalculateDamage(attackPower, Defense);
-            Boss.TakeDamage(damage, damageVector);
-            DamageDisplaySystem.Instance.ShowDamage((int)damage, transform.position);
+            Boss.TakeDamage(damage, transform.position, damageVector);
         }
     }
 }

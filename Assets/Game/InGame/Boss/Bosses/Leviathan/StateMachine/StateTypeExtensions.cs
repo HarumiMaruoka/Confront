@@ -11,6 +11,7 @@ namespace Confront.Boss.Leviathan
             {
                 case StateType.Idle: return leviathan.StateMachine.Idle;
                 case StateType.Walk: return leviathan.StateMachine.Walk;
+                case StateType.Rotate: return leviathan.StateMachine.Rotate;
                 case StateType.Stunned: return leviathan.StateMachine.Stunned;
                 case StateType.GetHit1: return leviathan.StateMachine.GetHit1;
                 case StateType.GetHit2: return leviathan.StateMachine.GetHit2;

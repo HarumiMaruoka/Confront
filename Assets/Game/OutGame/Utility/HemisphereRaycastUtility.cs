@@ -19,7 +19,8 @@ public static class HemisphereRaycastUtility
         Vector3 up,
         float radius,
         int rayCount,
-        int layerMask = Physics.DefaultRaycastLayers
+        int layerMask = Physics.DefaultRaycastLayers,
+        bool ignoreBackfaceHits = false
     )
     {
         if (rayCount <= 0)
@@ -44,7 +45,9 @@ public static class HemisphereRaycastUtility
             }
 
             // RaycastCommand の作成
+#pragma warning disable CS0618 // 型またはメンバーが旧型式です
             commands[i] = new RaycastCommand(origin, dir, radius, layerMask);
+#pragma warning restore CS0618 // 型またはメンバーが旧型式です
         }
 
         // バッチ Raycast をスケジューリング
@@ -59,8 +62,9 @@ public static class HemisphereRaycastUtility
         for (int i = 0; i < rayCount; i++)
         {
             RaycastHit hit = results[i];
+            var isBackfaceHit = ignoreBackfaceHits || Vector3.Dot(hit.normal, up) < -0.08f; // ノーマルが上方向と逆向きの場合は無視
             // RaycastHit.distance が 0 の場合は未ヒット
-            if (hit.distance > 0f && hit.distance < minDist && Vector3.Dot(hit.normal, up) < -0.08f)
+            if (hit.distance > 0f && hit.distance < minDist && isBackfaceHit)
             {
                 minDist = hit.distance;
                 closestNormal = hit.normal;
@@ -143,7 +147,9 @@ public static class HemisphereRaycastUtility
                 Vector3 worldDir = toUpRotation * localDir;
 
                 // RaycastCommand の作成 (発射元, 方向, 距離, レイヤーマスク)
+#pragma warning disable CS0618 // 型またはメンバーが旧型式です
                 commands[index] = new RaycastCommand(origin, worldDir, radius, layerMask);
+#pragma warning restore CS0618 // 型またはメンバーが旧型式です
                 index++;
             }
         }

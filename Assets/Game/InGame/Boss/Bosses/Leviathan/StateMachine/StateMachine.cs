@@ -46,6 +46,8 @@ namespace Confront.Boss.Leviathan
         private LeviathanController _owner;
         private IState _currentState;
 
+        public IState CurrentState => _currentState;
+
         public void Initialize(LeviathanController leviathan)
         {
             _owner = leviathan;

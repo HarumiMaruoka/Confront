@@ -23,8 +23,7 @@ namespace Confront.Boss
             else damage = EnemyBase.DefaultCalculateDamage(attackPower, DestructedDefense);
 
             // ボスへダメージを与える
-            Boss.TakeDamage(damage, damageVector);
-            DamageDisplaySystem.Instance.ShowDamage((int)damage, transform.position);
+            Boss.TakeDamage(damage, transform.position, damageVector);
 
             // 破壊度を更新
             var prevDestructionLevel = _destructionLevel;

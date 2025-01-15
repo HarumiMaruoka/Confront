@@ -16,6 +16,7 @@ namespace Confront.Boss.Leviathan
         public void Enter(LeviathanController owner)
         {
             _timer = 0f;
+            // 耐性を上げる
         }
 
         public void Execute(LeviathanController owner)
@@ -29,7 +30,7 @@ namespace Confront.Boss.Leviathan
 
         public void Exit(LeviathanController owner)
         {
-
+            // 耐性を戻す
         }
     }
 }

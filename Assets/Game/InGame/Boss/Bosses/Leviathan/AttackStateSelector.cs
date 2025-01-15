@@ -109,8 +109,13 @@ namespace Confront.Boss.Leviathan
 
         public bool Contains(Vector2 position)
         {
-            return GlobalTopLeft.x <= position.x && position.x <= GlobalBottomRight.x &&
-                   GlobalTopLeft.y >= position.y && position.y >= GlobalBottomRight.y;
+            var top = GlobalTopLeft.y >= GlobalBottomRight.y ? GlobalTopLeft.y : GlobalBottomRight.y;
+            var bottom = GlobalTopLeft.y <= GlobalBottomRight.y ? GlobalTopLeft.y : GlobalBottomRight.y;
+            var left = GlobalTopLeft.x <= GlobalBottomRight.x ? GlobalTopLeft.x : GlobalBottomRight.x;
+            var right = GlobalTopLeft.x >= GlobalBottomRight.x ? GlobalTopLeft.x : GlobalBottomRight.x;
+
+            return left <= position.x && position.x <= right &&
+                   top >= position.y && position.y >= bottom;
         }
 
         public StateType GetRandomState()
