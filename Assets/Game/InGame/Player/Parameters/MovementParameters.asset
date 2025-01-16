@@ -158,7 +158,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   ClimbToRunThreshold: 0.25
   GrabbablePosition: {x: -42.22, y: 3.1947875, z: 0}
-  GrabIntervalTimer: -0.0040190727
+  GrabIntervalTimer: -0.009121789
   Acceleration: 5
   Deceleration: 18
   TurnDeceleration: 20
@@ -168,11 +168,11 @@ MonoBehaviour:
   InAirXDeceleration: 10
   InAirXMaxSpeed: 15
   InAirMaxFallSpeed: -999
-  AbyssAcceleration: 2.2
-  AbyssXMinSpeed: 8
+  AbyssAcceleration: 8
+  AbyssXMinSpeed: 3.2
   SlopeAcceleration: 32
   PassThroughPlatformDisableTime: 0.5
-  PassThroughPlatformDisableTimer: -0.0032693008
+  PassThroughPlatformDisableTimer: -0.0037113428
   DodgeMaxSpeed: 28
   DodgeAccelerationDuration: 0.08
   DodgeDecelerationDuration: 0.65

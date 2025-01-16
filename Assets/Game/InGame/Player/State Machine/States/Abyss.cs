@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.Input;
+using System;
 using UnityEngine;
 
 namespace Confront.Player
@@ -25,21 +26,27 @@ namespace Confront.Player
 
         public static void Move(PlayerController player)
         {
-            var velocity = player.MovementParameters.Velocity;
-            var settings = player.MovementParameters;
+            var parameters = player.MovementParameters;
+            var gravity = parameters.Gravity;
+            player.MovementParameters.Velocity.y -= gravity * Time.deltaTime;
+
             var groundSensorResult = player.Sensor.CalculateGroundState(player);
+            if (!groundSensorResult.IsGrounded) return;
+
+            var velocity = player.MovementParameters.Velocity;
 
             var fallDirection = Mathf.Sign(groundSensorResult.GroundNormal.x);
-            var velocityDirection = Mathf.Sign(velocity.x);
-            var acceleration = settings.AbyssAcceleration;
+            var acceleration = parameters.AbyssAcceleration;
 
-            if (Mathf.Abs(velocity.x) < player.MovementParameters.AbyssXMinSpeed)
+            if (Mathf.Abs(velocity.x) < player.MovementParameters.AbyssXMinSpeed && groundSensorResult.GroundNormal.x != 0f)
             {
                 // 最低速度を保証する。
-                fallDirection = player.MovementParameters.AbyssXMinSpeed * fallDirection;
+                player.MovementParameters.Velocity.x = player.MovementParameters.AbyssXMinSpeed * fallDirection;
             }
 
-            player.MovementParameters.Velocity += new Vector2(fallDirection, -1f) * acceleration * Time.deltaTime;
+            var maxSpeed = player.MovementParameters.InAirXMaxSpeed;
+            acceleration = player.MovementParameters.InAirXAcceleration;
+            player.MovementParameters.Velocity.x = Mathf.MoveTowards(player.MovementParameters.Velocity.x, maxSpeed * fallDirection, acceleration * Time.deltaTime);
         }
     }
 }

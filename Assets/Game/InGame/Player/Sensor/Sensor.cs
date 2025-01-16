@@ -136,7 +136,7 @@ namespace Confront.Player
             return UnityEngine.Physics.SphereCast(abyssCheckRayOrigin, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, layerMask);
         }
 
-        public GroundSensorResult CalculateGroundState(PlayerController player, bool ignoreBackfaceHits = false)
+        public GroundSensorResult CalculateGroundState(PlayerController player)
         {
             var result = new GroundSensorResult();
 
@@ -149,9 +149,9 @@ namespace Confront.Player
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
             var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset;
-            // var groundNormal = HemisphereRaycastUtility.GetClosestHitNormalInHemisphereUniform(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 360, 90, groundCheckLayerMask);
-            var groundNormal = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask, ignoreBackfaceHits);
-            result.IsGrounded = groundNormal != Vector3.zero && Vector3.Dot(groundNormal, Vector3.down) < 0;
+            var hit = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask);
+            result.IsGrounded = hit.HasValue;
+            var groundNormal = hit.GetValueOrDefault(Vector3.zero);
 
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
             var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
@@ -160,7 +160,6 @@ namespace Confront.Player
             if (result.IsGrounded)
             {
                 result.GroundNormal = groundNormal;
-                // result.GroundDistance = hit.distance;
                 var slopeLimit = player.CharacterController.slopeLimit;
                 result.IsSteepSlope = Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
             }

@@ -23,4 +23,33 @@ MonoBehaviour:
     - Weight: 10
       State: 12
   _attackTransitionProbability: 0.5
-  _duration: 1
+  _attackPower: 1
+  _hitSpheres:
+  - _offset: {x: 0, y: 10.12, z: 0.84}
+    _radius: 16.6
+    _gizmoOption: 3
+    _startTime: 1.2
+    _endTime: 1.4
+    _baseDamage: 30
+    _factor: 30
+    _damageDirection: {x: 1, y: 1}
+    _damageForce: 30
+  - _offset: {x: 0, y: 20.94, z: -20.1}
+    _radius: 8.29
+    _gizmoOption: 3
+    _startTime: 1.05
+    _endTime: 1.25
+    _baseDamage: 30
+    _factor: 30
+    _damageDirection: {x: 1, y: 0.25}
+    _damageForce: 30
+  - _offset: {x: 0, y: 0, z: 0}
+    _radius: 0
+    _gizmoOption: 0
+    _startTime: 0
+    _endTime: 0
+    _baseDamage: 0
+    _factor: 0
+    _damageDirection: {x: 0, y: 0}
+    _damageForce: 0
+  _duration: 2.2

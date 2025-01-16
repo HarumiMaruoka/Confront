@@ -14,19 +14,18 @@ public static class HemisphereRaycastUtility
     /// <param name="rayCount">レイを発射する本数</param>
     /// <param name="layerMask">Raycast が当たるレイヤーマスク</param>
     /// <returns>最も近く衝突した法線ベクトル（衝突しなかった場合は Vector3.zero）</returns>
-    public static Vector3 GetClosestHitNormalInHemisphere(
+    public static Vector3? GetClosestHitNormalInHemisphere(
         Vector3 origin,
         Vector3 up,
         float radius,
         int rayCount,
-        int layerMask = Physics.DefaultRaycastLayers,
-        bool ignoreBackfaceHits = false
+        int layerMask = Physics.DefaultRaycastLayers
     )
     {
         if (rayCount <= 0)
         {
             Debug.LogWarning("rayCount は 1 以上にしてください。");
-            return Vector3.zero;
+            return null;
         }
 
         // RaycastCommand・RaycastHit を格納する NativeArray を作成
@@ -55,27 +54,40 @@ public static class HemisphereRaycastUtility
         // メインスレッドで完了を待機
         handle.Complete();
 
-        // 最も近い衝突点を探し、その法線を取得
-        float minDist = float.MaxValue;
-        Vector3 closestNormal = Vector3.zero;
+        int hitCount = 0;
+        Vector3 totalNormal = Vector3.zero;
 
         for (int i = 0; i < rayCount; i++)
         {
             RaycastHit hit = results[i];
-            var isBackfaceHit = ignoreBackfaceHits || Vector3.Dot(hit.normal, up) < -0.08f; // ノーマルが上方向と逆向きの場合は無視
-            // RaycastHit.distance が 0 の場合は未ヒット
-            if (hit.distance > 0f && hit.distance < minDist && isBackfaceHit)
+            // RaycastHit.distance が 0 の場合は未ヒット // ノーマルが上方向と逆向きの場合は無視
+            if (hit.distance > 0f)
             {
-                minDist = hit.distance;
-                closestNormal = hit.normal;
+                hitCount++;
+                totalNormal += hit.normal;
             }
+        }
+
+        Vector3? averageNormal = null;
+        if (hitCount > 0)
+        {
+            averageNormal = totalNormal / hitCount;
         }
 
         // NativeArray を破棄
         commands.Dispose();
         results.Dispose();
 
-        return closestNormal;
+        if (averageNormal == null)
+        {
+            return null;
+        }
+        if (averageNormal != null && Vector3.Dot(averageNormal.Value, up) > 0)
+        {
+            return null;
+        }
+
+        return averageNormal.Value.normalized;
     }
 
     /// <summary>

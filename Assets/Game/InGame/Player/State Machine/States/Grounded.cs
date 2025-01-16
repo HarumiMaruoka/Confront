@@ -16,8 +16,10 @@ namespace Confront.Player
 
         public void Execute(PlayerController player)
         {
-            var isPassThroughPlatformBelow = player.Sensor.IsGroundBelow(player, player.Sensor.PassThroughPlatform);
-            if (!isPassThroughPlatformBelow)
+            var sensor = player.Sensor;
+            var isPassThroughPlatformBelow = player.Sensor.IsGroundBelow(player, sensor.PassThroughPlatform);
+            var isGroundBelow = player.Sensor.IsGroundBelow(player, sensor.GroundLayerMask | sensor.EnemyLayerMask);
+            if (!isPassThroughPlatformBelow && isGroundBelow)
             {
                 player.CharacterController.Move(new Vector3(0f, -50f * Time.deltaTime));
             }
@@ -60,11 +62,14 @@ namespace Confront.Player
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
-        public static void Move(PlayerController player, bool isInputReceived = true, bool isFixedToGround = true)
+        public static void Move(PlayerController player)
         {
             // 入力に応じてx速度を更新する。
-            var leftStick = isInputReceived ? PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>() : Vector2.zero;
-            var inputX = leftStick.x;
+            Move(player, PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x);
+        }
+
+        public static void Move(PlayerController player, float inputX)
+        {
             var groundSensorResult = player.Sensor.CalculateGroundState(player);
             var groundNormal = groundSensorResult.GroundNormal;
 

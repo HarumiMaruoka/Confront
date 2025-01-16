@@ -40,7 +40,11 @@ namespace Confront.Player
         {
             var inputX = 0f;
             if (isInputReceived) inputX = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x;
+            Move(player, inputX);
+        }
 
+        public static void Move(PlayerController player, float inputX)
+        {
             // 進行方向にモノがあるか
             var playerDirection = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
             var velocityDirection = CalculateDirection(player.MovementParameters.Velocity.x);
