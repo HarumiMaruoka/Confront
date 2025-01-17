@@ -30,6 +30,11 @@ namespace Confront.Boss.Leviathan
             }
         }
 
+        public void Initialize()
+        {
+            _elapsed = 0f;
+        }
+
         public void Enter(LeviathanController owner)
         {
             _elapsed = 0f;

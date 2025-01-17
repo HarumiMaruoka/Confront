@@ -23,4 +23,15 @@ MonoBehaviour:
     - Weight: 10
       State: 12
   _attackTransitionProbability: 0.5
-  _duration: 1
+  _attackPower: 1
+  _hitSphere:
+    _offset: {x: 0, y: 2.94, z: 0}
+    _radius: 30.48
+    _gizmoOption: 3
+    _startTime: 0.6
+    _endTime: 1.8
+    _baseDamage: 30
+    _factor: 30
+    _damageDirection: {x: 1, y: 0.2}
+    _damageForce: 30
+  _duration: 2.2

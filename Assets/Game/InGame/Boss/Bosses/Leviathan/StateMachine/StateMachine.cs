@@ -41,6 +41,11 @@ namespace Confront.Boss.Leviathan
                 { typeof(Roar), Roar},
                 { typeof(Block), Block },
             };
+
+            foreach (var state in _states.Values)
+            {
+                state.Initialize();
+            }
         }
 
         private LeviathanController _owner;

@@ -10,5 +10,6 @@ namespace Confront.Boss.Leviathan
         void Enter(LeviathanController owner);
         void Execute(LeviathanController owner);
         void Exit(LeviathanController owner);
+        void Initialize() { }
     }
 }

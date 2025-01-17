@@ -26,6 +26,11 @@ namespace Confront.Boss.Leviathan
 
         public void DrawGizmos(Transform center) => _hitBox.DrawGizmos(center, _elapsed, EnemyBase.PlayerLayerMask);
 
+        public void Initialize()
+        {
+            _elapsed = 0f;
+        }
+
         public void Enter(LeviathanController owner)
         {
             _elapsed = 0f;
