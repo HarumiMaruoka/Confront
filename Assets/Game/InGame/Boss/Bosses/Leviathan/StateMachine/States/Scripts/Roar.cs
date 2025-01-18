@@ -1,6 +1,7 @@
 ﻿using Confront.AttackUtility;
 using Confront.Enemy;
 using Confront.Player;
+using Confront.Utility;
 using System;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace Confront.Boss.Leviathan
 
         public string AnimationName => "Roar";
 
-        public void DrawGizmos(Transform center) => _hitSphere.DrawGizmos(center, _elapsed, EnemyBase.PlayerLayerMask);
+        public void DrawGizmos(Transform center) => _hitSphere.DrawGizmos(center, _elapsed, LayerUtility.PlayerLayerMask);
 
         public void Initialize()
         {
@@ -40,7 +41,7 @@ namespace Confront.Boss.Leviathan
         {
             _elapsed += Time.deltaTime;
             var directionSign = PlayerController.Instance.transform.position.x - owner.transform.position.x > 0 ? 1 : -1;
-            _hitSphere.Update(owner.transform, _attackPower, directionSign, _elapsed, EnemyBase.PlayerLayerMask);
+            _hitSphere.Update(owner.transform, _attackPower, directionSign, _elapsed, LayerUtility.PlayerLayerMask);
             if (_elapsed >= _duration) TransitionToNextState(owner);
         }
 

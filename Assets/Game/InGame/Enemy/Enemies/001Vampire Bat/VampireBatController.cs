@@ -5,6 +5,7 @@ using Confront.AttackUtility;
 using Confront.Player;
 using System.Collections.Generic;
 using Confront.GameUI;
+using Confront.Utility;
 
 namespace Confront.Enemy
 {
@@ -63,7 +64,7 @@ namespace Confront.Enemy
         {
             AttackHitBox.Clear();
             var sign = DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-            AttackHitBox.Fire(transform, sign, Stats.AttackPower, PlayerLayerMask);
+            AttackHitBox.Fire(transform, sign, Stats.AttackPower, LayerUtility.PlayerLayerMask);
         }
 
         public void TakeDamage(float attackPower, Vector2 damageVector)
@@ -102,7 +103,7 @@ namespace Confront.Enemy
         {
             if (Eye != null) Eye.DrawGizmos(transform);
 
-            AttackHitBox.DrawGizmos(transform, 0, PlayerLayerMask);
+            AttackHitBox.DrawGizmos(transform, 0, LayerUtility.PlayerLayerMask);
             Sensor.DrawGizmos(transform);
         }
 

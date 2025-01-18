@@ -1,4 +1,5 @@
 ﻿using Confront.Player;
+using Confront.Utility;
 using System;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace Confront.Enemy.VampireBat
                 vampireBat.ChangeState<Fly>();
                 return;
             }
-            if (vampireBat.AttackHitBox.IsOverlapping(vampireBat.transform, EnemyBase.PlayerLayerMask))
+            if (vampireBat.AttackHitBox.IsOverlapping(vampireBat.transform, LayerUtility.PlayerLayerMask))
             {
                 vampireBat.ChangeState<Attack>();
                 return;

@@ -2,6 +2,7 @@
 using Confront.Debugger;
 using Confront.Enemy;
 using Confront.Player;
+using Confront.Utility;
 using System;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace Confront.Boss.Leviathan
 
         public string AnimationName => "Attack1";
 
-        public void DrawGizmos(Transform center) => _hitBox.DrawGizmos(center, _elapsed, EnemyBase.PlayerLayerMask);
+        public void DrawGizmos(Transform center) => _hitBox.DrawGizmos(center, _elapsed, LayerUtility.PlayerLayerMask);
 
         public void Initialize()
         {
@@ -40,7 +41,7 @@ namespace Confront.Boss.Leviathan
         public void Execute(LeviathanController owner)
         {
             _elapsed += Time.deltaTime;
-            _hitBox.Update(owner.transform, _attackPower, owner.DirectionSign, _elapsed, EnemyBase.PlayerLayerMask);
+            _hitBox.Update(owner.transform, _attackPower, owner.DirectionSign, _elapsed, LayerUtility.PlayerLayerMask);
             if (_elapsed >= _duration) TransitionToNextState(owner);
         }
 

@@ -27,22 +27,6 @@ namespace Confront.Enemy
         public string Name => Data.Name;
         public string Description => Data.Description;
 
-        private static LayerMask _playerLayerMask;
-
-        public static LayerMask PlayerLayerMask
-        {
-            get
-            {
-                if (_playerLayerMask == 0) InitializeLayerMask();
-                return _playerLayerMask;
-            }
-        }
-
-        [RuntimeInitializeOnLoadMethod]
-        private static void InitializeLayerMask()
-        {
-            _playerLayerMask = LayerMask.GetMask("Player");
-        }
 
         protected virtual void Awake()
         {

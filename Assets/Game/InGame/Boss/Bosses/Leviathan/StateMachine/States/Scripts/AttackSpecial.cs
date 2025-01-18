@@ -1,5 +1,6 @@
 ﻿using Confront.AttackUtility;
 using Confront.Enemy;
+using Confront.Utility;
 using System;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace Confront.Boss.Leviathan
         {
             for (int i = 0; i < _hitSpheres.Length; i++)
             {
-                _hitSpheres[i].DrawGizmos(center, _elapsed, EnemyBase.PlayerLayerMask);
+                _hitSpheres[i].DrawGizmos(center, _elapsed, LayerUtility.PlayerLayerMask);
             }
         }
 
@@ -50,7 +51,7 @@ namespace Confront.Boss.Leviathan
 
             for (int i = 0; i < _hitSpheres.Length; i++)
             {
-                _hitSpheres[i].Update(owner.transform, _attackPower, owner.DirectionSign, _elapsed, EnemyBase.PlayerLayerMask);
+                _hitSpheres[i].Update(owner.transform, _attackPower, owner.DirectionSign, _elapsed, LayerUtility.PlayerLayerMask);
             }
 
             if (_elapsed >= _duration)
