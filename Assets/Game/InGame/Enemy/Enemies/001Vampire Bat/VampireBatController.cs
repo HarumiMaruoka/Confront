@@ -123,12 +123,12 @@ namespace Confront.Enemy
             if (_damageState == null) Debug.LogError("DamageState is not found.");
             if (_dieState == null) Debug.LogError("DieState is not found.");
 
-            _states.Add(typeof(Idle), _idleState);
-            _states.Add(typeof(Fly), _flyState);
-            _states.Add(typeof(Approach), _approachState);
-            _states.Add(typeof(Attack), _attackState);
-            _states.Add(typeof(Damage), _damageState);
-            _states.Add(typeof(Die), _dieState);
+            _states.Add(typeof(Idle), Instantiate(_idleState));
+            _states.Add(typeof(Fly), Instantiate(_flyState));
+            _states.Add(typeof(Approach), Instantiate(_approachState));
+            _states.Add(typeof(Attack), Instantiate(_attackState));
+            _states.Add(typeof(Damage), Instantiate(_damageState));
+            _states.Add(typeof(Die), Instantiate(_dieState));
 
             ChangeState<Fly>();
         }

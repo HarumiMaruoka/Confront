@@ -115,12 +115,12 @@ namespace Confront.Enemy
             if (_damageState == null) Debug.LogError("DamageState is not found.");
             if (_deadState == null) Debug.LogError("DeadState is not found.");
 
-            _states.Add(typeof(IdleState), _idleState);
-            _states.Add(typeof(WanderState), _wanderState);
-            _states.Add(typeof(ApproachState), _approachState);
-            _states.Add(typeof(AttackState), _attackState);
-            _states.Add(typeof(DamageState), _damageState);
-            _states.Add(typeof(DeadState), _deadState);
+            _states.Add(typeof(IdleState), Instantiate(_idleState));
+            _states.Add(typeof(WanderState), Instantiate(_wanderState));
+            _states.Add(typeof(ApproachState), Instantiate(_approachState));
+            _states.Add(typeof(AttackState), Instantiate(_attackState));
+            _states.Add(typeof(DamageState), Instantiate(_damageState));
+            _states.Add(typeof(DeadState), Instantiate(_deadState));
             ChangeState<IdleState>();
         }
     }

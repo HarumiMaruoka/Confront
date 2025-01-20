@@ -17,4 +17,4 @@ MonoBehaviour:
   RangeMax: 5
   NoiseScale: 1
   MinDuration: 2
-  MaxDuration: 5
+  MaxDuration: 8

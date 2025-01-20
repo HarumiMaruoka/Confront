@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: IdleState
   m_EditorClassIdentifier: 
   MinDuration: 1
-  MaxDuration: 5
+  MaxDuration: 6
   Deceleration: 10

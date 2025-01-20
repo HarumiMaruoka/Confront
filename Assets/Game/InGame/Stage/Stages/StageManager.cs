@@ -10,30 +10,35 @@ namespace Confront.Stage
 {
     public static class StageManager
     {
-        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        //private static void Initialize()
-        //{
-        //    var handle = Addressables.LoadAssetsAsync<StageController>("Stages", null);
-        //    handle.WaitForCompletion();
-        //    _stagePrefabs = handle.Result;
-        //    _stagePrefabMap = _stagePrefabs.ToDictionary(stage => stage.name);
-        //}
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void Initialize()
+        {
+            LoadStagePrefabs();
+        }
+
+        private static void LoadStagePrefabs()
+        {
+            var handle = Addressables.LoadAssetsAsync<StageController>("Stages", null);
+            handle.WaitForCompletion();
+            _stagePrefabs = handle.Result;
+            _stagePrefabMap = _stagePrefabs.ToDictionary(stage => stage.name);
+        }
 
         private static IList<StageController> _stagePrefabs;
         private static Dictionary<string, StageController> _stagePrefabMap;
 
-        private static Dictionary<string, StageController> _loadedStageMap = new Dictionary<string, StageController>(); // 読み込み済みのステージ。
-        private static HashSet<string> _loadingStages = new HashSet<string>(); // 隣接している読み込み中のステージ。
+        private static Dictionary<string, StageController> _loadedStages = new Dictionary<string, StageController>(); // 生成済みのステージ。
+        private static HashSet<string> _loadingStages = new HashSet<string>(); // 生成中のステージ。
 
         private static StageController _currentStage;
         public static StageController CurrentStage => _currentStage;
 
         public static async UniTask ChangeStage(string nextStageName, int startPointIndex, Func<UniTask> fadeout = null, Func<UniTask> fadein = null, CancellationToken token = default)
         {
-            if (!_loadedStageMap.ContainsKey(nextStageName) && !_loadingStages.Contains(nextStageName))
+            if (!_loadedStages.ContainsKey(nextStageName) && !_loadingStages.Contains(nextStageName))
             {
                 // まだ読み込んでいないステージの場合、読み込む。
-                await LoadStages(token, nextStageName);
+                await InstantiateStages(token, nextStageName);
             }
             else if (_loadingStages.Contains(nextStageName))
             {
@@ -45,7 +50,7 @@ namespace Confront.Stage
             }
 
             if (fadeout != null) await fadeout();
-            ChangeStage(_loadedStageMap[nextStageName], startPointIndex, token);
+            ChangeStage(_loadedStages[nextStageName], startPointIndex, token);
             if (fadein != null) await fadein();
         }
 
@@ -59,15 +64,15 @@ namespace Confront.Stage
             _currentStage.gameObject.SetActive(true);
             var startPoint = _currentStage.StartPoints[startPointIndex].position;
             OnStageChanged?.Invoke(_currentStage, startPoint);
-            LoadStages(token, stage.ConnectedStages).Forget();
+            InstantiateStages(token, stage.ConnectedStages).Forget();
         }
 
-        private static async UniTask LoadStages(CancellationToken token, params string[] stageNames)
+        private static async UniTask InstantiateStages(CancellationToken token, params string[] stageNames)
         {
             foreach (var stageName in stageNames)
             {
                 // 既に読み込み済み、または 読み込み中のステージは読み込まない。
-                if (_loadedStageMap.ContainsKey(stageName) || _loadingStages.Contains(stageName))
+                if (_loadedStages.ContainsKey(stageName) || _loadingStages.Contains(stageName))
                 {
                     continue;
                 }
@@ -84,7 +89,7 @@ namespace Confront.Stage
                 _loadingStages.Remove(stageName);
                 var stage = handle.Result[0];
                 stage.gameObject.SetActive(false);
-                _loadedStageMap.Add(stageName, stage);
+                _loadedStages.Add(stageName, stage);
             }
         }
     }

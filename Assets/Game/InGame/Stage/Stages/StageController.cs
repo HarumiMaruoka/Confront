@@ -1,4 +1,6 @@
-﻿using Confront.Player;
+﻿using Confront.GameUI;
+using Confront.Player;
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -7,7 +9,6 @@ namespace Confront.Stage
     public class StageController : MonoBehaviour
     {
         public Transform[] StartPoints;
-        [HideInInspector]
         public StageTransitionData[] StageTransitionData;
 
         private string[] _connectedStages;
@@ -18,11 +19,28 @@ namespace Confront.Stage
             _connectedStages = null;
         }
 
+        private void Update()
+        {
+            foreach (var data in StageTransitionData)
+            {
+                if (data.IsPlayerWithinBounds())
+                {
+                    StageManager.ChangeStage(
+                        data.NextStageName,
+                        data.StartPointIndex,
+                        ScreenFader.Instance.FadeOut,
+                        ScreenFader.Instance.FadeIn,
+                        this.GetCancellationTokenOnDestroy()).Forget();
+                    return;
+                }
+            }
+        }
+
         private void OnDrawGizmos()
         {
             foreach (var data in StageTransitionData)
             {
-                data.DrawGizmos(transform);
+                data.DrawGizmos();
             }
         }
     }
@@ -39,7 +57,7 @@ namespace Confront.Stage
 
         private PlayerController PlayerController => PlayerController.Instance;
 
-        public bool IsHit()
+        public bool IsPlayerWithinBounds()
         {
             var position = PlayerController.transform.position;
 
@@ -47,63 +65,10 @@ namespace Confront.Stage
                 && position.y >= TransitionPoint.y - HitBoxHalfSize.y && position.y <= TransitionPoint.y + HitBoxHalfSize.y;
         }
 
-        public void DrawGizmos(Transform center)
+        public void DrawGizmos()
         {
-            Gizmos.color = IsHit() ? Color.red : Color.green;
-            Gizmos.DrawWireCube(center.position + TransitionPoint, HitBoxHalfSize * 2);
+            Gizmos.color = IsPlayerWithinBounds() ? Color.red : Color.green;
+            Gizmos.DrawWireCube(TransitionPoint, HitBoxHalfSize * 2);
         }
     }
-
-#if UNITY_EDITOR
-    [UnityEditor.CustomEditor(typeof(StageController))]
-    public class StageEditor : UnityEditor.Editor
-    {
-        private StageController _stage;
-
-        private void OnEnable()
-        {
-            _stage = target as StageController;
-        }
-
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-            if (_stage.StageTransitionData == null)
-            {
-                _stage.StageTransitionData = new StageTransitionData[0];
-            }
-
-            for (int i = 0; i < _stage.StageTransitionData.Length; i++)
-            {
-                var data = _stage.StageTransitionData[i];
-
-                UnityEditor.EditorGUILayout.Space();
-
-                UnityEditor.EditorGUILayout.BeginHorizontal();
-                UnityEditor.EditorGUILayout.LabelField($"Transition {i + 1}");
-                if (GUILayout.Button("Remove"))
-                {
-                    UnityEditor.ArrayUtility.RemoveAt(ref _stage.StageTransitionData, i);
-                    UnityEditor.EditorUtility.SetDirty(_stage);
-                    return;
-                }
-                UnityEditor.EditorGUILayout.EndHorizontal();
-
-                data.NextStageType = (StageType)UnityEditor.EditorGUILayout.EnumPopup("Next Stage Type", data.NextStageType);
-                data.StageNumber = UnityEditor.EditorGUILayout.IntField("Stage Number", data.StageNumber);
-                data.StartPointIndex = UnityEditor.EditorGUILayout.IntField("Start Point Index", data.StartPointIndex);
-                data.TransitionPoint = UnityEditor.EditorGUILayout.Vector3Field("Transition Point", data.TransitionPoint);
-                data.HitBoxHalfSize = UnityEditor.EditorGUILayout.Vector3Field("Hit Box Half Size", data.HitBoxHalfSize);
-
-                _stage.StageTransitionData[i] = data;
-            }
-
-            if (GUILayout.Button("Add Transition"))
-            {
-                UnityEditor.ArrayUtility.Add(ref _stage.StageTransitionData, new StageTransitionData());
-                UnityEditor.EditorUtility.SetDirty(_stage);
-            }
-        }
-    }
-#endif
 }
