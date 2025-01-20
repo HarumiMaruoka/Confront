@@ -40,7 +40,7 @@ namespace Confront.Player
         public void Execute(PlayerController player)
         {
             var maxSpeed = player.MovementParameters.DodgeMaxSpeed;
-            var groundNormal = player.Sensor.CalculateGroundState(player).GroundNormal;
+            var groundSensorResult = player.Sensor.CalculateGroundState(player);
 
             var accelerationDuration = player.MovementParameters.DodgeAccelerationDuration;
             var accelerationTime = player.MovementParameters.DodgeAccelerationDuration;
@@ -65,22 +65,22 @@ namespace Confront.Player
                 this.TransitionToDefaultState(player);
             }
 
-            var groundSensorResult = player.Sensor.CalculateGroundState(player);
+            var groundNormal = groundSensorResult.GroundNormal;
+            var velocity = new Vector3(_speed * _sign, 0f);
+
             if (groundSensorResult.GroundType == GroundType.SteepSlope)
             {
                 _speed = 0f;
             }
-
-            var velocity = new Vector3(_speed * _sign, 0f);
-            var groundNormalAngle = Vector3.Angle(Vector3.up, groundNormal);
-            var isGroundStable = groundNormalAngle < 90f;
-            if (isGroundStable)
+            else if (groundSensorResult.GroundType == GroundType.Ground)
             {
                 player.MovementParameters.Velocity = Vector3.ProjectOnPlane(velocity, groundNormal).normalized * Mathf.Abs(_speed);
             }
             else
             {
-                player.MovementParameters.Velocity = velocity;
+                var velocityY = player.MovementParameters.Velocity.y;
+                var gravity = player.MovementParameters.Gravity;
+                player.MovementParameters.Velocity = new Vector3(velocity.x, velocityY - gravity * Time.deltaTime);
             }
         }
 
