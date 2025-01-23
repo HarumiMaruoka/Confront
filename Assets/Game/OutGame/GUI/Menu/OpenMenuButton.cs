@@ -18,6 +18,12 @@ namespace Confront.GameUI
 
         public void OpenMenu()
         {
+            if (!_menuPrefab)
+            {
+                Debug.LogError("Menu prefab is not assigned.");
+                return;
+            }
+
             if (!_menu) _menu = Instantiate(_menuPrefab, MenuController.Instance.Parent);
             MenuController.Instance.OpenMenu(_menu);
         }

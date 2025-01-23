@@ -1,10 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Confront.Player;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Confront.Stage
 {
@@ -18,40 +18,49 @@ namespace Confront.Stage
 
         private static void LoadStagePrefabs()
         {
-            var handle = Addressables.LoadAssetsAsync<StageController>("Stages", null);
-            handle.WaitForCompletion();
-            _stagePrefabs = handle.Result;
-            _stagePrefabMap = _stagePrefabs.ToDictionary(stage => stage.name);
+            //var handle = Addressables.LoadAssetsAsync<StageController>("Stages", null, Addressables.MergeMode.Union);
+            //handle.WaitForCompletion();
+            // _stagePrefabs = handle.Result;
+            _stagePrefabs = Resources.LoadAll<StageController>("StagePrefabs");
+            _stagePrefabMap = _stagePrefabs.ToDictionary(stage => stage.gameObject.name);
         }
 
         private static IList<StageController> _stagePrefabs;
         private static Dictionary<string, StageController> _stagePrefabMap;
 
-        private static Dictionary<string, StageController> _loadedStages = new Dictionary<string, StageController>(); // 生成済みのステージ。
-        private static HashSet<string> _loadingStages = new HashSet<string>(); // 生成中のステージ。
+        private static Dictionary<string, StageController> _stageInstances = new Dictionary<string, StageController>(); // 生成済みのステージ。
 
-        private static StageController _currentStage;
-        public static StageController CurrentStage => _currentStage;
+        public static StageController CurrentStage;
+        private static bool _isChangingStage = false;
 
         public static async UniTask ChangeStage(string nextStageName, int startPointIndex, Func<UniTask> fadeout = null, Func<UniTask> fadein = null, CancellationToken token = default)
         {
-            if (!_loadedStages.ContainsKey(nextStageName) && !_loadingStages.Contains(nextStageName))
-            {
-                // まだ読み込んでいないステージの場合、読み込む。
-                await InstantiateStages(token, nextStageName);
-            }
-            else if (_loadingStages.Contains(nextStageName))
-            {
-                // 既に読み込み中のステージがある場合、その読み込みが完了するまで待つ。
-                while (_loadingStages.Contains(nextStageName))
-                {
-                    await UniTask.Yield(token);
-                }
-            }
+            if (_isChangingStage) return;
+            _isChangingStage = true;
 
             if (fadeout != null) await fadeout();
-            ChangeStage(_loadedStages[nextStageName], startPointIndex, token);
+            try
+            {
+                if (!_stageInstances.ContainsKey(nextStageName))
+                {
+                    _stageInstances[nextStageName] = GameObject.Instantiate(_stagePrefabMap[nextStageName]);
+                }
+
+                ChangeStage(_stageInstances[nextStageName], startPointIndex, token);
+            }
+            catch (KeyNotFoundException)
+            {
+                Debug.LogError($"ステージ「{nextStageName}」が見つかりません。");
+            }
+
+            for (float t = 0; t < 0.1f; t += Time.deltaTime)
+            {
+                await UniTask.Yield();
+            }
+            _isChangingStage = false;
+
             if (fadein != null) await fadein();
+
         }
 
         /// <summary> ステージ変更時に呼ばれるイベント。第一引数に変更後のステージ、第二引数にスタート地点を渡す。 </summary>
@@ -59,38 +68,18 @@ namespace Confront.Stage
 
         private static void ChangeStage(StageController stage, int startPointIndex, CancellationToken token)
         {
-            _currentStage.gameObject.SetActive(false);
-            _currentStage = stage;
-            _currentStage.gameObject.SetActive(true);
-            var startPoint = _currentStage.StartPoints[startPointIndex].position;
-            OnStageChanged?.Invoke(_currentStage, startPoint);
-            InstantiateStages(token, stage.ConnectedStages).Forget();
-        }
-
-        private static async UniTask InstantiateStages(CancellationToken token, params string[] stageNames)
-        {
-            foreach (var stageName in stageNames)
+            if (CurrentStage) CurrentStage.gameObject.SetActive(false);
+            CurrentStage = stage;
+            CurrentStage.gameObject.SetActive(true);
+            var startPoint = CurrentStage.StartPoints[startPointIndex].position;
+            var player = PlayerController.Instance;
+            if (player != null)
             {
-                // 既に読み込み済み、または 読み込み中のステージは読み込まない。
-                if (_loadedStages.ContainsKey(stageName) || _loadingStages.Contains(stageName))
-                {
-                    continue;
-                }
-
-                _loadingStages.Add(stageName);
-                var prefab = _stagePrefabMap[stageName];
-                var handle = GameObject.InstantiateAsync(prefab);
-
-                while (!handle.isDone)
-                {
-                    await UniTask.Yield(token);
-                }
-
-                _loadingStages.Remove(stageName);
-                var stage = handle.Result[0];
-                stage.gameObject.SetActive(false);
-                _loadedStages.Add(stageName, stage);
+                var prevEnable = player.CharacterController.enabled;
+                player.CharacterController.enabled = false;                player.transform.position = startPoint;
+                player.CharacterController.enabled = prevEnable;
             }
+            OnStageChanged?.Invoke(CurrentStage, startPoint);
         }
     }
 }

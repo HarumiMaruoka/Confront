@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9637ee7d0fe0ed7469a3ccf44ca634f1, type: 3}
   m_Name: DebugParams
   m_EditorClassIdentifier: 
-  CanPlayerAttack: 0
+  DebugMode: 0
+  CanPlayerAttack: 1
+  StateTransitionLogging: 0

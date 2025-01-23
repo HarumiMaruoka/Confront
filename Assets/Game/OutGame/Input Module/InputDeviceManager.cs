@@ -52,5 +52,6 @@ namespace Confront.Input
     {
         KeyboardMouse,
         Gamepad,
+        Any,
     }
 }

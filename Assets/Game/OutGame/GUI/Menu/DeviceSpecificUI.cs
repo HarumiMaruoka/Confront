@@ -22,6 +22,7 @@ namespace Confront.GameUI
 
         private void OnInputDeviceChanged(InputDevice device)
         {
+            if (_device == InputDevice.Any) return;
             gameObject.SetActive(device == _device);
         }
     }

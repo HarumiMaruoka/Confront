@@ -24,6 +24,8 @@ namespace Confront.SaveSystem
         }
         public readonly string Key;
 
+        public Action<SaveDataController> OnSaved;
+
         public void Save()
         {
             // シリアライズする際に参照するUnityオブジェクトをリストに追加する。
@@ -52,6 +54,8 @@ namespace Confront.SaveSystem
             PlayerPrefs.SetString(Key, Convert.ToBase64String(bytes));
             bytes = SerializationUtility.SerializeValue(saveFileData, DataFormat.Binary);
             PlayerPrefs.SetString(Key + "_file", Convert.ToBase64String(bytes));
+
+            OnSaved?.Invoke(this);
         }
 
         public void Load()

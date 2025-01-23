@@ -18,10 +18,6 @@ namespace Confront.Stage.Map
         [SerializeField]
         private Vector2 _mapRightBottom;
 
-        [Space]
-        [SerializeField]
-        private SpriteRenderer _playerIcon;
-
         private void OnValidate()
         {
             if (_worldLeftTop.x > _worldRightBottom.x)
@@ -46,7 +42,7 @@ namespace Confront.Stage.Map
         public void UpdatePlayerPosition()
         {
             if (!PlayerController.Instance) return;
-            if (_playerIcon == null)
+            if (PlayerIconHandler.PlayerIconRenderer == null)
             {
                 Debug.LogWarning("Player Icon is not set.");
                 return;
@@ -54,7 +50,7 @@ namespace Confront.Stage.Map
 
             var position = PlayerController.Instance.transform.position;
             var mapPosition = ConvertWorldToMapPosition(position);
-            _playerIcon.transform.position = new Vector3(mapPosition.x, mapPosition.y, 0);
+            PlayerIconHandler.PlayerIconRenderer.transform.position = new Vector3(mapPosition.x, mapPosition.y, 0);
         }
 
         public Vector2 ConvertWorldToMapPosition(Vector3 position)
