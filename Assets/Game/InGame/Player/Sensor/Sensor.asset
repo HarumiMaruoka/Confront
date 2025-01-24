@@ -15,11 +15,11 @@ MonoBehaviour:
   _groundCheckRayOffset: {x: 0, y: 0.1}
   _groundCheckRayRadius: 0.3
   _groundCheckRayLength: 0.58
-  _isGroundCheckGizmoEnabled: 1
+  _isGroundCheckGizmoEnabled: 0
   _abyssCheckRayOffset: {x: 0, y: 1.29}
   _abyssCheckRayRadius: 0.08
   _abyssCheckRayLength: 2
-  _isAbyssCheckGizmoEnabled: 1
+  _isAbyssCheckGizmoEnabled: 0
   _isAbyssCheckGizmoAlpha: 0.5
   _aboveCheckRayOffset: {x: -0, y: 2.28}
   _aboveCheckRayLength: 1.5

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Cinemachine;
+using Confront.Audio;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,49 +11,68 @@ namespace Confront.Player
         [SerializeField]
         private AudioSource _audioSource;
 
+        [Header("Ray")]
         [SerializeField]
-        private AudioClip[] _lightDirtFootsteps, _mediumDirtFootsteps, _heavyDirtFootsteps;
+        private Vector3 _rayOffset = new Vector2(0, -0.5f);
         [SerializeField]
-        private AudioClip[] _lightGrassFootsteps, _mediumGrassFootsteps, _heavyGrassFootsteps;
+        private float _rayDistance = 2f;
         [SerializeField]
-        private AudioClip[] _lightStoneFootsteps, _mediumStoneFootsteps, _heavyStoneFootsteps;
-        [SerializeField]
-        private AudioClip[] _waterFootsteps;
+        private LayerMask _groundLayerMask;
 
-        [SerializeField]
-        private string _lightDirtTag, _mediumDirtTag, _heavyDirtTag;
-        [SerializeField]
-        private string _lightGrassTag, _mediumGrassTag, _heavyGrassTag;
-        [SerializeField]
-        private string _lightStoneTag, _mediumStoneTag, _heavyStoneTag;
-        [SerializeField]
-        private string _waterTag;
+        [Header("Footstep Sounds")]
+        [SerializeField] private AudioClip[] _lightDirtFootsteps;
+        [SerializeField] private AudioClip[] _mediumDirtFootsteps;
+        [SerializeField] private AudioClip[] _heavyDirtFootsteps;
+        [Space]
+        [SerializeField] private AudioClip[] _lightGrassFootsteps;
+        [SerializeField] private AudioClip[] _mediumGrassFootsteps;
+        [SerializeField] private AudioClip[] _heavyGrassFootsteps;
+        [Space]
+        [SerializeField] private AudioClip[] _lightStoneFootsteps;
+        [SerializeField] private AudioClip[] _mediumStoneFootsteps;
+        [SerializeField] private AudioClip[] _heavyStoneFootsteps;
+        [Space]
+        [SerializeField] private AudioClip[] _waterFootsteps;
+
+        [Header("Tags")]
+        [SerializeField, TagField] private string _lightDirtTag;
+        [SerializeField, TagField] private string _mediumDirtTag;
+        [SerializeField, TagField] private string _heavyDirtTag;
+        [Space]
+        [SerializeField, TagField] private string _lightGrassTag;
+        [SerializeField, TagField] private string _mediumGrassTag;
+        [SerializeField, TagField] private string _heavyGrassTag;
+        [Space]
+        [SerializeField, TagField] private string _lightStoneTag;
+        [SerializeField, TagField] private string _mediumStoneTag;
+        [SerializeField, TagField] private string _heavyStoneTag;
+        [Space]
+        [SerializeField, TagField] private string _waterTag;
 
         private Dictionary<int, AudioClip[]> _soundsMap;
 
         private void Awake()
         {
-            _soundsMap = new Dictionary<int, AudioClip[]>
+            _soundsMap = new Dictionary<int, AudioClip[]>()
             {
-                { Animator.StringToHash("LightDirt"), _lightDirtFootsteps},
-                { Animator.StringToHash("MediumDirt"), _mediumDirtFootsteps},
-                { Animator.StringToHash("HeavyDirt"), _heavyDirtFootsteps},
-                { Animator.StringToHash("LightGrass"), _lightGrassFootsteps},
-                { Animator.StringToHash("MediumGrass"), _mediumGrassFootsteps},
-                { Animator.StringToHash("HeavyGrass"), _heavyGrassFootsteps},
-                { Animator.StringToHash("LightStone"), _lightStoneFootsteps},
-                { Animator.StringToHash("MediumStone"), _mediumStoneFootsteps},
-                { Animator.StringToHash("HeavyStone"), _heavyStoneFootsteps},
-                { Animator.StringToHash("Water"), _waterFootsteps},
+                { Animator.StringToHash(_lightDirtTag), _lightDirtFootsteps},
+                { Animator.StringToHash(_mediumDirtTag), _mediumDirtFootsteps},
+                { Animator.StringToHash(_heavyDirtTag), _heavyDirtFootsteps},
+                { Animator.StringToHash(_lightGrassTag), _lightGrassFootsteps},
+                { Animator.StringToHash(_mediumGrassTag), _mediumGrassFootsteps},
+                { Animator.StringToHash(_heavyGrassTag), _heavyGrassFootsteps},
+                { Animator.StringToHash(_lightStoneTag), _lightStoneFootsteps},
+                { Animator.StringToHash(_mediumStoneTag), _mediumStoneFootsteps},
+                { Animator.StringToHash(_heavyStoneTag), _heavyStoneFootsteps},
+                { Animator.StringToHash(_waterTag), _waterFootsteps},
             };
         }
 
-        private GameObject _groundGameObject => Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 2f) ? hit.collider.gameObject : null;
+        private string GroundGameObjectTag => Physics.Raycast(transform.position + _rayOffset, Vector3.down, out RaycastHit hit, _rayDistance, _groundLayerMask) ? hit.collider.tag : null;
 
         public AudioClip GetFootstepSound()
         {
-            var groundTag = _groundGameObject.tag;
-            var groundHash = Animator.StringToHash(groundTag);
+            var groundHash = Animator.StringToHash(GroundGameObjectTag);
 
             if (_soundsMap.TryGetValue(groundHash, out var sounds))
             {
@@ -61,13 +82,21 @@ namespace Confront.Player
             return null;
         }
 
-        public void PlayFootstepSound() // Animation Event から呼び出す。
+        public void PlayFootstepSound()
         {
             var sound = GetFootstepSound();
             if (sound != null)
             {
+                _audioSource.volume = AudioManager.VolumeParameters.SeVolume;
                 _audioSource.PlayOneShot(sound);
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            var hit = Physics.Raycast(transform.position + _rayOffset, Vector3.down, out RaycastHit raycastHit, _rayDistance, _groundLayerMask);
+            Gizmos.color = hit ? Color.red : Color.green;
+            Gizmos.DrawLine(transform.position + _rayOffset, transform.position + _rayOffset + Vector3.down * _rayDistance);
         }
     }
 }

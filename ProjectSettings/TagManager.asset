@@ -7,6 +7,17 @@ TagManager:
   - a_Listener
   - Head
   - charaVoiceOverAudioSource
+  - PW - Prop
+  - LightDirt
+  - MediumDirt
+  - HeavyDirt
+  - LightGrass
+  - MediumGrass
+  - HeavyGrass
+  - LightStone
+  - MediumStone
+  - HeavyStone
+  - Water
   layers:
   - Default
   - TransparentFX

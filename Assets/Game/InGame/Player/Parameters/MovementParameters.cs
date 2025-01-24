@@ -83,6 +83,11 @@ namespace Confront.Player
         public float BigDamageHorizontalDecelerationRate = 0.1f;
         public float MaxDamageVector = 50;
 
+        [Header("Damaged Camera Shake")]
+        public float MiniDamagedCameraShakePower = 0.5f;
+        public float SmallDamagedCameraShakePower = 0.5f;
+        public float BigDamagedCameraShakePower = 0.5f;
+
         [NonSerialized]
         public Vector3 MovingPlatformDelta = Vector3.zero;
 

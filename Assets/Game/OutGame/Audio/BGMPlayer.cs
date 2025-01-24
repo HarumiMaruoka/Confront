@@ -1,6 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -14,26 +12,13 @@ namespace Confront.Audio
         {
             get
             {
-                if (_audioSource == null)
+                if (Application.isPlaying && _audioSource == null)
                 {
                     _audioSource = new GameObject("BGMPlayer").AddComponent<AudioSource>();
                     _audioSource.volume = AudioManager.VolumeParameters.BgmVolume;
                     _audioSource.loop = true;
                 }
                 return _audioSource;
-            }
-        }
-
-        private static Dictionary<string, AudioClip> _bgmMap;
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize()
-        {
-            _bgmMap = new Dictionary<string, AudioClip>();
-            var bgmList = Resources.LoadAll<AudioClip>("Audio/BGM");
-            foreach (var bgm in bgmList)
-            {
-                _bgmMap[bgm.name] = bgm;
             }
         }
 
@@ -83,15 +68,6 @@ namespace Confront.Audio
                 AudioSource.volume = Mathf.Lerp(startVolume, targetVolume, t / duration);
             }
             isFadingIn = false;
-        }
-
-        public void Play(string audioName, float duration)
-        {
-            if (string.IsNullOrEmpty(audioName)) return;
-            if (audioName == AudioSource.clip.name) return;
-
-            var clip = _bgmMap.TryGetValue(audioName, out var bgm) ? bgm : null;
-            Play(clip, duration);
         }
 
         public async UniTask Stop(float duration)

@@ -1,4 +1,5 @@
 ﻿using Confront.Debugger;
+using Confront.Weapon;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,11 +52,11 @@ namespace Confront.Player
             CurrentState = newState;
 
             CurrentState.Enter(_player);
-            if (!string.IsNullOrEmpty(CurrentState.AnimationName))
-                _player.Animator.CrossFade(CurrentState.AnimationName, 0.1f);
+            var animationPrefix = _player?.EquippedWeapon?.ToAnimationPrefix();
+            var animationName = string.IsNullOrEmpty(animationPrefix) ? animationPrefix : animationPrefix + "_" + CurrentState.AnimationName;
+            if (!string.IsNullOrEmpty(animationName)) _player.Animator.CrossFade(animationName, 0.1f);
 
-            if (DebugParams.Instance.StateTransitionLogging)
-                Debug.Log($"Transitioning from {PreviousState} to {CurrentState}");
+            if (DebugParams.Instance.StateTransitionLogging) Debug.Log($"Transitioning from {PreviousState} to {CurrentState}");
 
             return CurrentState;
         }

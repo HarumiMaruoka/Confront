@@ -1,4 +1,5 @@
-﻿using Confront.ActionItem;
+﻿using Cinemachine;
+using Confront.ActionItem;
 using Confront.AttackUtility;
 using Confront.ForgeItem;
 using Confront.GameUI;
@@ -57,8 +58,9 @@ namespace Confront.Player
         public WeaponInventory WeaponInventory = new WeaponInventory();
         public WeaponActivator WeaponActivator;
         // Unityコンポーネント
+        public CinemachineVirtualCamera VirtualCamera;
+        public Animator Animator;
         private CharacterController _characterController;
-        private Animator _animator;
 
         public Vector3 PrevPosition;
         public Vector3 CurrentPosition;
@@ -83,14 +85,6 @@ namespace Confront.Player
             {
                 if (!_characterController) _characterController = GetComponent<CharacterController>();
                 return _characterController;
-            }
-        }
-        public Animator Animator
-        {
-            get
-            {
-                if (!_animator) _animator = GetComponent<Animator>();
-                return _animator;
             }
         }
 
@@ -217,7 +211,11 @@ namespace Confront.Player
             //{
             switch (damageType)
             {
-                case DamageType.Mini: Animator.CrossFade("Mini Damage", 0.1f, 1); break;
+                case DamageType.Mini:
+                    {
+                        Animator.CrossFade("Mini Damage", 0.1f, 1);
+                        break;
+                    }
                 case DamageType.Small:
                     {
                         var state = StateMachine.ChangeState<SmallDamage>();

@@ -22,14 +22,9 @@ namespace Confront.Audio
             _bgmPlayer.Play(clip, duration);
         }
 
-        public static void PlayBGM(string audioName, float duration = 1f)
+        public static void PlaySE(Vector3 position, AudioClip clip)
         {
-            _bgmPlayer.Play(audioName, duration);
-        }
-
-        public static void PlaySE(Vector3 position, string audioName)
-        {
-            _sePlayer.Play(position, audioName);
+            AudioSource.PlayClipAtPoint(clip, position, AudioManager.VolumeParameters.SeVolume);
         }
     }
 }
