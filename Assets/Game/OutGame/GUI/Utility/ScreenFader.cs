@@ -9,35 +9,41 @@ namespace Confront.GameUI
     public class ScreenFader : MonoBehaviour
     {
         private static ScreenFader _instance;
-        public static ScreenFader Instance => _instance;
-
-        private void Awake()
+        public static ScreenFader Instance
         {
-            _instance = this;
+            get
+            {
+                if (!_instance) _instance = CreateScreenFader();
+                return _instance;
+            }
         }
 
-        private void OnDestroy()
+        private static ScreenFader CreateScreenFader()
         {
-            _instance = null;
+            var go = new GameObject("ScreenFader");
+            var canvas = go.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            var fader = go.AddComponent<ScreenFader>();
+            fader._image = go.AddComponent<Image>();
+            fader._image.rectTransform.anchorMin = Vector2.zero;
+            fader._image.rectTransform.anchorMax = Vector2.one;
+            fader._image.rectTransform.sizeDelta = Vector2.zero;
+            fader._image.color = Color.clear;
+            fader._image.raycastTarget = false;
+            return fader;
         }
 
         [SerializeField]
-        private Image Image;
-        [SerializeField]
-        private float DefaultFadeDuration = 0.5f;
-        [SerializeField]
-        private EaseType DefaultEaseType = EaseType.Linear;
+        private Image _image;
+
+        private readonly float _defaultFadeDuration = 0.5f;
+        private readonly EaseType DefaultEaseType = EaseType.Linear;
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        private void Update()
-        {
-            Image.raycastTarget = Image.color.a > 0.01f;
-        }
-
         public UniTask FadeIn()
         {
-            return Fade(1f, 0f, DefaultFadeDuration, DefaultEaseType);
+            return Fade(1f, 0f, _defaultFadeDuration, DefaultEaseType);
         }
 
         public UniTask FadeIn(float duration, EaseType easeType = EaseType.Linear)
@@ -47,7 +53,7 @@ namespace Confront.GameUI
 
         public UniTask FadeOut()
         {
-            return Fade(0f, 1f, DefaultFadeDuration, DefaultEaseType);
+            return Fade(0f, 1f, _defaultFadeDuration, DefaultEaseType);
         }
 
         public UniTask FadeOut(float duration, EaseType easeType = EaseType.Linear)
@@ -68,7 +74,7 @@ namespace Confront.GameUI
             var token = _cancellationTokenSource.Token;
 
             // ループ開始時の色を取得
-            var col = Image.color;
+            var col = _image.color;
 
             for (float t = 0; t < duration; t += Time.deltaTime)
             {
@@ -84,15 +90,15 @@ namespace Confront.GameUI
                 float alpha = Mathf.Lerp(from, to, easedProgress);
 
                 // 色を更新
-                col = Image.color;
-                Image.color = new Color(col.r, col.g, col.b, alpha);
+                col = _image.color;
+                _image.color = new Color(col.r, col.g, col.b, alpha);
 
                 await UniTask.Yield();
             }
 
             // 最終的に to にあわせてアルファ値を固定
-            col = Image.color;
-            Image.color = new Color(col.r, col.g, col.b, to);
+            col = _image.color;
+            _image.color = new Color(col.r, col.g, col.b, to);
         }
 
         /// <summary>

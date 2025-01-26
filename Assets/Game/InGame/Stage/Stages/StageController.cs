@@ -32,8 +32,7 @@ namespace Confront.Stage
                         data.NextStageName,
                         data.StartPointIndex,
                         ScreenFader.Instance.FadeOut,
-                        ScreenFader.Instance.FadeIn,
-                        this.GetCancellationTokenOnDestroy()).Forget();
+                        ScreenFader.Instance.FadeIn).Forget();
                     return;
                 }
             }

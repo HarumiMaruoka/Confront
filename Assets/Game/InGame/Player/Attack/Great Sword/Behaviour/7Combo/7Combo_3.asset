@@ -43,10 +43,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseAttackPower: 1
-  _attackPowerFactor: 1
   _comboInputAcceptanceTime: 0.2
   _comboInputDeactivationTime: 1.1
   _nextAttackTransitionTime: 1.1
   _attackCompletionTime: 1.3
   _hitBoxes: []
+  _shooters: []

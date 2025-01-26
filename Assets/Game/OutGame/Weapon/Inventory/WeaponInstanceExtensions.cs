@@ -7,7 +7,7 @@ namespace Confront.Weapon
     {
         public static string ToAnimationPrefix(this WeaponInstance weaponInstance)
         {
-            return weaponInstance.Data.AnimationPrefix;
+            return weaponInstance?.Data?.AnimationPrefix;
         }
     }
 }

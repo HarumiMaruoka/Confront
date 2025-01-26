@@ -9,15 +9,9 @@ namespace Confront.Weapon
     public class WeaponInventory : IEnumerable<WeaponInstance>
     {
         [SerializeField]
-        private List<WeaponInstance> _weapons;
+        private List<WeaponInstance> _weapons = new List<WeaponInstance>();
         [SerializeField]
-        private int _capacity;
-
-        public WeaponInventory(int capacity = 20)
-        {
-            _weapons = new List<WeaponInstance>();
-            _capacity = capacity;
-        }
+        private int _capacity = 20;
 
         public int Count => _weapons.Count;
 
@@ -29,7 +23,7 @@ namespace Confront.Weapon
 
         public bool AddWeapon(int id)
         {
-            var weapon = new WeaponInstance(id);
+            var weapon = WeaponInstance.Create(id);//new WeaponInstance(id);
             return AddWeapon(weapon);
         }
 
@@ -37,7 +31,7 @@ namespace Confront.Weapon
         {
             for (int i = 0; i < amount; i++)
             {
-                var weapon = new WeaponInstance(id);
+                var weapon = WeaponInstance.Create(id);//new WeaponInstance(id);
                 if (!AddWeapon(weapon)) return false;
             }
             return true;

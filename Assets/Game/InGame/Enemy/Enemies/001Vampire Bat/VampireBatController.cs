@@ -132,5 +132,44 @@ namespace Confront.Enemy
 
             ChangeState<Fly>();
         }
+
+        protected override string CreateSaveData()
+        {
+            var saveData = new VampireBatSaveData
+            {
+                Health = Stats.Health,
+                Position = transform.position,
+                Direction = DirectionController.CurrentDirection,
+                Rotation = transform.rotation
+            };
+            return saveData.CreateSaveData();
+        }
+
+        protected override void Load(string saveData)
+        {
+            var data = VampireBatSaveData.Load(saveData);
+            if (data == null) return;
+            Stats.Health = data.Value.Health;
+            transform.position = data.Value.Position;
+            DirectionController.CurrentDirection = data.Value.Direction;
+            transform.rotation = data.Value.Rotation;
+        }
+
+        [Serializable]
+        public struct VampireBatSaveData
+        {
+            public float Health;
+            public Vector3 Position;
+            public Direction Direction;
+            public Quaternion Rotation;
+            public string CreateSaveData()
+            {
+                return JsonUtility.ToJson(this);
+            }
+            public static VampireBatSaveData? Load(string saveData)
+            {
+                return JsonUtility.FromJson<VampireBatSaveData>(saveData);
+            }
+        }
     }
 }

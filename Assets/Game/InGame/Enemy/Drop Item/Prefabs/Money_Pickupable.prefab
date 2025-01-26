@@ -14668,11 +14668,11 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 384
-  _pickupDistance: 3
+  _pickupDistance: 4
   _pickupDuration: 2
   _pickupRotationDirection: 1
   _pickupRotateSpeed: 8
-  _pickupOffset: {x: 0, y: 1.5, z: 0}
+  _pickupOffset: 3
   _alphaCurve:
     serializedVersion: 2
     m_Curve:

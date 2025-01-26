@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using Confront.ActionItem;
 using Confront.ForgeItem;
+using Confront.GameUI;
+using Confront.Stage;
 using Confront.Utility;
 using Confront.Weapon;
+using Cysharp.Threading.Tasks;
 using OdinSerializer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,6 +41,7 @@ namespace Confront.SaveSystem
             var saveData = new SaveData();
             var saveFileData = new SaveFileData();
             saveData.SceneName = SceneManager.GetActiveScene().name;
+            saveData.StageName = StageManager.CurrentStageName;
             saveFileData.SceneName = SceneManager.GetActiveScene().name;
 
             var quality = SaveButtonIconQuality;
@@ -58,7 +62,7 @@ namespace Confront.SaveSystem
             OnSaved?.Invoke(this);
         }
 
-        public void Load()
+        public async void Load()
         {
             // デシリアライズする際に参照するUnityオブジェクトをリストに追加する。
             List<UnityEngine.Object> unityReferences = new List<UnityEngine.Object>();
@@ -77,6 +81,10 @@ namespace Confront.SaveSystem
             Loaded = SerializationUtility.DeserializeValue<SaveData>(bytes, DataFormat.Binary, unityReferences);
             // ここでゲームシーンを復元する。
             SceneManager.LoadScene(Loaded.SceneName);
+            StageManager.Reset();
+            await UniTask.Yield();
+            // ステージの復元処理を行う。
+            StageManager.ChangeStage(Loaded.StageName, fadein: ScreenFader.Instance.FadeIn).Forget();
         }
 
         public SaveFileData SaveFileData

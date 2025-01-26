@@ -50,7 +50,7 @@ namespace Confront.Player
         // フォージアイテム
         public ForgeItemInventory ForgeItemInventory = new ForgeItemInventory();
         // 攻撃系
-        public ComboTree AttackComboTree => _equippedWeapon?.Data.ComboTree;
+        public ComboTree AttackComboTree => _equippedWeapon?.Data?.ComboTree;
         public AttackStateMachine AttackStateMachine;
         // 武器
         public int DefaultWeaponID;
@@ -71,8 +71,19 @@ namespace Confront.Player
             get => _equippedWeapon;
             set
             {
+                if (value == null)
+                {
+                    Debug.LogError("weapon is null");
+                    return;
+                }
+                if (value.Data == null)
+                {
+                    Debug.LogError("weapon data is null");
+                    return;
+                }
+
                 _equippedWeapon = value;
-                if (value != null) WeaponActivator.ActivateWeapon(value.Data.ID);
+                WeaponActivator.ActivateWeapon(value.Data.ID);
 
                 OnWeaponEquipped?.Invoke(value);
             }
@@ -105,7 +116,7 @@ namespace Confront.Player
 
                 if (EquippedWeapon == null)
                 {
-                    EquippedWeapon = new WeaponInstance(DefaultWeaponID);
+                    EquippedWeapon = WeaponInstance.Create(DefaultWeaponID);//new WeaponInstance(DefaultWeaponID);
                     WeaponInventory.AddWeapon(EquippedWeapon);
                 }
 
@@ -117,14 +128,15 @@ namespace Confront.Player
                 var value = saveData.PlayerData.Value;
                 transform.position = value.Position;
                 transform.rotation = value.Rotation;
+                DirectionController.CurrentDirection = value.Direction;
                 StateMachine.ChangeState(value.PlayerStateType);
                 HealthManager = value.HealthManager;
                 MovementParameters.Velocity = value.Velocity;
                 MovementParameters.GrabIntervalTimer = value.GrabIntervalTimer;
                 MovementParameters.PassThroughPlatformDisableTimer = value.PassThroughPlatformDisableTimer;
                 ActionItemInventory = value.ActionItemInventory;
+                EquippedWeapon = value.EquippedWeapon;
                 ForgeItemInventory = value.ForgeItemInventory;
-                _equippedWeapon = value.EquippedWeapon;
                 WeaponInventory = value.WeaponInventory;
                 HotBar = value.HotBar;
 
@@ -320,7 +332,8 @@ namespace Confront.Player
             {
                 // Transform
                 Position = transform.position,
-                Rotation = transform.rotation,
+                Rotation = DirectionController.CurrentRotation,
+                Direction = DirectionController.CurrentDirection,
                 // StateMachine
                 PlayerStateType = StateMachine.CurrentState.GetType(),
                 // MovementParameters
@@ -335,7 +348,7 @@ namespace Confront.Player
                 // Forge Item
                 ForgeItemInventory = ForgeItemInventory,
                 // Weapon
-                EquippedWeapon = _equippedWeapon,
+                EquippedWeapon = EquippedWeapon,
                 WeaponInventory = WeaponInventory,
             };
         }

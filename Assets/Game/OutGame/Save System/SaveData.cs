@@ -3,6 +3,7 @@ using Confront.ForgeItem;
 using Confront.Player;
 using Confront.Weapon;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Confront.SaveSystem
@@ -22,8 +23,13 @@ namespace Confront.SaveSystem
         public string SceneName;
         // PlayerController
         public PlayerData? PlayerData;
+        // Enemy
+        public Dictionary<string, string> EnemyData = new Dictionary<string, string>();
+        // Stage
+        public string StageName;
         // ここに保存したいデータを追加してください。
 
+        public void ClearEnemyData() => EnemyData.Clear();
     }
 
     [Serializable]
@@ -33,6 +39,7 @@ namespace Confront.SaveSystem
         //   Transform
         public Vector3 Position;
         public Quaternion Rotation;
+        public Direction Direction;
         //   StateMachine
         public Type PlayerStateType;
         //   MovementParameters

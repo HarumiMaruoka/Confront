@@ -1,16 +1,21 @@
 ﻿using Confront.DropItem;
 using Confront.Player;
+using Confront.SaveSystem;
+using Confront.Utility;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
 namespace Confront.Enemy
 {
-    public abstract class EnemyBase : MonoBehaviour
+    public abstract class EnemyBase : MonoBehaviour, ISavable
     {
         public int ID;
         [Tooltip("このテーブルが設定されていない場合、EnemyDataのDefaultDropItemTableが使用される。")]
         public TextAsset UniqueDropItemTableInput;
+
+        private string _saveKey = null;
+        private string SaveKey => _saveKey ??= this.GetHierarchyPath(); // 同じ階層に同名のオブジェクトが存在しないことを前提としている。
 
         private DropItemData[] _dropItemTable = null;
         public DropItemData[] UniqueDropItemTable
@@ -27,10 +32,25 @@ namespace Confront.Enemy
         public string Name => Data.Name;
         public string Description => Data.Description;
 
+        private void OnEnable()
+        {
+            var saveData = SaveDataController.Loaded;
+            if (saveData != null && saveData.EnemyData.TryGetValue(SaveKey, out string data))
+            {
+                Load(data);
+                saveData.EnemyData.Remove(SaveKey);
+            }
+        }
 
         protected virtual void Awake()
         {
             Data = EnemyManager.EnemySheet.GetData(ID);
+            SavableRegistry.Register(this);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            SavableRegistry.Unregister(this);
         }
 
         public static float DefaultCalculateDamage(float attackPower, float defense)
@@ -88,6 +108,22 @@ namespace Confront.Enemy
             catch (Exception ex)
             {
                 Debug.LogException(ex);
+            }
+        }
+
+        protected abstract string CreateSaveData();
+        protected abstract void Load(string saveData);
+
+        public void Save(SaveData saveData)
+        {
+            saveData.EnemyData[SaveKey] = CreateSaveData();
+        }
+
+        private void Load(SaveData saveData)
+        {
+            if (saveData.EnemyData.TryGetValue(SaveKey, out string data))
+            {
+                Load(data);
             }
         }
     }

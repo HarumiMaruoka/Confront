@@ -18,9 +18,6 @@ namespace Confront.Stage
 
         private static void LoadStagePrefabs()
         {
-            //var handle = Addressables.LoadAssetsAsync<StageController>("Stages", null, Addressables.MergeMode.Union);
-            //handle.WaitForCompletion();
-            // _stagePrefabs = handle.Result;
             _stagePrefabs = Resources.LoadAll<StageController>("StagePrefabs");
             _stagePrefabMap = _stagePrefabs.ToDictionary(stage => stage.gameObject.name);
         }
@@ -28,12 +25,14 @@ namespace Confront.Stage
         private static IList<StageController> _stagePrefabs;
         private static Dictionary<string, StageController> _stagePrefabMap;
 
-        private static Dictionary<string, StageController> _stageInstances = new Dictionary<string, StageController>(); // 生成済みのステージ。
+        private static Dictionary<string, StageController> _createdStages = new Dictionary<string, StageController>(); // 生成済みのステージ。
 
         public static StageController CurrentStage;
         private static bool _isChangingStage = false;
 
-        public static async UniTask ChangeStage(string nextStageName, int startPointIndex, Func<UniTask> fadeout = null, Func<UniTask> fadein = null, CancellationToken token = default)
+        public static string CurrentStageName => CurrentStage.gameObject.name.Replace("(Clone)", "");
+
+        public static async UniTask ChangeStage(string nextStageName, int startPointIndex, Func<UniTask> fadeout = null, Func<UniTask> fadein = null)
         {
             if (_isChangingStage) return;
             _isChangingStage = true;
@@ -41,12 +40,12 @@ namespace Confront.Stage
             if (fadeout != null) await fadeout();
             try
             {
-                if (!_stageInstances.ContainsKey(nextStageName))
+                if (!_createdStages.ContainsKey(nextStageName))
                 {
-                    _stageInstances[nextStageName] = GameObject.Instantiate(_stagePrefabMap[nextStageName]);
+                    _createdStages[nextStageName] = GameObject.Instantiate(_stagePrefabMap[nextStageName]);
                 }
 
-                ChangeStage(_stageInstances[nextStageName], startPointIndex, token);
+                ChangeStage(_createdStages[nextStageName], startPointIndex);
             }
             catch (KeyNotFoundException)
             {
@@ -60,13 +59,41 @@ namespace Confront.Stage
             _isChangingStage = false;
 
             if (fadein != null) await fadein();
+        }
 
+        public static async UniTask ChangeStage(string nextStageName, Func<UniTask> fadeout = null, Func<UniTask> fadein = null)
+        {
+            if (_isChangingStage) return;
+            _isChangingStage = true;
+
+            if (fadeout != null) await fadeout();
+            try
+            {
+                if (!_createdStages.ContainsKey(nextStageName))
+                {
+                    _createdStages[nextStageName] = GameObject.Instantiate(_stagePrefabMap[nextStageName]);
+                }
+
+                ChangeStage(_createdStages[nextStageName]);
+            }
+            catch (KeyNotFoundException)
+            {
+                Debug.LogError($"ステージ「{nextStageName}」が見つかりません。");
+            }
+
+            for (float t = 0; t < 0.1f; t += Time.deltaTime)
+            {
+                await UniTask.Yield();
+            }
+            _isChangingStage = false;
+
+            if (fadein != null) await fadein();
         }
 
         /// <summary> ステージ変更時に呼ばれるイベント。第一引数に変更後のステージ、第二引数にスタート地点を渡す。 </summary>
-        public static event Action<StageController, Vector2> OnStageChanged;
+        public static event Action<StageController, Vector2?> OnStageChanged;
 
-        private static void ChangeStage(StageController stage, int startPointIndex, CancellationToken token)
+        private static void ChangeStage(StageController stage, int startPointIndex)
         {
             if (CurrentStage) CurrentStage.gameObject.SetActive(false);
             CurrentStage = stage;
@@ -76,10 +103,24 @@ namespace Confront.Stage
             if (player != null)
             {
                 var prevEnable = player.CharacterController.enabled;
-                player.CharacterController.enabled = false;                player.transform.position = startPoint;
+                player.CharacterController.enabled = false; player.transform.position = startPoint;
                 player.CharacterController.enabled = prevEnable;
             }
             OnStageChanged?.Invoke(CurrentStage, startPoint);
+        }
+
+        private static void ChangeStage(StageController stage)
+        {
+            if (CurrentStage) CurrentStage.gameObject.SetActive(false);
+            CurrentStage = stage;
+            CurrentStage.gameObject.SetActive(true);
+            OnStageChanged?.Invoke(CurrentStage, null);
+        }
+
+        public static void Reset()
+        {
+            _createdStages.Clear();
+            CurrentStage = null;
         }
     }
 }

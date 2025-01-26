@@ -44,7 +44,7 @@ namespace Confront.DropItem
         [SerializeField]
         private float _pickupRotateSpeed = 1f;
         [SerializeField]
-        private Vector3 _pickupOffset = new Vector3(0, 1, 0);
+        private float _pickupOffset = 1f;
         private CancellationTokenSource _pickupCancellationTokenSource;
 
         [Header("その他")]
@@ -171,8 +171,8 @@ namespace Confront.DropItem
 
             rotationDirection = Mathf.Sign(rotationDirection);
 
-            var height = transform.position.y;
-            var playerXZ = new Vector3(player.transform.position.x, 0, player.transform.position.z) + _pickupOffset;
+            var beginHeight = transform.position.y;
+            var playerXZ = new Vector3(player.transform.position.x, 0, player.transform.position.z);
             var itemXZ = new Vector3(transform.position.x, 0, transform.position.z);
             var angleOffset = Mathf.Atan2(itemXZ.z - playerXZ.z, itemXZ.x - playerXZ.x);
 
@@ -186,12 +186,12 @@ namespace Confront.DropItem
                 var angle = angleOffset + elapsedTime * rotateSpeed * rotationDirection;
 
                 var x = Mathf.Cos(angle) * radius;
-                var y = Mathf.Lerp(height, player.transform.position.y, elapsedTime / duration);
+                var y = Mathf.Lerp(beginHeight, player.transform.position.y + _pickupOffset, elapsedTime / duration);
                 var z = Mathf.Sin(angle) * radius;
 
                 var playerPositionXZ = new Vector3(player.transform.position.x, 0, player.transform.position.z);
-                transform.position = playerPositionXZ + new Vector3(x, y, z) + _pickupOffset;
-                await UniTask.Yield(token);
+                transform.position = playerPositionXZ + new Vector3(x, y, z);
+                await UniTask.Yield();
             }
         }
 

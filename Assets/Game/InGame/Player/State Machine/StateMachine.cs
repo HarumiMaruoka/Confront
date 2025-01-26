@@ -52,9 +52,17 @@ namespace Confront.Player
             CurrentState = newState;
 
             CurrentState.Enter(_player);
-            var animationPrefix = _player?.EquippedWeapon?.ToAnimationPrefix();
-            var animationName = string.IsNullOrEmpty(animationPrefix) ? animationPrefix : animationPrefix + "_" + CurrentState.AnimationName;
-            if (!string.IsNullOrEmpty(animationName)) _player.Animator.CrossFade(animationName, 0.1f);
+
+            var animationPrefix = _player.EquippedWeapon?.ToAnimationPrefix();
+            var animationName = CurrentState.AnimationName;
+            if (!string.IsNullOrEmpty(animationPrefix) && !string.IsNullOrEmpty(animationName))
+            {
+                _player.Animator.CrossFade(animationPrefix + "_" + animationName, 0.1f);
+            }
+            else if (!string.IsNullOrEmpty(animationName))
+            {
+                _player.Animator.CrossFade(animationName, 0.1f);
+            }
 
             if (DebugParams.Instance.StateTransitionLogging) Debug.Log($"Transitioning from {PreviousState} to {CurrentState}");
 

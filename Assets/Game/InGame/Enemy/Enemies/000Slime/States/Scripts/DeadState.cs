@@ -1,8 +1,5 @@
-﻿using Confront.DropItem;
-using Confront.Player;
+﻿using Confront.Player;
 using Cysharp.Threading.Tasks;
-using System;
-using System.Threading;
 using UnityEngine;
 
 namespace Confront.Enemy.Slimey

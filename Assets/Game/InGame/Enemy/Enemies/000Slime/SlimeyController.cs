@@ -3,6 +3,7 @@ using Confront.Enemy.Slimey;
 using Confront.GameUI;
 using Confront.Player;
 using Confront.Utility;
+using OdinSerializer;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,13 +80,17 @@ namespace Confront.Enemy
 
         public void ChangeState<T>() where T : SlimeyState
         {
+            ChangeState(typeof(T));
+        }
+
+        public void ChangeState(Type type)
+        {
             if (CurrentState != null)
             {
                 CurrentState.Exit(_player, this);
             }
-            CurrentState = _states[typeof(T)];
+            CurrentState = _states[type];
             CurrentState.Enter(_player, this);
-
             if (!string.IsNullOrEmpty(CurrentState.AnimationName))
             {
                 Animator.CrossFade(CurrentState.AnimationName, 0.5f);
@@ -122,6 +127,58 @@ namespace Confront.Enemy
             _states.Add(typeof(DamageState), Instantiate(_damageState));
             _states.Add(typeof(DeadState), Instantiate(_deadState));
             ChangeState<IdleState>();
+        }
+
+        protected override string CreateSaveData()
+        {
+            var saveData = new SlimeySaveData
+            {
+                Health = Stats.Health,
+                Position = transform.position,
+                Direction = DirectionController.CurrentDirection,
+                Rotation = DirectionController.CurrentRotation,
+            };
+            return saveData.CreateSaveData();
+        }
+
+        protected override void Load(string saveData)
+        {
+            var data = SlimeySaveData.Load(saveData);
+            if (data == null) return;
+
+            if (data.Value.Health < 0f)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
+            Stats.Health = data.Value.Health;
+            transform.position = data.Value.Position;
+            DirectionController.CurrentDirection = data.Value.Direction;
+            transform.rotation = DirectionController.CurrentRotation;
+        }
+
+        [Serializable]
+        public struct SlimeySaveData
+        {
+            public float Health;
+            public Vector3 Position;
+            public Direction Direction;
+            public Quaternion Rotation;
+
+            public string CreateSaveData()
+            {
+                var bytes = SerializationUtility.SerializeValue(this, DataFormat.Binary);
+                return Convert.ToBase64String(bytes);
+            }
+
+            public static SlimeySaveData? Load(string saveData)
+            {
+                if (string.IsNullOrEmpty(saveData)) return null;
+
+                var bytes = Convert.FromBase64String(saveData);
+                return SerializationUtility.DeserializeValue<SlimeySaveData>(bytes, DataFormat.Binary);
+            }
         }
     }
 }

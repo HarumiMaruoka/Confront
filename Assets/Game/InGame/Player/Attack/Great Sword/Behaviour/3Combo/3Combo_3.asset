@@ -25,18 +25,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseAttackPower: 2
-  _attackPowerFactor: 2
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0
   _nextAttackTransitionTime: 0
   _attackCompletionTime: 1.45
   _hitBoxes:
-  - _startTime: 0.3
-    _endTime: 0.8
-    _additionalAttackPower: 3
-    _multiplierAttackPower: 5
-    _offset: {x: 0, y: 1.5, z: 3}
+  - _offset: {x: 0, y: 1.5, z: 3}
     _size: {x: 0, y: 3, z: 5}
     _gizmoOption: 0
-    Center: {fileID: 0}
+    _startTime: 0.3
+    _endTime: 0.8
+    _baseDamage: 0
+    _factor: 0
+    _damageDirection: {x: 0, y: 0}
+    _damageForce: 0
+  _shooters: []

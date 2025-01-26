@@ -6,23 +6,29 @@ namespace Confront.Weapon
     [Serializable]
     public class WeaponInstance
     {
-        public WeaponData Data;
+        public int ID;
+        public WeaponData Data => WeaponManager.WeaponSheet.GetWeaponData(ID);
         public int Level = 1;
 
-        public WeaponInstance(WeaponData data)
+        //public WeaponInstance(WeaponData data)
+        //{
+        //    Data = data;
+        //}
+
+        //public WeaponInstance(int id)
+        //{
+        //    Data = WeaponManager.WeaponSheet.GetWeaponData(id);
+        //}
+
+        public static WeaponInstance Create(int id)
         {
-            Data = data;
+            return new WeaponInstance { ID = id };
         }
 
-        public WeaponInstance(int id)
-        {
-            Data = WeaponManager.WeaponSheet.GetWeaponData(id);
-        }
-
-        public WeaponInstance(string name)
-        {
-            Data = WeaponManager.WeaponSheet.GetWeaponData(name);
-        }
+        //public WeaponInstance(string name)
+        //{
+        //    Data = WeaponManager.WeaponSheet.GetWeaponData(name);
+        //}
 
         public void Equip()
         {

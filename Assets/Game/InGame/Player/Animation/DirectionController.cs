@@ -11,12 +11,9 @@ namespace Confront.Player
         private Transform _transform;
         private CancellationTokenSource _cancellationTokenSource;
 
-        [SerializeField]
-        private Vector3 RightDirectionAngle = new Vector3(0, 0, 0);
-        [SerializeField]
-        private Vector3 LeftDirectionAngle = new Vector3(0, 180, 0);
-        [SerializeField]
-        private float RotationSpeed = 5f;
+        public Vector3 RightDirectionAngle = new Vector3(0, 0, 0);
+        public Vector3 LeftDirectionAngle = new Vector3(0, 180, 0);
+        public float RotationSpeed = 5f;
 
         public Direction CurrentDirection;
         public Quaternion CurrentRotation => CurrentDirection == Direction.Right ? Quaternion.Euler(RightDirectionAngle) : Quaternion.Euler(LeftDirectionAngle);

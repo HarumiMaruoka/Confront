@@ -75,5 +75,16 @@ namespace Confront.Boss
                 _damagePosition = damagePosition;
             }
         }
+
+        protected override string CreateSaveData()
+        {
+            Debug.LogWarning("未実装");
+            return "";
+        }
+
+        protected override void Load(string saveData)
+        {
+            Debug.LogWarning("未実装");
+        }
     }
 }

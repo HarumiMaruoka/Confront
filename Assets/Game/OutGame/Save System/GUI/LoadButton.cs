@@ -23,13 +23,18 @@ namespace Confront.SaveSystem.GUI
             set
             {
                 if (_saveDataController == value) return;
-                _saveDataController = value;
 
-                value.OnSaved -= OnSaved;
-                value.OnSaved += OnSaved;
+                if (_saveDataController != null) _saveDataController.OnSaved -= OnSaved;
+                _saveDataController = value;
+                _saveDataController.OnSaved += OnSaved;
 
                 OnSaved(value);
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (_saveDataController != null) _saveDataController.OnSaved -= OnSaved;
         }
 
         private void OnSaved(SaveDataController saveDataController)
