@@ -280,6 +280,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Right Click",
+                    "type": "Button",
+                    "id": "31ed8a00-d9da-43e0-98f3-a4ee16c826e9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "HotBar Top",
                     "type": "Button",
                     "id": "3aaf471e-a5c7-449f-b5ef-3280e50f6e05",
@@ -310,15 +319,6 @@
                     "name": "HotBar Right",
                     "type": "Button",
                     "id": "1bab9a40-0542-488d-93a3-81951b59b41e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Right Click",
-                    "type": "Button",
-                    "id": "31ed8a00-d9da-43e0-98f3-a4ee16c826e9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -406,7 +406,7 @@
                 {
                     "name": "",
                     "id": "522f8fb1-0780-4c29-84cc-eeb768056b2f",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -604,7 +604,7 @@
                 {
                     "name": "",
                     "id": "eea37d3f-142f-4b55-b2c6-7129819ff027",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

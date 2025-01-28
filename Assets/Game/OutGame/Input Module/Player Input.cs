@@ -302,6 +302,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Right Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""31ed8a00-d9da-43e0-98f3-a4ee16c826e9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""HotBar Top"",
                     ""type"": ""Button"",
                     ""id"": ""3aaf471e-a5c7-449f-b5ef-3280e50f6e05"",
@@ -332,15 +341,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""HotBar Right"",
                     ""type"": ""Button"",
                     ""id"": ""1bab9a40-0542-488d-93a3-81951b59b41e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Right Click"",
-                    ""type"": ""Button"",
-                    ""id"": ""31ed8a00-d9da-43e0-98f3-a4ee16c826e9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -428,7 +428,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""522f8fb1-0780-4c29-84cc-eeb768056b2f"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -626,7 +626,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""eea37d3f-142f-4b55-b2c6-7129819ff027"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -653,11 +653,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OutGameInput_CloseMenu = m_OutGameInput.FindAction("CloseMenu", throwIfNotFound: true);
         m_OutGameInput_SaveShortcut = m_OutGameInput.FindAction("SaveShortcut", throwIfNotFound: true);
         m_OutGameInput_Click = m_OutGameInput.FindAction("Click", throwIfNotFound: true);
+        m_OutGameInput_RightClick = m_OutGameInput.FindAction("Right Click", throwIfNotFound: true);
         m_OutGameInput_HotBarTop = m_OutGameInput.FindAction("HotBar Top", throwIfNotFound: true);
         m_OutGameInput_HotBarBottom = m_OutGameInput.FindAction("HotBar Bottom", throwIfNotFound: true);
         m_OutGameInput_HotBarLeft = m_OutGameInput.FindAction("HotBar Left", throwIfNotFound: true);
         m_OutGameInput_HotBarRight = m_OutGameInput.FindAction("HotBar Right", throwIfNotFound: true);
-        m_OutGameInput_RightClick = m_OutGameInput.FindAction("Right Click", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -809,11 +809,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OutGameInput_CloseMenu;
     private readonly InputAction m_OutGameInput_SaveShortcut;
     private readonly InputAction m_OutGameInput_Click;
+    private readonly InputAction m_OutGameInput_RightClick;
     private readonly InputAction m_OutGameInput_HotBarTop;
     private readonly InputAction m_OutGameInput_HotBarBottom;
     private readonly InputAction m_OutGameInput_HotBarLeft;
     private readonly InputAction m_OutGameInput_HotBarRight;
-    private readonly InputAction m_OutGameInput_RightClick;
     public struct OutGameInputActions
     {
         private @PlayerInput m_Wrapper;
@@ -822,11 +822,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @CloseMenu => m_Wrapper.m_OutGameInput_CloseMenu;
         public InputAction @SaveShortcut => m_Wrapper.m_OutGameInput_SaveShortcut;
         public InputAction @Click => m_Wrapper.m_OutGameInput_Click;
+        public InputAction @RightClick => m_Wrapper.m_OutGameInput_RightClick;
         public InputAction @HotBarTop => m_Wrapper.m_OutGameInput_HotBarTop;
         public InputAction @HotBarBottom => m_Wrapper.m_OutGameInput_HotBarBottom;
         public InputAction @HotBarLeft => m_Wrapper.m_OutGameInput_HotBarLeft;
         public InputAction @HotBarRight => m_Wrapper.m_OutGameInput_HotBarRight;
-        public InputAction @RightClick => m_Wrapper.m_OutGameInput_RightClick;
         public InputActionMap Get() { return m_Wrapper.m_OutGameInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -848,6 +848,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
+            @RightClick.started += instance.OnRightClick;
+            @RightClick.performed += instance.OnRightClick;
+            @RightClick.canceled += instance.OnRightClick;
             @HotBarTop.started += instance.OnHotBarTop;
             @HotBarTop.performed += instance.OnHotBarTop;
             @HotBarTop.canceled += instance.OnHotBarTop;
@@ -860,9 +863,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @HotBarRight.started += instance.OnHotBarRight;
             @HotBarRight.performed += instance.OnHotBarRight;
             @HotBarRight.canceled += instance.OnHotBarRight;
-            @RightClick.started += instance.OnRightClick;
-            @RightClick.performed += instance.OnRightClick;
-            @RightClick.canceled += instance.OnRightClick;
         }
 
         private void UnregisterCallbacks(IOutGameInputActions instance)
@@ -879,6 +879,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
+            @RightClick.started -= instance.OnRightClick;
+            @RightClick.performed -= instance.OnRightClick;
+            @RightClick.canceled -= instance.OnRightClick;
             @HotBarTop.started -= instance.OnHotBarTop;
             @HotBarTop.performed -= instance.OnHotBarTop;
             @HotBarTop.canceled -= instance.OnHotBarTop;
@@ -891,9 +894,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @HotBarRight.started -= instance.OnHotBarRight;
             @HotBarRight.performed -= instance.OnHotBarRight;
             @HotBarRight.canceled -= instance.OnHotBarRight;
-            @RightClick.started -= instance.OnRightClick;
-            @RightClick.performed -= instance.OnRightClick;
-            @RightClick.canceled -= instance.OnRightClick;
         }
 
         public void RemoveCallbacks(IOutGameInputActions instance)
@@ -926,10 +926,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnCloseMenu(InputAction.CallbackContext context);
         void OnSaveShortcut(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
+        void OnRightClick(InputAction.CallbackContext context);
         void OnHotBarTop(InputAction.CallbackContext context);
         void OnHotBarBottom(InputAction.CallbackContext context);
         void OnHotBarLeft(InputAction.CallbackContext context);
         void OnHotBarRight(InputAction.CallbackContext context);
-        void OnRightClick(InputAction.CallbackContext context);
     }
 }

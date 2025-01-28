@@ -7,6 +7,8 @@ namespace Confront.SaveSystem.GUI
     [RequireComponent(typeof(Button))]
     public class SaveButton : MonoBehaviour
     {
+        public Button Button;
+
         [SerializeField]
         private TMPro.TextMeshProUGUI _title;
         [SerializeField]
@@ -44,7 +46,7 @@ namespace Confront.SaveSystem.GUI
 
         private void Start()
         {
-            GetComponent<Button>().onClick.AddListener(Save);
+            Button.onClick.AddListener(Save);
         }
 
         private void Save()

@@ -1,19 +1,17 @@
 ﻿using Confront.SaveSystem;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Confront.GameUI
 {
+    // 最後にセーブされたデータを読み込む。
+    // セーブデータが存在しない場合は、NewGameを開始する。
     public class GameStartButton : MonoBehaviour
     {
-        // 最後にセーブされたデータを読み込む
-
-        private void OnEnable()
-        {
-            var lastSaveData = GetLastSaveData();
-            gameObject.SetActive(lastSaveData != null); // セーブデータが存在しない場合は非表示にする。
-        }
+        [SerializeField] 
+        private string _defaultSceneName = "Game Main";
 
         private void Start()
         {
@@ -47,12 +45,15 @@ namespace Confront.GameUI
         private void OnButtonClicked()
         {
             var last = GetLastSaveData();
-            if (last == null)
+            if (last != null)
             {
-                Debug.LogWarning("SaveData is not found.");
+                last.Load();
                 return;
             }
-            last.Load();
+            else
+            {
+                SceneManager.LoadScene(_defaultSceneName);
+            }
         }
     }
 }

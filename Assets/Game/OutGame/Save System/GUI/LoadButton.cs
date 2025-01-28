@@ -7,6 +7,8 @@ namespace Confront.SaveSystem.GUI
     [RequireComponent(typeof(Button))]
     public class LoadButton : MonoBehaviour
     {
+        public Button Button;
+
         [SerializeField]
         private TMPro.TextMeshProUGUI title;
         [SerializeField]
@@ -55,7 +57,7 @@ namespace Confront.SaveSystem.GUI
 
         private void Start()
         {
-            GetComponent<Button>().onClick.AddListener(SaveDataController.Load);
+            Button.onClick.AddListener(SaveDataController.Load);
         }
     }
 }

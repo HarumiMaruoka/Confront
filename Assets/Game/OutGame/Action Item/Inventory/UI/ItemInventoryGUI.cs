@@ -6,11 +6,18 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Confront.ActionItem
 {
     public class ItemInventoryGUI : MonoBehaviour
     {
+        // TODO:実装がきちんと動作するか確認する
+        // TODO:ホバー時のGamepadとKeyboardMouseの挙動の違いの実装
+        // TODO:マウスオーバー時のスロットの情報を表示する
+
+        private GameObject _previouseSelection;
+
         [SerializeField]
         private SlotUI _hotBarTop;
         [SerializeField]
@@ -77,7 +84,9 @@ namespace Confront.ActionItem
         {
             if (PlayerController.Instance)
             {
+                _previouseSelection = EventSystem.current.currentSelectedGameObject;
                 Open(PlayerController.Instance.ActionItemInventory);
+                EventSystem.current.SetSelectedGameObject(_slots[0].gameObject);
             }
         }
 
@@ -88,6 +97,8 @@ namespace Confront.ActionItem
             {
                 Open(player.ActionItemInventory);
                 InitializeHotBar(player.HotBar);
+                InitializeNavigation();
+                EventSystem.current.SetSelectedGameObject(_slots[0].gameObject);
             }
             else
             {
@@ -111,6 +122,16 @@ namespace Confront.ActionItem
             }
             HoveringSlotUI.Slot.Item = null;
             HoveringSlotUI.Slot.Count = 0;
+            // TODO:アイテムが消滅しないようにする。
+
+            if (_previouseSelection)
+            {
+                EventSystem.current?.SetSelectedGameObject(_previouseSelection);
+            }
+            else
+            {
+                Debug.LogWarning("Previous selection is null");
+            }
         }
 
         private void UpdateHoveringSlotPosition()
@@ -249,6 +270,102 @@ namespace Confront.ActionItem
             _hotBarBottom.Slot = hotBar.GetSlot(Direction.Bottom);
             _hotBarLeft.Slot = hotBar.GetSlot(Direction.Left);
             _hotBarRight.Slot = hotBar.GetSlot(Direction.Right);
+        }
+
+        private void InitializeNavigation()
+        {
+            if (_slots == null || _slots.Count == 0) return;
+
+            var columns = 4;
+            var rows = 5;
+
+            for (int i = 0; i < _slots.Count; i++)
+            {
+                var slot = _slots[i];
+                var navigation = slot.Button.navigation;
+                navigation.mode = Navigation.Mode.Explicit;
+
+                // 4で割り切れる場合は、leftOnSelectに自分を設定する。
+                if (i % columns == 0)
+                {
+                    navigation.selectOnLeft = slot.Button;
+                }
+                else
+                {
+                    navigation.selectOnLeft = _slots[i - 1].Button;
+                }
+
+                // 4の剰余が1の場合は、rightOnSelectに自分を設定する。
+                if (i % columns == columns - 1)
+                {
+                    navigation.selectOnRight = slot.Button;
+                }
+                else
+                {
+                    navigation.selectOnRight = _slots[i + 1].Button;
+                }
+
+                // 4で割った商が0の場合は、upOnSelectに自分を設定する。
+                if (i / columns == 0)
+                {
+                    navigation.selectOnUp = slot.Button;
+                }
+                else
+                {
+                    navigation.selectOnUp = _slots[i - 4].Button;
+                }
+
+                // 4で割った商が4の場合は、downOnSelectにHotBarの上を設定する。
+                if (i / columns == rows - 1)
+                {
+                    navigation.selectOnDown = _hotBarTop.Button;
+                }
+                else
+                {
+                    navigation.selectOnDown = _slots[i + 4].Button;
+                }
+
+                slot.Button.navigation = navigation;
+            }
+
+            // HotBarのナビゲーション設定
+            // ========== HotBarTop ========== //
+            var hotBarTopNavigation = _hotBarTop.Button.navigation;
+            hotBarTopNavigation.mode = Navigation.Mode.Explicit;
+
+            hotBarTopNavigation.selectOnUp = _slots[columns * (rows - 1) + 1].Button; // Slotsの左下の１つ右を設定する。
+            hotBarTopNavigation.selectOnDown = _hotBarBottom.Button;
+            hotBarTopNavigation.selectOnLeft = _hotBarLeft.Button;
+            hotBarTopNavigation.selectOnRight = _hotBarRight.Button;
+            _hotBarTop.Button.navigation = hotBarTopNavigation;
+            // ========== HotBarBottom ========== //
+            var hotBarBottomNavigation = _hotBarBottom.Button.navigation;
+            hotBarBottomNavigation.mode = Navigation.Mode.Explicit;
+
+            hotBarBottomNavigation.selectOnUp = _hotBarTop.Button;
+            hotBarBottomNavigation.selectOnDown = _hotBarBottom.Button;
+            hotBarBottomNavigation.selectOnLeft = _hotBarLeft.Button;
+            hotBarBottomNavigation.selectOnRight = _hotBarRight.Button;
+            _hotBarBottom.Button.navigation = hotBarBottomNavigation;
+            // ========== HotBarLeft ========== //
+            var hotBarLeftNavigation = _hotBarLeft.Button.navigation;
+            hotBarLeftNavigation.mode = Navigation.Mode.Explicit;
+
+            hotBarLeftNavigation.selectOnUp = _hotBarTop.Button;
+            hotBarLeftNavigation.selectOnDown = _hotBarBottom.Button;
+            hotBarLeftNavigation.selectOnLeft = _hotBarLeft.Button;
+            hotBarLeftNavigation.selectOnRight = _hotBarRight.Button;
+            _hotBarLeft.Button.navigation = hotBarLeftNavigation;
+            // ========== HotBarRight ========== //
+            var hotBarRightNavigation = _hotBarRight.Button.navigation;
+            hotBarRightNavigation.mode = Navigation.Mode.Explicit;
+
+            hotBarRightNavigation.selectOnUp = _hotBarTop.Button;
+            hotBarRightNavigation.selectOnDown = _hotBarBottom.Button;
+            hotBarRightNavigation.selectOnLeft = _hotBarLeft.Button;
+            hotBarRightNavigation.selectOnRight = _hotBarRight.Button;
+            _hotBarRight.Button.navigation = hotBarRightNavigation;
+            // ============================================================= //
         }
     }
 }

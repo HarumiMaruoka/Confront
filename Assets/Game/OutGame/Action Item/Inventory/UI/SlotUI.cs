@@ -8,6 +8,8 @@ namespace Confront.GameUI
 {
     public class SlotUI : MonoBehaviour
     {
+        public Button Button;
+
         [SerializeField]
         private Image _icon;
         [SerializeField]
