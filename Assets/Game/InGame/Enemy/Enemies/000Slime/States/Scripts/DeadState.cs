@@ -29,7 +29,7 @@ namespace Confront.Enemy.Slimey
             _timer += Time.deltaTime;
             if (_timer >= Duration)
             {
-                GameObject.Destroy(slimey.gameObject);
+                slimey.gameObject.SetActive(false);
             }
         }
 

@@ -3,6 +3,7 @@ using Confront.Enemy.Slimey;
 using Confront.GameUI;
 using Confront.Player;
 using Confront.Utility;
+using NexEditor;
 using OdinSerializer;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Confront.Enemy
         [Header("Components")]
         public Rigidbody Rigidbody;
         public Animator Animator;
-        public SlimeyStats Stats;
+        [Expandable] public SlimeyStats Stats;
         public EnemyEye Eye;
 
         [Header("States")]
@@ -41,14 +42,28 @@ namespace Confront.Enemy
 
         private Dictionary<Type, SlimeyState> _states = new Dictionary<Type, SlimeyState>();
         private PlayerController _player;
+        private RigidbodyPauseHandler _rigidbodyPauseHandler;
+        private AnimatorPauseHandler _animatorPauseHandler;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             Initialize();
+            _rigidbodyPauseHandler = new RigidbodyPauseHandler(Rigidbody);
+            _animatorPauseHandler = new AnimatorPauseHandler(Animator);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _rigidbodyPauseHandler.Dispose();
+            _animatorPauseHandler.Dispose();
         }
 
         private void Update()
         {
+            if (MenuController.IsOpened) return;
+
             CurrentState.Execute(_player, this);
             DirectionController.UpdateVelocity(Rigidbody.velocity);
         }
@@ -148,7 +163,7 @@ namespace Confront.Enemy
 
             if (data.Value.Health < 0f)
             {
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
                 return;
             }
 

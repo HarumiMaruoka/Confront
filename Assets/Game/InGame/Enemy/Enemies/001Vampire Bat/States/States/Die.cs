@@ -27,7 +27,7 @@ namespace Confront.Enemy.VampireBat
             _timer += Time.deltaTime;
             if (_timer >= Duration)
             {
-                GameObject.Destroy(vampireBat.gameObject);
+                vampireBat.gameObject.SetActive(false);
             }
         }
 

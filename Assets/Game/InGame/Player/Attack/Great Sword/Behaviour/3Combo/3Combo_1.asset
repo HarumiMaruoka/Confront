@@ -72,7 +72,7 @@ MonoBehaviour:
     _startTime: 0.3
     _endTime: 0.4
     _baseDamage: 2
-    _factor: 2
+    _factor: 0
     _damageDirection: {x: 0, y: 0}
     _damageForce: 0
   - _offset: {x: 0, y: 1.5, z: 2}
@@ -81,7 +81,7 @@ MonoBehaviour:
     _startTime: 0.4
     _endTime: 0.5
     _baseDamage: 2
-    _factor: 3
+    _factor: 0
     _damageDirection: {x: 0, y: 0}
     _damageForce: 0
   _shooters: []

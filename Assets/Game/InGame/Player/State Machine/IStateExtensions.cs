@@ -5,11 +5,11 @@ namespace Confront.Player
 {
     public static class IStateExtensions
     {
-        public static void TransitionToDefaultState(this IState state, PlayerController player)
+        public static void TransitionToDefaultState(this IState currentState, PlayerController player)
         {
             var sensorResult = player.Sensor.CalculateGroundState(player);
 
-            if (sensorResult.GroundType == state.ToGroundType()) return;
+            if (sensorResult.GroundType == currentState.ToGroundType()) return;
 
             switch (sensorResult.GroundType)
             {

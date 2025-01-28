@@ -8,6 +8,8 @@ namespace Confront.Weapon
 {
     public class InventoryWindowElement : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     {
+        public Button Button;
+
         [SerializeField]
         private Image _icon;
         [SerializeField]

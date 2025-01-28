@@ -182,7 +182,7 @@ namespace Confront.Player
             StateMachine.LateUpdate();
 
             PrevPosition = CurrentPosition;
-            CurrentPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset;
+            CurrentPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset2;
             if (ShouldHandlePlatformCollision())
             {
                 HandlePlatformCollision();
@@ -284,13 +284,13 @@ namespace Confront.Player
             if (MovementParameters.IsPassThroughPlatformTimerFinished &&
                 Physics.Linecast(PrevPosition, CurrentPosition, out _platformHitInfo, Sensor.PassThroughPlatform | Sensor.GroundLayerMask))
             {
-                var hitPoint = _platformHitInfo.point + (Vector3)Sensor._groundCheckRayOffset;
+                var hitPoint = _platformHitInfo.point + (Vector3)Sensor._groundCheckRayOffset2;
                 CharacterController.enabled = false;
                 transform.position = new Vector3(hitPoint.x, hitPoint.y, 0f);
                 CharacterController.enabled = true;
 
                 MovementParameters.Velocity = new Vector2(0f, 0f);
-                StateMachine.ChangeState<Grounded>();
+                // StateMachine.ChangeState<Grounded>();
             }
         }
 

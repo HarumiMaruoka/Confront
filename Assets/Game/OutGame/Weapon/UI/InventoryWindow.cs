@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Confront.Weapon
 {
@@ -16,9 +18,11 @@ namespace Confront.Weapon
         private WeaponInventory _inventory;
 
         private Queue<InventoryWindowElement> _inactives = new Queue<InventoryWindowElement>();
+        private List<InventoryWindowElement> _actives = new List<InventoryWindowElement>();
         private Dictionary<WeaponInstance, InventoryWindowElement> _elementMap = new Dictionary<WeaponInstance, InventoryWindowElement>();
 
         private PlayerController _player;
+        private GameObject _previouseSelection;
 
         private void Start()
         {
@@ -51,6 +55,7 @@ namespace Confront.Weapon
 
         private void OnEnable()
         {
+            _previouseSelection = EventSystem.current.currentSelectedGameObject;
             if (_inventory != null)
             {
                 Open(_inventory);
@@ -63,6 +68,7 @@ namespace Confront.Weapon
             {
                 Clear();
             }
+            EventSystem.current.SetSelectedGameObject(_previouseSelection);
         }
 
         #region Core Functions
@@ -85,9 +91,12 @@ namespace Confront.Weapon
             Clear();
             foreach (var weapon in _inventory)
             {
-                GetOrCreateElementUI(weapon);
+                GetOrCreateElement(weapon);
             }
+
+            InitializeNavigation();
         }
+
 
         private void Clear()
         {
@@ -96,12 +105,11 @@ namespace Confront.Weapon
                 element.gameObject.SetActive(false);
                 _inactives.Enqueue(element);
             }
+            _actives.Clear();
             _elementMap.Clear();
         }
-        #endregion
 
-        #region Inventory Events
-        private InventoryWindowElement GetOrCreateElementUI(WeaponInstance weapon)
+        private InventoryWindowElement GetOrCreateElement(WeaponInstance weapon)
         {
             InventoryWindowElement element;
             if (_inactives.Count > 0)
@@ -114,6 +122,7 @@ namespace Confront.Weapon
             {
                 element = Instantiate(_elementPrefab, _container);
             }
+            _actives.Add(element);
             element.Weapon = weapon;
             _elementMap[weapon] = element;
 
@@ -135,10 +144,70 @@ namespace Confront.Weapon
                 element.OnMouseEnter -= OnElementMouseEnterBuffer;
             }
         }
+        #endregion
+
+        #region Inventory Events
+        private void InitializeNavigation()
+        {
+            int collumn = 5;
+
+            for (int i = 0; i < _actives.Count; i++)
+            {
+                var element = _actives[i].Button;
+                var nav = element.navigation;
+                nav.mode = Navigation.Mode.Explicit;
+
+                // 上
+                if (i / collumn == 0)
+                {
+                    nav.selectOnUp = element;
+                }
+                else
+                {
+                    nav.selectOnUp = _actives[i - collumn].Button;
+                }
+                // 下
+                if (i / collumn == _actives.Count / collumn || i + collumn >= _actives.Count)
+                {
+                    nav.selectOnDown = element;
+                }
+                else
+                {
+                    nav.selectOnDown = _actives[i + collumn].Button;
+                }
+                // 左
+                if (i % collumn == 0)
+                {
+                    nav.selectOnLeft = element;
+                }
+                else
+                {
+                    nav.selectOnLeft = _actives[i - 1].Button;
+                }
+                // 右
+                if (i % collumn == collumn - 1 || i + 1 >= _actives.Count)
+                {
+                    nav.selectOnRight = element;
+                }
+                else
+                {
+                    nav.selectOnRight = _actives[i + 1].Button;
+                }
+
+                element.navigation = nav;
+            }
+
+            if (_actives.Count > 0)
+            {
+                EventSystem.current.SetSelectedGameObject(_actives[0].Button.gameObject);
+            }
+        }
 
         private void OnWeaponAdded(WeaponInstance weapon)
         {
-            GetOrCreateElementUI(weapon);
+            GetOrCreateElement(weapon);
+
+            InitializeNavigation();
         }
 
         private void OnWeaponSwapped(WeaponInstance a, WeaponInstance b)

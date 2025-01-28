@@ -431,6 +431,7 @@ GameObject:
   - component: {fileID: 4416929720443487882}
   - component: {fileID: 7499085782949818741}
   - component: {fileID: 8450836724848770318}
+  - component: {fileID: 5289492447007533473}
   m_Layer: 5
   m_Name: Volume Adjust Panel
   m_TagString: Untagged
@@ -516,6 +517,19 @@ MonoBehaviour:
   _masterVolume: {fileID: 6725842330487616883}
   _bgmVolume: {fileID: 5655275411074640643}
   _seVolume: {fileID: 8636231762059462396}
+--- !u!114 &5289492447007533473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549986075886434310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb01a1f7afd32b4f83ae3fda1eed866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultSelection: {fileID: 5646696369629332531}
 --- !u!1 &555287645203574220
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,10 +3223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 6725842330487616883}
+    m_SelectOnDown: {fileID: 8636231762059462396}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -3279,7 +3293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIManagerAsset: {fileID: 11400000, guid: ed935159a86a1be4cbc1c44848b24daf, type: 2}
-  audioObject: {fileID: 0}
   hoverSFX: {fileID: 0}
   clickSFX: {fileID: 0}
   enableHoverSound: 1
@@ -3949,10 +3962,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 6725842330487616883}
+    m_SelectOnDown: {fileID: 5655275411074640643}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -4019,7 +4032,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIManagerAsset: {fileID: 11400000, guid: ed935159a86a1be4cbc1c44848b24daf, type: 2}
-  audioObject: {fileID: 0}
   hoverSFX: {fileID: 0}
   clickSFX: {fileID: 0}
   enableHoverSound: 1
@@ -4451,12 +4463,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnUp: {fileID: 8636231762059462396}
+    m_SelectOnDown: {fileID: 6102774728399316592}
+    m_SelectOnLeft: {fileID: 6102774728399316592}
+    m_SelectOnRight: {fileID: 6102774728399316592}
   m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -4495,7 +4507,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIManagerAsset: {fileID: 11400000, guid: ed935159a86a1be4cbc1c44848b24daf, type: 2}
-  audioObject: {fileID: 0}
   hoverSFX: {fileID: 0}
   clickSFX: {fileID: 0}
   enableHoverSound: 1
@@ -5754,10 +5765,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 5655275411074640643}
+    m_SelectOnDown: {fileID: 6102774728399316592}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -5824,7 +5835,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIManagerAsset: {fileID: 11400000, guid: ed935159a86a1be4cbc1c44848b24daf, type: 2}
-  audioObject: {fileID: 0}
   hoverSFX: {fileID: 0}
   clickSFX: {fileID: 0}
   enableHoverSound: 1

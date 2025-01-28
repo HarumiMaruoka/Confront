@@ -6,6 +6,8 @@ namespace Confront.ForgeItem
 {
     public class ForgeItemInventoryUIElement : MonoBehaviour
     {
+        public Button Button;
+
         [SerializeField]
         private Image _icon;
         [SerializeField]

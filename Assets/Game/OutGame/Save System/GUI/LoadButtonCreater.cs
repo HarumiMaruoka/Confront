@@ -50,11 +50,8 @@ namespace Confront.SaveSystem.GUI
 
         private void Update()
         {
-            if (InputDeviceManager.LastInputDevice == InputDevice.Gamepad)
-            {
-                var selected = EventSystem.current?.currentSelectedGameObject?.GetComponent<RectTransform>();
-                if (selected) _scrollToSelected.ScrollTo(selected);
-            }
+            var selected = EventSystem.current?.currentSelectedGameObject?.GetComponent<RectTransform>();
+            if (selected) _scrollToSelected.ScrollTo(selected);
         }
 
         private GameObject _previouseSelection;

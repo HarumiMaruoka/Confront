@@ -32,15 +32,6 @@ namespace Confront.Enemy
         public string Name => Data.Name;
         public string Description => Data.Description;
 
-        private void OnEnable()
-        {
-            var saveData = SaveDataController.Loaded;
-            if (saveData != null && saveData.EnemyData.TryGetValue(SaveKey, out string data))
-            {
-                Load(data);
-                saveData.EnemyData.Remove(SaveKey);
-            }
-        }
 
         protected virtual void Awake()
         {
@@ -51,6 +42,16 @@ namespace Confront.Enemy
         protected virtual void OnDestroy()
         {
             SavableRegistry.Unregister(this);
+        }
+
+        protected virtual void OnEnable()
+        {
+            var saveData = SaveDataController.Loaded;
+            if (saveData != null && saveData.EnemyData.TryGetValue(SaveKey, out string data))
+            {
+                Load(data);
+                saveData.EnemyData.Remove(SaveKey);
+            }
         }
 
         public static float DefaultCalculateDamage(float attackPower, float defense)
@@ -117,14 +118,6 @@ namespace Confront.Enemy
         public void Save(SaveData saveData)
         {
             saveData.EnemyData[SaveKey] = CreateSaveData();
-        }
-
-        private void Load(SaveData saveData)
-        {
-            if (saveData.EnemyData.TryGetValue(SaveKey, out string data))
-            {
-                Load(data);
-            }
         }
     }
 }

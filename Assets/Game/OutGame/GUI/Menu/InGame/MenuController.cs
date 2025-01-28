@@ -9,6 +9,9 @@ namespace Confront.GameUI
     public class MenuController : MonoBehaviour
     {
         public static MenuController Instance { get; private set; }
+        public static bool IsOpened => Instance.IsOpenedMenu;
+        public static event Action OnOpenedMenu;
+        public static event Action OnClosedMenu;
 
         private void Awake()
         {
@@ -37,8 +40,6 @@ namespace Confront.GameUI
         private Stack<GameObject> _menus = new Stack<GameObject>();
 
         public bool IsOpenedMenu => _menus.Count > 0;
-        public event Action OnOpenedMenu;
-        public event Action OnClosedMenu;
 
         public void Update()
         {

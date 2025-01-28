@@ -6,6 +6,7 @@ using Confront.Player;
 using System.Collections.Generic;
 using Confront.GameUI;
 using Confront.Utility;
+using NexEditor;
 
 namespace Confront.Enemy
 {
@@ -15,6 +16,7 @@ namespace Confront.Enemy
 
         [Header("Components")]
         public Animator Animator;
+        [Expandable]
         public VampireBatStats Stats;
         public EnemyEye Eye;
 
@@ -42,16 +44,28 @@ namespace Confront.Enemy
 
         private Dictionary<Type, VampireBatState> _states = new Dictionary<Type, VampireBatState>();
         private PlayerController _player;
+        private AnimatorPauseHandler _animatorPauseHandler;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             Initialize();
+
+            _animatorPauseHandler = new AnimatorPauseHandler(Animator);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _animatorPauseHandler.Dispose();
         }
 
         private Vector3 _prevPosition;
 
         private void Update()
         {
+            if (MenuController.IsOpened) return;
+
             var velocity = transform.position - _prevPosition;
             _prevPosition = transform.position;
 
@@ -149,6 +163,12 @@ namespace Confront.Enemy
         {
             var data = VampireBatSaveData.Load(saveData);
             if (data == null) return;
+
+            if (data.Value.Health <= 0)
+            {
+                gameObject.SetActive(false);
+            }
+
             Stats.Health = data.Value.Health;
             transform.position = data.Value.Position;
             DirectionController.CurrentDirection = data.Value.Direction;

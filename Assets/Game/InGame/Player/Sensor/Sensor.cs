@@ -11,16 +11,18 @@ namespace Confront.Player
     {
         [Header("Check Ground")]
         [SerializeField]
-        public Vector2 _groundCheckRayOffset = new Vector2(0, 0f);
-        [SerializeField]
-        private float _groundCheckRayRadius = 0.3f;
+        public Vector2 _groundCheckRayOffset1 = new Vector2(0, 0.1f);
         [SerializeField]
         public float _groundCheckRayLength = 0.58f;
         [SerializeField]
+        public Vector2 _groundCheckRayOffset2 = new Vector2(0, 0.1f);
+        [SerializeField]
+        private float _groundCheckRayRadius = 0.3f;
+        [SerializeField]
         private bool _isGroundCheckGizmoEnabled = true;
-        //[SerializeField]
-        //[Range(0.3f, 1f)]
-        //private float _isGroundCheckGizmoAlpha = 0.5f;
+        [SerializeField]
+        [Range(0.3f, 1f)]
+        private float _isGroundCheckGizmoAlpha = 0.5f;
 
         [Header("Check Abyss")]
         [SerializeField]
@@ -93,28 +95,6 @@ namespace Confront.Player
                 QueryTriggerInteraction.Ignore);
         }
 
-        public RaycastHit? GetGroundPoint(PlayerController player, out float maxDistance)
-        {
-            var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset;
-            var groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
-
-            if (player.MovementParameters.IsPassThroughPlatformTimerFinished) groundCheckLayerMask |= PassThroughPlatform;
-
-            maxDistance = _groundCheckRayLength;
-            return UnityEngine.Physics.Raycast(groundCheckRayOrigin, Vector3.down, out var hit, _groundCheckRayLength, groundCheckLayerMask) ? hit : null;
-        }
-
-        public LayerMask GetGroundLayer(PlayerController player)
-        {
-            var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset + new Vector3(0, 0.5f);
-            var groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
-
-            if (player.MovementParameters.IsPassThroughPlatformTimerFinished) groundCheckLayerMask |= PassThroughPlatform;
-
-            var isHit = UnityEngine.Physics.Raycast(groundCheckRayOrigin, Vector3.down, out var hit, _groundCheckRayLength + 1f, groundCheckLayerMask);
-            return isHit ? hit.collider.gameObject.layer : 0;
-        }
-
         public bool IsAbove(PlayerController player)
         {
             // 頭上にレイを飛ばして、ヒットした場合には、頭上に何かあると判定する。
@@ -133,8 +113,10 @@ namespace Confront.Player
         public bool IsGroundBelow(PlayerController player, LayerMask layerMask)
         {
             var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
-            return UnityEngine.Physics.SphereCast(abyssCheckRayOrigin, _abyssCheckRayRadius, Vector3.down, out var abyssHit, _abyssCheckRayLength, layerMask);
+            return UnityEngine.Physics.SphereCast(abyssCheckRayOrigin, _abyssCheckRayRadius, Vector3.down, out var hit, _abyssCheckRayLength, layerMask);
         }
+
+        private int _steepSlopeCount = 0;
 
         public GroundSensorResult CalculateGroundState(PlayerController player)
         {
@@ -148,10 +130,20 @@ namespace Confront.Player
                 groundCheckLayerMask = GroundLayerMask | EnemyLayerMask;
 
             // 足元にレイを飛ばして、ヒットした場合には、地面にいると判定する。
-            var groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset;
-            var hit = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask);
-            result.IsGrounded = hit.HasValue;
-            var groundNormal = hit.GetValueOrDefault(Vector3.zero);
+            Vector3 groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset1;
+            var isHitSphereCast = Physics.SphereCast(groundCheckRayOrigin, _groundCheckRayRadius, Vector3.down, out var hitInfo, _groundCheckRayLength, groundCheckLayerMask);
+            result.IsGrounded = isHitSphereCast ? Vector3.Dot(hitInfo.normal, Vector3.up) > 0.08f : false;
+            Vector3 groundNormal;
+            groundNormal = hitInfo.normal;
+            result.GroundDistance = isHitSphereCast ? hitInfo.distance : _groundCheckRayLength;
+
+            if (isHitSphereCast == false) // レイが地面にヒットしなかった場合、もう一度レイを飛ばす
+            {
+                groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset2;
+                var hit = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask);
+                result.IsGrounded = hit.HasValue;
+                groundNormal = hit.GetValueOrDefault(Vector3.zero);
+            }
 
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
             var abyssCheckRayOrigin = player.transform.position + (Vector3)_abyssCheckRayOffset;
@@ -162,6 +154,19 @@ namespace Confront.Player
                 result.GroundNormal = groundNormal;
                 var slopeLimit = player.CharacterController.slopeLimit;
                 result.IsSteepSlope = Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
+                if (!result.IsSteepSlope)
+                {
+                    _steepSlopeCount = 0;
+                }
+                else if (result.IsSteepSlope && _steepSlopeCount > 3)
+                {
+                    result.IsSteepSlope = true;
+                }
+                else
+                {
+                    _steepSlopeCount++;
+                    result.IsSteepSlope = false;
+                }
             }
 
             if (result.IsGrounded && result.IsAbyss)
@@ -190,18 +195,18 @@ namespace Confront.Player
 
             if (_isGroundCheckGizmoEnabled)
             {
-                //var groundCheckRayPosition = player.transform.position + (Vector3)_groundCheckRayOffset;
-                //var rayLength = result.IsGrounded ? result.GroundDistance : _groundCheckRayLength;
-                //var groundCheckRayEnd = groundCheckRayPosition + Vector3.down * rayLength;
+                var groundCheckRayPosition = player.transform.position + (Vector3)_groundCheckRayOffset1;
+                var rayLength = result.IsGrounded ? result.GroundDistance : _groundCheckRayLength;
+                var groundCheckRayEnd = groundCheckRayPosition + Vector3.down * rayLength;
 
-                //Gizmos.color = result.IsGrounded ? new Color(1, 0, 0, _isGroundCheckGizmoAlpha) : new Color(0, 1, 0, _isGroundCheckGizmoAlpha);
-                //Gizmos.DrawWireSphere(groundCheckRayPosition, _groundCheckRayRadius);
-                //Gizmos.DrawWireSphere(groundCheckRayEnd, _groundCheckRayRadius);
+                Gizmos.color = result.IsGrounded ? new Color(1, 0, 0, _isGroundCheckGizmoAlpha) : new Color(0, 1, 0, _isGroundCheckGizmoAlpha);
+                Gizmos.DrawWireSphere(groundCheckRayPosition, _groundCheckRayRadius);
+                Gizmos.DrawWireSphere(groundCheckRayEnd, _groundCheckRayRadius);
 
-                //Vector3 leftOffset = Vector3.left * _groundCheckRayRadius;
-                //Vector3 rightOffset = Vector3.right * _groundCheckRayRadius;
-                //Gizmos.DrawLine(groundCheckRayPosition + leftOffset, groundCheckRayEnd + leftOffset);
-                //Gizmos.DrawLine(groundCheckRayPosition + rightOffset, groundCheckRayEnd + rightOffset);
+                Vector3 leftOffset = Vector3.left * _groundCheckRayRadius;
+                Vector3 rightOffset = Vector3.right * _groundCheckRayRadius;
+                Gizmos.DrawLine(groundCheckRayPosition + leftOffset, groundCheckRayEnd + leftOffset);
+                Gizmos.DrawLine(groundCheckRayPosition + rightOffset, groundCheckRayEnd + rightOffset);
             }
 
             if (_isAbyssCheckGizmoEnabled)
@@ -265,7 +270,7 @@ namespace Confront.Player
         public bool IsSteepSlope; // 急斜面にいるか
 
         public Vector2 GroundNormal; // 地面の法線
-        // public float GroundDistance; // 地面までの距離
+        public float GroundDistance; // 地面までの距離
 
         public GroundType GroundType;
     }
