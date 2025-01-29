@@ -140,9 +140,9 @@ namespace Confront.Player
             if (isHitSphereCast == false) // レイが地面にヒットしなかった場合、もう一度レイを飛ばす
             {
                 groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset2;
-                var hit = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask);
-                result.IsGrounded = hit.HasValue;
-                groundNormal = hit.GetValueOrDefault(Vector3.zero);
+                var normal = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask);
+                result.IsGrounded = normal.HasValue;// ? Vector3.Dot(normal.Value, Vector3.up) > 0.3f : false;
+                groundNormal = normal.GetValueOrDefault(Vector3.zero);
             }
 
             // 足元に小さなレイを飛ばして、ヒットしなかった場合には、崖にいると判定する。
@@ -158,7 +158,7 @@ namespace Confront.Player
                 {
                     _steepSlopeCount = 0;
                 }
-                else if (result.IsSteepSlope && _steepSlopeCount > 3)
+                else if (result.IsSteepSlope && _steepSlopeCount > 5)
                 {
                     result.IsSteepSlope = true;
                 }

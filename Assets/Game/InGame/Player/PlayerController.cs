@@ -42,8 +42,9 @@ namespace Confront.Player
         // ステータス系
         public CharacterStats CharacterStats;
         public HealthManager HealthManager;
-        // メニュー
+        // GUI
         public MenuController MenuController;
+        public GameOverPanel GameOverPanel;
         // アクションアイテム
         public ActionItemInventory ActionItemInventory = new ActionItemInventory();
         public HotBar HotBar = new HotBar();
@@ -148,6 +149,7 @@ namespace Confront.Player
 
         private void Update()
         {
+            if (StateMachine.CurrentState is Dead) return;
             if (MenuController.IsOpenedMenu) return;
 
             StateMachine.Update();
@@ -205,7 +207,7 @@ namespace Confront.Player
         /// <param name="damageVector"> ノックバックに使用する </param>
         public void TakeDamage(float attackPower, Vector2 damageVector)
         {
-            if (StateMachine.CurrentState is GroundDodge or BigDamage) return;
+            if (StateMachine.CurrentState is Dead or GroundDodge or BigDamage) return;
 
             var damage = DefaultCalculateDamage(attackPower, CharacterStats.Defense);
             HealthManager.Damage(damage);
@@ -215,33 +217,33 @@ namespace Confront.Player
             damageVector /= CharacterStats.Weight;
             damageVector = Vector2.ClampMagnitude(damageVector, MovementParameters.MaxDamageVector);
 
-            //if (HealthManager.IsDead)
-            //{
-            //    // StateMachine.ChangeState<Dead>();
-            //}
-            //else
-            //{
-            switch (damageType)
+            if (HealthManager.IsDead)
             {
-                case DamageType.Mini:
-                    {
-                        Animator.CrossFade("Mini Damage", 0.1f, 1);
-                        break;
-                    }
-                case DamageType.Small:
-                    {
-                        var state = StateMachine.ChangeState<SmallDamage>();
-                        state.DamageDirection = damageVector;
-                        break;
-                    }
-                case DamageType.Big:
-                    {
-                        var state = StateMachine.ChangeState<BigDamage>();
-                        state.DamageDirection = damageVector;
-                        break;
-                    }
+                StateMachine.ChangeState<Dead>();
             }
-            //}
+            else
+            {
+                switch (damageType)
+                {
+                    case DamageType.Mini:
+                        {
+                            Animator.CrossFade("Mini Damage", 0.1f, 1);
+                            break;
+                        }
+                    case DamageType.Small:
+                        {
+                            var state = StateMachine.ChangeState<SmallDamage>();
+                            state.DamageDirection = damageVector;
+                            break;
+                        }
+                    case DamageType.Big:
+                        {
+                            var state = StateMachine.ChangeState<BigDamage>();
+                            state.DamageDirection = damageVector;
+                            break;
+                        }
+                }
+            }
         }
 
         public enum DamageType

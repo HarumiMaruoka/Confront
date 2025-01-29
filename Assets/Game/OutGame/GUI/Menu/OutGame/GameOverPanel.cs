@@ -40,7 +40,7 @@ namespace Confront.GameUI
                 if (token.IsCancellationRequested) return;
                 if (!this) return;
 
-                Alpha = 1 - (Time.time - startTime) / duration;
+                Alpha = (Time.time - startTime) / duration;
                 await UniTask.Yield();
             }
             Alpha = 1;
@@ -58,7 +58,7 @@ namespace Confront.GameUI
             {
                 if (token.IsCancellationRequested) return;
                 if (!this) return;
-                Alpha = (Time.time - startTime) / duration;
+                Alpha = 1 - (Time.time - startTime) / duration;
                 await UniTask.Yield();
             }
             Alpha = 0;

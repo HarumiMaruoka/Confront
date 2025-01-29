@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
+  m_Name: GroundXXX
+  m_EditorClassIdentifier: 
+  _animationName: GS_GPS_3Combo_3
+  _xAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.072811306
+      outSlope: -0.072811306
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.27039927
+      value: -0.019688124
+      inSlope: 0.043962702
+      outSlope: 0.043962702
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13630784
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.33488196
+      value: -0.12490541
+      inSlope: 0.36716992
+      outSlope: 0.36716992
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.7518076
+    - serializedVersion: 3
+      time: 0.3577624
+      value: -0.005314719
+      inSlope: 12.381718
+      outSlope: 12.381718
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.30801043
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.45965967
+      value: 3.3594494
+      inSlope: 16.46588
+      outSlope: 16.46588
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15741429
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _yAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _comboInputAcceptanceTime: 0
+  _comboInputDeactivationTime: 0
+  _nextAttackTransitionTime: 0
+  _attackCompletionTime: 1.45
+  _hitBoxes:
+  - _offset: {x: 0, y: 1.5, z: 3}
+    _size: {x: 0, y: 3, z: 5}
+    _gizmoOption: 0
+    _startTime: 0.3
+    _endTime: 0.8
+    _baseDamage: 0
+    _factor: 0
+    _damageDirection: {x: 0, y: 0}
+    _damageForce: 0
+  _shooters: []

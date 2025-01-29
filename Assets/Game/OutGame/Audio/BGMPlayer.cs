@@ -64,8 +64,9 @@ namespace Confront.Audio
                     isFadingIn = false;
                     return;
                 }
-                await UniTask.Yield();
+                if (!AudioSource) return;
                 AudioSource.volume = Mathf.Lerp(startVolume, targetVolume, t / duration);
+                await UniTask.Yield();
             }
             isFadingIn = false;
         }
@@ -87,6 +88,7 @@ namespace Confront.Audio
             {
                 var targetVolume = 0f;
                 if (token.IsCancellationRequested) return;
+                if (!AudioSource) return;
                 await UniTask.Yield();
                 AudioSource.volume = Mathf.Lerp(startVolume, targetVolume, t / duration);
             }

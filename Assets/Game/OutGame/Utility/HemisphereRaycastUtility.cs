@@ -82,7 +82,7 @@ public static class HemisphereRaycastUtility
         {
             return null;
         }
-        if (averageNormal != null && Vector3.Dot(averageNormal.Value, up) > 0)
+        if (averageNormal != null && Vector3.Dot(averageNormal.Value, up) >= 0)
         {
             return null;
         }

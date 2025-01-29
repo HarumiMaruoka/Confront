@@ -40,9 +40,17 @@ namespace Confront.GameUI
         private Stack<GameObject> _menus = new Stack<GameObject>();
 
         public bool IsOpenedMenu => _menus.Count > 0;
+        private Player.IState PlayerState => Player.PlayerController.Instance.StateMachine.CurrentState;
 
-        public void Update()
+
+        private void Update()
         {
+            if (PlayerState is Player.Dead)
+            {
+                while (_menus.Count > 0) CloseMenu();
+                return;
+            }
+
             if (_menus.Count > 0 && PlayerInputHandler.OutGameInput.CloseMenu.triggered)
             {
                 CloseMenu();

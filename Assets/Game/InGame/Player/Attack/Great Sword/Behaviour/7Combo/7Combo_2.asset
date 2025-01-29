@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
   m_Name: 7Combo_2
   m_EditorClassIdentifier: 
-  _animationName: GS_7Combo_2
+  _animationName: GS_GPS_7Combo_2
   _xAxisMovementCurve:
     serializedVersion: 2
     m_Curve:
