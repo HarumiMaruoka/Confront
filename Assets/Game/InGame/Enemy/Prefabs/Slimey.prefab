@@ -311,10 +311,10 @@ MonoBehaviour:
     _offset: {x: 0, y: 0.5, z: 1.75}
     _size: {x: 0, y: 1.5, z: 2}
     _gizmoOption: 0
-    _baseDamage: 2
-    _factor: 2
-    _damageDirection: {x: 0, y: 0}
-    _damageForce: 0
+    _baseDamage: 6
+    _damageFactor: 3
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
   DirectionController:
     RightDirectionAngle: {x: 0, y: 90, z: 0}
     LeftDirectionAngle: {x: 0, y: -90, z: 0}

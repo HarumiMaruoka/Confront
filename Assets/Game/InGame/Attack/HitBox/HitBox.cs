@@ -13,12 +13,12 @@ namespace Confront.AttackUtility
         [SerializeField]
         private float _baseDamage;
         [SerializeField]
-        private float _factor;
+        private float _damageFactor;
 
         [SerializeField]
-        private Vector2 _damageDirection;
+        private Vector2 _knockbackDirection;
         [SerializeField]
-        private float _damageForce;
+        private float _knockbackForce;
 
         public void Update(Transform center, float attackPower, float sign, float elapsed, LayerMask layerMask)
         {
@@ -27,9 +27,9 @@ namespace Confront.AttackUtility
                 var position = center.position + center.rotation * _offset;
                 var rotation = center.rotation;
 
-                var damageVector = CalcDamageVector(_damageDirection, _damageForce, sign);
+                var damageVector = CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
 
-                ProcessHitBox(attackPower, _baseDamage, _factor, layerMask, position, rotation, damageVector);
+                ProcessHitBox(attackPower, _baseDamage, _damageFactor, layerMask, position, rotation, damageVector);
             }
         }
 

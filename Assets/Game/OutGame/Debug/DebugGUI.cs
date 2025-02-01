@@ -1,5 +1,6 @@
 ﻿using Confront.Input;
 using Confront.Player;
+using Confront.Player.Combo;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,9 +36,13 @@ namespace Confront.Debugger
         [SerializeField]
         private TMPro.TextMeshProUGUI _leftStick;
         [SerializeField]
+        private TMPro.TextMeshProUGUI _attackState;
+        [SerializeField]
         private Toggle _canPlayerAttack;
         [SerializeField]
         private Toggle _stateChangeLogging;
+        [SerializeField]
+        private Toggle _isGodMode;
 
         [Header("GameSpeed")]
         [SerializeField]
@@ -114,6 +119,8 @@ namespace Confront.Debugger
             var groundedNormalAngle = Vector3.Angle(Vector3.up, groundSensorResult.GroundNormal);
             var leftStickInput = PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>();
             var leftStick = Mathf.Atan2(leftStickInput.y, leftStickInput.x) * Mathf.Rad2Deg;
+            var playerAttackStateMachine = player.StateMachine.CurrentState as AttackStateMachine;
+            var plaeyrAttackState = playerAttackStateMachine?.CurrentNode?.Behaviour?.name;
 
             _currentState.text = $"Current State: {currentState}";
             _velocity.text = $"Velocity: {velocity}";
@@ -123,8 +130,11 @@ namespace Confront.Debugger
             _groundNormal.text = $"Grounded Normal: {groundedNormal}";
             _groundNormalAngle.text = $"Grounded Normal Angle: {groundedNormalAngle.ToString("0.00")}";
             _leftStick.text = $"Left Stick: {leftStick}";
+            _attackState.text = $"Attack State: {plaeyrAttackState}";
+
             DebugParams.Instance.CanPlayerAttack = _canPlayerAttack.isOn;
             DebugParams.Instance.StateTransitionLogging = _stateChangeLogging.isOn;
+            DebugParams.Instance.IsGodMode = _isGodMode.isOn;
         }
 
         private void InitializeGameSpeed()

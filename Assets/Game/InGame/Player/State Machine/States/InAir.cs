@@ -92,14 +92,18 @@ namespace Confront.Player
         private void StateTransition(PlayerController player)
         {
             // 攻撃入力があれば攻撃ステートに遷移する。
-            if (PlayerInputHandler.InGameInput.AttackX.triggered && DebugParams.Instance.CanPlayerAttack)
+            if (PlayerInputHandler.InGameInput.AttackX.triggered &&
+                player.MovementParameters.IsAttackIntervalTimerFinished &&
+                DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootX);
                 player.StateMachine.ChangeState(attackStateMachine);
                 return;
             }
-            if (PlayerInputHandler.InGameInput.AttackY.triggered && DebugParams.Instance.CanPlayerAttack)
+            if (PlayerInputHandler.InGameInput.AttackY.triggered &&
+                player.MovementParameters.IsAttackIntervalTimerFinished &&
+                DebugParams.Instance.CanPlayerAttack)
             {
                 var attackStateMachine = player.AttackStateMachine;
                 attackStateMachine.Initialize(player.AttackComboTree, Combo.ComboTree.NodeType.AirRootY);

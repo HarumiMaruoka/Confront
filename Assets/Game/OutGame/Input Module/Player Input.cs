@@ -80,6 +80,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""59afd986-b5c6-4724-961b-ed335038b367"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -256,6 +265,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b357ba54-b2a7-4d14-9c4c-77cdfb4e51c6"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ddde74f-a445-47b2-b86d-3ffc38f8a73e"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -647,6 +678,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGameInput_AttackX = m_InGameInput.FindAction("AttackX", throwIfNotFound: true);
         m_InGameInput_AttackY = m_InGameInput.FindAction("AttackY", throwIfNotFound: true);
         m_InGameInput_Dodge = m_InGameInput.FindAction("Dodge", throwIfNotFound: true);
+        m_InGameInput_Interact = m_InGameInput.FindAction("Interact", throwIfNotFound: true);
         // Out Game Input
         m_OutGameInput = asset.FindActionMap("Out Game Input", throwIfNotFound: true);
         m_OutGameInput_OpenMenu = m_OutGameInput.FindAction("OpenMenu", throwIfNotFound: true);
@@ -725,6 +757,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGameInput_AttackX;
     private readonly InputAction m_InGameInput_AttackY;
     private readonly InputAction m_InGameInput_Dodge;
+    private readonly InputAction m_InGameInput_Interact;
     public struct InGameInputActions
     {
         private @PlayerInput m_Wrapper;
@@ -735,6 +768,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @AttackX => m_Wrapper.m_InGameInput_AttackX;
         public InputAction @AttackY => m_Wrapper.m_InGameInput_AttackY;
         public InputAction @Dodge => m_Wrapper.m_InGameInput_Dodge;
+        public InputAction @Interact => m_Wrapper.m_InGameInput_Interact;
         public InputActionMap Get() { return m_Wrapper.m_InGameInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -762,6 +796,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dodge.started += instance.OnDodge;
             @Dodge.performed += instance.OnDodge;
             @Dodge.canceled += instance.OnDodge;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IInGameInputActions instance)
@@ -784,6 +821,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dodge.started -= instance.OnDodge;
             @Dodge.performed -= instance.OnDodge;
             @Dodge.canceled -= instance.OnDodge;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IInGameInputActions instance)
@@ -919,6 +959,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnAttackX(InputAction.CallbackContext context);
         void OnAttackY(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IOutGameInputActions
     {

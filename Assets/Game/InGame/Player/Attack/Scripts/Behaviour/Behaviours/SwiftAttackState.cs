@@ -10,25 +10,30 @@ namespace Confront.Player.Combo
     [CreateAssetMenu(fileName = "SwiftAttackState", menuName = "ConfrontSO/Player/Combo/SwiftAttackState")]
     public class SwiftAttackState : AttackBehaviour
     {
+        [SerializeField, TextArea]
+        private string _memopad;
+
         [Header("アニメーション")]
         [SerializeField]
         private string _animationName = "None";
         [SerializeField]
+        private float _animationOffset = 0f;
+        [SerializeField]
         private AnimationCurve _xAxisMovementCurve;
         [SerializeField]
         private AnimationCurve _yAxisMovementCurve;
-
-        [Header("コンボ入力")]
-        [SerializeField]
-        private float _comboInputAcceptanceTime = 0.2f; // コンボ入力を受け付ける時間
-        [SerializeField]
-        private float _comboInputDeactivationTime = 0.2f; // コンボ入力を無効にする時間
 
         [Header("状態遷移")]
         [SerializeField]
         private float _nextAttackTransitionTime = 0.2f; // 次の攻撃に遷移する時間
         [SerializeField]
         private float _attackCompletionTime = 0.3f; // 攻撃を完了する時間
+
+        [Header("コンボ入力")]
+        [SerializeField]
+        private float _comboInputAcceptanceTime = 0.2f; // コンボ入力を受け付ける時間
+        [SerializeField]
+        private float _comboInputDeactivationTime = 0.2f; // コンボ入力を無効にする時間
 
         [Header("当たり判定")]
         [SerializeField]
@@ -43,6 +48,7 @@ namespace Confront.Player.Combo
 
         public bool IsComboInputEnabled => _elapsed >= _comboInputAcceptanceTime && _elapsed < _comboInputDeactivationTime;
         public override string AnimationName => _animationName;
+        public override float AnimationOffset => _animationOffset;
 
         private static PlayerController _player;
 
@@ -78,7 +84,6 @@ namespace Confront.Player.Combo
 
         public override void Execute(PlayerController player)
         {
-
             var previousElapsed = _elapsed;
             _elapsed += Time.deltaTime;
 

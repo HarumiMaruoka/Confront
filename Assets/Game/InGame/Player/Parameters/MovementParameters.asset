@@ -181,3 +181,7 @@ MonoBehaviour:
   BigDamageDuration: 1.4
   BigDamageHorizontalDecelerationRate: 3
   MaxDamageVector: 50
+  MiniDamagedCameraShakePower: 0.5
+  SmallDamagedCameraShakePower: 0.5
+  BigDamagedCameraShakePower: 0.5
+  AttackInterval: 1

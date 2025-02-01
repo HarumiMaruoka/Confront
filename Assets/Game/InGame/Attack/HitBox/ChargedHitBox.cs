@@ -15,19 +15,19 @@ namespace Confront.AttackUtility
         [SerializeField]
         private float _baseDamage;
         [SerializeField]
-        private float _minFactor;
+        private float _minDamageFactor;
         [SerializeField]
-        private float _maxFactor;
+        private float _maxDamageFactor;
 
         [SerializeField]
-        private Vector2 _minDamageDirection;
+        private Vector2 _minKnockbackDirection;
         [SerializeField]
-        private Vector2 _maxDamageDirection;
+        private Vector2 _maxKnockbackDirection;
 
         [SerializeField]
-        private float _minDamageForce;
+        private float _minKnockbackForce;
         [SerializeField]
-        private float _maxDamageForce;
+        private float _maxKnockbackForce;
 
         public void Update(Transform center, float attackPower, float sign, float elapsed, float chargeAmount, LayerMask layerMask)
         {
@@ -37,9 +37,9 @@ namespace Confront.AttackUtility
                 var rotation = center.rotation;
                 sign = Mathf.Sign(sign);
 
-                var factor = Mathf.Lerp(_minFactor, _maxFactor, chargeAmount);
-                var damageDirection = Vector2.Lerp(_minDamageDirection, _maxDamageDirection, chargeAmount);
-                var damageForce = Mathf.Lerp(_minDamageForce, _maxDamageForce, chargeAmount);
+                var factor = Mathf.Lerp(_minDamageFactor, _maxDamageFactor, chargeAmount);
+                var damageDirection = Vector2.Lerp(_minKnockbackDirection, _maxKnockbackDirection, chargeAmount);
+                var damageForce = Mathf.Lerp(_minKnockbackForce, _maxKnockbackForce, chargeAmount);
                 var damageVector = CalcDamageVector(damageDirection, damageForce, sign);
 
                 ProcessHitBox(attackPower, _baseDamage, factor, layerMask, position, rotation, damageVector);

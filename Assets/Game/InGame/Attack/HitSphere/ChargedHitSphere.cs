@@ -13,19 +13,19 @@ namespace Confront.AttackUtility
         [SerializeField]
         private float _baseDamage;
         [SerializeField]
-        private float _minFactor;
+        private float _minDamageFactor;
         [SerializeField]
-        private float _maxFactor;
+        private float _maxDamageFactor;
 
         [SerializeField]
-        private Vector2 _minDamageDirection;
+        private Vector2 _minKnockBackDirection;
         [SerializeField]
-        private Vector2 _maxDamageDirection;
+        private Vector2 _maxKnockBackDirection;
 
         [SerializeField]
-        private float _minDamageForce;
+        private float _minKnockBackForce;
         [SerializeField]
-        private float _maxDamageForce;
+        private float _maxKnockBackForce;
 
         public void Update(Transform center, float attackPower, float sign, float elapsed, LayerMask layerMask)
         {
@@ -34,9 +34,9 @@ namespace Confront.AttackUtility
                 var position = center.position + center.rotation * _offset;
                 sign = Mathf.Sign(sign);
 
-                var factor = Mathf.Lerp(_minFactor, _maxFactor, attackPower);
-                var damageDirection = Vector2.Lerp(_minDamageDirection, _maxDamageDirection, attackPower);
-                var damageForce = Mathf.Lerp(_minDamageForce, _maxDamageForce, attackPower);
+                var factor = Mathf.Lerp(_minDamageFactor, _maxDamageFactor, attackPower);
+                var damageDirection = Vector2.Lerp(_minKnockBackDirection, _maxKnockBackDirection, attackPower);
+                var damageForce = Mathf.Lerp(_minKnockBackForce, _maxKnockBackForce, attackPower);
                 var damageVector = CalcDamageVector(damageDirection, damageForce, sign);
 
                 ProcessHitSphere(attackPower, _baseDamage, factor, layerMask, position, damageVector);

@@ -45,13 +45,13 @@ namespace Confront.Player.Combo
             if (_currentNode == null) // 次のノードがない場合は終了する。
             {
                 Debug.LogWarning("Current Node is null");
-                this.TransitionToDefaultState(player);
+                AttackCompleted(player);
                 return;
             }
             if (_currentNode.Behaviour == null) // 次のノードに振る舞いが設定されてない場合は終了する。
             {
                 Debug.LogWarning("Current Node Behaviour is null");
-                this.TransitionToDefaultState(player);
+                AttackCompleted(player);
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace Confront.Player.Combo
                 _currentNode.Behaviour.Exit(player);
                 _currentNode.Behaviour.OnTransitionX -= ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY -= ChangeToYChild;
-                _currentNode.Behaviour.OnCompleted -= this.TransitionToDefaultState;
+                _currentNode.Behaviour.OnCompleted -= AttackCompleted;
             }
         }
 
@@ -96,12 +96,14 @@ namespace Confront.Player.Combo
             {
                 if (!string.IsNullOrEmpty(_currentNode.Behaviour.AnimationName))
                 {
-                    player.Animator.CrossFade(_currentNode.Behaviour.AnimationName, 0.1f);
+                    var animationName = _currentNode.Behaviour.AnimationName;
+                    var animationOffset = _currentNode.Behaviour.AnimationOffset;
+                    player.Animator.CrossFade(animationName, 0.1f, 0, animationOffset);
                 }
                 _currentNode.Behaviour.Enter(player);
                 _currentNode.Behaviour.OnTransitionX += ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY += ChangeToYChild;
-                _currentNode.Behaviour.OnCompleted += this.TransitionToDefaultState;
+                _currentNode.Behaviour.OnCompleted += AttackCompleted;
             }
         }
 
@@ -113,6 +115,12 @@ namespace Confront.Player.Combo
         private void ChangeToYChild(PlayerController player)
         {
             ChangeAttackState(player, _currentNode.YChild);
+        }
+
+        private void AttackCompleted(PlayerController player)
+        {
+            this.TransitionToDefaultState(player);
+            player.MovementParameters.ResetAttackIntervalTimer();
         }
         #endregion
     }

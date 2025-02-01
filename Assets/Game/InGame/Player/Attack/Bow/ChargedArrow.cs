@@ -33,9 +33,9 @@ namespace Confront.Player.Combo
         [SerializeField]
         private float _baseDamage = 10;
         [SerializeField]
-        private float _minFactor = 0.5f;
+        private float _minDamageFactor = 0.5f;
         [SerializeField]
-        private float _maxFactor = 1.5f;
+        private float _maxDamageFactor = 1.5f;
 
         private PlayerController _player;
         private float _factor;
@@ -59,7 +59,7 @@ namespace Confront.Player.Combo
 
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg);
             _player = player;
-            _factor = Mathf.Lerp(_minFactor, _maxFactor, chargeAmount);
+            _factor = Mathf.Lerp(_minDamageFactor, _maxDamageFactor, chargeAmount);
             _rigidbody.velocity = velocity;
 
             var lifeTime = Mathf.Lerp(_minLifeTime, _maxLifeTime, chargeAmount);

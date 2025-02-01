@@ -13,21 +13,21 @@ namespace Confront.AttackUtility
         [SerializeField]
         private float _baseDamage;
         [SerializeField]
-        private float _factor;
+        private float _damageFactor;
 
         [SerializeField]
-        private Vector2 _damageDirection;
+        private Vector2 _knockbackDirection;
         [SerializeField]
-        private float _damageForce;
+        private float _knockbackForce;
 
         public void Update(Transform center, float attackPower, float sign, float elapsed, LayerMask layerMask)
         {
             if (_startTime <= elapsed && elapsed <= _endTime) // 有効な時間帯
             {
                 var position = center.position + center.rotation * _offset;
-                var damageVector = CalcDamageVector(_damageDirection, _damageForce, sign);
+                var damageVector = CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
 
-                ProcessHitSphere(attackPower, _baseDamage, _factor, layerMask, position, damageVector);
+                ProcessHitSphere(attackPower, _baseDamage, _damageFactor, layerMask, position, damageVector);
             }
         }
 

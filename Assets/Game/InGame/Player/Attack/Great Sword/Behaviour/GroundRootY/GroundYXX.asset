@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326761b2b720eb144a7081c43c15a7e4, type: 3}
+  m_Name: GroundYXX
+  m_EditorClassIdentifier: 
+  _readyXAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _readyYAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _fireXAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _fireYAxisMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _readyAnimationName: GSA_GreatSword_FocusEnergy_L_Start
+  _holdAnimationName: GSA_GreatSword_FocusEnergy_L_Loop
+  _fireAnimationName: GSA_GreatSword_FocusEnergy_L_Attack01
+  _readyTime: 0.5
+  _holdTime: 3
+  _nextAttackTransitionTime: 0
+  _defaultStateTransitionTime: 1.6
+  _nextAttackInputBeginTime: 0
+  _nextAttackInputEndTime: 0
+  _canMoveWhileCharging: 0
+  _hitBoxes: []
+  _shooters: []

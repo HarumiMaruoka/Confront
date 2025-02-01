@@ -21,6 +21,7 @@ namespace Confront.Player.Combo
         }
 
         public abstract string AnimationName { get; }
+        public abstract float AnimationOffset { get; }
         public Action<PlayerController> OnTransitionX;
         public Action<PlayerController> OnTransitionY;
         public Action<PlayerController> OnCompleted;

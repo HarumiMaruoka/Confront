@@ -8,18 +8,18 @@ namespace Confront.Player.Combo
     [CreateAssetMenu(fileName = "ChargedAttackState", menuName = "ConfrontSO/Player/Combo/ChargedAttackState")]
     public class ChargedAttackState : AttackBehaviour
     {
-        [Header("")]
+        [Header("Movement Curve")]
         [SerializeField]
         private AnimationCurve _readyXAxisMovementCurve;
         [SerializeField]
         private AnimationCurve _readyYAxisMovementCurve;
-        [Header("")]
+        [Space]
         [SerializeField]
         private AnimationCurve _fireXAxisMovementCurve;
         [SerializeField]
         private AnimationCurve _fireYAxisMovementCurve;
 
-        [Header("")]
+        [Header("Animation Name")]
         [SerializeField]
         private string _readyAnimationName = "None";
         [SerializeField]
@@ -27,31 +27,31 @@ namespace Confront.Player.Combo
         [SerializeField]
         private string _fireAnimationName = "None";
 
-        [Header("")]
+        [Header("Time")]
         [SerializeField]
         private float _readyTime = 0.2f; // 準備時間
         [SerializeField]
         private float _holdTime = 0.5f; // チャージが最大になる時間
+        [Space]
         [SerializeField]
         private float _nextAttackTransitionTime; // 次の攻撃に遷移する時間
         [SerializeField]
         private float _defaultStateTransitionTime; // デフォルト状態に遷移する時間
-
-        [Header("")]
-        [SerializeField]
-        private bool _canMoveWhileCharging = false; // チャージ中に移動できるか
-
-        [Header("")]
+        [Space]
         [SerializeField]
         private float _nextAttackInputBeginTime; // 次の攻撃入力を受け付ける時間
         [SerializeField]
         private float _nextAttackInputEndTime; // 次の攻撃入力を無効にする時間
 
-        [Header("当たり判定")]
+        [Header("Can Move")]
+        [SerializeField]
+        private bool _canMoveWhileCharging = false; // チャージ中に移動できるか
+
+        [Space]
         [SerializeField]
         private ChargedHitBox[] _hitBoxes;
 
-        [Header("射出")]
+        [Space]
         [SerializeField]
         private ChargedShooter[] _shooters;
 
@@ -61,6 +61,7 @@ namespace Confront.Player.Combo
         private float _elapsed = 0;
         private float _chargeAmount = 0; // 0 ~ 1
 
+        public override float AnimationOffset => 0f;
         public override string AnimationName => string.Empty;
 
         public override void Enter(PlayerController player)

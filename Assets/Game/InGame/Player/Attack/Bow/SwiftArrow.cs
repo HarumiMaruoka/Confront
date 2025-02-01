@@ -29,7 +29,7 @@ namespace Confront.Player.Combo
         [SerializeField]
         private float _baseDamage = 10;
         [SerializeField]
-        private float _factor = 1f;
+        private float _damageFactor = 1f;
 
         private PlayerController _player;
         private HashSet<int> _alreadyHits = new HashSet<int>();
@@ -72,7 +72,7 @@ namespace Confront.Player.Combo
             // ダメージを与える。
             if (other.TryGetComponent(out IDamageable damageable))
             {
-                var damage = _baseDamage + _player.CharacterStats.AttackPower * _factor;
+                var damage = _baseDamage + _player.CharacterStats.AttackPower * _damageFactor;
                 var damageVector = transform.right * _rigidbody.velocity.magnitude;
                 damageable.TakeDamage(damage, damageVector);
             }

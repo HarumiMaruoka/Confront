@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: 2 Mega Heal Potion
   m_EditorClassIdentifier: 
   _healAmount: 20
+  _vfx: {fileID: 1414392018365467145, guid: fb3a96d6786a0554ca4aea24c288d57d, type: 3}

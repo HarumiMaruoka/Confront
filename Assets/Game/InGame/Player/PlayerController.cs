@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using Confront.ActionItem;
 using Confront.AttackUtility;
+using Confront.Debugger;
 using Confront.ForgeItem;
 using Confront.GameUI;
 using Confront.Input;
@@ -62,6 +63,8 @@ namespace Confront.Player
         public CinemachineVirtualCamera VirtualCamera;
         public Animator Animator;
         private CharacterController _characterController;
+        // Utility
+        public DamageCameraShaker DamageCameraShaker;
 
         public Vector3 PrevPosition;
         public Vector3 CurrentPosition;
@@ -217,7 +220,7 @@ namespace Confront.Player
             damageVector /= CharacterStats.Weight;
             damageVector = Vector2.ClampMagnitude(damageVector, MovementParameters.MaxDamageVector);
 
-            if (HealthManager.IsDead)
+            if (HealthManager.IsDead && !DebugParams.Instance.IsGodMode)
             {
                 StateMachine.ChangeState<Dead>();
             }
@@ -228,17 +231,20 @@ namespace Confront.Player
                     case DamageType.Mini:
                         {
                             Animator.CrossFade("Mini Damage", 0.1f, 1);
+                            DamageCameraShaker.MiniDamageCameraShake();
                             break;
                         }
                     case DamageType.Small:
                         {
                             var state = StateMachine.ChangeState<SmallDamage>();
                             state.DamageDirection = damageVector;
+                            DamageCameraShaker.SmallDamageCameraShake();
                             break;
                         }
                     case DamageType.Big:
                         {
                             var state = StateMachine.ChangeState<BigDamage>();
+                            DamageCameraShaker.BigDamageCameraShake();
                             state.DamageDirection = damageVector;
                             break;
                         }
