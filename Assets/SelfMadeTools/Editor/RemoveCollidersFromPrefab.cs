@@ -41,13 +41,6 @@ public class RemoveCollidersFromPrefab
             Undo.DestroyObjectImmediate(col);
         }
 
-        // 必要に応じて 2D 用 Collider2D も削除
-        Collider2D[] colliders2D = root.GetComponentsInChildren<Collider2D>(true);
-        foreach (Collider2D col2D in colliders2D)
-        {
-            Undo.DestroyObjectImmediate(col2D);
-        }
-
         Debug.Log("Prefab 内のすべてのコライダーを削除しました。");
     }
 }
