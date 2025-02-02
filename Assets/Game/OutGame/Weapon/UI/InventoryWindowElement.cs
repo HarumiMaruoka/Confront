@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Confront.Weapon
 {
-    public class InventoryWindowElement : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+    public class InventoryWindowElement : MonoBehaviour, ISelectHandler
     {
         public Button Button;
 
@@ -34,6 +34,11 @@ namespace Confront.Weapon
             }
         }
 
+        private void Start()
+        {
+            Button.onClick.AddListener(() => OnClick?.Invoke(_weapon));
+        }
+
         private void OnEnable()
         {
             if (PlayerController.Instance)
@@ -55,12 +60,7 @@ namespace Confront.Weapon
             }
         }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            OnClick?.Invoke(_weapon);
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnSelect(BaseEventData eventData)
         {
             OnMouseEnter?.Invoke(_weapon);
         }

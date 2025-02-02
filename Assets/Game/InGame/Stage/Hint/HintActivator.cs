@@ -9,14 +9,10 @@ namespace Confront.Stage.Hint
     public class HintActivator : MonoBehaviour
     {
         [SerializeField]
-        private Hint _hintPrefab;
-        [SerializeField]
-        private Transform _hintContainer;
+        private string _message = "Hello, World!";
 
         [SerializeField]
         private Vector3 _hitBoxHalfSize = new Vector3(3, 1, 1);
-
-        private Hint _hintInstance = null;
 
         private static LayerMask _layerMask = -1;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -27,21 +23,24 @@ namespace Confront.Stage.Hint
 
         private void Update()
         {
+            var hint = Hint.Instance;
             var hit = Physics.CheckBox(transform.position, _hitBoxHalfSize, Quaternion.identity, _layerMask);
-            if (hit)
+            if (hit && !hint.IsVisible && !hint.IsAnimating)
             {
-                if (!_hintInstance) _hintInstance = Instantiate(_hintPrefab, _hintContainer);
-                if (PlayerInputHandler.InGameInput.Interact.triggered)
-                {
-                    _hintInstance.Show();
-                    // ヒントを表示したら攻撃インターバルをリセットして、攻撃が発動しないようにする。
-                    PlayerController.Instance.MovementParameters.ResetAttackIntervalTimer();
-                }
+                hint.Message = _message;
+                hint.Show();
             }
-            else
+            else if (!hit && hint.IsVisible && !hint.IsAnimating)
             {
-                if (_hintInstance) _hintInstance.Hide();
+                hint.Hide();
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            var hit = Physics.CheckBox(transform.position, _hitBoxHalfSize, Quaternion.identity, _layerMask);
+            Gizmos.color = hit ? Color.red : Color.green;
+            Gizmos.DrawWireCube(transform.position, _hitBoxHalfSize * 2);
         }
     }
 }

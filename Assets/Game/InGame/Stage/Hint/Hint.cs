@@ -1,47 +1,47 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Threading;
+﻿using System;
 using UnityEngine;
 
 namespace Confront.Stage.Hint
 {
     public class Hint : MonoBehaviour
     {
-        [SerializeField]
-        private CanvasGroup _canvasGroup;
-        [SerializeField]
-        private float _fadeDuration = 0.5f;
+        public static Hint Instance { get; private set; }
 
-        private CancellationTokenSource _cancellationTokenSource;
-
-        public async void Hide()
+        private void Awake()
         {
-            await Fade(0, 1);
-        }
-
-        public async void Show()
-        {
-            await Fade(1, 0);
-        }
-
-        private async UniTask Fade(float from, float to)
-        {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = new CancellationTokenSource();
-            var token = _cancellationTokenSource.Token;
-
-            _canvasGroup.alpha = from;
-
-            for (float t = 0; t < _fadeDuration; t += Time.deltaTime)
+            if (Instance != null)
             {
-                if (token.IsCancellationRequested) return;
-                if (this == null) return;
-
-                _canvasGroup.alpha = Mathf.Lerp(from, to, t / _fadeDuration);
-                await UniTask.Yield();
+                Debug.LogError("There are multiple Hint instances.");
             }
+            Instance = this;
+        }
 
-            _canvasGroup.alpha = to;
+        private void OnDestroy()
+        {
+            Instance = null;
+        }
+
+        [SerializeField]
+        private Animator _animator;
+        [SerializeField]
+        private TMPro.TextMeshProUGUI _text;
+
+        public string Message { set => _text.text = value; }
+
+        public bool IsVisible { get; private set; }
+        public bool IsAnimating => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+
+
+        public void Show()
+        {
+            IsVisible = true;
+            _animator.Play("Show");
+        }
+
+        public void Hide()
+        {
+            IsVisible = false;
+            _animator.Play("Hide");
         }
     }
 }

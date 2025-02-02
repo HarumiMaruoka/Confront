@@ -59,7 +59,8 @@ namespace Confront.Player.Combo
 
         private void OnTriggerEnter(Collider other)
         {
-            // プレイヤーとヒットしないようにレイヤーコリジョンマトリックスを設定すること。
+            // プレイヤーの弾であれば プレイヤーとヒットしないようにレイヤーコリジョンマトリックスを設定すること。
+            // 敵の弾であれば 敵とヒットしないようにレイヤーコリジョンマトリックスを設定すること。
             // 壁にあたったら消滅する。
             if (CollisionDestructionLayer == (CollisionDestructionLayer | (1 << other.gameObject.layer)))
             {

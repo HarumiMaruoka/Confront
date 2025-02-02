@@ -69,7 +69,7 @@ namespace Confront.Enemy
         }
 
         // Animation Event から呼び出す。
-        public void Attack()
+        public virtual void Attack()
         {
             AttackHitBox.Clear();
             var sign = DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
