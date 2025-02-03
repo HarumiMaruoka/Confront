@@ -3,6 +3,7 @@ using Confront.Input;
 using Confront.AttackUtility;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace Confront.Player.Combo
@@ -51,6 +52,23 @@ namespace Confront.Player.Combo
         public override float AnimationOffset => _animationOffset;
 
         private static PlayerController _player;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            _elapsed = 0f;
+        }
 
         protected override void OnDrawGizmos()
         {

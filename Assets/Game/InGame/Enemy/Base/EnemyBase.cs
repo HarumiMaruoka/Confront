@@ -54,6 +54,7 @@ namespace Confront.Enemy
             }
         }
 
+        // ダメージを受けるときに、実行するダメージ計算処理。
         public static float DefaultCalculateDamage(float attackPower, float defense)
         {
             float defenseDamageFactor;

@@ -20,17 +20,17 @@ namespace Confront.Enemy
         public EnemyEye Eye;
 
         [Header("States")]
-        [SerializeField]
+        [SerializeField, Expandable]
         private IdleState _idleState;
-        [SerializeField]
+        [SerializeField, Expandable]
         private WanderState _wanderState;
-        [SerializeField]
+        [SerializeField, Expandable]
         private ApproachState _approachState;
-        [SerializeField]
+        [SerializeField, Expandable]
         private AttackState _attackState;
-        [SerializeField]
+        [SerializeField, Expandable]
         private DamageState _damageState;
-        [SerializeField]
+        [SerializeField, Expandable]
         private DeadState _deadState;
 
         [Header("Utility")]

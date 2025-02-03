@@ -27,12 +27,12 @@ namespace Confront.AttackUtility
             return Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask, QueryTriggerInteraction.Collide) != 0;
         }
 
-        public static Vector2 CalcDamageVector(Vector2 direction, float force, float sign)
+        public static Vector2 CalcDamageVector(Vector2 direction, float knockbackForce, float sign)
         {
             sign = Mathf.Sign(sign);
             direction.x *= sign;
             if (direction.y > 0f) direction.y *= 4;
-            return direction.normalized * force;
+            return direction.normalized * knockbackForce;
         }
 
         protected void ProcessHitBox(float attackPower, float baseDamage, float factor, LayerMask layerMask, Vector3 position, Quaternion rotation, Vector2 damageVector)
