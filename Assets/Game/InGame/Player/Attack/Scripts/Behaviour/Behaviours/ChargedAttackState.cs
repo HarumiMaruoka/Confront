@@ -68,16 +68,16 @@ namespace Confront.Player.Combo
         protected override void OnEnable()
         {
             base.OnEnable();
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneLoaded;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneUnloaded -= OnSceneLoaded;
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnSceneLoaded(Scene scene)
         {
             _elapsed = 0f;
         }
