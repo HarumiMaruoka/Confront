@@ -49,7 +49,8 @@ namespace NexEditor
                                 continue;
 
                             // 各プロパティ1行分を仮定（必要であればさらに計算する）
-                            totalHeight += EditorGUIUtility.singleLineHeight + 2f;
+                            var height = EditorGUI.GetPropertyHeight(prop, null, true);
+                            totalHeight += height + 2f;
                         }
                         while (prop.NextVisible(false));
                     }
@@ -121,7 +122,8 @@ namespace NexEditor
                                 continue;
 
                             EditorGUI.PropertyField(propPos, prop, true);
-                            propPos.y += EditorGUIUtility.singleLineHeight + 2f;
+                            // propPos.y += EditorGUIUtility.singleLineHeight + 2f;
+                            propPos.y += EditorGUI.GetPropertyHeight(prop, null, true) + 2f;
                         }
                         while (prop.NextVisible(false));
                     }

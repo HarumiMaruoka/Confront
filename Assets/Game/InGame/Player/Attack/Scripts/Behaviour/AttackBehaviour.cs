@@ -33,12 +33,12 @@ namespace Confront.Player.Combo
         public abstract void Exit(PlayerController player);
 
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             GizmoDrawer.OnDrawGizmosEvent += OnDrawGizmos;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             GizmoDrawer.OnDrawGizmosEvent -= OnDrawGizmos;
         }

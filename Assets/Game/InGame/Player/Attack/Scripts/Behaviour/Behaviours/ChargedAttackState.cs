@@ -2,6 +2,7 @@
 using Confront.Input;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Confront.Player.Combo
 {
@@ -64,6 +65,22 @@ namespace Confront.Player.Combo
         public override float AnimationOffset => 0f;
         public override string AnimationName => string.Empty;
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            SceneManager.sceneUnloaded += OnSceneLoaded;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            SceneManager.sceneUnloaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene)
+        {
+            _elapsed = 0f;
+        }
         public override void Enter(PlayerController player)
         {
             _lastInput = ComboInput.None;

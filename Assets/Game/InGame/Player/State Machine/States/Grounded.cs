@@ -11,7 +11,10 @@ namespace Confront.Player
 
         public void Enter(PlayerController player)
         {
-            player.MovementParameters.Velocity.y = 0f;
+            if (player.StateMachine.PreviousState is InAir)
+            {
+                player.MovementParameters.Velocity.y = 0f;
+            }
         }
 
         public void Execute(PlayerController player)
@@ -86,11 +89,7 @@ namespace Confront.Player
             var groundNormalSign = CalculateDirection(groundNormal.x);
             var IsFacingSteepSlope = (groundNormalSign == 1 && inputDirection == -1) || (groundNormalSign == -1 && inputDirection == 1);
 
-            if (slopeAngle >= player.CharacterController.slopeLimit && IsFacingSteepSlope)
-            {
-                velocityMagnitude = Mathf.Lerp(velocityMagnitude, 0f, deceleration * Time.deltaTime);
-            }
-            else if (isInputZero)
+            if (isInputZero)
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, 0f, deceleration * Time.deltaTime);
             }
@@ -98,7 +97,7 @@ namespace Confront.Player
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, 0f, player.MovementParameters.TurnDeceleration * Time.deltaTime);
             }
-            else
+            else // 
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, player.MovementParameters.MaxSpeed * inputDirection, acceleration * Time.deltaTime);
                 player.DirectionController.UpdateVelocity(player.MovementParameters.Velocity);
@@ -113,7 +112,14 @@ namespace Confront.Player
                 velocityMagnitude = 0f;
             }
 
-            player.MovementParameters.Velocity = Vector3.ProjectOnPlane(new Vector3(velocityMagnitude, 0f), groundNormal).normalized * Mathf.Abs(velocityMagnitude);
+            if (slopeAngle > player.CharacterController.slopeLimit)
+            {
+                player.MovementParameters.Velocity = new Vector2(velocityMagnitude, player.MovementParameters.Velocity.y);
+            }
+            else
+            {
+                player.MovementParameters.Velocity = Vector3.ProjectOnPlane(new Vector3(velocityMagnitude, 0f), groundNormal).normalized * Mathf.Abs(velocityMagnitude);
+            }
         }
 
         private void StateTransition(PlayerController player)
