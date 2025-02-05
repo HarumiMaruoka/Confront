@@ -73,3 +73,13 @@ crashlytics-build.properties
 Assets/AssetStoreTools/
 Assets/Samples/
 Assets/Samples.meta
+Assets/ConnectEventAssets/
+Assets/VCSampleScene/
+Assets/ThirdParty/
+Assets/Scripts/
+Assets/Resources/
+Assets/ConnectEventAssets.meta
+Assets/Resources.meta
+Assets/Scripts.meta
+Assets/ThirdParty.meta
+Assets/VCSampleScene.meta
