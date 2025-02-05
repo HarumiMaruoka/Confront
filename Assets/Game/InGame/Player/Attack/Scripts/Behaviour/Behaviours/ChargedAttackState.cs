@@ -103,7 +103,9 @@ namespace Confront.Player.Combo
 
         public override void Exit(PlayerController player)
         {
-
+            _lastInput = ComboInput.None;
+            _state = ChargeState.Ready;
+            _elapsed = 0;
         }
 
         #region State Handlers
@@ -208,6 +210,13 @@ namespace Confront.Player.Combo
             {
                 if (hitBox == null) continue;
                 if (_player == null) _player = FindAnyObjectByType<PlayerController>();
+
+                // ゲーム中のみ表示かつ有効時間のみ表示の場合、
+                if (hitBox.GizmoOption == GizmoOption.RuntimeAndHitDetectionOnlyVisible)
+                {
+                    // Fire状態のみ表示する
+                    if (_state != ChargeState.Fire) continue;
+                }
                 hitBox.DrawGizmos(_player.transform, _elapsed, LayerMask);
             }
 #endif

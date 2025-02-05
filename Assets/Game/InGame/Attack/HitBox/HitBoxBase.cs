@@ -15,6 +15,8 @@ namespace Confront.AttackUtility
         [SerializeField]
         protected GizmoOption _gizmoOption;
 
+        public GizmoOption GizmoOption => _gizmoOption;
+
         private const int MAX_COLLIDER_BUFFER_SIZE = 16; // 一度に取得できるコライダーの最大数。
         protected Collider[] _colliderBuffer = new Collider[MAX_COLLIDER_BUFFER_SIZE];
 
