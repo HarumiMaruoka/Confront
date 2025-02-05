@@ -85,3 +85,6 @@ Assets/ThirdParty.meta
 Assets/VCSampleScene.meta
 Assets/Game/VC.meta
 Assets/Game/VC/
+Assets/StreamingAssets.meta
+Assets/StreamingAssets/SystemSave.json
+Assets/StreamingAssets/SystemSave.json.meta
