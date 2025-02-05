@@ -11,6 +11,10 @@ namespace Confront.Enemy
         [SerializeField]
         private ProjectileMotion _bulletPrefab;
         [SerializeField]
+        private Vector3 _bulletSpawnOffset = new Vector2(0, 0.5f);
+        [SerializeField]
+        private Vector3 _targetSpawnOffset = new Vector2(0, 0.5f);
+        [SerializeField]
         private float _bulletMinDuration = 2f;
         [SerializeField]
         private float _bulletMaxDuration = 5f;
@@ -21,7 +25,8 @@ namespace Confront.Enemy
         {
             var bullet = GetBullet();
             var bulletDuration = UnityEngine.Random.Range(_bulletMinDuration, _bulletMaxDuration);
-            bullet.Launch(Stats.AttackPower, transform.position, PlayerController.Instance.transform, bulletDuration);
+            var targetPosition = PlayerController.Instance.transform.position + _targetSpawnOffset;
+            bullet.Launch(Stats.AttackPower, transform.position + _bulletSpawnOffset, targetPosition, bulletDuration);
         }
 
         private ProjectileMotion GetBullet()

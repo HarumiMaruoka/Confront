@@ -26,7 +26,7 @@ namespace Confront.AttackUtility
 
         private float _actorAttackPower;
 
-        private Transform _target;
+        private Vector3 _targetPosition;
         private float _flightDuration = 2.0f;  // 飛行にかける時間（秒）
 
         private Vector3 _lastPosition;
@@ -36,14 +36,14 @@ namespace Confront.AttackUtility
 
         public event Action<ProjectileMotion> OnCompleted;
 
-        public ProjectileMotion Launch(float actorAttackPower, Vector2 startPosition, Transform target, float flightDuration)
+        public ProjectileMotion Launch(float actorAttackPower, Vector2 startPosition, Vector2 targetPosition, float flightDuration)
         {
             this._actorAttackPower = actorAttackPower;
             this._elapsedTime = 0f;
             this.transform.position = startPosition;
             this._lastPosition = startPosition;
             this._startPosition = startPosition;
-            this._target = target;
+            this._targetPosition = targetPosition;
             this._flightDuration = flightDuration;
             Initialize();
             return this;
@@ -51,23 +51,15 @@ namespace Confront.AttackUtility
 
         private void Initialize()
         {
-            // ターゲットが指定されていなければエラー表示
-            if (_target == null)
-            {
-                Debug.LogError("ターゲットが指定されていません！");
-                enabled = false;
-                return;
-            }
-
             // 発射開始位置を保存
             _startPosition = transform.position;
 
             // 水平方向の初速度：等速運動でターゲットに到達するための値
-            float vx = (_target.position.x - _startPosition.x) / _flightDuration;
+            float vx = (_targetPosition.x - _startPosition.x) / _flightDuration;
 
             // 垂直方向の初速度は、重力加速度を考慮して計算する
             // 公式: target.y = start.y + v0y * t + (1/2)*g*t^2　より
-            float vy = (_target.position.y - _startPosition.y - 0.5f * _gravity * _flightDuration * _flightDuration) / _flightDuration;
+            float vy = (_targetPosition.y - _startPosition.y - 0.5f * _gravity * _flightDuration * _flightDuration) / _flightDuration;
 
             _initialVelocity = new Vector2(vx, vy);
         }
@@ -86,21 +78,28 @@ namespace Confront.AttackUtility
             transform.position = _startPosition + _initialVelocity * _elapsedTime + 0.5f * new Vector2(0, _gravity) * _elapsedTime * _elapsedTime;
         }
 
+        private Collider[] _colliderBuffer = new Collider[16];
+
         private void HandleHitDetection()
         {
             var layerMask = LayerUtility.PlayerLayerMask | LayerUtility.GroundLayerMask;
 
-            Physics.SphereCast(_lastPosition, _radius, transform.position - _lastPosition, out var hit, Vector3.Distance(_lastPosition, transform.position), layerMask);
-            if (hit.collider != null)
+            var hitCount = Physics.OverlapSphereNonAlloc(transform.position, _radius, _colliderBuffer, layerMask, QueryTriggerInteraction.Collide);
+            for (int i = 0; i < hitCount; i++)
             {
-                if (hit.collider.TryGetComponent<IDamageable>(out var damageable))
+                var collider = _colliderBuffer[i];
+                if (collider.TryGetComponent<IDamageable>(out var damageable))
                 {
                     var damageValue = _baseDamage + _actorAttackPower * _damageFactor;
                     var sign = Mathf.Sign(transform.position.x - _lastPosition.x);
                     var damageVector = HitBoxBase.CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
                     damageable.TakeDamage(damageValue, damageVector);
                 }
-                HandleCollision(hit.point);
+            }
+
+            if (hitCount > 0)
+            {
+                HandleCollision(transform.position);
             }
 
             _lastPosition = transform.position;
@@ -118,9 +117,6 @@ namespace Confront.AttackUtility
             _hitPS.transform.position = hitPosition;
             _hitPS.transform.parent = null;
             _hitPS.Play();
-
-            //var hitPS = Instantiate(_hitPS, hitPosition, Quaternion.identity);
-            //hitPS.Play();
 
             // パーティクルの停止
             foreach (var detachedPrefab in _detached) detachedPrefab.Stop();
