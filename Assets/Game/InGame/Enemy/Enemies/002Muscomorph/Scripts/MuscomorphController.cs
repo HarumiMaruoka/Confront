@@ -1,4 +1,5 @@
-﻿using Confront.Enemy.Muscomorph;
+﻿using Confront.AttackUtility;
+using Confront.Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,23 +9,27 @@ namespace Confront.Enemy
     public class MuscomorphController : SlimeyController
     {
         [SerializeField]
-        private Bullet _bulletPrefab;
+        private ProjectileMotion _bulletPrefab;
+        [SerializeField]
+        private float _bulletMinDuration = 2f;
+        [SerializeField]
+        private float _bulletMaxDuration = 5f;
 
-        private HashSet<Bullet> _inactiveBullets = new HashSet<Bullet>();
+        private Queue<ProjectileMotion> _inactiveBullets = new Queue<ProjectileMotion>();
 
         public override void Attack() // アニメーションイベントから呼び出す
         {
             var bullet = GetBullet();
-            bullet.Initialize(transform.position, Stats.AttackPower);
+            var bulletDuration = UnityEngine.Random.Range(_bulletMinDuration, _bulletMaxDuration);
+            bullet.Launch(Stats.AttackPower, transform.position, PlayerController.Instance.transform, bulletDuration);
         }
 
-        private Bullet GetBullet()
+        private ProjectileMotion GetBullet()
         {
-            Bullet instance;
+            ProjectileMotion instance;
             if (_inactiveBullets.Count > 0)
             {
-                instance = _inactiveBullets.GetEnumerator().Current;
-                _inactiveBullets.Remove(instance);
+                instance = _inactiveBullets.Dequeue();
             }
             else
             {
@@ -34,10 +39,10 @@ namespace Confront.Enemy
             return instance;
         }
 
-        private void OnBulletCompleted(Bullet bullet)
+        private void OnBulletCompleted(ProjectileMotion bullet)
         {
             bullet.OnCompleted -= OnBulletCompleted;
-            _inactiveBullets.Add(bullet);
+            _inactiveBullets.Enqueue(bullet);
         }
     }
 }

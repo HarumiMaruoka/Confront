@@ -13,7 +13,7 @@ namespace Confront.GameUI
 
         private void OnEnable()
         {
-            _previouseSelection = EventSystem.current.currentSelectedGameObject;
+            _previouseSelection = EventSystem.current?.currentSelectedGameObject;
             EventSystem.current.SetSelectedGameObject(_defaultSelection);
         }
 

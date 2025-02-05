@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879810d8abcd6ef408412bb5bb3b0faa, type: 3}
   m_Name: AttackState
   m_EditorClassIdentifier: 
-  Cooldown: 3
-  AttackRange: 3
+  _animationName: Roar
+  Cooldown: 1.2
+  AttackRange: 14

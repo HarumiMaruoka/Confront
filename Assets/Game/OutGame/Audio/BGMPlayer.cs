@@ -45,8 +45,9 @@ namespace Confront.Audio
             {
                 var targetVolume = 0f;
                 if (token.IsCancellationRequested) return;
+                if (!AudioSource) return;
                 await UniTask.Yield();
-                AudioSource.volume = Mathf.Lerp(startVolume, targetVolume, t / duration);
+                if (AudioSource) AudioSource.volume = Mathf.Lerp(startVolume, targetVolume, t / duration);
             }
 
             // クリップ差し替え

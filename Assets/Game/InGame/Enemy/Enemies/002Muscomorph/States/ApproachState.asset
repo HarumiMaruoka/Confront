@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6e61d16b058dc4cbb3e354026c1eb1, type: 3}
   m_Name: ApproachState
   m_EditorClassIdentifier: 
-  AttackRange: 3
-  DisengageDistance: 7.5
+  _animationName: CrawlForward
+  AttackRange: 11
+  DisengageDistance: 16
   ApproachAcceleration: 10
   ApproachMaxSpeed: 2

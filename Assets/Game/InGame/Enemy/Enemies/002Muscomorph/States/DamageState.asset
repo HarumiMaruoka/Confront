@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff5c54caa4d82b48a85d2cc66cbb865, type: 3}
   m_Name: DamageState
   m_EditorClassIdentifier: 
+  _animationName: GetHit1
   Duration: 0.5

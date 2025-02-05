@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using VTNConnect;
 
 namespace Confront.GameUI
 {
@@ -10,7 +12,9 @@ namespace Confront.GameUI
         [SerializeField]
         private string _sceneName;
 
-        // ゲームを新規開始する
-        private void Start() => GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene(_sceneName));
+        private void Start() => GetComponent<Button>().onClick.AddListener(() =>
+        {
+             SceneManager.LoadScene(_sceneName);
+        });
     }
 }

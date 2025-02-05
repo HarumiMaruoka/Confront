@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dece55822dd3b094c86e0d55d607e3da, type: 3}
   m_Name: WanderState
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
-  RangeMin: -5
-  RangeMax: 5
+  _animationName: CrawlForward
+  MoveSpeed: 1.5
+  TargetSpeed: 30
+  SpeedLimit: 8
   NoiseScale: 1
   MinDuration: 2
   MaxDuration: 8

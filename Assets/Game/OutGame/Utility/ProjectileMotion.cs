@@ -1,34 +1,50 @@
-﻿using System;
+﻿using Confront.Utility;
+using System;
 using UnityEngine;
 
-namespace Confront.Utility
+namespace Confront.AttackUtility
 {
     public class ProjectileMotion : MonoBehaviour
     {
-        [Header("ターゲット設定")]
-        [Tooltip("到達させたいターゲットのTransformを指定してください")]
-        public Transform target;  // ターゲット
+        [Header("Projectile")]
+        [SerializeField] private float _radius = 0.5f;
+        [SerializeField] private float _gravity = -9.8f;
 
-        [Header("飛行設定")]
-        [Tooltip("飛行時間（秒）")]
-        public float flightDuration = 2.0f;  // 飛行にかける時間（秒）
-        [Tooltip("重力加速度（マイナス値。例: -9.8）")]
-        public float gravity = -9.8f;        // 重力加速度（下方向なので負の値）
+        [Header("On Hit")]
+        [SerializeField] private GameObject _hit;
+        [SerializeField] private ParticleSystem _hitPS;
 
-        // 内部で使用する変数
-        private Vector2 startPosition;       // 発射時の位置
-        private Vector2 initialVelocity;     // 算出した初速度
-        private float elapsedTime = 0f;      // 経過時間
+        [SerializeField] private ParticleSystem[] _detached;
+        [SerializeField] private ParticleSystem _projectilePS;
 
-        public event Action<ProjectileMotion> OnComplete;
+        [Header("Damage")]
+        [SerializeField] private float _baseDamage = 10;
+        [SerializeField] private float _damageFactor = 1f;
+        [Space]
+        [SerializeField] private Vector2 _knockbackDirection = new Vector2(1, 1);
+        [SerializeField] private float _knockbackForce;
 
-        public ProjectileMotion Launch(Vector2 startPosition, Transform target, float flightDuration)
+        private float _actorAttackPower;
+
+        private Transform _target;
+        private float _flightDuration = 2.0f;  // 飛行にかける時間（秒）
+
+        private Vector3 _lastPosition;
+        private Vector2 _startPosition;
+        private Vector2 _initialVelocity;
+        private float _elapsedTime = 0f;
+
+        public event Action<ProjectileMotion> OnCompleted;
+
+        public ProjectileMotion Launch(float actorAttackPower, Vector2 startPosition, Transform target, float flightDuration)
         {
-            this.elapsedTime = 0f;
+            this._actorAttackPower = actorAttackPower;
+            this._elapsedTime = 0f;
             this.transform.position = startPosition;
-            this.startPosition = startPosition;
-            this.target = target;
-            this.flightDuration = flightDuration;
+            this._lastPosition = startPosition;
+            this._startPosition = startPosition;
+            this._target = target;
+            this._flightDuration = flightDuration;
             Initialize();
             return this;
         }
@@ -36,7 +52,7 @@ namespace Confront.Utility
         private void Initialize()
         {
             // ターゲットが指定されていなければエラー表示
-            if (target == null)
+            if (_target == null)
             {
                 Debug.LogError("ターゲットが指定されていません！");
                 enabled = false;
@@ -44,38 +60,84 @@ namespace Confront.Utility
             }
 
             // 発射開始位置を保存
-            startPosition = transform.position;
+            _startPosition = transform.position;
 
             // 水平方向の初速度：等速運動でターゲットに到達するための値
-            float vx = (target.position.x - startPosition.x) / flightDuration;
+            float vx = (_target.position.x - _startPosition.x) / _flightDuration;
 
             // 垂直方向の初速度は、重力加速度を考慮して計算する
             // 公式: target.y = start.y + v0y * t + (1/2)*g*t^2　より
-            float vy = (target.position.y - startPosition.y - 0.5f * gravity * flightDuration * flightDuration) / flightDuration;
+            float vy = (_target.position.y - _startPosition.y - 0.5f * _gravity * _flightDuration * _flightDuration) / _flightDuration;
 
-            initialVelocity = new Vector2(vx, vy);
+            _initialVelocity = new Vector2(vx, vy);
         }
 
         private void Update()
         {
-            // 経過時間が飛行時間以内なら座標を更新
-            if (elapsedTime < flightDuration)
+            UpdatePosition();
+            HandleHitDetection();
+        }
+
+        private void UpdatePosition()
+        {
+            // 座標を更新
+            _elapsedTime += Time.deltaTime;
+            // 位置の更新：初期位置 + 初速度 * 時間 + 1/2 * 加速度 * 時間^2
+            transform.position = _startPosition + _initialVelocity * _elapsedTime + 0.5f * new Vector2(0, _gravity) * _elapsedTime * _elapsedTime;
+        }
+
+        private void HandleHitDetection()
+        {
+            var layerMask = LayerUtility.PlayerLayerMask | LayerUtility.GroundLayerMask;
+
+            Physics.SphereCast(_lastPosition, _radius, transform.position - _lastPosition, out var hit, Vector3.Distance(_lastPosition, transform.position), layerMask);
+            if (hit.collider != null)
             {
-                elapsedTime += Time.deltaTime;
-                // 位置の更新：初期位置 + 初速度 * 時間 + 1/2 * 加速度 * 時間^2
-                Vector2 currentPos = startPosition
-                    + initialVelocity * elapsedTime
-                    + 0.5f * new Vector2(0, gravity) * elapsedTime * elapsedTime;
-                transform.position = currentPos;
+                if (hit.collider.TryGetComponent<IDamageable>(out var damageable))
+                {
+                    var damageValue = _baseDamage + _actorAttackPower * _damageFactor;
+                    var sign = Mathf.Sign(transform.position.x - _lastPosition.x);
+                    var damageVector = HitBoxBase.CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
+                    damageable.TakeDamage(damageValue, damageVector);
+                }
+                HandleCollision(hit.point);
             }
-            else
-            {
-                // 飛行時間経過後はターゲット位置に固定
-                transform.position = target.position;
-                // 以降のUpdate処理を止める（必要に応じて、破棄や他の処理を追加してください）
-                enabled = false;
-                OnComplete?.Invoke(this);
-            }
+
+            _lastPosition = transform.position;
+        }
+
+        private void HandleCollision(Vector3 hitPosition)
+        {
+            transform.position = hitPosition;
+
+            _projectilePS.Stop();
+            _projectilePS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+            // ヒットエフェクトの再生
+            _hit.transform.position = hitPosition;
+            _hitPS.transform.position = hitPosition;
+            _hitPS.transform.parent = null;
+            _hitPS.Play();
+
+            //var hitPS = Instantiate(_hitPS, hitPosition, Quaternion.identity);
+            //hitPS.Play();
+
+            // パーティクルの停止
+            foreach (var detachedPrefab in _detached) detachedPrefab.Stop();
+
+            this.enabled = false;
+            OnCompleted?.Invoke(this);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!enabled) return;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(_lastPosition, _radius);
+            Gizmos.DrawWireSphere(transform.position, _radius);
+
+            Gizmos.DrawLine(_lastPosition, transform.position);
         }
     }
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2583fc94a0a6864291d39f7cd24ad41, type: 3}
   m_Name: DeadState
   m_EditorClassIdentifier: 
+  _animationName: Death
   DropItemTable: {fileID: 0}
   Duration: 0.8

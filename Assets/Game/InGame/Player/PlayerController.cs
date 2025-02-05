@@ -182,16 +182,19 @@ namespace Confront.Player
             StateMachine.FixedUpdate();
         }
 
+        public bool DisablePlatformCollisionRequest = false;
+
         private void LateUpdate()
         {
             StateMachine.LateUpdate();
 
             PrevPosition = CurrentPosition;
             CurrentPosition = transform.position + (Vector3)Sensor._groundCheckRayOffset2;
-            if (ShouldHandlePlatformCollision())
+            if (ShouldHandlePlatformCollision() && !DisablePlatformCollisionRequest)
             {
                 HandlePlatformCollision();
             }
+            DisablePlatformCollisionRequest = false;
         }
 
         private bool ShouldHandlePlatformCollision()

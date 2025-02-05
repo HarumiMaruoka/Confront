@@ -81,6 +81,7 @@ namespace Confront.Player.Combo
         {
             _elapsed = 0f;
         }
+
         public override void Enter(PlayerController player)
         {
             _lastInput = ComboInput.None;
