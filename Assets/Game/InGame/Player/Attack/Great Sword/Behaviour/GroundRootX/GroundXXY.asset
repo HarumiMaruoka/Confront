@@ -90,18 +90,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _comboInputAcceptanceTime: 0
-  _comboInputDeactivationTime: 1.6
   _nextAttackTransitionTime: 0.7
   _attackCompletionTime: 2
+  _comboInputAcceptanceTime: 0
+  _comboInputDeactivationTime: 1.6
   _hitBoxes:
-  - _offset: {x: 0, y: 1.5, z: 3}
-    _size: {x: 0, y: 3, z: 5}
-    _gizmoOption: 0
-    _startTime: 0.6
-    _endTime: 0.8
+  - _offset: {x: 0, y: 3, z: 3}
+    _size: {x: 0, y: 6, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.57
+    _endTime: 0.76
     _baseDamage: 5
-    _factor: 2
-    _damageDirection: {x: 0, y: 0}
-    _damageForce: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
   _shooters: []

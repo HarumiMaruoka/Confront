@@ -36,27 +36,63 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _comboInputAcceptanceTime: 0
-  _comboInputDeactivationTime: 0
   _nextAttackTransitionTime: 0
   _attackCompletionTime: 2.2
+  _comboInputAcceptanceTime: 0
+  _comboInputDeactivationTime: 0
   _hitBoxes:
-  - _offset: {x: 0, y: 1.27, z: 3.86}
-    _size: {x: 0, y: 1.5, z: 5.5}
-    _gizmoOption: 0
-    _startTime: 0.2
-    _endTime: 0.3
+  - _offset: {x: 0, y: 3, z: 3}
+    _size: {x: 0, y: 6, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.28
+    _endTime: 0.46
     _baseDamage: 1
-    _factor: 2
-    _damageDirection: {x: 0, y: 0}
-    _damageForce: 0
-  - _offset: {x: 0, y: 3.72, z: 2}
-    _size: {x: 0, y: 7, z: 7}
-    _gizmoOption: 0
-    _startTime: 0.85
-    _endTime: 1.1
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 5.4, z: 3}
+    _size: {x: 0, y: 1.2, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.7
+    _endTime: 0.75
     _baseDamage: 6
-    _factor: 3
-    _damageDirection: {x: 0, y: 0}
-    _damageForce: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 4.2, z: 3}
+    _size: {x: 0, y: 1.2, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.75
+    _endTime: 0.8
+    _baseDamage: 6
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 3, z: 3}
+    _size: {x: 0, y: 1.2, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.8
+    _endTime: 0.85
+    _baseDamage: 6
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 1.8, z: 3}
+    _size: {x: 0, y: 1.2, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.85
+    _endTime: 0.9
+    _baseDamage: 6
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 0.6, z: 3}
+    _size: {x: 0, y: 1.2, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.9
+    _endTime: 0.95
+    _baseDamage: 6
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
   _shooters: []

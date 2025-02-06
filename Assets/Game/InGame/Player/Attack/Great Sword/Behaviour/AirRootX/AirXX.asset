@@ -27,9 +27,27 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _comboInputAcceptanceTime: 0
-  _comboInputDeactivationTime: 0
   _nextAttackTransitionTime: 0
   _attackCompletionTime: 1
-  _hitBoxes: []
+  _comboInputAcceptanceTime: 0
+  _comboInputDeactivationTime: 0
+  _hitBoxes:
+  - _offset: {x: 0, y: 5, z: 2.5}
+    _size: {x: 0, y: 6, z: 5}
+    _gizmoOption: 3
+    _startTime: 0.3
+    _endTime: 0.39
+    _baseDamage: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 5.5, z: -2.5}
+    _size: {x: 0, y: 5.5, z: 5}
+    _gizmoOption: 3
+    _startTime: 0.39
+    _endTime: 0.48
+    _baseDamage: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
   _shooters: []

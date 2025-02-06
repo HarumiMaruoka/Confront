@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
   m_Name: GroundYYYYYYY
   m_EditorClassIdentifier: 
+  _memopad: 
   _animationName: GS_GPS_7Combo_7
+  _animationOffset: 0
   _xAxisMovementCurve:
     serializedVersion: 2
     m_Curve:
@@ -61,9 +63,54 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _comboInputAcceptanceTime: 0
-  _comboInputDeactivationTime: 0
   _nextAttackTransitionTime: 0
   _attackCompletionTime: 2.2
-  _hitBoxes: []
+  _comboInputAcceptanceTime: 0
+  _comboInputDeactivationTime: 0
+  _hitBoxes:
+  - _offset: {x: 0, y: 6.4, z: 3}
+    _size: {x: 0, y: 1.35, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.71
+    _endTime: 0.73
+    _baseDamage: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 5.05, z: 3}
+    _size: {x: 0, y: 1.35, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.73
+    _endTime: 0.75
+    _baseDamage: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 3.7, z: 3}
+    _size: {x: 0, y: 1.35, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.75
+    _endTime: 0.77
+    _baseDamage: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 2.35, z: 3}
+    _size: {x: 0, y: 1.35, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.77
+    _endTime: 0.79
+    _baseDamage: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  - _offset: {x: 0, y: 1, z: 3}
+    _size: {x: 0, y: 1.35, z: 6}
+    _gizmoOption: 3
+    _startTime: 0.79
+    _endTime: 0.81
+    _baseDamage: 0
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
   _shooters: []
