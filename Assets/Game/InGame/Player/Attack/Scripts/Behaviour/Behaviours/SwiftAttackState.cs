@@ -173,7 +173,8 @@ namespace Confront.Player.Combo
 
         public override void Exit(PlayerController player)
         {
-
+            _elapsed = 0f;
+            _lastInput = ComboInput.None;
         }
     }
 }
