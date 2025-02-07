@@ -17,7 +17,25 @@ MonoBehaviour:
   _animationOffset: 0.2
   _xAxisMovementCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.077319056
+      value: -0.0044908486
+      inSlope: 20.415668
+      outSlope: 20.415668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5164057
+      value: 8.959757
+      inSlope: 20.415668
+      outSlope: 20.415668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -32,30 +50,30 @@ MonoBehaviour:
   _comboInputAcceptanceTime: 0.2
   _comboInputDeactivationTime: 0.9
   _hitBoxes:
-  - _offset: {x: 0, y: 3, z: 2}
-    _size: {x: 0, y: 6, z: 4}
+  - _offset: {x: 0, y: 2.5, z: 2}
+    _size: {x: 0, y: 7, z: 4}
     _gizmoOption: 3
     _startTime: 0.1
     _endTime: 0.18
-    _baseDamage: 0
+    _baseDamage: 4
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 3, z: 3}
-    _size: {x: 0, y: 6, z: 4}
+  - _offset: {x: 0, y: 2.5, z: 3}
+    _size: {x: 0, y: 7, z: 4}
     _gizmoOption: 3
     _startTime: 0.18
     _endTime: 0.26
-    _baseDamage: 0
+    _baseDamage: 4
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 3, z: 4}
-    _size: {x: 0, y: 6, z: 4}
+  - _offset: {x: 0, y: 2.5, z: 4}
+    _size: {x: 0, y: 7, z: 4}
     _gizmoOption: 3
     _startTime: 0.26
     _endTime: 0.32
-    _baseDamage: 0
+    _baseDamage: 4
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
@@ -64,7 +82,7 @@ MonoBehaviour:
     _gizmoOption: 3
     _startTime: 0.36
     _endTime: 0.46
-    _baseDamage: 0
+    _baseDamage: 5
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0

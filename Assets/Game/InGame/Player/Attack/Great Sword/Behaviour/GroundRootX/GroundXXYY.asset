@@ -19,14 +19,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -7.384296
-      outSlope: -7.384296
+      time: 0.04611428
+      value: -0.08924833
+      inSlope: 17.72254
+      outSlope: 17.72254
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.50763917
+      value: 8.090145
+      inSlope: 17.72254
+      outSlope: 17.72254
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -41,8 +50,8 @@ MonoBehaviour:
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 2
   _hitBoxes:
-  - _offset: {x: 0, y: 3, z: 3}
-    _size: {x: 0, y: 6, z: 6}
+  - _offset: {x: 0, y: 2.5, z: 3}
+    _size: {x: 0, y: 7, z: 6}
     _gizmoOption: 3
     _startTime: 0.29
     _endTime: 0.56

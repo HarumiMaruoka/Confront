@@ -17,7 +17,25 @@ MonoBehaviour:
   _animationOffset: 0
   _xAxisMovementCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.1609497
+      value: -0.07196045
+      inSlope: 28.629068
+      outSlope: 28.629068
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.29735085
+      value: 3.8330774
+      inSlope: 28.629068
+      outSlope: 28.629068
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -32,12 +50,12 @@ MonoBehaviour:
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0.7
   _hitBoxes:
-  - _offset: {x: 0, y: 3, z: 3}
-    _size: {x: 0, y: 6, z: 6}
+  - _offset: {x: 0, y: 2.5, z: 3}
+    _size: {x: 0, y: 7, z: 6}
     _gizmoOption: 3
     _startTime: 0.2
     _endTime: 0.35
-    _baseDamage: 3
+    _baseDamage: 4
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0

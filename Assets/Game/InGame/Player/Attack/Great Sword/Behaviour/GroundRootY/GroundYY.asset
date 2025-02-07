@@ -73,7 +73,7 @@ MonoBehaviour:
     _gizmoOption: 3
     _startTime: 0.28
     _endTime: 0.45
-    _baseDamage: 0
+    _baseDamage: 5
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0

@@ -91,16 +91,16 @@ MonoBehaviour:
     _gizmoOption: 3
     _startTime: 0.11
     _endTime: 0.17
-    _baseDamage: 2
+    _baseDamage: 6
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 3.25, z: 3}
-    _size: {x: 0, y: 7.5, z: 6}
+  - _offset: {x: 0, y: 2.5, z: 3}
+    _size: {x: 0, y: 7, z: 6}
     _gizmoOption: 3
     _startTime: 0.17
     _endTime: 0.27
-    _baseDamage: 1
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
@@ -109,34 +109,34 @@ MonoBehaviour:
     _gizmoOption: 3
     _startTime: 0.27
     _endTime: 0.59
-    _baseDamage: 2
+    _baseDamage: 6
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 7, z: 3}
-    _size: {x: 0, y: 3, z: 6}
+  - _offset: {x: 0, y: 7.5, z: 3}
+    _size: {x: 0, y: 3.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.59
     _endTime: 0.61
-    _baseDamage: 2
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 4, z: 3}
-    _size: {x: 0, y: 3, z: 6}
+    _size: {x: 0, y: 3.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.61
     _endTime: 0.63
-    _baseDamage: 2
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 1, z: 3}
-    _size: {x: 0, y: 3, z: 6}
+  - _offset: {x: 0, y: 0.5, z: 3}
+    _size: {x: 0, y: 3.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.63
     _endTime: 0.78
-    _baseDamage: 2
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0

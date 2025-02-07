@@ -68,12 +68,12 @@ MonoBehaviour:
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 1
   _hitBoxes:
-  - _offset: {x: 0, y: 5.5, z: 0}
+  - _offset: {x: 0, y: 5, z: 0}
     _size: {x: 0, y: 6, z: 12}
     _gizmoOption: 3
     _startTime: 0.23
     _endTime: 0.46
-    _baseDamage: 0
+    _baseDamage: 6
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0

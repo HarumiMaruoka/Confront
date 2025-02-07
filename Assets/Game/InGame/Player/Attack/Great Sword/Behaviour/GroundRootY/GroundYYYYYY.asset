@@ -19,40 +19,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.16603166
-      outSlope: 0.16603166
+      time: 0.26999196
+      value: 1.0096853
+      inSlope: 11.512661
+      outSlope: 11.512661
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.14664721
-      value: 0.02434808
-      inSlope: 3.9902465
-      outSlope: 3.9902465
+      time: 0.89245605
+      value: 8.175903
+      inSlope: 11.512661
+      outSlope: 11.512661
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.68310106
-      value: 4.216446
-      inSlope: 4.185063
-      outSlope: 4.185063
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.0094178
-      value: 4.3977685
-      inSlope: 0.025827274
-      outSlope: 0.025827274
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.39090747
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -68,21 +50,21 @@ MonoBehaviour:
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 1
   _hitBoxes:
-  - _offset: {x: 0, y: 6, z: 3}
-    _size: {x: 0, y: 4, z: 6}
+  - _offset: {x: 0, y: 5.5, z: 3}
+    _size: {x: 0, y: 4.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.78
-    _endTime: 0.83
-    _baseDamage: 0
+    _endTime: 0.88
+    _baseDamage: 8
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 2, z: 3}
-    _size: {x: 0, y: 4, z: 6}
+  - _offset: {x: 0, y: 1, z: 3}
+    _size: {x: 0, y: 4.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.88
-    _endTime: 0.93
-    _baseDamage: 0
+    _endTime: 0.96
+    _baseDamage: 8
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0

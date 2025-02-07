@@ -19,40 +19,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -2.06023
-      outSlope: -2.06023
-      tangentMode: 0
+      time: 0.48132336
+      value: 0.005086275
+      inSlope: 20.078123
+      outSlope: 20.078123
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.14389643
-    - serializedVersion: 3
-      time: 0.13418552
-      value: -0.019066669
-      inSlope: 1.3945043
-      outSlope: 1.3945043
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.68996453
-      value: 2.0139804
-      inSlope: 0.12912592
-      outSlope: 0.12912592
-      tangentMode: 0
+      time: 0.84836084
+      value: 7.37451
+      inSlope: 20.078123
+      outSlope: 20.078123
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.23625308
-    - serializedVersion: 3
-      time: 1
-      value: 2.0138364
-      inSlope: -0.040902834
-      outSlope: -0.040902834
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.2163403
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -68,48 +50,48 @@ MonoBehaviour:
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0
   _hitBoxes:
-  - _offset: {x: 0, y: 6.4, z: 3}
-    _size: {x: 0, y: 1.35, z: 6}
+  - _offset: {x: 0, y: 6, z: 3}
+    _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.71
     _endTime: 0.73
-    _baseDamage: 0
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 5.05, z: 3}
-    _size: {x: 0, y: 1.35, z: 6}
+  - _offset: {x: 0, y: 4.5, z: 3}
+    _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.73
     _endTime: 0.75
-    _baseDamage: 0
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 3.7, z: 3}
-    _size: {x: 0, y: 1.35, z: 6}
+  - _offset: {x: 0, y: 3, z: 3}
+    _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.75
     _endTime: 0.77
-    _baseDamage: 0
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 2.35, z: 3}
-    _size: {x: 0, y: 1.35, z: 6}
+  - _offset: {x: 0, y: 1.5, z: 3}
+    _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.77
     _endTime: 0.79
-    _baseDamage: 0
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 1, z: 3}
-    _size: {x: 0, y: 1.35, z: 6}
+  - _offset: {x: 0, y: 0, z: 3}
+    _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
     _startTime: 0.79
     _endTime: 0.81
-    _baseDamage: 0
+    _baseDamage: 7
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0

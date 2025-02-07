@@ -19,14 +19,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -7.384296
-      outSlope: -7.384296
+      time: 0.17594576
+      value: 0.014160298
+      inSlope: 12.717987
+      outSlope: 12.717987
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9514814
+      value: 9.877413
+      inSlope: 12.717987
+      outSlope: 12.717987
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -41,17 +50,17 @@ MonoBehaviour:
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0
   _hitBoxes:
-  - _offset: {x: 0, y: 3, z: 3}
-    _size: {x: 0, y: 6, z: 6}
+  - _offset: {x: 0, y: 2.5, z: 3}
+    _size: {x: 0, y: 7, z: 6}
     _gizmoOption: 3
     _startTime: 0.28
     _endTime: 0.46
-    _baseDamage: 1
+    _baseDamage: 5
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 5.4, z: 3}
-    _size: {x: 0, y: 1.2, z: 6}
+  - _offset: {x: 0, y: 5.3, z: 3}
+    _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _startTime: 0.7
     _endTime: 0.75
@@ -59,8 +68,8 @@ MonoBehaviour:
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 4.2, z: 3}
-    _size: {x: 0, y: 1.2, z: 6}
+  - _offset: {x: 0, y: 3.9, z: 3}
+    _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _startTime: 0.75
     _endTime: 0.8
@@ -68,8 +77,8 @@ MonoBehaviour:
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 3, z: 3}
-    _size: {x: 0, y: 1.2, z: 6}
+  - _offset: {x: 0, y: 2.5, z: 3}
+    _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _startTime: 0.8
     _endTime: 0.85
@@ -77,8 +86,8 @@ MonoBehaviour:
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 1.8, z: 3}
-    _size: {x: 0, y: 1.2, z: 6}
+  - _offset: {x: 0, y: 1.1, z: 3}
+    _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _startTime: 0.85
     _endTime: 0.9
@@ -86,8 +95,8 @@ MonoBehaviour:
     _damageFactor: 0
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
-  - _offset: {x: 0, y: 0.6, z: 3}
-    _size: {x: 0, y: 1.2, z: 6}
+  - _offset: {x: 0, y: -0.3, z: 3}
+    _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _startTime: 0.9
     _endTime: 0.95
