@@ -108,7 +108,7 @@ namespace NexEditor
                     EditorGUI.indentLevel++;
                     // 一つ下の行から中身を描画
                     Rect propPos = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight + 2f,
-                        position.width, EditorGUIUtility.singleLineHeight);
+                        position.width, EditorGUIUtility.singleLineHeight + 28f);
 
                     SerializedObject serializedObject = new SerializedObject(property.objectReferenceValue);
                     SerializedProperty prop = serializedObject.GetIterator();
@@ -122,7 +122,6 @@ namespace NexEditor
                                 continue;
 
                             EditorGUI.PropertyField(propPos, prop, true);
-                            // propPos.y += EditorGUIUtility.singleLineHeight + 2f;
                             propPos.y += EditorGUI.GetPropertyHeight(prop, null, true) + 2f;
                         }
                         while (prop.NextVisible(false));

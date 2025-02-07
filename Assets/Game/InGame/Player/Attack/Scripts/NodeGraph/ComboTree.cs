@@ -52,7 +52,6 @@ namespace Confront.Player.Combo
                 _ => position,
             };
 
-
             AddAttackState(node);
 
             UnityEditor.AssetDatabase.AddObjectToAsset(node, this);
@@ -109,6 +108,8 @@ namespace Confront.Player.Combo
                 parent.YChild = child;
                 child.Parent = parent;
             }
+
+            UnityEditor.EditorUtility.SetDirty(this);
         }
 
         public void Disconnect(ComboNode parent, InputType input, ComboNode child)
@@ -123,6 +124,8 @@ namespace Confront.Player.Combo
                 parent.YChild = null;
                 child.Parent = null;
             }
+
+            UnityEditor.EditorUtility.SetDirty(this);
         }
 
         public ComboNode GetParent(ComboNode child)
