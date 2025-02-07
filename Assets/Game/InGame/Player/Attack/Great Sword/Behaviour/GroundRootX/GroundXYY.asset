@@ -56,7 +56,7 @@ MonoBehaviour:
     _startTime: 0.5
     _endTime: 0.7
     _baseDamage: 10
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   _shooters: []

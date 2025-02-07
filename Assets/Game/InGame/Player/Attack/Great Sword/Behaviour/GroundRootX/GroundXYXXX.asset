@@ -92,7 +92,7 @@ MonoBehaviour:
     _startTime: 0.11
     _endTime: 0.17
     _baseDamage: 6
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 2.5, z: 3}
@@ -101,7 +101,7 @@ MonoBehaviour:
     _startTime: 0.17
     _endTime: 0.27
     _baseDamage: 7
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 5.5, z: -2.5}
@@ -110,7 +110,7 @@ MonoBehaviour:
     _startTime: 0.27
     _endTime: 0.59
     _baseDamage: 6
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 7.5, z: 3}

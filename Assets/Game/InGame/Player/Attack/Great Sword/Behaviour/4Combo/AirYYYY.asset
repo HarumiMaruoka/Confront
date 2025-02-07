@@ -20,21 +20,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      time: 0.7241833
+      value: 22.039297
+      inSlope: 24.52541
+      outSlope: 24.52541
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.057773035
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -43,19 +43,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.34594727
-      value: -0.06497955
-      inSlope: -21.983303
-      outSlope: -21.983303
-      tangentMode: 34
+      time: -0.003326416
+      value: 0.035095215
+      inSlope: 13.780759
+      outSlope: 13.780759
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0.20452714
     - serializedVersion: 3
-      time: 1.2983799
-      value: -21.002594
-      inSlope: -21.983303
-      outSlope: -21.983303
+      time: 0.15401715
+      value: 7.1573153
+      inSlope: 13.277037
+      outSlope: 13.277037
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.31800178
+      outWeight: 0.026004497
+    - serializedVersion: 3
+      time: 1.2855015
+      value: -60.105408
+      inSlope: -59.446453
+      outSlope: -59.446453
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -74,7 +83,7 @@ MonoBehaviour:
     _startTime: 0.27
     _endTime: 0.34
     _baseDamage: 6
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 3, z: 3}
@@ -83,7 +92,7 @@ MonoBehaviour:
     _startTime: 0.34
     _endTime: 0.41
     _baseDamage: 6
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 0.5, z: 3}
@@ -92,7 +101,7 @@ MonoBehaviour:
     _startTime: 0.41
     _endTime: 0.48
     _baseDamage: 6
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   _shooters: []

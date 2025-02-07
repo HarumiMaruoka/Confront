@@ -65,7 +65,7 @@ MonoBehaviour:
     _startTime: 0.25
     _endTime: 0.3
     _baseDamage: 7
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 5.5, z: 3}
@@ -74,7 +74,7 @@ MonoBehaviour:
     _startTime: 0.3
     _endTime: 0.35
     _baseDamage: 7
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   - _offset: {x: 0, y: 8, z: 3}
@@ -83,7 +83,7 @@ MonoBehaviour:
     _startTime: 0.35
     _endTime: 0.4
     _baseDamage: 7
-    _damageFactor: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   _shooters: []

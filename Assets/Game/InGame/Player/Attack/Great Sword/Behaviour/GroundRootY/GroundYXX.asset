@@ -14,7 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _readyXAxisMovementCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -26,7 +44,25 @@ MonoBehaviour:
     m_RotationOrder: 4
   _fireXAxisMovementCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.29795703
+      value: 0.028793335
+      inSlope: 24.544975
+      outSlope: 24.544975
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5001384
+      value: 4.99133
+      inSlope: 24.544975
+      outSlope: 24.544975
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -53,8 +89,8 @@ MonoBehaviour:
     _startTime: 0.35
     _endTime: 0.38
     _baseDamage: 6
-    _minDamageFactor: 0
-    _maxDamageFactor: 0
+    _minDamageFactor: 1
+    _maxDamageFactor: 3
     _minKnockbackDirection: {x: 0, y: 0}
     _maxKnockbackDirection: {x: 0, y: 0}
     _minKnockbackForce: 0
@@ -65,8 +101,8 @@ MonoBehaviour:
     _startTime: 0.38
     _endTime: 0.41
     _baseDamage: 6
-    _minDamageFactor: 0
-    _maxDamageFactor: 0
+    _minDamageFactor: 1
+    _maxDamageFactor: 3
     _minKnockbackDirection: {x: 0, y: 0}
     _maxKnockbackDirection: {x: 0, y: 0}
     _minKnockbackForce: 0
@@ -77,8 +113,8 @@ MonoBehaviour:
     _startTime: 0.41
     _endTime: 0.44
     _baseDamage: 6
-    _minDamageFactor: 0
-    _maxDamageFactor: 0
+    _minDamageFactor: 1
+    _maxDamageFactor: 3
     _minKnockbackDirection: {x: 0, y: 0}
     _maxKnockbackDirection: {x: 0, y: 0}
     _minKnockbackForce: 0
@@ -89,8 +125,8 @@ MonoBehaviour:
     _startTime: 0.44
     _endTime: 0.47
     _baseDamage: 6
-    _minDamageFactor: 0
-    _maxDamageFactor: 0
+    _minDamageFactor: 1
+    _maxDamageFactor: 3
     _minKnockbackDirection: {x: 0, y: 0}
     _maxKnockbackDirection: {x: 0, y: 0}
     _minKnockbackForce: 0
@@ -101,8 +137,8 @@ MonoBehaviour:
     _startTime: 0.47
     _endTime: 0.5
     _baseDamage: 6
-    _minDamageFactor: 0
-    _maxDamageFactor: 0
+    _minDamageFactor: 1
+    _maxDamageFactor: 3
     _minKnockbackDirection: {x: 0, y: 0}
     _maxKnockbackDirection: {x: 0, y: 0}
     _minKnockbackForce: 0
