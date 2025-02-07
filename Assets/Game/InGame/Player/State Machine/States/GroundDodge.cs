@@ -1,4 +1,5 @@
 ﻿using Confront.Input;
+using Confront.Utility;
 using System;
 using UnityEngine;
 
@@ -34,7 +35,8 @@ namespace Confront.Player
             }
 
             // 敵との当たり判定を遮断する。
-            Physics.IgnoreLayerCollision(player.gameObject.layer, EnemyLayer, true);
+            // Physics.IgnoreLayerCollision(player.gameObject.layer, EnemyLayer, true);
+            player.gameObject.layer = LayerMask.NameToLayer("PlayerDodge");
         }
 
         public void Execute(PlayerController player)
@@ -87,7 +89,8 @@ namespace Confront.Player
         public void Exit(PlayerController player)
         {
             // 敵との当たり判定を元に戻す。
-            Physics.IgnoreLayerCollision(player.gameObject.layer, EnemyLayer, false);
+            // Physics.IgnoreLayerCollision(player.gameObject.layer, EnemyLayer, false);
+            player.gameObject.layer = LayerMask.NameToLayer("Player");
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Confront.Enemy
     public class MuscomorphController : SlimeyController
     {
         [SerializeField]
-        private ProjectileMotion _bulletPrefab;
+        private LobbedProjectile _bulletPrefab;
         [SerializeField]
         private Vector3 _bulletSpawnOffset = new Vector2(0, 0.5f);
         [SerializeField]
@@ -19,7 +19,7 @@ namespace Confront.Enemy
         [SerializeField]
         private float _bulletMaxDuration = 5f;
 
-        private Queue<ProjectileMotion> _inactiveBullets = new Queue<ProjectileMotion>();
+        private Queue<LobbedProjectile> _inactiveBullets = new Queue<LobbedProjectile>();
 
         public override void Attack() // アニメーションイベントから呼び出す
         {
@@ -29,9 +29,9 @@ namespace Confront.Enemy
             bullet.Launch(Stats.AttackPower, transform.position + _bulletSpawnOffset, targetPosition, bulletDuration);
         }
 
-        private ProjectileMotion GetBullet()
+        private LobbedProjectile GetBullet()
         {
-            ProjectileMotion instance;
+            LobbedProjectile instance;
             if (_inactiveBullets.Count > 0)
             {
                 instance = _inactiveBullets.Dequeue();
@@ -44,7 +44,7 @@ namespace Confront.Enemy
             return instance;
         }
 
-        private void OnBulletCompleted(ProjectileMotion bullet)
+        private void OnBulletCompleted(LobbedProjectile bullet)
         {
             bullet.OnCompleted -= OnBulletCompleted;
             _inactiveBullets.Enqueue(bullet);

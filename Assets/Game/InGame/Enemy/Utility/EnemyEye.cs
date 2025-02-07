@@ -8,10 +8,14 @@ namespace Confront.Enemy
     [CreateAssetMenu(fileName = "Eye", menuName = "ConfrontSO/Enemy/Eye")]
     public class EnemyEye : ScriptableObject
     {
-        public Vector2 Offset;
-
+        [Header("視界設定")]
         public float ViewDistance;
         public float ViewAngle;
+
+        [Header("座標オフセット")]
+        public Vector2 Offset;
+        [Header("回転オフセット")]
+        public float AngleOffset;
 
         private bool _isVisibleRecord;
         private RaycastHit _hit;
@@ -27,9 +31,11 @@ namespace Confront.Enemy
             var sqrDistance = (origin - playerCenter).sqrMagnitude;
             if (sqrDistance > ViewDistance * ViewDistance) return _isVisibleRecord = false;
 
+            var viewDirection = Quaternion.Euler(0, 0, AngleOffset) * eyeTransform.forward;
+
             // プレイヤーが視界角内にいるかどうか
             var direction = playerCenter - origin;
-            var angle = Vector3.Angle(eyeTransform.forward, direction);
+            var angle = Vector3.Angle(viewDirection, direction);
             if (angle > ViewAngle / 2f) return _isVisibleRecord = false;
 
             // プレイヤーが障害物に隠れていないかどうか
@@ -47,16 +53,17 @@ namespace Confront.Enemy
 
             Gizmos.color = _isVisibleRecord ? Color.red : Color.blue;
 
-            var halfAngle = ViewAngle / 2;
-            var forward = transform.forward;
+            var viewDirection = Quaternion.Euler(0, 0, AngleOffset) * transform.forward;
 
-            var top = transform.position + (Vector3)Offset + ((Quaternion.Euler(0, 0, halfAngle) * forward) * ViewDistance);
-            var bottom = transform.position + (Vector3)Offset + ((Quaternion.Euler(0, 0, -halfAngle) * forward) * ViewDistance);
+            var halfAngle = ViewAngle / 2;
+
+            var top = transform.position + (Vector3)Offset + ((Quaternion.Euler(0, 0, halfAngle) * viewDirection) * ViewDistance);
+            var bottom = transform.position + (Vector3)Offset + ((Quaternion.Euler(0, 0, -halfAngle) * viewDirection) * ViewDistance);
 
             Gizmos.DrawLine(transform.position + (Vector3)Offset, top);
             Gizmos.DrawLine(transform.position + (Vector3)Offset, bottom);
 
-            if (_hit.collider != null)
+            if (_hit.collider)
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(transform.position + (Vector3)Offset, _hit.point);
@@ -72,7 +79,7 @@ namespace Confront.Enemy
 
             // DrawWireArc(中心, 法線, 開始方向ベクトル, 角度, 半径)
             // 開始方向を視野角の左端とするために、-ViewAngle/2だけ回転させる
-            Vector3 startDirection = Quaternion.AngleAxis(-ViewAngle / 2f, up) * forward;
+            Vector3 startDirection = Quaternion.AngleAxis(-ViewAngle / 2f, up) * viewDirection;
             UnityEditor.Handles.DrawWireArc(center, up, startDirection, ViewAngle, ViewDistance);
 
             // 視線のヒット結果をラインで描画

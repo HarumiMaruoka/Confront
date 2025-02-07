@@ -14671,11 +14671,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9179047422286085676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03f2353f37df1a54385dfecb7163ab65, type: 3}
+  m_Script: {fileID: 11500000, guid: ae7b66458b3e6c54388a94d6aa23dfe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 0.5
-  _gravity: -31.21
+  _gravity: -32
   _hit: {fileID: 4213067268738444146}
   _hitPS: {fileID: 4085080995032336914}
   _detached:

@@ -16,7 +16,7 @@ namespace Confront.Enemy
         [Header("Components")]
         public Rigidbody Rigidbody;
         public Animator Animator;
-        [Expandable] 
+        [Expandable]
         public SlimeyStats Stats;
         [Expandable]
         public EnemyEye Eye;
@@ -31,6 +31,8 @@ namespace Confront.Enemy
         [SerializeField, Expandable]
         private AttackState _attackState;
         [SerializeField, Expandable]
+        private BlockState _blockState;
+        [SerializeField, Expandable]
         private DamageState _damageState;
         [SerializeField, Expandable]
         private DeadState _deadState;
@@ -41,6 +43,8 @@ namespace Confront.Enemy
 
         [Header("For Checking (Do not modify from the editor)")]
         public SlimeyState CurrentState;
+
+        public bool HasBlockState => _blockState;
 
         private Dictionary<Type, SlimeyState> _states = new Dictionary<Type, SlimeyState>();
         private PlayerController _player;
@@ -62,7 +66,7 @@ namespace Confront.Enemy
             _animatorPauseHandler.Dispose();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (MenuController.IsOpened) return;
 
@@ -89,6 +93,10 @@ namespace Confront.Enemy
             {
                 ChangeState<DeadState>();
             }
+            else if (CurrentState is BlockState)
+            {
+                // Do nothing.
+            }
             else
             {
                 ChangeState<DamageState>();
@@ -110,11 +118,11 @@ namespace Confront.Enemy
             CurrentState.Enter(_player, this);
             if (!string.IsNullOrEmpty(CurrentState.AnimationName))
             {
-                Animator.CrossFade(CurrentState.AnimationName, 0.5f);
+                Animator.CrossFade(CurrentState.AnimationName, 0.1f);
             }
         }
 
-        private void OnDrawGizmos()
+        protected virtual void OnDrawGizmos()
         {
             if (Eye != null) Eye.DrawGizmos(transform);
 
@@ -143,6 +151,10 @@ namespace Confront.Enemy
             _states.Add(typeof(AttackState), Instantiate(_attackState));
             _states.Add(typeof(DamageState), Instantiate(_damageState));
             _states.Add(typeof(DeadState), Instantiate(_deadState));
+
+            // BlockState は null である場合があるので、その場合は追加しない。
+            if (_blockState) _states.Add(typeof(BlockState), Instantiate(_blockState));
+
             ChangeState<IdleState>();
         }
 

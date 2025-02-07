@@ -15,6 +15,7 @@ namespace Confront.Enemy
         public Transform OrbitCenter;
 
         [Header("Components")]
+        public Rigidbody Rigidbody;
         public Animator Animator;
         [Expandable]
         public VampireBatStats Stats;

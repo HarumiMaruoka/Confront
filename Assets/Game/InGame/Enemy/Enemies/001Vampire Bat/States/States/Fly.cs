@@ -73,7 +73,8 @@ namespace Confront.Enemy.VampireBat
             float y = vampireBat.OrbitCenter.transform.position.y + Mathf.Sin(angle) * radius;
 
             // ファンネルの位置を更新
-            vampireBat.transform.position = Vector2.Lerp(vampireBat.transform.position, new Vector2(x, y), MoveSpeed * Time.deltaTime);
+            // vampireBat.transform.position = Vector2.Lerp(vampireBat.transform.position, new Vector2(x, y), MoveSpeed * Time.deltaTime);
+            vampireBat.Rigidbody.MovePosition(Vector2.Lerp(vampireBat.transform.position, new Vector2(x, y), MoveSpeed * Time.deltaTime));
         }
     }
 }

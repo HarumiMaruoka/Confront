@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: WanderState
   m_EditorClassIdentifier: 
   _animationName: CrawlForward
-  MoveSpeed: 1.5
-  TargetSpeed: 30
-  SpeedLimit: 8
+  MoveSpeedRange: 8
+  SpeedLimit: 5
   NoiseScale: 1
   MinDuration: 2
   MaxDuration: 8

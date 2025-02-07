@@ -7,6 +7,7 @@ namespace Confront.Utility
     public class LayerUtility
     {
         private static LayerMask _playerLayerMask;
+        private static LayerMask _playerDodgeLayerMask;
         private static LayerMask _groundLayerMask;
         private static LayerMask _enemyLayerMask;
         private static LayerMask _passThroughPlatformLayerMask;
@@ -17,6 +18,15 @@ namespace Confront.Utility
             {
                 if (_playerLayerMask == 0) InitializeLayerMask();
                 return _playerLayerMask;
+            }
+        }
+
+        public static LayerMask PlayerDodgeLayerMask
+        {
+            get
+            {
+                if (_playerDodgeLayerMask == 0) InitializeLayerMask();
+                return _playerDodgeLayerMask;
             }
         }
 
@@ -52,6 +62,7 @@ namespace Confront.Utility
         private static void InitializeLayerMask()
         {
             _playerLayerMask = LayerMask.GetMask("Player");
+            _playerDodgeLayerMask = LayerMask.GetMask("PlayerDodge");
             _groundLayerMask = LayerMask.GetMask("Ground");
             _enemyLayerMask = LayerMask.GetMask("Enemy");
             _passThroughPlatformLayerMask = LayerMask.GetMask("PassThroughPlatform");

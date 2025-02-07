@@ -1,10 +1,12 @@
-﻿using Confront.Utility;
+﻿using Confront.Player;
+using Confront.Utility;
 using System;
 using UnityEngine;
 
 namespace Confront.AttackUtility
 {
-    public class ProjectileMotion : MonoBehaviour
+    // 投げるような軌道のプロジェクタイル
+    public class LobbedProjectile : MonoBehaviour
     {
         [Header("Projectile")]
         [SerializeField] private float _radius = 0.5f;
@@ -25,6 +27,7 @@ namespace Confront.AttackUtility
         [SerializeField] private float _knockbackForce;
 
         private float _actorAttackPower;
+        private Collider[] _colliderBuffer = new Collider[4];
 
         private Vector3 _targetPosition;
         private float _flightDuration = 2.0f;  // 飛行にかける時間（秒）
@@ -34,9 +37,9 @@ namespace Confront.AttackUtility
         private Vector2 _initialVelocity;
         private float _elapsedTime = 0f;
 
-        public event Action<ProjectileMotion> OnCompleted;
+        public event Action<LobbedProjectile> OnCompleted;
 
-        public ProjectileMotion Launch(float actorAttackPower, Vector2 startPosition, Vector2 targetPosition, float flightDuration)
+        public LobbedProjectile Launch(float actorAttackPower, Vector2 startPosition, Vector2 targetPosition, float flightDuration)
         {
             this._actorAttackPower = actorAttackPower;
             this._elapsedTime = 0f;
@@ -78,11 +81,10 @@ namespace Confront.AttackUtility
             transform.position = _startPosition + _initialVelocity * _elapsedTime + 0.5f * new Vector2(0, _gravity) * _elapsedTime * _elapsedTime;
         }
 
-        private Collider[] _colliderBuffer = new Collider[16];
-
         private void HandleHitDetection()
         {
-            var layerMask = LayerUtility.PlayerLayerMask | LayerUtility.GroundLayerMask;
+            var layerMask = LayerUtility.GroundLayerMask;
+            if (PlayerController.Instance.StateMachine.CurrentState is not GroundDodge) layerMask |= LayerUtility.PlayerLayerMask;
 
             var hitCount = Physics.OverlapSphereNonAlloc(transform.position, _radius, _colliderBuffer, layerMask, QueryTriggerInteraction.Collide);
             for (int i = 0; i < hitCount; i++)
@@ -130,10 +132,7 @@ namespace Confront.AttackUtility
             if (!enabled) return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_lastPosition, _radius);
             Gizmos.DrawWireSphere(transform.position, _radius);
-
-            Gizmos.DrawLine(_lastPosition, transform.position);
         }
     }
 }

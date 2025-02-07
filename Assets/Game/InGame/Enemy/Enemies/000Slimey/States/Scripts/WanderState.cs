@@ -10,10 +10,11 @@ namespace Confront.Enemy.Slimey
     {
         [SerializeField]
         private string _animationName = "RunFWD";
+        [SerializeField]
+        private string _blendParamName;
 
         [Header("移動系")]
-        public float MoveSpeed = 2f;
-        public float TargetSpeed = 5f;
+        public float MoveSpeedRange = 5f;
         public float SpeedLimit = 5f;
         public float NoiseScale = 1f;
 
@@ -24,8 +25,14 @@ namespace Confront.Enemy.Slimey
         public float MinDuration = 1f;
         public float MaxDuration = 3f;
 
+        [Header("ブロック状態に遷移する確率：ブロックステートが設定されている場合のみ有効。")]
+        [Range(0, 1)]
+        public float TransitionProbabilityToBlockState = 0.1f;
+
         private float _timer;
         private float _duration;
+
+        private bool IsBlendTreeAnimation => !string.IsNullOrEmpty(_blendParamName);
 
         public override string AnimationName => _animationName;
 
@@ -48,13 +55,24 @@ namespace Confront.Enemy.Slimey
             _timer += Time.deltaTime;
             if (_timer >= _duration)
             {
+                var random = UnityEngine.Random.value;
+                if (slimey.HasBlockState && random < TransitionProbabilityToBlockState)
+                {
+                    slimey.ChangeState<BlockState>();
+                    return;
+                }
                 slimey.ChangeState<IdleState>();
                 return;
             }
 
-            float x = Mathf.PerlinNoise(Time.time * NoiseScale + _timeOffsetX, Time.time * NoiseScale + _timeOffsetY);
-            float xSpeed = Mathf.Lerp(-TargetSpeed, TargetSpeed, x);
+            if (IsBlendTreeAnimation)
+            {
+                slimey.Animator.SetFloat(_blendParamName, Mathf.Abs(slimey.Rigidbody.velocity.x / MoveSpeedRange));
+            }
 
+            float x = Mathf.PerlinNoise(Time.time * NoiseScale + _timeOffsetX, Time.time * NoiseScale + _timeOffsetY);
+            float xSpeed = Mathf.Lerp(-MoveSpeedRange, MoveSpeedRange * 1.10f, x); // 少し左側に寄りがちなので、右に少しバイアスをかける
+            xSpeed = Mathf.Abs(xSpeed) > 0.08f ? xSpeed : 0f;
             xSpeed = Mathf.Clamp(xSpeed, -SpeedLimit, SpeedLimit);
 
             var ySpeed = slimey.Rigidbody.velocity.y;

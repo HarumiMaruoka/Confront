@@ -126,6 +126,7 @@ namespace Confront.Player.Combo
             }
 
             UnityEditor.EditorUtility.SetDirty(this);
+
         }
 
         public ComboNode GetParent(ComboNode child)

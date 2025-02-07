@@ -179,7 +179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8951711892266973078
 Transform:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   _bulletPrefab: {fileID: 8920737382241018089, guid: 971526516c883e74e8ea5a53b2a3152a,
     type: 3}
-  _bulletSpawnOffset: {x: 0, y: 0.5, z: 0}
+  _bulletSpawnOffset: {x: 0, y: 1.5, z: 0}
   _targetSpawnOffset: {x: 0, y: 0.5, z: 0}
   _bulletMinDuration: 0.8
   _bulletMaxDuration: 1.2
