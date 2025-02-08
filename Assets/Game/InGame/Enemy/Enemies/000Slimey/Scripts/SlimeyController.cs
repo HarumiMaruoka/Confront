@@ -16,10 +16,9 @@ namespace Confront.Enemy
         [Header("Components")]
         public Rigidbody Rigidbody;
         public Animator Animator;
-        [Expandable]
-        public SlimeyStats Stats;
-        [Expandable]
-        public EnemyEye Eye;
+        [Expandable] public SlimeyStats Stats;
+        [Expandable] public EnemyEye Eye;
+        public DirectionController DirectionController;
 
         [Header("States")]
         [SerializeField, Expandable]
@@ -31,20 +30,16 @@ namespace Confront.Enemy
         [SerializeField, Expandable]
         private AttackState _attackState;
         [SerializeField, Expandable]
-        private BlockState _blockState;
-        [SerializeField, Expandable]
         private DamageState _damageState;
         [SerializeField, Expandable]
         private DeadState _deadState;
 
-        [Header("Utility")]
-        public HitBoxOneFrame AttackHitBox;
-        public DirectionController DirectionController;
+        [Header("Spawn Points")]
+        [SerializeField]
+        private Transform[] _spawnPoints;
 
         [Header("For Checking (Do not modify from the editor)")]
         public SlimeyState CurrentState;
-
-        public bool HasBlockState => _blockState;
 
         private Dictionary<Type, SlimeyState> _states = new Dictionary<Type, SlimeyState>();
         private PlayerController _player;
@@ -72,14 +67,6 @@ namespace Confront.Enemy
 
             CurrentState.Execute(_player, this);
             DirectionController.UpdateDirection(Rigidbody.velocity);
-        }
-
-        // Animation Event から呼び出す。
-        public virtual void Attack()
-        {
-            AttackHitBox.Clear();
-            var sign = DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-            AttackHitBox.Fire(transform, sign, Stats.AttackPower, LayerUtility.PlayerLayerMask);
         }
 
         public void TakeDamage(float attackPower, Vector2 damageVector)
@@ -126,7 +113,13 @@ namespace Confront.Enemy
         {
             if (Eye != null) Eye.DrawGizmos(transform);
 
-            AttackHitBox.DrawGizmos(transform, 0, LayerUtility.PlayerLayerMask);
+            if (CurrentState) CurrentState.DrawGizmos(_player, this);
+            if (_idleState) _idleState.DrawGizmos(_player, this);
+            if (_wanderState) _wanderState.DrawGizmos(_player, this);
+            if (_approachState) _approachState.DrawGizmos(_player, this);
+            if (_attackState) _attackState.DrawGizmos(_player, this);
+            if (_damageState) _damageState.DrawGizmos(_player, this);
+            if (_deadState) _deadState.DrawGizmos(_player, this);
         }
 
         private void Initialize()
@@ -151,9 +144,6 @@ namespace Confront.Enemy
             _states.Add(typeof(AttackState), Instantiate(_attackState));
             _states.Add(typeof(DamageState), Instantiate(_damageState));
             _states.Add(typeof(DeadState), Instantiate(_deadState));
-
-            // BlockState は null である場合があるので、その場合は追加しない。
-            if (_blockState) _states.Add(typeof(BlockState), Instantiate(_blockState));
 
             ChangeState<IdleState>();
         }
@@ -185,6 +175,11 @@ namespace Confront.Enemy
             transform.position = data.Value.Position;
             DirectionController.CurrentDirection = data.Value.Direction;
             transform.rotation = DirectionController.CurrentRotation;
+        }
+
+        public Vector3 GetSpawnPoint(int spawnPointIndex)
+        {
+            return _spawnPoints[spawnPointIndex].position;
         }
 
         [Serializable]

@@ -123,7 +123,7 @@ namespace Confront.Player.Combo
                 xAxisMovement = 0f;
             }
 
-            player.CharacterController.Move(Vector3.ProjectOnPlane(Vector3.right * sign, groundNormal) * xAxisMovement);
+            player.Move(Vector3.ProjectOnPlane(Vector3.right * sign, groundNormal) * xAxisMovement);
 
             var yAxisMovement = (yAxisMovementCurve.Evaluate(elapsed) - yAxisMovementCurve.Evaluate(elapsed - Time.deltaTime));
             player.CharacterController.Move(Vector3.up * yAxisMovement);

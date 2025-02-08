@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using Confront.Player;
+using Confront.AttackUtility;
+using Confront.Utility;
 
 namespace Confront.Enemy.Slimey
 {
@@ -11,20 +13,23 @@ namespace Confront.Enemy.Slimey
         [SerializeField]
         private string _animationName = "Attack02";
 
+        [SerializeField]
+        private HitBox[] _hitBoxes;
+
+        [SerializeField]
+        private Projectile[] _projectiles;
+
         public float Cooldown = 1.0f;
         public float AttackRange = 1.0f;
 
-        private float _timer;
-
-        [Header("ブロック状態に遷移する確率：ブロックステートが設定されている場合のみ有効。")]
-        [Range(0, 1)]
-        public float TransitionProbabilityToBlockState = 0.1f;
+        private float _cooldownTimer;
 
         public override string AnimationName => _animationName;
 
         public override void Enter(PlayerController player, SlimeyController slimey)
         {
-            _timer = 0;
+            foreach (var hitBox in _hitBoxes) hitBox.Clear();
+            _cooldownTimer = 0;
         }
 
         public override void Execute(PlayerController player, SlimeyController slimey)
@@ -40,23 +45,55 @@ namespace Confront.Enemy.Slimey
                 slimey.ChangeState<ApproachState>();
             }
 
-            _timer -= Time.deltaTime;
-            if (_timer <= 0)
+            var previousCooldownTimer = _cooldownTimer;
+            _cooldownTimer += Time.deltaTime;
+            if (_cooldownTimer > Cooldown)
             {
-                var random = UnityEngine.Random.value;
-                if (slimey.HasBlockState && random < TransitionProbabilityToBlockState)
-                {
-                    slimey.ChangeState<BlockState>();
-                    return;
-                }
+                _cooldownTimer = 0f;
                 slimey.Animator.CrossFade(AnimationName, 0.1f);
-                _timer = Cooldown;
+                foreach (var hitBox in _hitBoxes) hitBox.Clear();
+            }
+
+            foreach (var hitBox in _hitBoxes)
+            {
+                var direction = slimey.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
+                hitBox.Update(slimey.transform, slimey.Stats.AttackPower, direction, _cooldownTimer, LayerUtility.PlayerLayerMask);
+            }
+
+            foreach (var projectile in _projectiles)
+            {
+                if (_cooldownTimer > projectile.FireTime && previousCooldownTimer <= projectile.FireTime)
+                {
+                    var spawnPoint = slimey.GetSpawnPoint(projectile.SpawnPointIndex);
+
+                    var instance = Instantiate(projectile.Prefab, spawnPoint, Quaternion.identity);
+                    instance.TargetPosition = player.transform.position;
+                    instance.ActorAttackPower = slimey.Stats.AttackPower;
+                    instance.Launch();
+                }
             }
         }
 
         public override void Exit(PlayerController player, SlimeyController slimey)
         {
-
+            _cooldownTimer = -1f;
         }
+
+        public override void DrawGizmos(PlayerController player, SlimeyController slimey)
+        {
+            if (_hitBoxes == null) return;
+            foreach (var hitBox in _hitBoxes)
+            {
+                hitBox.DrawGizmos(slimey.transform, _cooldownTimer, LayerUtility.PlayerLayerMask);
+            }
+        }
+    }
+
+    [Serializable]
+    public struct Projectile
+    {
+        public ProjectileBase Prefab;
+        public int SpawnPointIndex;
+        public float FireTime;
     }
 }

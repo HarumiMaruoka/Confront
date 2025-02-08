@@ -38,7 +38,8 @@ namespace Confront.StageGimmick
                 {
                     if (PlayerController.Instance.StateMachine.CurrentState is Grounded or GroundDodge)
                     {
-                        PlayerController.Instance.CharacterController.Move(moveDelta);
+                        // PlayerController.Instance.CharacterController.Move(moveDelta);
+                        PlayerController.Instance.Move(moveDelta);
                     }
                 }
                 else

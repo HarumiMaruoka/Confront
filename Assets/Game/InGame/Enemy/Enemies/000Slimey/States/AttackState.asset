@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879810d8abcd6ef408412bb5bb3b0faa, type: 3}
   m_Name: AttackState
   m_EditorClassIdentifier: 
+  _animationName: Attack02
+  _hitBoxes:
+  - _offset: {x: 0, y: 1.23, z: 2.52}
+    _size: {x: 1.25, y: 1.24, z: 2.29}
+    _gizmoOption: 0
+    _startTime: 0.45
+    _endTime: 0.85
+    _baseDamage: 6
+    _damageFactor: 3
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
+  _projectiles: []
   Cooldown: 3
   AttackRange: 3

@@ -159,7 +159,7 @@ MonoBehaviour:
   ClimbToRunThreshold: 0.25
   GrabbablePosition: {x: -42.22, y: 3.1947875, z: 0}
   GrabIntervalTimer: -0.009121789
-  Acceleration: 5
+  Acceleration: 10
   Deceleration: 18
   TurnDeceleration: 20
   MaxSpeed: 12
@@ -181,7 +181,4 @@ MonoBehaviour:
   BigDamageDuration: 1.4
   BigDamageHorizontalDecelerationRate: 3
   MaxDamageVector: 50
-  MiniDamagedCameraShakePower: 0.5
-  SmallDamagedCameraShakePower: 0.5
-  BigDamagedCameraShakePower: 0.5
   AttackInterval: 1

@@ -35,7 +35,6 @@ namespace Confront.Player
             }
 
             // 敵との当たり判定を遮断する。
-            // Physics.IgnoreLayerCollision(player.gameObject.layer, EnemyLayer, true);
             player.gameObject.layer = LayerMask.NameToLayer("PlayerDodge");
         }
 

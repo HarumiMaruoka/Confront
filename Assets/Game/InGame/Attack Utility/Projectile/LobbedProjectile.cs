@@ -6,9 +6,12 @@ using UnityEngine;
 namespace Confront.AttackUtility
 {
     // 投げるような軌道のプロジェクタイル
-    public class LobbedProjectile : MonoBehaviour
+    public class LobbedProjectile : ProjectileBase
     {
         [Header("Projectile")]
+        [SerializeField] private Vector3 _spawnOffset;
+        [SerializeField] private float _minDuration = 0.5f;
+        [SerializeField] private float _maxDuration = 1.0f;
         [SerializeField] private float _radius = 0.5f;
         [SerializeField] private float _gravity = -9.8f;
 
@@ -26,10 +29,8 @@ namespace Confront.AttackUtility
         [SerializeField] private Vector2 _knockbackDirection = new Vector2(1, 1);
         [SerializeField] private float _knockbackForce;
 
-        private float _actorAttackPower;
         private Collider[] _colliderBuffer = new Collider[4];
 
-        private Vector3 _targetPosition;
         private float _flightDuration = 2.0f;  // 飛行にかける時間（秒）
 
         private Vector3 _lastPosition;
@@ -39,30 +40,24 @@ namespace Confront.AttackUtility
 
         public event Action<LobbedProjectile> OnCompleted;
 
-        public LobbedProjectile Launch(float actorAttackPower, Vector2 startPosition, Vector2 targetPosition, float flightDuration)
+        public override void Launch()
         {
-            this._actorAttackPower = actorAttackPower;
             this._elapsedTime = 0f;
-            this.transform.position = startPosition;
-            this._lastPosition = startPosition;
-            this._startPosition = startPosition;
-            this._targetPosition = targetPosition;
-            this._flightDuration = flightDuration;
-            Initialize();
-            return this;
+            this.transform.position = transform.position + _spawnOffset;
+            this._lastPosition = transform.position + _spawnOffset;
+            this._startPosition = transform.position + _spawnOffset;
+            this._flightDuration = UnityEngine.Random.Range(_minDuration, _maxDuration);
+            CalculateInitialVelocity();
         }
 
-        private void Initialize()
+        private void CalculateInitialVelocity()
         {
-            // 発射開始位置を保存
-            _startPosition = transform.position;
-
             // 水平方向の初速度：等速運動でターゲットに到達するための値
-            float vx = (_targetPosition.x - _startPosition.x) / _flightDuration;
+            float vx = (TargetPosition.x - _startPosition.x) / _flightDuration;
 
             // 垂直方向の初速度は、重力加速度を考慮して計算する
             // 公式: target.y = start.y + v0y * t + (1/2)*g*t^2　より
-            float vy = (_targetPosition.y - _startPosition.y - 0.5f * _gravity * _flightDuration * _flightDuration) / _flightDuration;
+            float vy = (TargetPosition.y - _startPosition.y - 0.5f * _gravity * _flightDuration * _flightDuration) / _flightDuration;
 
             _initialVelocity = new Vector2(vx, vy);
         }
@@ -92,7 +87,7 @@ namespace Confront.AttackUtility
                 var collider = _colliderBuffer[i];
                 if (collider.TryGetComponent<IDamageable>(out var damageable))
                 {
-                    var damageValue = _baseDamage + _actorAttackPower * _damageFactor;
+                    var damageValue = _baseDamage + ActorAttackPower * _damageFactor;
                     var sign = Mathf.Sign(transform.position.x - _lastPosition.x);
                     var damageVector = HitBoxBase.CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
                     damageable.TakeDamage(damageValue, damageVector);

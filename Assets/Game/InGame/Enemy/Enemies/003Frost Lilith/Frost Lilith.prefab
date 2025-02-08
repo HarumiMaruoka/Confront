@@ -85,30 +85,21 @@ MonoBehaviour:
   Animator: {fileID: 5150351098347620283}
   Stats: {fileID: 11400000, guid: a6a703c8d2930d34bbcd302f9e1f6d4e, type: 2}
   Eye: {fileID: 11400000, guid: 50deb912c5c05164eae640e3b2ed50db, type: 2}
-  _idleState: {fileID: 11400000, guid: 820766a1d57a69a45a53d0460f8360c4, type: 2}
-  _wanderState: {fileID: 11400000, guid: 2e848c91f25fe3b4da2f9f7fb6e9bc3e, type: 2}
-  _approachState: {fileID: 11400000, guid: fda5467ca27f4634d97979a53d098408, type: 2}
-  _attackState: {fileID: 11400000, guid: dd347f3a98fd0314e80127ed68e67470, type: 2}
-  _damageState: {fileID: 11400000, guid: 17d48dc8666a51d40a3d3d2122f9218c, type: 2}
-  _deadState: {fileID: 11400000, guid: e370b2b0b02c4fb41bfc9d830b0e9322, type: 2}
-  AttackHitBox:
-    _offset: {x: 0, y: 0, z: 0}
-    _size: {x: 0, y: 0, z: 0}
-    _gizmoOption: 0
-    _baseDamage: 0
-    _damageFactor: 0
-    _knockbackDirection: {x: 0, y: 0}
-    _knockbackForce: 0
   DirectionController:
     RightDirectionAngle: {x: 0, y: 90, z: 0}
     LeftDirectionAngle: {x: 0, y: -90, z: 0}
     RotationSpeed: 5
     CurrentDirection: 3
     IsEnable: 1
+  _idleState: {fileID: 11400000, guid: 820766a1d57a69a45a53d0460f8360c4, type: 2}
+  _wanderState: {fileID: 11400000, guid: 2e848c91f25fe3b4da2f9f7fb6e9bc3e, type: 2}
+  _approachState: {fileID: 11400000, guid: fda5467ca27f4634d97979a53d098408, type: 2}
+  _attackState: {fileID: 11400000, guid: dd347f3a98fd0314e80127ed68e67470, type: 2}
+  _damageState: {fileID: 11400000, guid: 17d48dc8666a51d40a3d3d2122f9218c, type: 2}
+  _deadState: {fileID: 11400000, guid: e370b2b0b02c4fb41bfc9d830b0e9322, type: 2}
+  _spawnPoints:
+  - {fileID: 5367618567385784282}
   CurrentState: {fileID: 0}
-  _bulletPrefab: {fileID: 1929651789928907164, guid: 0fda4728bfbe9c448ad674b656b0655c,
-    type: 3}
-  _spawnPoint: {fileID: 5367618567385784282}
 --- !u!54 &3741972609496127777
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1565,7 +1556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5367618567385784282}
   m_Layer: 10
-  m_Name: Bullet SpawnPoint
+  m_Name: Bullet Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

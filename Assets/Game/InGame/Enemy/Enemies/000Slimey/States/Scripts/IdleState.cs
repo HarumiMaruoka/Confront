@@ -17,10 +17,6 @@ namespace Confront.Enemy.Slimey
         [Header("速度があった場合、停止する処理に使用される減速度")]
         public float Deceleration = 10f;
 
-        [Header("ブロック状態に遷移する確率：ブロックステートが設定されている場合のみ有効。")]
-        [Range(0, 1)]
-        public float TransitionProbabilityToBlockState = 0.1f;
-
         private float _duration;
         private float _timer;
 
@@ -43,13 +39,6 @@ namespace Confront.Enemy.Slimey
             _timer += Time.deltaTime;
             if (_timer >= _duration)
             {
-                var random = UnityEngine.Random.value;
-                if (slimey.HasBlockState && random < TransitionProbabilityToBlockState)
-                {
-                    slimey.ChangeState<BlockState>();
-                    return;
-                }
-
                 slimey.ChangeState<WanderState>();
                 return;
             }

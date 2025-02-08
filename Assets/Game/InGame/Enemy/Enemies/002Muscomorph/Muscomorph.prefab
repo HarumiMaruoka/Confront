@@ -179,7 +179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8951711892266973078
 Transform:
   m_ObjectHideFlags: 0
@@ -201,6 +201,7 @@ Transform:
   - {fileID: 2841607796733353865}
   - {fileID: 7330846113979539887}
   - {fileID: 3106667868272043006}
+  - {fileID: 2738590667940764093}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &8403173954066318098
@@ -221,33 +222,23 @@ MonoBehaviour:
   Animator: {fileID: 5311558614546112859}
   Stats: {fileID: 11400000, guid: eddbd0afc9fd78b4d937f7b07ac1823b, type: 2}
   Eye: {fileID: 11400000, guid: 210de93667f824c4b8bc08d98254383d, type: 2}
-  _idleState: {fileID: 11400000, guid: 3f3e14241d4e92140a0340c9e47a08a1, type: 2}
-  _wanderState: {fileID: 11400000, guid: 9dc5a04e9523e1544b0074c79f4e6722, type: 2}
-  _approachState: {fileID: 11400000, guid: 9b8b4169e537392498078e60654d54e6, type: 2}
-  _attackState: {fileID: 11400000, guid: 32c9e418909faa64ebfcafdab55fcdad, type: 2}
-  _damageState: {fileID: 11400000, guid: 1979ff7beecfe444a95db10ed310b2bf, type: 2}
-  _deadState: {fileID: 11400000, guid: e45bc66cb640f4d4badf02abd59b0ca6, type: 2}
-  AttackHitBox:
-    _offset: {x: 0, y: 0, z: 0}
-    _size: {x: 0, y: 0, z: 0}
-    _gizmoOption: 0
-    _baseDamage: 0
-    _damageFactor: 0
-    _knockbackDirection: {x: 0, y: 0}
-    _knockbackForce: 0
   DirectionController:
     RightDirectionAngle: {x: 0, y: 90, z: 0}
     LeftDirectionAngle: {x: 0, y: -90, z: 0}
     RotationSpeed: 5
     CurrentDirection: 3
     IsEnable: 1
+  _idleState: {fileID: 11400000, guid: 3f3e14241d4e92140a0340c9e47a08a1, type: 2}
+  _wanderState: {fileID: 11400000, guid: 9dc5a04e9523e1544b0074c79f4e6722, type: 2}
+  _approachState: {fileID: 11400000, guid: 9b8b4169e537392498078e60654d54e6, type: 2}
+  _attackState: {fileID: 11400000, guid: 32c9e418909faa64ebfcafdab55fcdad, type: 2}
+  _damageState: {fileID: 11400000, guid: 1979ff7beecfe444a95db10ed310b2bf, type: 2}
+  _deadState: {fileID: 11400000, guid: e45bc66cb640f4d4badf02abd59b0ca6, type: 2}
+  _spawnPoints:
+  - {fileID: 2738590667940764093}
   CurrentState: {fileID: 0}
   _bulletPrefab: {fileID: 8920737382241018089, guid: 971526516c883e74e8ea5a53b2a3152a,
     type: 3}
-  _bulletSpawnOffset: {x: 0, y: 1.5, z: 0}
-  _targetSpawnOffset: {x: 0, y: 0.5, z: 0}
-  _bulletMinDuration: 0.8
-  _bulletMaxDuration: 1.2
 --- !u!65 &4654103333879031573
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1862,6 +1853,37 @@ Transform:
   - {fileID: 1163802151751190592}
   m_Father: {fileID: 4665458772771684442}
   m_LocalEulerAnglesHint: {x: 11.281144, y: -170.62813, z: 70.91727}
+--- !u!1 &7171561773551883524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2738590667940764093}
+  m_Layer: 10
+  m_Name: Bullet Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2738590667940764093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171561773551883524}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.431, z: 0.522}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8951711892266973078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7350766368336737042
 GameObject:
   m_ObjectHideFlags: 0

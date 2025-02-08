@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: AttackState
   m_EditorClassIdentifier: 
   _animationName: Roar
-  Cooldown: 1.2
+  _hitBoxes: []
+  _projectiles:
+  - Prefab: {fileID: 8920737382241018089, guid: 971526516c883e74e8ea5a53b2a3152a,
+      type: 3}
+    FireTime: 0.5
+  Cooldown: 3
   AttackRange: 14

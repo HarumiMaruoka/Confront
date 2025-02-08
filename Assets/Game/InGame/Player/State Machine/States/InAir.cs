@@ -48,7 +48,7 @@ namespace Confront.Player
             // 進行方向にモノがあるか
             var playerDirection = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
             var velocityDirection = CalculateDirection(player.MovementParameters.Velocity.x);
-            var hit = player.Sensor.FrontCheck(player, playerDirection);
+            var hit = !player.Sensor.IsOverlappingWithEnemy(player) && player.Sensor.FrontCheck(player, playerDirection);
             if (playerDirection == velocityDirection && hit)
             {
                 inputX = 0f;

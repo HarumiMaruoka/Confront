@@ -1,11 +1,12 @@
-﻿using Confront.Player;
+﻿using Confront.AttackUtility;
+using Confront.Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Confront.Enemy.FrostLilith
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : ProjectileBase
     {
         [SerializeField]
         private GameObject _magicPrefab;
@@ -18,6 +19,7 @@ namespace Confront.Enemy.FrostLilith
 
         private void Awake()
         {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
             if (PlayerController.Instance) Init(PlayerController.Instance.transform.position + _targetOffset);
         }
 

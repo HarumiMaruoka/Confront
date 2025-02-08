@@ -10,5 +10,6 @@ namespace Confront.Enemy.Slimey
         public abstract void Enter(PlayerController player, SlimeyController slimey);
         public abstract void Execute(PlayerController player, SlimeyController slimey); // UpdateはScriptableObjectによって予約されているため、Executeに変更。
         public abstract void Exit(PlayerController player, SlimeyController slimey);
+        public virtual void DrawGizmos(PlayerController player, SlimeyController slimey) { }
     }
 }

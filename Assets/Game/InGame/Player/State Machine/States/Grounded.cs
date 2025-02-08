@@ -97,7 +97,7 @@ namespace Confront.Player
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, 0f, player.MovementParameters.TurnDeceleration * Time.deltaTime);
             }
-            else // 
+            else 
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, player.MovementParameters.MaxSpeed * inputDirection, acceleration * Time.deltaTime);
                 player.DirectionController.UpdateDirection(player.MovementParameters.Velocity);
@@ -106,7 +106,7 @@ namespace Confront.Player
             // 進行方向にモノがあるか
             var playerDirection = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
             var velocityDirection = CalculateDirection(velocityMagnitude);
-            var hit = player.Sensor.FrontCheck(player, playerDirection);
+            var hit = !player.Sensor.IsOverlappingWithEnemy(player) && player.Sensor.FrontCheck(player, playerDirection);
             if (playerDirection == velocityDirection && hit)
             {
                 velocityMagnitude = 0f;

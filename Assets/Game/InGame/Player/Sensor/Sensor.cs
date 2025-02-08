@@ -63,11 +63,11 @@ namespace Confront.Player
 
         [Header("Check Front")]
         [SerializeField]
-        private Vector2 _frontCheckRayOffset = new Vector2(0, 0f);
+        public Vector2 _frontCheckRayOffset = new Vector2(0, 0f);
         [SerializeField]
-        private float _frontCheckRayLength = 0f;
+        public float _frontCheckRayLength = 0f;
         [SerializeField]
-        private Vector3 _frontCheckBoxRayHalfSize = new Vector3(0.5f, 0.5f, 0.5f);
+        public Vector3 _frontCheckBoxRayHalfSize = new Vector3(0.5f, 0.5f, 0.5f);
         [SerializeField]
         private bool _isFrontCheckGizmoEnabled = true;
         [SerializeField]
@@ -108,6 +108,28 @@ namespace Confront.Player
             UnityEngine.Physics.SphereCast(position, _grabbablePointRadius, player.transform.rotation * Vector3.forward, out var grabPointHit, _grabbablePointLength, GrabbablePointLayerMask);
             if (grabPointHit.transform) return grabPointHit.transform.GetComponent<GrabbablePoint>();
             return null;
+        }
+
+        private Collider[] _collidersBuffer = new Collider[10];
+
+        public bool IsOverlappingWithEnemy(PlayerController player) // プレイヤーが敵と重なっているか
+        {
+            var position = player.transform.position;
+            var radius = player.CharacterController.radius;
+            var height = player.CharacterController.height;
+            var center = player.CharacterController.center;
+            var point1 = position + center + Vector3.up * height / 2 + new Vector3(0, -radius, 0);
+            var point2 = position + center - Vector3.up * height / 2 + new Vector3(0, radius, 0);
+
+            var hitCount = UnityEngine.Physics.OverlapCapsuleNonAlloc(point1, point2, radius, _collidersBuffer, EnemyLayerMask);
+            for (int i = 0; i < hitCount; i++)
+            {
+                var dir = player.transform.position - _collidersBuffer[i].transform.position;
+                player.CharacterController.Move(dir.normalized * 2f * Time.deltaTime);
+                Debug.Log(dir.normalized * 2f * Time.deltaTime);
+            }
+
+            return hitCount > 0;
         }
 
         public bool IsGroundBelow(PlayerController player, LayerMask layerMask)

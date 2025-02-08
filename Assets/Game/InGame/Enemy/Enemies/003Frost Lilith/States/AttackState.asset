@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: AttackState
   m_EditorClassIdentifier: 
   _animationName: attack00
+  _hitBoxes: []
+  _projectiles:
+  - Prefab: {fileID: 3034317910567342318, guid: 0fda4728bfbe9c448ad674b656b0655c,
+      type: 3}
+    SpawnPointIndex: 0
+    FireTime: 0.6
   Cooldown: 3
-  AttackRange: 12
+  AttackRange: 20

@@ -156,7 +156,8 @@ namespace Confront.Player
             if (MenuController.IsOpenedMenu) return;
 
             StateMachine.Update();
-            if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
+            if (CharacterController.enabled) Move(MovementParameters.Velocity * Time.deltaTime);
+            // if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
             Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
             MovementParameters.TimerUpdate();
 
@@ -301,7 +302,6 @@ namespace Confront.Player
                 CharacterController.enabled = true;
 
                 MovementParameters.Velocity = new Vector2(0f, 0f);
-                // StateMachine.ChangeState<Grounded>();
             }
         }
 
@@ -387,6 +387,34 @@ namespace Confront.Player
 
                 return false;
             }
+        }
+
+        public void Move(Vector3 delta)
+        {
+            if (StateMachine.CurrentState is GroundDodge)
+            {
+                CharacterController.Move(delta);
+                return;
+            }
+
+            var rayOrigin = transform.position + (Vector3)Sensor._frontCheckRayOffset;
+            var raySize = Sensor._frontCheckBoxRayHalfSize;
+
+            var radius = CharacterController.radius;
+            var length = Mathf.Abs(delta.x) + radius;// + Sensor._frontCheckRayLength;
+            var rayDirection = DirectionController.CurrentDirection == Direction.Right ? Vector3.right : Vector3.left;
+
+            var layerMask = Sensor.GroundLayerMask | Sensor.EnemyLayerMask;
+
+            var isHit = Physics.BoxCast(rayOrigin, raySize, rayDirection, out var hitInfo, Quaternion.identity, length, layerMask);
+
+            if (isHit)
+            {
+                var hitDistance = hitInfo.distance - radius;
+                delta.x = hitDistance * rayDirection.x;
+            }
+
+            CharacterController.Move(delta);
         }
     }
 }
