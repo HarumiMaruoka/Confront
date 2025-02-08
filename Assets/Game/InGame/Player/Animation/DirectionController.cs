@@ -27,7 +27,7 @@ namespace Confront.Player
             _transform = transform;
         }
 
-        public void UpdateVelocity(Vector2 velocity)
+        public void UpdateDirection(Vector2 velocity)
         {
             if (!IsEnable) return;
 

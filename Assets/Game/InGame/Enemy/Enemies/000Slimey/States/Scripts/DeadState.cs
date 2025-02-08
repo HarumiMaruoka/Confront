@@ -24,7 +24,7 @@ namespace Confront.Enemy.Slimey
         {
             _timer = 0;
 
-            slimey.DropItem(player, slimey.transform.position).Forget();
+            slimey.DropItem(slimey.transform.position).Forget();
         }
 
         public override void Execute(PlayerController player, SlimeyController slimey)

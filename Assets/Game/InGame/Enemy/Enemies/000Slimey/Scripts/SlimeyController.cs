@@ -71,7 +71,7 @@ namespace Confront.Enemy
             if (MenuController.IsOpened) return;
 
             CurrentState.Execute(_player, this);
-            DirectionController.UpdateVelocity(Rigidbody.velocity);
+            DirectionController.UpdateDirection(Rigidbody.velocity);
         }
 
         // Animation Event から呼び出す。

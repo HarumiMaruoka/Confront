@@ -80,7 +80,7 @@ namespace Confront.Player
             {
                 var inputDirection = Mathf.Sign(inputX);
                 player.MovementParameters.Velocity.x = Mathf.MoveTowards(player.MovementParameters.Velocity.x, maxSpeed * inputDirection, acceleration * Time.deltaTime);
-                player.DirectionController.UpdateVelocity(player.MovementParameters.Velocity);
+                player.DirectionController.UpdateDirection(player.MovementParameters.Velocity);
             }
 
             player.MovementParameters.Velocity.y -= gravity * Time.deltaTime;

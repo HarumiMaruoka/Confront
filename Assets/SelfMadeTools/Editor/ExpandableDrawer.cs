@@ -108,7 +108,7 @@ namespace NexEditor
                     EditorGUI.indentLevel++;
                     // 一つ下の行から中身を描画
                     Rect propPos = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight + 2f,
-                        position.width, EditorGUIUtility.singleLineHeight + 28f);
+                        position.width, EditorGUIUtility.singleLineHeight);
 
                     SerializedObject serializedObject = new SerializedObject(property.objectReferenceValue);
                     SerializedProperty prop = serializedObject.GetIterator();
@@ -121,6 +121,7 @@ namespace NexEditor
                             if (prop.name.Equals("m_Script", System.StringComparison.Ordinal))
                                 continue;
 
+                            propPos.height = EditorGUI.GetPropertyHeight(prop, null, true);
                             EditorGUI.PropertyField(propPos, prop, true);
                             propPos.y += EditorGUI.GetPropertyHeight(prop, null, true) + 2f;
                         }

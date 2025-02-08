@@ -165,7 +165,7 @@ namespace Confront.Player
             if (StateMachine.CurrentState is not InAir &&
                 StateMachine.CurrentState is not Grounded)
             {
-                DirectionController.UpdateVelocity(MovementParameters.Velocity);
+                DirectionController.UpdateDirection(MovementParameters.Velocity);
             }
 
             {

@@ -25,10 +25,6 @@ namespace Confront.Enemy.Slimey
         public float MinDuration = 1f;
         public float MaxDuration = 3f;
 
-        [Header("ブロック状態に遷移する確率：ブロックステートが設定されている場合のみ有効。")]
-        [Range(0, 1)]
-        public float TransitionProbabilityToBlockState = 0.1f;
-
         private float _timer;
         private float _duration;
 
@@ -55,12 +51,6 @@ namespace Confront.Enemy.Slimey
             _timer += Time.deltaTime;
             if (_timer >= _duration)
             {
-                var random = UnityEngine.Random.value;
-                if (slimey.HasBlockState && random < TransitionProbabilityToBlockState)
-                {
-                    slimey.ChangeState<BlockState>();
-                    return;
-                }
                 slimey.ChangeState<IdleState>();
                 return;
             }

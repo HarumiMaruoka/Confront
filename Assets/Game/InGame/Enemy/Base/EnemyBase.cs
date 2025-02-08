@@ -69,7 +69,7 @@ namespace Confront.Enemy
             return attackPower * defenseDamageFactor;
         }
 
-        public virtual async UniTask DropItem(PlayerController player, Vector3 position)
+        public virtual async UniTask DropItem(Vector3 position)
         {
             DropItemData[] table = UniqueDropItemTable;
             if (table == null) table = Data.DefaultDropItemTable;
@@ -81,12 +81,12 @@ namespace Confront.Enemy
 
             position.y += 0.3f;
 
-            await DropItem(player, position, table);
+            await DropItem(position, table);
         }
 
-        protected virtual async UniTask DropItem(PlayerController player, Vector3 position, DropItemData[] table)
+        protected virtual async UniTask DropItem(Vector3 position, DropItemData[] table)
         {
-            var token = player.GetCancellationTokenOnDestroy();
+            var token = PlayerController.Instance.GetCancellationTokenOnDestroy();
 
             try
             {

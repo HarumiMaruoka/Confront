@@ -19,7 +19,7 @@ namespace Confront.Enemy.VampireBat
         public override void Enter(PlayerController player, VampireBatController vampireBat)
         {
             _timer = 0;
-            vampireBat.DropItem(player, vampireBat.transform.position).Forget();
+            vampireBat.DropItem(vampireBat.transform.position).Forget();
         }
 
         public override void Execute(PlayerController player, VampireBatController vampireBat)

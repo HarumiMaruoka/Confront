@@ -16,10 +16,6 @@ namespace Confront.Enemy.Slimey
         public float ApproachAcceleration = 0.1f;
         public float ApproachMaxSpeed = 1.0f;
 
-        [Header("ブロック状態に遷移する確率：ブロックステートが設定されている場合のみ有効。")]
-        [Range(0, 1)]
-        public float TransitionProbabilityToBlockState = 0.1f;
-
         public override string AnimationName => _animationName;
 
         public override void Enter(PlayerController player, SlimeyController slimey)
@@ -39,13 +35,6 @@ namespace Confront.Enemy.Slimey
             var sqrDistance = (player.transform.position - slimey.transform.position).sqrMagnitude;
             if (sqrDistance < AttackRange * AttackRange)
             {
-                var random = UnityEngine.Random.value;
-                if (slimey.HasBlockState && random < TransitionProbabilityToBlockState)
-                {
-                    slimey.ChangeState<BlockState>();
-                    return;
-                }
-
                 slimey.ChangeState<AttackState>();
             }
             else if (sqrDistance > DisengageDistance * DisengageDistance)

@@ -71,7 +71,7 @@ namespace Confront.Enemy
             _prevPosition = transform.position;
 
             CurrentState.Execute(_player, this);
-            DirectionController.UpdateVelocity(velocity);
+            DirectionController.UpdateDirection(velocity);
         }
 
         // Animation Event から呼び出す。

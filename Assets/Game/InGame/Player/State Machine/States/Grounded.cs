@@ -100,7 +100,7 @@ namespace Confront.Player
             else // 
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, player.MovementParameters.MaxSpeed * inputDirection, acceleration * Time.deltaTime);
-                player.DirectionController.UpdateVelocity(player.MovementParameters.Velocity);
+                player.DirectionController.UpdateDirection(player.MovementParameters.Velocity);
             }
 
             // 進行方向にモノがあるか
