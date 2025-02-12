@@ -576,7 +576,17 @@ MonoBehaviour:
   StartPoints:
   - {fileID: 5302147093253112431}
   - {fileID: 1445897370587843246}
-  StageTransitionData: []
+  StageTransitionData:
+  - NextStageType: 3
+    StageNumber: 2
+    StartPointIndex: 0
+    TransitionPoint: {x: -30.43, y: 8.9, z: 0}
+    HitBoxHalfSize: {x: 4.51, y: 9.1, z: 0}
+  - NextStageType: 3
+    StageNumber: 4
+    StartPointIndex: 1
+    TransitionPoint: {x: 86.8, y: 57.91, z: 0}
+    HitBoxHalfSize: {x: 9.8, y: 24.07, z: 0}
   CameraArea: {fileID: 588065202714910025}
 --- !u!1 &6950080636992469990
 GameObject:

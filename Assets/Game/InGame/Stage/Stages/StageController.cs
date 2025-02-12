@@ -4,6 +4,7 @@ using Confront.Player;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Confront.Stage
 {
@@ -61,6 +62,7 @@ namespace Confront.Stage
 
         public bool IsPlayerWithinBounds()
         {
+            if (!PlayerController) return false;
             var position = PlayerController.transform.position;
 
             return position.x >= TransitionPoint.x - HitBoxHalfSize.x && position.x <= TransitionPoint.x + HitBoxHalfSize.x
