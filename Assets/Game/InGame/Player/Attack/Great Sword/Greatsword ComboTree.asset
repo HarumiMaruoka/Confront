@@ -16,7 +16,7 @@ MonoBehaviour:
   XChild: {fileID: 0}
   YChild: {fileID: 0}
   Guid: e40ede51204a7154fbcbaa4839f5cff7
-  Position: {x: 633.6, y: -248.8}
+  Position: {x: 633, y: -249}
   NodeType: 4
   Behaviour: {fileID: 11400000, guid: a06b67057d0d3ce4983b1cfbc37f6737, type: 2}
 --- !u!114 &-7997371523968238644
@@ -54,7 +54,7 @@ MonoBehaviour:
   XChild: {fileID: 0}
   YChild: {fileID: 0}
   Guid: 1bcf698c53b776b47b7f03a81d73f811
-  Position: {x: 1282.4, y: -130.40002}
+  Position: {x: 1272, y: -130}
   NodeType: 4
   Behaviour: {fileID: 11400000, guid: 61d9e127cd1ce564f8cbf1723ce77e36, type: 2}
 --- !u!114 &-6144291327702957377
@@ -92,7 +92,7 @@ MonoBehaviour:
   XChild: {fileID: 0}
   YChild: {fileID: -7016959848897378435}
   Guid: 66d58995a65cc3247bc9757ccd9b8800
-  Position: {x: 1069.4998, y: -130}
+  Position: {x: 1059, y: -130}
   NodeType: 4
   Behaviour: {fileID: 11400000, guid: ea191bcf7a9a0bf4dafcf964e72801a7, type: 2}
 --- !u!114 &-4090311406086248160
@@ -422,7 +422,7 @@ MonoBehaviour:
   XChild: {fileID: 0}
   YChild: {fileID: -5256083748221309637}
   Guid: 17ec8fd1756375440905052bd2a8d4a3
-  Position: {x: 846.00006, y: -130}
+  Position: {x: 845.99994, y: -130}
   NodeType: 4
   Behaviour: {fileID: 11400000, guid: 1c71d628eef32ab40b1cbaffc20685dd, type: 2}
 --- !u!114 &2021224645600706799

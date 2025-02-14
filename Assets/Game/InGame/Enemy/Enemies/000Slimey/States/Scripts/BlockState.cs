@@ -37,7 +37,7 @@ namespace Confront.Enemy.Slimey
 
             if (_timer >= _time)
             {
-                if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player))
+                if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player, slimey.DirectionController.CurrentDirection))
                 {
                     slimey.ChangeState<IdleState>();
                 }

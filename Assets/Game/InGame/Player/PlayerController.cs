@@ -157,7 +157,6 @@ namespace Confront.Player
 
             StateMachine.Update();
             if (CharacterController.enabled) Move(MovementParameters.Velocity * Time.deltaTime);
-            // if (CharacterController.enabled) CharacterController.Move(MovementParameters.Velocity * Time.deltaTime);
             Animator.SetFloat("RunSpeed", Mathf.Abs(MovementParameters.Velocity.x / MovementParameters.MaxSpeed));
             MovementParameters.TimerUpdate();
 
@@ -401,7 +400,7 @@ namespace Confront.Player
             var raySize = Sensor._frontCheckBoxRayHalfSize;
 
             var radius = CharacterController.radius;
-            var length = Mathf.Abs(delta.x) + radius;// + Sensor._frontCheckRayLength;
+            var length = Mathf.Abs(delta.x) + radius;
             var rayDirection = DirectionController.CurrentDirection == Direction.Right ? Vector3.right : Vector3.left;
 
             var layerMask = Sensor.GroundLayerMask | Sensor.EnemyLayerMask;

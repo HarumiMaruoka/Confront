@@ -10,6 +10,7 @@ namespace Confront.Enemy.Bullvar
         public virtual void Enter(PlayerController player, BullvarController bullvar) { }
         public virtual void Execute(PlayerController player, BullvarController bullvar) { }
         public virtual void Exit(PlayerController player, BullvarController bullvar) { }
+        public virtual void DrawGizmos(PlayerController player, BullvarController bullvar) { }
     }
 
 #if UNITY_EDITOR
@@ -26,25 +27,25 @@ namespace Confront.Enemy.Bullvar
             }
 
             // 各ScriptableObjectのインスタンスを作成してアセットとして保存する
-            Idle objA = ScriptableObject.CreateInstance<Idle>();
+            IdleState objA = ScriptableObject.CreateInstance<IdleState>();
             UnityEditor.AssetDatabase.CreateAsset(objA, folderPath + "/Idle.asset");
 
-            Wander objB = ScriptableObject.CreateInstance<Wander>();
+            WanderState objB = ScriptableObject.CreateInstance<WanderState>();
             UnityEditor.AssetDatabase.CreateAsset(objB, folderPath + "/Wander.asset");
 
-            Approach objC = ScriptableObject.CreateInstance<Approach>();
+            ApproachState objC = ScriptableObject.CreateInstance<ApproachState>();
             UnityEditor.AssetDatabase.CreateAsset(objC, folderPath + "/Approach.asset");
 
-            Attack objD = ScriptableObject.CreateInstance<Attack>();
+            AttackState objD = ScriptableObject.CreateInstance<AttackState>();
             UnityEditor.AssetDatabase.CreateAsset(objD, folderPath + "/Attack.asset");
 
-            Block objE = ScriptableObject.CreateInstance<Block>();
+            BlockState objE = ScriptableObject.CreateInstance<BlockState>();
             UnityEditor.AssetDatabase.CreateAsset(objE, folderPath + "/Block.asset");
 
-            Damage objF = ScriptableObject.CreateInstance<Damage>();
+            DamageState objF = ScriptableObject.CreateInstance<DamageState>();
             UnityEditor.AssetDatabase.CreateAsset(objF, folderPath + "/Damage.asset");
 
-            Dead objG = ScriptableObject.CreateInstance<Dead>();
+            DeadState objG = ScriptableObject.CreateInstance<DeadState>();
             UnityEditor.AssetDatabase.CreateAsset(objG, folderPath + "/Dead.asset");
 
             // アセットの保存とリフレッシュ

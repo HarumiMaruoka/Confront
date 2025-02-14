@@ -26,7 +26,7 @@ namespace Confront.Enemy.Slimey
         public override void Execute(PlayerController player, SlimeyController slimey)
         {
             // プレイヤーが見えなくなったら待機状態に戻る。
-            if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player))
+            if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player, slimey.DirectionController.CurrentDirection))
             {
                 slimey.ChangeState<IdleState>();
                 return;

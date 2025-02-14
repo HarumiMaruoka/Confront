@@ -20,7 +20,7 @@ namespace Confront.Enemy.VampireBat
         {
             vampireBat.transform.position = Vector3.MoveTowards(vampireBat.transform.position, player.transform.position, Speed * Time.deltaTime);
 
-            if (!vampireBat.Eye.IsVisiblePlayer(vampireBat.transform, player))
+            if (!vampireBat.Eye.IsVisiblePlayer(vampireBat.transform, player, vampireBat.DirectionController.CurrentDirection))
             {
                 vampireBat.ChangeState<Fly>();
                 return;

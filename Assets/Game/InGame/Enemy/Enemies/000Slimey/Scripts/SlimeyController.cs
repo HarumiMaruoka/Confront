@@ -16,7 +16,6 @@ namespace Confront.Enemy
         [Header("Components")]
         public Rigidbody Rigidbody;
         public Animator Animator;
-        [Expandable] public SlimeyStats Stats;
         [Expandable] public EnemyEye Eye;
         public DirectionController DirectionController;
 
@@ -78,6 +77,7 @@ namespace Confront.Enemy
 
             if (Stats.Health <= 0)
             {
+                if (CurrentState is DeadState) return;
                 ChangeState<DeadState>();
             }
             else if (CurrentState is BlockState)
@@ -111,7 +111,7 @@ namespace Confront.Enemy
 
         protected virtual void OnDrawGizmos()
         {
-            if (Eye != null) Eye.DrawGizmos(transform);
+            if (Eye != null) Eye.DrawGizmos(transform, DirectionController.CurrentDirection);
 
             if (CurrentState) CurrentState.DrawGizmos(_player, this);
             if (_idleState) _idleState.DrawGizmos(_player, this);
@@ -124,7 +124,6 @@ namespace Confront.Enemy
 
         private void Initialize()
         {
-            Stats = Instantiate(Stats);
             Eye = Instantiate(Eye);
             DirectionController.Initialize(transform);
 
@@ -156,6 +155,8 @@ namespace Confront.Enemy
                 Position = transform.position,
                 Direction = DirectionController.CurrentDirection,
                 Rotation = DirectionController.CurrentRotation,
+                Velocity = Rigidbody.velocity,
+                AngularVelocity = Rigidbody.angularVelocity
             };
             return saveData.CreateSaveData();
         }
@@ -175,11 +176,21 @@ namespace Confront.Enemy
             transform.position = data.Value.Position;
             DirectionController.CurrentDirection = data.Value.Direction;
             transform.rotation = DirectionController.CurrentRotation;
+            Rigidbody.velocity = data.Value.Velocity;
+            Rigidbody.angularVelocity = data.Value.AngularVelocity;
         }
 
         public Vector3 GetSpawnPoint(int spawnPointIndex)
         {
             return _spawnPoints[spawnPointIndex].position;
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+            ChangeState<IdleState>();
+            Rigidbody.velocity = Vector3.zero;
+            Rigidbody.angularVelocity = Vector3.zero;
         }
 
         [Serializable]
@@ -189,6 +200,8 @@ namespace Confront.Enemy
             public Vector3 Position;
             public Direction Direction;
             public Quaternion Rotation;
+            public Vector3 Velocity;
+            public Vector3 AngularVelocity;
 
             public string CreateSaveData()
             {

@@ -112,6 +112,9 @@ namespace Confront.Player
 
         private Collider[] _collidersBuffer = new Collider[10];
 
+        [SerializeField]
+        private float _correctionSpeed = 2f;
+
         public bool IsOverlappingWithEnemy(PlayerController player) // プレイヤーが敵と重なっているか
         {
             var position = player.transform.position;
@@ -125,8 +128,7 @@ namespace Confront.Player
             for (int i = 0; i < hitCount; i++)
             {
                 var dir = player.transform.position - _collidersBuffer[i].transform.position;
-                player.CharacterController.Move(dir.normalized * 2f * Time.deltaTime);
-                Debug.Log(dir.normalized * 2f * Time.deltaTime);
+                player.CharacterController.Move(dir.normalized * _correctionSpeed * Time.deltaTime);
             }
 
             return hitCount > 0;

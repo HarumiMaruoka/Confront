@@ -4,6 +4,7 @@ using Confront.AttackUtility;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Confront.Audio;
 
 
 namespace Confront.Player.Combo
@@ -35,6 +36,10 @@ namespace Confront.Player.Combo
         private float _comboInputAcceptanceTime = 0.2f; // コンボ入力を受け付ける時間
         [SerializeField]
         private float _comboInputDeactivationTime = 0.2f; // コンボ入力を無効にする時間
+
+        [Header("SFX")]
+        [SerializeField]
+        private SwingSfx[] _swingSfxes;
 
         [Header("当たり判定")]
         [SerializeField]
@@ -108,6 +113,22 @@ namespace Confront.Player.Combo
             UpdatePlayerMovement(player, _xAxisMovementCurve, _yAxisMovementCurve, _elapsed);
             UpdateHitBoxesAndShooters(player);
             HandleTransition(player, previousElapsed);
+            HandleSFXPlayback(player, previousElapsed);
+        }
+
+        private void HandleSFXPlayback(PlayerController player, float previousElapsed)
+        {
+            if (_swingSfxes == null) return;
+
+            for (int i = 0; i < _swingSfxes.Length; i++)
+            {
+                if (_swingSfxes[i]?.Sfx != null &&
+                    previousElapsed <= _swingSfxes[i].Offset &&
+                    _elapsed > _swingSfxes[i].Offset)
+                {
+                    AudioManager.PlaySE(_swingSfxes[i].Sfx);
+                }
+            }
         }
 
         public static void UpdatePlayerMovement(PlayerController player, AnimationCurve xAxisMovementCurve, AnimationCurve yAxisMovementCurve, float elapsed)
@@ -118,12 +139,28 @@ namespace Confront.Player.Combo
             var xAxisMovement = (xAxisMovementCurve.Evaluate(elapsed) - xAxisMovementCurve.Evaluate(elapsed - Time.deltaTime));
             var groundNormal = groundSensorResult.GroundNormal;
             var angle = Vector3.Angle(Vector3.up, groundNormal);
-            if (angle > player.CharacterController.slopeLimit)
+
+            var groundNormalSign = Mathf.Sign(groundNormal.x);
+
+            if (groundNormalSign != sign && angle > player.CharacterController.slopeLimit)
             {
                 xAxisMovement = 0f;
             }
 
-            player.Move(Vector3.ProjectOnPlane(Vector3.right * sign, groundNormal) * xAxisMovement);
+            if (!player.Sensor.IsOverlappingWithEnemy(player) && player.Sensor.FrontCheck(player, sign))
+            {
+                xAxisMovement = 0f;
+            }
+
+            if (angle > player.CharacterController.slopeLimit)
+            {
+                player.MovementParameters.Velocity = Vector3.right * sign * xAxisMovement;
+            }
+            else
+            {
+                player.Move(Vector3.ProjectOnPlane(Vector3.right * sign, groundNormal) * xAxisMovement);
+            }
+
 
             var yAxisMovement = (yAxisMovementCurve.Evaluate(elapsed) - yAxisMovementCurve.Evaluate(elapsed - Time.deltaTime));
             player.CharacterController.Move(Vector3.up * yAxisMovement);
@@ -136,7 +173,7 @@ namespace Confront.Player.Combo
                 foreach (var hitBox in _hitBoxes)
                 {
                     var direction = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-                    hitBox.Update(player.transform, player.CharacterStats.AttackPower, direction, _elapsed, LayerMask);
+                    hitBox.Update(player.transform, player.CharacterStats.AttackPower, direction, _elapsed, LayerMask, true);
                 }
             }
 
@@ -176,5 +213,12 @@ namespace Confront.Player.Combo
             _elapsed = 0f;
             _lastInput = ComboInput.None;
         }
+    }
+
+    [Serializable]
+    public class SwingSfx
+    {
+        public AudioClip Sfx;
+        public float Offset;
     }
 }

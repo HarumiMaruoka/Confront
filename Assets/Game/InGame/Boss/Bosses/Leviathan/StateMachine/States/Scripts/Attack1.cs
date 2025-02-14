@@ -1,7 +1,4 @@
 ﻿using Confront.AttackUtility;
-using Confront.Debugger;
-using Confront.Enemy;
-using Confront.Player;
 using Confront.Utility;
 using System;
 using UnityEngine;
@@ -41,7 +38,7 @@ namespace Confront.Boss.Leviathan
         public void Execute(LeviathanController owner)
         {
             _elapsed += Time.deltaTime;
-            _hitBox.Update(owner.transform, _attackPower, owner.DirectionSign, _elapsed, LayerUtility.PlayerLayerMask);
+            _hitBox.Update(owner.transform, _attackPower, owner.DirectionSign, _elapsed, LayerUtility.PlayerLayerMask, false);
             if (_elapsed >= _duration) TransitionToNextState(owner);
         }
 

@@ -79,11 +79,28 @@ namespace Confront.Player
                 return sounds[UnityEngine.Random.Range(0, sounds.Length)];
             }
 
-            return null;
+            var defaultSounds = _lightDirtFootsteps;
+
+            return defaultSounds[UnityEngine.Random.Range(0, defaultSounds.Length)];
         }
 
-        public void PlayFootstepSound()
+        [SerializeField]
+        private float _interval = 0.1f;
+        private float _timer = 0f;
+
+        private void Update()
         {
+            if (_timer >= 0)
+            {
+                _timer -= Time.deltaTime;
+            }
+        }
+
+        public void PlayFootstepSound() // アニメーションイベントから呼び出す
+        {
+            if (_timer > 0) return;
+            _timer = _interval;
+
             var sound = GetFootstepSound();
             if (sound != null)
             {

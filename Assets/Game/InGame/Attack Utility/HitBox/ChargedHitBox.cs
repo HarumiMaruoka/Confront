@@ -29,7 +29,7 @@ namespace Confront.AttackUtility
         [SerializeField]
         private float _maxKnockbackForce;
 
-        public void Update(Transform center, float attackPower, float sign, float elapsed, float chargeAmount, LayerMask layerMask)
+        public void Update(Transform center, float attackPower, float sign, float elapsed, float chargeAmount, LayerMask layerMask, bool isCameraShake)
         {
             if (_startTime <= elapsed && elapsed <= _endTime) // 有効な時間帯
             {
@@ -42,7 +42,7 @@ namespace Confront.AttackUtility
                 var damageForce = Mathf.Lerp(_minKnockbackForce, _maxKnockbackForce, chargeAmount);
                 var damageVector = CalcDamageVector(damageDirection, damageForce, sign);
 
-                ProcessHitBox(attackPower, _baseDamage, factor, layerMask, position, rotation, damageVector);
+                ProcessHitBox(attackPower, _baseDamage, factor, layerMask, position, rotation, damageVector, isCameraShake);
             }
         }
 

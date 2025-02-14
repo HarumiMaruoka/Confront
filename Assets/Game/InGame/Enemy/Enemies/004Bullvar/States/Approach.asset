@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de88f9d5cdc60094ba7a8e44c581cc1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b62e74d9e07e9d48a442637a0eb0c9b, type: 3}
   m_Name: Approach
   m_EditorClassIdentifier: 
   _animationName: Run
   Acceleration: 12
   MaxSpeed: 10
   CombatDistance: 6
-  AttackTransitionProbability: 0.5
+  AttackTransitionProbability: 0.8

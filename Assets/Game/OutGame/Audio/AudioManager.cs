@@ -7,7 +7,6 @@ namespace Confront.Audio
     public static class AudioManager
     {
         private static BGMPlayer _bgmPlayer = new BGMPlayer();
-        private static SEPlayer _sePlayer = new SEPlayer();
 
         public static VolumeParameters VolumeParameters { get; } = new VolumeParameters();
 
@@ -22,7 +21,16 @@ namespace Confront.Audio
             _bgmPlayer.Play(clip, duration);
         }
 
-        public static void PlaySE(Vector3 position, AudioClip clip)
+        private static Camera _camera;
+
+        public static void PlaySE(AudioClip clip)
+        {
+            if (!_camera) _camera = Camera.main;
+
+            AudioSource.PlayClipAtPoint(clip, _camera.transform.position, AudioManager.VolumeParameters.SeVolume);
+        }
+
+        public static void PlaySE(AudioClip clip, Vector3 position)
         {
             AudioSource.PlayClipAtPoint(clip, position, AudioManager.VolumeParameters.SeVolume);
         }

@@ -181,4 +181,4 @@ MonoBehaviour:
   BigDamageDuration: 1.4
   BigDamageHorizontalDecelerationRate: 3
   MaxDamageVector: 50
-  AttackInterval: 1
+  AttackInterval: 0.3

@@ -10,6 +10,7 @@ namespace Confront.Weapon
         private WeaponActivationData[] _weaponActivationDatas;
 
         private WeaponActivationData _current = null;
+        public GameObject Current => _current?.Instance;
 
         private Dictionary<int, WeaponActivationData> _weaponActivationDataDic = new Dictionary<int, WeaponActivationData>();
 

@@ -32,9 +32,9 @@ MonoBehaviour:
   _grabbablePointLength: 1.25
   _isGrabbablePointCheckGizmoEnabled: 0
   _isGrabPointCheckGizmoAlpha: 0.5
-  _frontCheckRayOffset: {x: 0, y: 2.17}
+  _frontCheckRayOffset: {x: 0, y: 2.7}
   _frontCheckRayLength: 0
-  _frontCheckBoxRayHalfSize: {x: 0.15, y: 1.28, z: 0.15}
+  _frontCheckBoxRayHalfSize: {x: 0.1, y: 1.7, z: 0.1}
   _isFrontCheckGizmoEnabled: 1
   _isFrontCheckGizmoAlpha: 0.5
   GroundLayerMask:
@@ -49,3 +49,4 @@ MonoBehaviour:
   GrabbablePointLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  _correctionSpeed: 30

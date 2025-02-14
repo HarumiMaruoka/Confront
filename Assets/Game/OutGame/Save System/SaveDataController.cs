@@ -19,7 +19,7 @@ namespace Confront.SaveSystem
         public const int SaveButtonIconHeight = 1080 / 8;
         public const int SaveButtonIconQuality = 40;
 
-        public static SaveData Loaded { get; private set; }
+        public static SaveData Loaded;
 
         public SaveDataController(string key)
         {

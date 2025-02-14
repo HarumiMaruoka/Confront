@@ -24,6 +24,8 @@ namespace Confront.CameraUtilites
 
             Instance = this;
             _noise = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            _noise.m_AmplitudeGain = 0;
+            _noise.m_FrequencyGain = 0;
         }
 
         public void Shake(float amplitude, float frequency, float duration)

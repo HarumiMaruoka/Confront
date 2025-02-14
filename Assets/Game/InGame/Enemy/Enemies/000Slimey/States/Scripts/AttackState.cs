@@ -34,7 +34,7 @@ namespace Confront.Enemy.Slimey
 
         public override void Execute(PlayerController player, SlimeyController slimey)
         {
-            if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player))
+            if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player, slimey.DirectionController.CurrentDirection))
             {
                 slimey.ChangeState<IdleState>();
             }
@@ -57,7 +57,7 @@ namespace Confront.Enemy.Slimey
             foreach (var hitBox in _hitBoxes)
             {
                 var direction = slimey.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-                hitBox.Update(slimey.transform, slimey.Stats.AttackPower, direction, _cooldownTimer, LayerUtility.PlayerLayerMask);
+                hitBox.Update(slimey.transform, slimey.Stats.AttackPower, direction, _cooldownTimer, LayerUtility.PlayerLayerMask, false);
             }
 
             foreach (var projectile in _projectiles)

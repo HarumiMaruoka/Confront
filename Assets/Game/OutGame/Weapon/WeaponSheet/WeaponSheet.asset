@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9053812140506610028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4c8a70f3d99ba44a0380b8fc84ae14, type: 3}
+  m_Name: WeaponSheet (Confront.Weapon.WeaponSheet)
+  m_EditorClassIdentifier: 
+  ID: 4
+  AnimationPrefix: GS
+  Name: Chaos Raven
+  Description: "\u95C7\u306E\u5100\u5F0F\u3067\u935B\u3048\u3089\u308C\u305F\u798D\u3005\u3057\u3044\u9ED2\u5263\u3002\u653B\u6483\u3059\u308B\u305F\u3073\u306B\u6575\u306E\u529B\u3092\u524A\u304E\u3001\u81EA\u3089\u3092\u5F37\u5316\u3059\u308B\u546A\u3044\u304C\u5BBF\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 443a8dad639e30c49ab466c8bf1ec041, type: 3}
+  ComboTree: {fileID: 11400000, guid: 4aa6c899124ddab429084ae40880b35d, type: 2}
 --- !u!114 &-6641228538324125200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,6 +36,24 @@ MonoBehaviour:
   Description: "\u91CD\u539A\u306A\u5263\u8EAB\u304B\u3089\u7E70\u308A\u51FA\u3055\u308C\u308B\u4E00\u6483\u306F\u3001\u6575\u3092\u7C89\u7815\u3059\u308B\u307B\u3069\u306E\u529B\u3092\u6301\u3064\u3002\n\u305D\u306E\u91CD\u3055\u306B\u632F\u308A\u56DE\u3055\u308C\u308B\u304B\u3068\u601D\u3044\u304D\u3084\u3001\u719F\u7DF4\u306E\u6226\u58EB\u306E\u624B\u306B\u304B\u304B\u308C\u3070\u3001\u307E\u308B\u3067\u8E0A\u308B\u3088\u3046\u306B\u8EFD\u3084\u304B\u306B\u6575\u3092\u5207\u308A\u88C2\u304F\u3002\n\u5E83\u7BC4\u56F2\u3092\u306A\u304E\u6255\u3046\u5F37\u529B\u306A\u653B\u6483\u306F\u3001\u5927\u52E2\u306E\u6575\u3092\u4E00\u6C17\u306B\u8E74\u6563\u3089\u3059\u306E\u306B\u6700\u9069\u3060\u3002\n\u305F\u3060\u3057\u3001\u305D\u306E\u91CD\u3055\u306B\u632F\u308A\u56DE\u3055\u308C\u3084\u3059\u3044\u305F\u3081\u3001\u7D20\u65E9\u3044\u653B\u6483\u306F\u82E6\u624B\u3002"
   Icon: {fileID: 21300000, guid: b6b3f9269f51dca40bfb8647c6040636, type: 3}
   ComboTree: {fileID: 11400000, guid: 4aa6c899124ddab429084ae40880b35d, type: 2}
+--- !u!114 &-1756133668932533580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4c8a70f3d99ba44a0380b8fc84ae14, type: 3}
+  m_Name: WeaponSheet (Confront.Weapon.WeaponSheet)
+  m_EditorClassIdentifier: 
+  ID: 2
+  AnimationPrefix: GS
+  Name: Iron Blade
+  Description: "\u935B\u51B6\u5C4B\u3067\u91CF\u7523\u3055\u308C\u308B\u3001\u7279\u306B\u7279\u5FB4\u306E\u306A\u3044\u9244\u5263\u3002\u3057\u304B\u3057\u3001\u305D\u306E\u6271\u3044\u3084\u3059\u3055\u304B\u3089\u591A\u304F\u306E\u5192\u967A\u8005\u306B\u611B\u3055\u308C\u3066\u3044\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 7cac9e4a9296011428628439b9eeccfc, type: 3}
+  ComboTree: {fileID: 11400000, guid: 4aa6c899124ddab429084ae40880b35d, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,6 +69,46 @@ MonoBehaviour:
   _collection:
   - {fileID: -6641228538324125200}
   - {fileID: 8235090157043172103}
+  - {fileID: -1756133668932533580}
+  - {fileID: 182859896685380184}
+  - {fileID: -9053812140506610028}
+  - {fileID: 833823888052753578}
+--- !u!114 &182859896685380184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4c8a70f3d99ba44a0380b8fc84ae14, type: 3}
+  m_Name: WeaponSheet (Confront.Weapon.WeaponSheet)
+  m_EditorClassIdentifier: 
+  ID: 3
+  AnimationPrefix: GS
+  Name: Ruin Edge
+  Description: "\u53E4\u4EE3\u907A\u8DE1\u304B\u3089\u767A\u6398\u3055\u308C\u305F\u9B54\u529B\u3092\u5E2F\u3073\u305F\u5263\u3002\u5203\u306F\u5E74\u6708\u3092\u7D4C\u3066\u3082\u306A\u304A\u92ED\u304F\u3001\u65AC\u6483\u6642\u306B\u920D\u304F\u5149\u308B\u3002"
+  Icon: {fileID: 21300000, guid: 59e0f27c75af94848ae37c22d959a1e7, type: 3}
+  ComboTree: {fileID: 11400000, guid: 4aa6c899124ddab429084ae40880b35d, type: 2}
+--- !u!114 &833823888052753578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4c8a70f3d99ba44a0380b8fc84ae14, type: 3}
+  m_Name: WeaponSheet (Confront.Weapon.WeaponSheet)
+  m_EditorClassIdentifier: 
+  ID: 5
+  AnimationPrefix: GS
+  Name: Eternal Crest
+  Description: "\u4F1D\u8AAC\u306E\u82F1\u96C4\u304C\u907A\u3057\u305F\u795E\u79D8\u306E\u5263\u3002\u632F\u308B\u3046\u305F\u3073\u306B\u5149\u306E\u8ECC\u8DE1\u3092\u63CF\u304D\u3001\u3069\u3093\u306A\u95C7\u3092\u3082\u5207\u308A\u88C2\u304F\u8056\u306A\u308B\u529B\u3092\u79D8\u3081\u3066\u3044\u308B\u3002"
+  Icon: {fileID: 21300000, guid: eb40323b462d5f74089ffac0968fdc13, type: 3}
+  ComboTree: {fileID: 11400000, guid: 4aa6c899124ddab429084ae40880b35d, type: 2}
 --- !u!114 &8235090157043172103
 MonoBehaviour:
   m_ObjectHideFlags: 0

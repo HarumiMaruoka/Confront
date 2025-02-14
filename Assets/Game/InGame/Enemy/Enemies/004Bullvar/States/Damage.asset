@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 546d43fc333210d47b9df75a8e225429, type: 3}
+  m_Script: {fileID: 11500000, guid: ec1b1db49c975b2408cb80f8207998d8, type: 3}
   m_Name: Damage
   m_EditorClassIdentifier: 
   _animationName: Hit
+  Deceleration: 8
   Duration: 1
   ApproachTransitionProbability: 0.5

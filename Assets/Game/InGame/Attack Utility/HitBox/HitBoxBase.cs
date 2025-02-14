@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Confront.Audio;
+using Confront.CameraUtilites;
+using Confront.Player;
+using Confront.Utility;
+using Confront.VFXSystem;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +13,13 @@ namespace Confront.AttackUtility
     public abstract class HitBoxBase
     {
         [Header("HitBox")]
-        [SerializeField]
-        protected Vector3 _offset;
-        [SerializeField]
-        protected Vector3 _size;
-        [SerializeField]
-        protected GizmoOption _gizmoOption;
+        [SerializeField] protected Vector3 _offset;
+        [SerializeField] protected Vector3 _size;
+        [SerializeField] protected GizmoOption _gizmoOption;
+
+        [SerializeField] protected VFXParameters _hitVFX;
+        [SerializeField] protected SFXParameters _hitSFX;
+        [SerializeField] protected CameraShakeParameters _cameraShake;
 
         public GizmoOption GizmoOption => _gizmoOption;
 
@@ -37,9 +43,21 @@ namespace Confront.AttackUtility
             return direction.normalized * knockbackForce;
         }
 
-        protected void ProcessHitBox(float attackPower, float baseDamage, float factor, LayerMask layerMask, Vector3 position, Quaternion rotation, Vector2 damageVector)
+        protected bool ProcessHitBox(
+            float attackPower,
+            float baseDamage,
+            float factor,
+            LayerMask layerMask,
+            Vector3 position,
+            Quaternion rotation,
+            Vector2 damageVector,
+            bool isCameraShake)
         {
             var hitCount = Physics.OverlapBoxNonAlloc(position, _size * 0.5f, _colliderBuffer, rotation, layerMask, QueryTriggerInteraction.Collide);
+            var isHit = hitCount > 0;
+
+            int successfulHitCount = 0;
+
             for (int i = 0; i < hitCount; i++)
             {
                 var collider = _colliderBuffer[i];
@@ -49,8 +67,19 @@ namespace Confront.AttackUtility
                 {
                     var damage = baseDamage + attackPower * factor;
                     damageable.TakeDamage(damage, damageVector);
+                    PlayHitEffect(position, collider);
+                    successfulHitCount++;
                 }
             }
+
+            if (successfulHitCount > 0)
+            {
+                if (isCameraShake) CameraShakeHandler.Instance.Shake(_cameraShake.Amplitude, _cameraShake.Frequency, _cameraShake.Duration);
+                if (_hitSFX != null && _hitSFX.Clip) AudioManager.PlaySE(_hitSFX.Clip);
+                HitStopHandler.Stop(0.25f);
+            }
+
+            return hitCount > 0;
         }
 
         public void Clear()
@@ -58,6 +87,54 @@ namespace Confront.AttackUtility
             _alreadyHits.Clear();
         }
 
+        public void PlayHitEffect(Vector3 hitBoxCenter, Collider hitCollider)
+        {
+            var weaponPosition = PlayerController.Instance.WeaponActivator.Current.transform.position;
+            var colliderCenter = hitCollider.bounds.center;
+
+            var ray = new Ray(weaponPosition, colliderCenter - weaponPosition);
+            var isHit = Physics.Raycast(ray, out var hitInfo, 30f, LayerUtility.EnemyLayerMask, QueryTriggerInteraction.Ignore);
+
+            var position = isHit ? hitInfo.point + _hitVFX.Offset : weaponPosition + _hitVFX.Offset;
+            var rotation = UnityEngine.Random.rotation;
+            var size = Vector3.Lerp(_hitVFX.MinSize, _hitVFX.MaxSize, UnityEngine.Random.value);
+
+            // VFX
+            if (_hitVFX.VFXPrefab)
+            {
+                VFXManager.PlayVFX(_hitVFX.VFXPrefab, position, rotation, size);
+            }
+
+            // SFX
+            if (_hitSFX.Clip)
+            {
+                AudioManager.PlaySE(_hitSFX.Clip);
+            }
+        }
+
         public abstract void DrawGizmos(Transform center, float elapsed, LayerMask layerMask);
+    }
+
+    [Serializable]
+    public class CameraShakeParameters
+    {
+        public float Amplitude = 2;
+        public float Frequency = 1;
+        public float Duration = 0.1f;
+    }
+
+    [Serializable]
+    public class VFXParameters
+    {
+        public VFX VFXPrefab;
+        public Vector3 Offset = new Vector3(0f, 0f, -0.5f);
+        public Vector3 MinSize = new Vector3(3, 3, 3);
+        public Vector3 MaxSize = new Vector3(4, 4, 4);
+    }
+
+    [Serializable]
+    public class SFXParameters
+    {
+        public AudioClip Clip;
     }
 }

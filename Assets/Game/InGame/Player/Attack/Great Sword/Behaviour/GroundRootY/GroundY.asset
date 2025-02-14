@@ -62,6 +62,18 @@ MonoBehaviour:
   - _offset: {x: 0, y: 2.5, z: 3}
     _size: {x: 0, y: 7, z: 6}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX:
+      SFX: {fileID: 0}
+    _cameraShake:
+      PowerAmplitude: 1
+      PowerFrequency: 1
+      Duration: 0.1
     _startTime: 0.33
     _endTime: 0.56
     _baseDamage: 4

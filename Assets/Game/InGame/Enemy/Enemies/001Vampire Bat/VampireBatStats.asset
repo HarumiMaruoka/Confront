@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 238b7b7ecb59392459ae7e3a5c009af5, type: 3}
+  m_Script: {fileID: 11500000, guid: 074f91295777eb6428c64a7c2eed1cfd, type: 3}
   m_Name: VampireBatStats
   m_EditorClassIdentifier: 
-  Health: 20
+  MaxHealth: 100
+  AttackPower: 10
   Defense: 0
-  AttackPower: 0

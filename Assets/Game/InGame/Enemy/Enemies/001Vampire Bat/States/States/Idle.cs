@@ -20,7 +20,7 @@ namespace Confront.Enemy.VampireBat
 
         public override void Execute(PlayerController player, VampireBatController vampireBat)
         {
-            if (vampireBat.Eye.IsVisiblePlayer(vampireBat.transform, player))
+            if (vampireBat.Eye.IsVisiblePlayer(vampireBat.transform, player, vampireBat.DirectionController.CurrentDirection))
             {
                 vampireBat.ChangeState<Approach>();
                 return;

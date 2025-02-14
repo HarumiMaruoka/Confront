@@ -1,8 +1,10 @@
 ﻿using Confront.DropItem;
+using Confront.Enemy.Slimey;
 using Confront.Player;
 using Confront.SaveSystem;
 using Confront.Utility;
 using Cysharp.Threading.Tasks;
+using NexEditor;
 using System;
 using UnityEngine;
 
@@ -10,11 +12,16 @@ namespace Confront.Enemy
 {
     public abstract class EnemyBase : MonoBehaviour, ISavable
     {
+        [Header("Common")]
         public int ID;
+        [Expandable]
+        public EnemyStats Stats;
         [Tooltip("このテーブルが設定されていない場合、EnemyDataのDefaultDropItemTableが使用される。")]
         public TextAsset UniqueDropItemTableInput;
+        public LifeGauge LifeGauge;
 
         private string _saveKey = null;
+        private Vector3 _initialPosition;
         private string SaveKey => _saveKey ??= this.GetHierarchyPath(); // 同じ階層に同名のオブジェクトが存在しないことを前提としている。
 
         private DropItemData[] _dropItemTable = null;
@@ -32,16 +39,46 @@ namespace Confront.Enemy
         public string Name => Data.Name;
         public string Description => Data.Description;
 
-
         protected virtual void Awake()
         {
+            _initialPosition = transform.position;
             Data = EnemyManager.EnemySheet.GetData(ID);
+            EnemyManager.OnEnemiesReset += Reset;
+
+            Stats = Instantiate(Stats);
+            Stats.Health = Stats.MaxHealth;
+
+            if (LifeGauge)
+            {
+                LifeGauge.gameObject.SetActive(EnemyManager.ShowEnemyLifeGauge);
+                EnemyManager.OnShowEnemyLifeGaugeChanged += OnLifeGaugeVisibilityChanged;
+
+                LifeGauge.Initialize(Stats.MaxHealth);
+                LifeGauge.UpdateHealth(Stats.Health);
+                Stats.OnLifeChanged += LifeGauge.UpdateHealth;
+            }
+
             SavableRegistry.Register(this);
         }
 
         protected virtual void OnDestroy()
         {
+            EnemyManager.OnEnemiesReset -= Reset;
+
+            if (LifeGauge)
+            {
+                EnemyManager.OnShowEnemyLifeGaugeChanged -= OnLifeGaugeVisibilityChanged;
+                Stats.OnLifeChanged -= LifeGauge.UpdateHealth;
+            }
+
             SavableRegistry.Unregister(this);
+        }
+
+        protected virtual void Reset()
+        {
+            Stats.Health = Stats.MaxHealth;
+            transform.position = _initialPosition;
+            gameObject.SetActive(true);
         }
 
         protected virtual void OnEnable()
@@ -119,6 +156,16 @@ namespace Confront.Enemy
         public void Save(SaveData saveData)
         {
             saveData.EnemyData[SaveKey] = CreateSaveData();
+        }
+
+        private void OnLifeGaugeVisibilityChanged(bool isVisible)
+        {
+            if (this && LifeGauge) LifeGauge.gameObject.SetActive(isVisible);
+            else
+            {
+                EnemyManager.OnShowEnemyLifeGaugeChanged -= OnLifeGaugeVisibilityChanged;
+                Stats.OnLifeChanged -= LifeGauge.UpdateHealth;
+            }
         }
     }
 }

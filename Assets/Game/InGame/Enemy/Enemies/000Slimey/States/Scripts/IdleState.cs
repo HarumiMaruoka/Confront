@@ -30,7 +30,7 @@ namespace Confront.Enemy.Slimey
 
         public override void Execute(PlayerController player, SlimeyController slimey)
         {
-            if (slimey.Eye.IsVisiblePlayer(slimey.transform, player))
+            if (slimey.Eye.IsVisiblePlayer(slimey.transform, player, slimey.DirectionController.CurrentDirection))
             {
                 slimey.ChangeState<ApproachState>();
                 return;

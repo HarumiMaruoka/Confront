@@ -58,10 +58,27 @@ MonoBehaviour:
   _attackCompletionTime: 1.1
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0.6
+  _swingSfxes:
+  - Sfx: {fileID: 0}
+    Offset: 0
+  - Sfx: {fileID: 0}
+    Offset: 0
   _hitBoxes:
   - _offset: {x: 0, y: 2.5, z: 3}
     _size: {x: 0, y: 7, z: 6}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX:
+      Clip: {fileID: 8300000, guid: 08d976f6c01624fc2a87f39da2af3cfb, type: 3}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 0.22
     _endTime: 0.43
     _baseDamage: 3

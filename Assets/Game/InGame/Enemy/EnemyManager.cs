@@ -15,5 +15,19 @@ namespace Confront.Enemy
         }
 
         public static EnemySheet EnemySheet { get; }
+        public static Action OnEnemiesReset;
+
+        private static bool _showEnemyLifeGauge = true;
+        public static event Action<bool> OnShowEnemyLifeGaugeChanged;
+        public static bool ShowEnemyLifeGauge
+        {
+            get => _showEnemyLifeGauge;
+            set
+            {
+                if (_showEnemyLifeGauge == value) return;
+                _showEnemyLifeGauge = value;
+                OnShowEnemyLifeGaugeChanged?.Invoke(value);
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Confront.AttackUtility
         [SerializeField]
         private float _knockbackForce;
 
-        public void Fire(Transform center, float sign, float attackPower, LayerMask layerMask)
+        public void Fire(Transform center, float sign, float attackPower, LayerMask layerMask, bool isCameraShake)
         {
             var position = center.position + center.rotation * _offset;
             var rotation = center.rotation;
@@ -25,7 +25,7 @@ namespace Confront.AttackUtility
 
             var damageVector = CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
 
-            ProcessHitBox(attackPower, _baseDamage, _damageFactor, layerMask, position, rotation, damageVector);
+            ProcessHitBox(attackPower, _baseDamage, _damageFactor, layerMask, position, rotation, damageVector, isCameraShake);
         }
 
         public override void DrawGizmos(Transform center, float elapsed, LayerMask layerMask)

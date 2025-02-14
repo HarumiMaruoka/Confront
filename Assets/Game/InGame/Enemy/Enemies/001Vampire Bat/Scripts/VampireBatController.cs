@@ -6,7 +6,6 @@ using Confront.Player;
 using System.Collections.Generic;
 using Confront.GameUI;
 using Confront.Utility;
-using NexEditor;
 
 namespace Confront.Enemy
 {
@@ -17,8 +16,6 @@ namespace Confront.Enemy
         [Header("Components")]
         public Rigidbody Rigidbody;
         public Animator Animator;
-        [Expandable]
-        public VampireBatStats Stats;
         public EnemyEye Eye;
 
         [Header("States")]
@@ -51,7 +48,6 @@ namespace Confront.Enemy
         {
             base.Awake();
             Initialize();
-
             _animatorPauseHandler = new AnimatorPauseHandler(Animator);
         }
 
@@ -79,7 +75,7 @@ namespace Confront.Enemy
         {
             AttackHitBox.Clear();
             var sign = DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-            AttackHitBox.Fire(transform, sign, Stats.AttackPower, LayerUtility.PlayerLayerMask);
+            AttackHitBox.Fire(transform, sign, Stats.AttackPower, LayerUtility.PlayerLayerMask, false);
         }
 
         public void TakeDamage(float attackPower, Vector2 damageVector)
@@ -116,7 +112,7 @@ namespace Confront.Enemy
 
         private void OnDrawGizmos()
         {
-            if (Eye != null) Eye.DrawGizmos(transform);
+            if (Eye != null) Eye.DrawGizmos(transform, DirectionController.CurrentDirection);
 
             AttackHitBox.DrawGizmos(transform, 0, LayerUtility.PlayerLayerMask);
             Sensor.DrawGizmos(transform);
@@ -124,7 +120,6 @@ namespace Confront.Enemy
 
         private void Initialize()
         {
-            Stats = Instantiate(Stats);
             Eye = Instantiate(Eye);
             DirectionController.Initialize(transform);
 
@@ -191,6 +186,12 @@ namespace Confront.Enemy
             {
                 return JsonUtility.FromJson<VampireBatSaveData>(saveData);
             }
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+            ChangeState<Fly>();
         }
     }
 }

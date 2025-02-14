@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.CameraUtilites;
+using System;
 using UnityEngine;
 
 namespace Confront.AttackUtility
@@ -6,21 +7,23 @@ namespace Confront.AttackUtility
     [Serializable]
     public class HitBox : HitBoxBase
     {
+        [Header("Time")]
         [SerializeField]
         private float _startTime;
         [SerializeField]
         private float _endTime;
+        [Header("Damage")]
         [SerializeField]
         private float _baseDamage;
         [SerializeField]
         private float _damageFactor;
-
+        [Header("Knockback")]
         [SerializeField]
         private Vector2 _knockbackDirection;
         [SerializeField]
         private float _knockbackForce;
 
-        public void Update(Transform center, float attackPower, float sign, float elapsed, LayerMask layerMask)
+        public void Update(Transform center, float attackPower, float sign, float elapsed, LayerMask layerMask, bool cameraShake)
         {
             if (_startTime <= elapsed && elapsed <= _endTime) // 有効な時間帯
             {
@@ -29,7 +32,7 @@ namespace Confront.AttackUtility
 
                 var damageVector = CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
 
-                ProcessHitBox(attackPower, _baseDamage, _damageFactor, layerMask, position, rotation, damageVector);
+                ProcessHitBox(attackPower, _baseDamage, _damageFactor, layerMask, position, rotation, damageVector, cameraShake);
             }
         }
 
