@@ -35,8 +35,8 @@ TagManager:
   - MapUI
   - InvisibleToCamera
   - PlayerDodge
-  - 
-  - 
+  - NoCollisionEnemy
+  - PlatformEnemy
   - 
   - 
   - 
