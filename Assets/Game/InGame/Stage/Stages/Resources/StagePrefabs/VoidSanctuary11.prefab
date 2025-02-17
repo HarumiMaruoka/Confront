@@ -55,7 +55,7 @@ MonoBehaviour:
   StageTransitionData:
   - NextStageType: 3
     StageNumber: 10
-    StartPointIndex: 0
+    StartPointIndex: 1
     TransitionPoint: {x: -68.3, y: 0, z: 0}
     HitBoxHalfSize: {x: 0, y: 7.47, z: 0}
   CameraArea: {fileID: 0}
