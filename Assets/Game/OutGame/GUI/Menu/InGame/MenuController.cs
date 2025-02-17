@@ -39,6 +39,8 @@ namespace Confront.GameUI
 
         private Stack<GameObject> _menus = new Stack<GameObject>();
 
+        public GameObject CurrentMenu => _menus.Count > 0 ? _menus.Peek() : null;
+
         public bool IsOpenedMenu => _menus.Count > 0;
         private Player.IState PlayerState => Player.PlayerController.Instance.StateMachine.CurrentState;
 

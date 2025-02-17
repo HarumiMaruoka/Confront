@@ -8,13 +8,16 @@ namespace Confront.GameUI
     {
         [SerializeField]
         private TMPro.TextMeshProUGUI _text;
-        [SerializeField]
-        private float _duration;
 
         [SerializeField]
-        private float _randomX;
+        private float _randomX = 1;
         [SerializeField]
-        private float _randomY;
+        private float _randomY = 1;
+
+        [SerializeField]
+        private AnimationCurve _sizeCurve;
+        [SerializeField]
+        private Gradient _colorGradient;
 
         public event Action<DamageDisplay> OnHide;
 
@@ -22,11 +25,19 @@ namespace Confront.GameUI
         {
             transform.position += new Vector3(UnityEngine.Random.Range(-_randomX, _randomX), UnityEngine.Random.Range(-_randomY, _randomY), 0);
 
+            var duration = _sizeCurve.keys[_sizeCurve.length - 1].time;
+
             _text.text = damage.ToString();
-            for (float t = 0; t < _duration; t += Time.deltaTime)
+            for (float t = 0; t < duration; t += Time.deltaTime)
             {
                 if (!gameObject) return;
-                transform.position += Vector3.up * Time.deltaTime;
+
+                var size = _sizeCurve.Evaluate(t);
+                var color = _colorGradient.Evaluate(t / duration);
+
+                _text.transform.localScale = new Vector3(size, size, size);
+                _text.color = color;
+
                 await UniTask.Yield();
             }
             OnHide?.Invoke(this);

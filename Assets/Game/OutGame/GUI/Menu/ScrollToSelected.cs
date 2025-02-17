@@ -10,11 +10,31 @@ namespace Confront.GameUI
         [SerializeField]
         private RectTransform content; // ScrollRectのContentの参照
 
+        private bool warningFlag = false;
+
+        private void Update()
+        {
+            if ((!MenuController.Instance ||
+                !MenuController.Instance.CurrentMenu) &&
+                !warningFlag)
+            {
+                warningFlag = true;
+                Debug.LogWarning("MenuController or CurrentMenu is null");
+                return;
+            }
+
+            if (MenuController.Instance.CurrentMenu == this.gameObject)
+            {
+                var selected = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject?.GetComponent<RectTransform>();
+                if (selected) ScrollTo(selected);
+            }
+        }
+
         /// <summary>
         /// 指定された要素をScrollViewの範囲内に収める
         /// </summary>
         /// <param name="target">対象のRectTransform</param>
-        public void ScrollTo(RectTransform target)
+        private void ScrollTo(RectTransform target)
         {
             // ScrollRectのViewportの参照
             RectTransform viewport = scrollRect.viewport;

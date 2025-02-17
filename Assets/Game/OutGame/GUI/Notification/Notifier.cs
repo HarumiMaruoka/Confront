@@ -6,7 +6,7 @@ namespace Confront.NotificationManager
 {
     public class Notifier : MonoBehaviour
     {
-        private static event Action<Notification> OnNotificationAdded;
+        private static event Action<Notification> OnNotificationAdd;
         public static void AddNotification(string title, string message, Sprite icon)
         {
             var notification = new Notification
@@ -15,7 +15,7 @@ namespace Confront.NotificationManager
                 Message = message,
                 Icon = icon
             };
-            OnNotificationAdded?.Invoke(notification);
+            OnNotificationAdd?.Invoke(notification);
         }
 
         [SerializeField]
@@ -29,12 +29,12 @@ namespace Confront.NotificationManager
 
         private void Start()
         {
-            OnNotificationAdded += OnAdded;
+            OnNotificationAdd += ShowNotification;
         }
 
         private void OnDestroy()
         {
-            OnNotificationAdded -= OnAdded;
+            OnNotificationAdd -= ShowNotification;
         }
 
         private void UpdateTargetPosition()
@@ -47,7 +47,7 @@ namespace Confront.NotificationManager
             }
         }
 
-        private void OnAdded(Notification notification)
+        private void ShowNotification(Notification notification)
         {
             var element = GetOrCreateElement();
             element.Notification = notification;
@@ -69,6 +69,7 @@ namespace Confront.NotificationManager
             else
             {
                 elem = Instantiate(_notificationPrefab, _container);
+                elem.Container = _container;
             }
 
             _actives.Add(elem);

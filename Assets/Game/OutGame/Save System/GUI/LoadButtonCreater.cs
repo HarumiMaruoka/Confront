@@ -1,5 +1,4 @@
-﻿using Confront.GameUI;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,9 +11,6 @@ namespace Confront.SaveSystem.GUI
         private LoadButton _loadButtonPrefab;
         [SerializeField]
         private Transform _parent;
-
-        [SerializeField]
-        private ScrollToSelected _scrollToSelected;
 
         private Button[] _buttons;
 
@@ -45,12 +41,6 @@ namespace Confront.SaveSystem.GUI
 
                 button.navigation = navigation;
             }
-        }
-
-        private void Update()
-        {
-            var selected = EventSystem.current?.currentSelectedGameObject?.GetComponent<RectTransform>();
-            if (selected) _scrollToSelected.ScrollTo(selected);
         }
 
         private GameObject _previouseSelection;

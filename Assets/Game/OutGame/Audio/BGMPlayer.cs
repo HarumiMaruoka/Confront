@@ -15,6 +15,7 @@ namespace Confront.Audio
                 if (Application.isPlaying && _audioSource == null)
                 {
                     _audioSource = new GameObject("BGMPlayer").AddComponent<AudioSource>();
+                    GameObject.DontDestroyOnLoad(_audioSource.gameObject);
                     _audioSource.volume = AudioManager.VolumeParameters.BgmVolume;
                     _audioSource.loop = true;
                 }

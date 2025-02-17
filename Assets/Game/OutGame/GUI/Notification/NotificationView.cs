@@ -27,6 +27,8 @@ namespace Confront.NotificationManager
         [SerializeField]
         private float _moveSpeed = 10f;
 
+        [NonSerialized] public RectTransform Container;
+
         public event Action<NotificationView> OnNotificationEnd;
 
         public Notification Notification
@@ -56,18 +58,18 @@ namespace Confront.NotificationManager
         {
             _elapsed = 0f;
 
-            var initialPosX = Screen.width / 2f - RectTransform.rect.width / 2f;
-            var initialPosY = -Screen.height / 2f - RectTransform.rect.height / 2f;
-            var initialPos = new Vector2(initialPosX, initialPosY);
+            var initialX = Container.rect.width / 2f - RectTransform.rect.width / 2f;
+            var initialY = -Container.rect.height / 2f - RectTransform.rect.height / 2f;
+            var initialPos = new Vector2(initialX, initialY);
 
             RectTransform.anchoredPosition = initialPos;
 
-            TargetPosition = new Vector2(initialPosX, initialPosY);
+            TargetPosition = new Vector2(initialX, initialY);
         }
 
         private void OnDisable()
         {
-            _moveCanceller?.Cancel();
+            _moveCTS?.Cancel();
         }
 
         private void Update()
@@ -81,13 +83,13 @@ namespace Confront.NotificationManager
             }
         }
 
-        private CancellationTokenSource _moveCanceller;
+        private CancellationTokenSource _moveCTS;
 
         private async UniTask MoveUp()
         {
-            _moveCanceller?.Cancel();
-            _moveCanceller = new CancellationTokenSource();
-            var token = _moveCanceller.Token;
+            _moveCTS?.Cancel();
+            _moveCTS = new CancellationTokenSource();
+            var token = _moveCTS.Token;
 
             while (!token.IsCancellationRequested && RectTransform.anchoredPosition.y < _targetPosition.y && this)
             {
