@@ -172,11 +172,11 @@ MonoBehaviour:
   AbyssXMinSpeed: 3.2
   SlopeAcceleration: 32
   PassThroughPlatformDisableTime: 0.5
-  PassThroughPlatformDisableTimer: -0.0037113428
+  PassThroughPlatformDisableTimer: -0.016042318
   DodgeMaxSpeed: 28
   DodgeAccelerationDuration: 0.08
   DodgeDecelerationDuration: 0.65
-  SmallDamageDuration: 0.7
+  SmallDamageDuration: 1.2
   SmallDamageHorizontalDecelerationRate: 2
   BigDamageDuration: 1.4
   BigDamageHorizontalDecelerationRate: 3

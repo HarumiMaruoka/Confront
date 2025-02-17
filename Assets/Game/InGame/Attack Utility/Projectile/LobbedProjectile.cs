@@ -90,7 +90,7 @@ namespace Confront.AttackUtility
                     var damageValue = _baseDamage + ActorAttackPower * _damageFactor;
                     var sign = Mathf.Sign(transform.position.x - _lastPosition.x);
                     var damageVector = HitBoxBase.CalcDamageVector(_knockbackDirection, _knockbackForce, sign);
-                    damageable.TakeDamage(damageValue, damageVector);
+                    damageable.TakeDamage(damageValue, damageVector, collider.bounds.center);
                 }
             }
 

@@ -33,7 +33,7 @@ MonoBehaviour:
   ID: 4
   Name: Bullvar
   Description: "\u304B\u3064\u3066\u52C7\u731B\u306A\u6226\u58EB\u305F\u3061\u304C\u4F4F\u3093\u3067\u3044\u305F\u6975\u5BD2\u306E\u5730\u306B\u4F1D\u308F\u308B\u4F1D\u8AAC\u306E\u7363\u4EBA\u3002\n\u5DE8\u5927\u306A\u725B\u306E\u4F53\u306B\u30F4\u30A1\u30A4\u30AD\u30F3\u30B0\u306E\u3088\u3046\u306A\u88C5\u5099\u3092\u307E\u3068\u3044\u3001\u4E8C\u8DB3\u6B69\u884C\u3067\u6226\u5834\u3092\u99C6\u3051\u308B\u3002\n\u5206\u539A\u3044\u6BDB\u76AE\u3068\u92FC\u306E\u93A7\u304C\u7E54\u308A\u306A\u3059\u5805\u7262\u306A\u9632\u5FA1\u529B\u3092\u8A87\u308A\u3001\u5927\u65A7\u3092\u632F\u308B\u3046\u305D\u306E\u59FF\u306F\u3001\u307E\u3055\u306B\u6226\u306E\u5316\u8EAB\u3002\n\n\u5F7C\u3089\u306F\u305F\u3060\u306E\u7363\u3067\u306F\u306A\u304F\u3001\u8A87\u308A\u9AD8\u304D\u6226\u58EB\u306E\u9B42\u3092\u5BBF\u3057\u3066\u3044\u308B\u3068\u3044\u3046\u3002\n\u6575\u5BFE\u3059\u308B\u8005\u306B\u306F\u5BB9\u8D66\u306A\u304F\u8972\u3044\u304B\u304B\u308B\u304C\u3001\u771F\u306E\u5F37\u8005\u306B\u306F\u656C\u610F\u3092\u793A\u3059\u3053\u3068\u3082\u3042\u308B\u3002\n\u4F1D\u8AAC\u306B\u3088\u308B\u3068\u3001\u5F7C\u3089\u306E\u9996\u9818\u306F\u300C\u96F7\u9CF4\u306E\u5486\u54EE\u300D\u3092\u653E\u3061\u3001\u5927\u5730\u3092\u9707\u308F\u305B\u308B\u3068\u3044\u3046\u304C\u3001\u305D\u308C\u3092\u898B\u305F\u8005\u306F\u5C11\u306A\u3044\u2026\u3002"
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 4730224111275577940, guid: c7b48117eba488e4a9c98ed98f471db1, type: 3}
   DefaultDropItemTableInput: {fileID: 0}
 --- !u!114 &-3934223360703337439
 MonoBehaviour:
@@ -53,6 +53,23 @@ MonoBehaviour:
   Prefab: {fileID: 5581592759282538276, guid: a98bfc67068902c4b974ab338bfa1bc4, type: 3}
   DefaultDropItemTableInput: {fileID: 4900000, guid: f24dde219efb13645aa19b4763417bae,
     type: 3}
+--- !u!114 &-485995875986285853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127af4a2d40f77a48a566e9cd6b37d50, type: 3}
+  m_Name: EnemySheet (Confront.Enemy.EnemySheet)
+  m_EditorClassIdentifier: 
+  ID: 1000
+  Name: Leviathan
+  Description: 
+  Prefab: {fileID: 0}
+  DefaultDropItemTableInput: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +88,7 @@ MonoBehaviour:
   - {fileID: -7661101971528089822}
   - {fileID: 8718342000169278665}
   - {fileID: -7349629997942469531}
+  - {fileID: -485995875986285853}
 --- !u!114 &6645766205563297457
 MonoBehaviour:
   m_ObjectHideFlags: 0

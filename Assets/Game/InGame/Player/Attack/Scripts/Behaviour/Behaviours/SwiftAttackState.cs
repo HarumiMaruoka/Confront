@@ -56,8 +56,6 @@ namespace Confront.Player.Combo
         public override string AnimationName => _animationName;
         public override float AnimationOffset => _animationOffset;
 
-        private static PlayerController _player;
-
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -80,12 +78,12 @@ namespace Confront.Player.Combo
 #if UNITY_EDITOR
             if (_hitBoxes == null) return;
 
-            if (_player == null) _player = FindObjectOfType<PlayerController>();
+            if (!PlayerController.Instance) return;
 
             foreach (var hitBox in _hitBoxes)
             {
                 if (hitBox == null) continue;
-                hitBox.DrawGizmos(_player.transform, _elapsed, LayerMask);
+                hitBox.DrawGizmos(PlayerController.Instance.transform, _elapsed, LayerMask);
             }
 #endif
         }

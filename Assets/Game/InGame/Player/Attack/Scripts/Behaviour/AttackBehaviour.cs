@@ -1,4 +1,5 @@
 ﻿using Confront.Debugger;
+using Confront.Utility;
 using System;
 using UnityEngine;
 
@@ -6,19 +7,7 @@ namespace Confront.Player.Combo
 {
     public abstract class AttackBehaviour : ScriptableObject
     {
-        private static LayerMask _layerMask;
-
-        public static LayerMask LayerMask
-        {
-            get
-            {
-                if (_layerMask == 0)
-                {
-                    _layerMask = LayerMask.GetMask("Enemy");
-                }
-                return _layerMask;
-            }
-        }
+        public static LayerMask LayerMask => LayerUtility.EnemyLayerMask | LayerUtility.NoCollisionEnemy | LayerUtility.PlatformEnemy;
 
         public abstract string AnimationName { get; }
         public abstract float AnimationOffset { get; }

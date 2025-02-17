@@ -43,6 +43,8 @@ namespace Confront.Enemy.Bullvar
         private Dictionary<Type, BullvarState> _states = new Dictionary<Type, BullvarState>();
         private AnimatorPauseHandler _animatorPauseHandler;
 
+        public GameObject Owner => gameObject; // IDamageable
+
         protected override void Awake()
         {
             base.Awake();
@@ -80,6 +82,9 @@ namespace Confront.Enemy.Bullvar
             _currentState?.Execute(PlayerController.Instance, this);
             DirectionController.UpdateDirection(Velocity);
             CharacterController.Move(Velocity * Time.deltaTime);
+            CharacterController.enabled = false;
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            CharacterController.enabled = true;
 
             if (CharacterController.isGrounded) Velocity.y = 0;
             else Velocity.y += Gravity * Time.deltaTime;
@@ -171,12 +176,12 @@ namespace Confront.Enemy.Bullvar
             Velocity = data.Value.Velocity;
         }
 
-        public void TakeDamage(float attackPower, Vector2 damageVector)
+        public void TakeDamage(float attackPower, Vector2 damageVector, Vector3 point)
         {
             var damage = DefaultCalculateDamage(attackPower, Stats.Defense);
 
             Stats.Health -= damage;
-            DamageDisplaySystem.Instance.ShowDamage((int)damage, transform.position);
+            DamageDisplaySystem.Instance.ShowDamage((int)damage, point);
 
             if (Stats.Health <= 0)
             {

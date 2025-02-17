@@ -75,7 +75,7 @@ namespace Confront.Player.Combo
             {
                 var damage = _baseDamage + _player.CharacterStats.AttackPower * _damageFactor;
                 var damageVector = transform.right * _rigidbody.velocity.magnitude;
-                damageable.TakeDamage(damage, damageVector);
+                damageable.TakeDamage(damage, damageVector, other.bounds.center);
             }
         }
     }

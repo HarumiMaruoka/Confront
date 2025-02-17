@@ -61,12 +61,15 @@ namespace Confront.AttackUtility
             for (int i = 0; i < hitCount; i++)
             {
                 var collider = _colliderBuffer[i];
-                var instanceId = collider.gameObject.GetInstanceID();
+                var instanceId = collider.GetInstanceID();
                 if (!_alreadyHits.Add(instanceId)) continue;
                 if (collider.gameObject.TryGetComponent(out IDamageable damageable))
                 {
+
+                    if (!_alreadyHits.Add(damageable.Owner.GetInstanceID())) continue;
+
                     var damage = baseDamage + attackPower * factor;
-                    damageable.TakeDamage(damage, damageVector);
+                    damageable.TakeDamage(damage, damageVector, collider.bounds.center);
                     PlayHitEffect(position, collider);
                     successfulHitCount++;
                 }
@@ -93,7 +96,8 @@ namespace Confront.AttackUtility
             var colliderCenter = hitCollider.bounds.center;
 
             var ray = new Ray(weaponPosition, colliderCenter - weaponPosition);
-            var isHit = Physics.Raycast(ray, out var hitInfo, 30f, LayerUtility.EnemyLayerMask, QueryTriggerInteraction.Ignore);
+            var layerMask = LayerUtility.EnemyLayerMask | LayerUtility.NoCollisionEnemy | LayerUtility.PlatformEnemy;
+            var isHit = Physics.Raycast(ray, out var hitInfo, 30f, layerMask, QueryTriggerInteraction.Ignore);
 
             var position = isHit ? hitInfo.point + _hitVFX.Offset : weaponPosition + _hitVFX.Offset;
             var rotation = UnityEngine.Random.rotation;

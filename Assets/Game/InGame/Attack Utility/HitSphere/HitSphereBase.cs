@@ -45,7 +45,7 @@ namespace Confront.AttackUtility
                 if (collider.gameObject.TryGetComponent(out IDamageable damageable))
                 {
                     var damage = baseDamage + attackPower * factor;
-                    damageable.TakeDamage(damage, damageVector);
+                    damageable.TakeDamage(damage, damageVector, collider.bounds.center);
                 }
             }
         }

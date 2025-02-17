@@ -70,6 +70,8 @@ namespace Confront.Player
         public Vector3 CurrentPosition;
         public Vector3 InitialScale;
 
+        public GameObject Owner => gameObject; // IDamageable
+
         public WeaponInstance EquippedWeapon
         {
             get => _equippedWeapon;
@@ -211,7 +213,8 @@ namespace Confront.Player
         /// </summary>
         /// <param name="attackPower"> 最終攻撃ダメージ </param>
         /// <param name="damageVector"> ノックバックに使用する </param>
-        public void TakeDamage(float attackPower, Vector2 damageVector)
+        /// <param name="point"></param>
+        public void TakeDamage(float attackPower, Vector2 damageVector, Vector3 point)
         {
             if (StateMachine.CurrentState is Dead or GroundDodge or BigDamage) return;
 

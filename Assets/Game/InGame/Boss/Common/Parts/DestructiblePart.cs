@@ -15,7 +15,7 @@ namespace Confront.Boss
 
         public event Action<DestructiblePart> OnDestructed; // 破壊されたときに呼ばれるイベント
 
-        public override void TakeDamage(float attackPower, Vector2 damageVector)
+        public override void TakeDamage(float attackPower, Vector2 damageVector, Vector3 point)
         {
             // ダメージを計算
             float damage;
@@ -23,7 +23,7 @@ namespace Confront.Boss
             else damage = EnemyBase.DefaultCalculateDamage(attackPower, DestructedDefense);
 
             // ボスへダメージを与える
-            Boss.TakeDamage(damage, transform.position, damageVector);
+            Boss.TakeDamage(damage, damageVector, point);
 
             // 破壊度を更新
             var prevDestructionLevel = _destructionLevel;

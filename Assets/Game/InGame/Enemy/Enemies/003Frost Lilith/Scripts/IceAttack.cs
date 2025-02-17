@@ -59,7 +59,7 @@ namespace Confront.Enemy.FrostLilith
                 _isHit = true;
                 var player = PlayerController.Instance;
                 var damageVector = HitBoxBase.CalcDamageVector(_knockbackDirection, _knockbackForce, AttackDirection);
-                player.TakeDamage(_damageValue, damageVector);
+                player.TakeDamage(_damageValue, damageVector, damageVector);
             }
         }
 

@@ -12,15 +12,17 @@ namespace Confront.Boss
 
         public BossBase Boss { get; private set; }
 
+        public GameObject Owner => Boss.gameObject;
+
         public void Initialize(BossBase bossBase)
         {
             this.Boss = bossBase;
         }
 
-        public virtual void TakeDamage(float attackPower, Vector2 damageVector)
+        public virtual void TakeDamage(float attackPower, Vector2 damageVector, Vector3 point)
         {
             var damage = EnemyBase.DefaultCalculateDamage(attackPower, Defense);
-            Boss.TakeDamage(damage, transform.position, damageVector);
+            Boss.TakeDamage(damage, damageVector, point);
         }
     }
 }

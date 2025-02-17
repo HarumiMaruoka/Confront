@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NexEditor;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,19 +8,19 @@ namespace Confront.Boss.Leviathan
     [Serializable]
     public class StateMachine
     {
-        public Idle Idle;
-        public Walk Walk;
-        public Rotate Rotate;
-        public Stunned Stunned;
-        public GetHit1 GetHit1;
-        public GetHit2 GetHit2;
-        public Die Die;
-        public Attack1 Attack1;
-        public Attack2 Attack2;
-        public AttackHard AttackHard;
-        public AttackSpecial AttackSpecial;
-        public Roar Roar;
-        public Block Block;
+        [Expandable] public Idle Idle;
+        [Expandable] public Walk Walk;
+        [Expandable] public Rotate Rotate;
+        [Expandable] public Stunned Stunned;
+        [Expandable] public GetHit1 GetHit1;
+        [Expandable] public GetHit2 GetHit2;
+        [Expandable] public Die Die;
+        [Expandable] public Attack1 Attack1;
+        [Expandable] public Attack2 Attack2;
+        [Expandable] public AttackHard AttackHard;
+        [Expandable] public AttackSpecial AttackSpecial;
+        [Expandable] public Roar Roar;
+        [Expandable] public Block Block;
 
         private Dictionary<Type, IState> _states;
 

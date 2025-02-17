@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3117282070742490484}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9163036710810874424}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4432515385496961395}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5970173996363418897}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_bones10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6160340374890282115}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7559878966717459960}
   - component: {fileID: 6572949204606734086}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: Vampire_bat_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3074156269795683118}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 927971449791568793}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8681418244093039923}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_tail02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4111011818206135564}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4182597050845096308}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2435653628425814917}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1877027403286241455}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4812263923921594613}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3247429872198167804}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(RIGHT)00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3854282499344633373}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5875846788752054226}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -674,7 +674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7420562690484299612}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4385954344215741853}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -737,7 +737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5342820750116231963}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 312607373439648965}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -801,7 +801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4661375094906375678}
   - component: {fileID: 840060221822543072}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat wings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -909,7 +909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7325497572060457416}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_foot(RIGHT)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8612268730633570132}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(LEFT)03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,7 +973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8167111505770579650}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_bones09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1007,7 +1007,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8195745051210544552}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,7 +1038,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4124165390372636115}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,7 +1069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2204498700591305364}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1101,7 +1101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4977718614798777756}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(LEFT)01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1133,7 +1133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1650303199348432434}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1165,7 +1165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216279552197104990}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1197,7 +1197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7256044843053994522}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1229,7 +1229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5580253480928658102}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1260,7 +1260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 781502902228628490}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1291,7 +1291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7154417949647479076}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1327,7 +1327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4376097378780166840}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_ear(LEFT)01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1359,7 +1359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1520711924284685707}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1391,7 +1391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 701698011335958046}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1427,7 +1427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3926151970050385892}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(LEFT)02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1459,7 +1459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8325635298718813555}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_ear(RIGHT)01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1496,7 +1496,7 @@ GameObject:
   - component: {fileID: 1912971431816493211}
   - component: {fileID: 4209841134252775847}
   - component: {fileID: 1220841830112853354}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: VampireBat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1680,7 +1680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5322397474144414497}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1711,7 +1711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5513981601118979044}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(RIGHT)03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1743,7 +1743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 319085596007226636}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1775,7 +1775,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2967255639595752255}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_bones07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1808,7 +1808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3861450997235659963}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1840,7 +1840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4383490707596099575}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_tail04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1872,7 +1872,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2550726879166590651}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1904,7 +1904,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4339915497599282323}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1936,7 +1936,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2781764276122549808}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_ear(LEFT)00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1968,7 +1968,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4348483920718655253}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2003,7 +2003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7967051691668877167}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2035,7 +2035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8750603299272709308}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_control27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2067,7 +2067,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1036087489834261026}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2099,7 +2099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4083189550908003690}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2130,7 +2130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7291781082338870103}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_foot(LEFT)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2162,7 +2162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4958407145772817986}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_bones08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2195,7 +2195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9016297705840529488}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2227,7 +2227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5987834561571525252}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2259,7 +2259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9140537792073274967}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(RIGHT)02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2291,7 +2291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 726237056982636268}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2323,7 +2323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5908063370058611690}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2354,7 +2354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4126612148488926915}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2386,7 +2386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1921220290625625977}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_mandible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2418,7 +2418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1748854293005252715}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(LEFT)00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2450,7 +2450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1016937744061259984}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(LEFT)09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2482,7 +2482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 192755255980268766}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_end(RIGHT)06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2513,7 +2513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7709564713118749011}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2545,7 +2545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2201493667345687420}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_tail03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2577,7 +2577,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3521350182824401802}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_tail00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2609,7 +2609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3023533705365515357}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_tail01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2641,7 +2641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7035895054982606658}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_leg(RIGHT)01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2673,7 +2673,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5655247147501838761}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_bones14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2705,7 +2705,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2680362417452275179}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_wing(RIGHT)16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2737,7 +2737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4542042595509092395}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: bat_ear(RIGHT)00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2772,6 +2772,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Life Gauge
+      objectReference: {fileID: 0}
+    - target: {fileID: 1886355010168670224, guid: 9b3247f55e315084e9b5b9be63e74064,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2773660170299360227, guid: 9b3247f55e315084e9b5b9be63e74064,
         type: 3}
@@ -2822,6 +2827,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612087665640882971, guid: 9b3247f55e315084e9b5b9be63e74064,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6957069379386738220, guid: 9b3247f55e315084e9b5b9be63e74064,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893234865168365848, guid: 9b3247f55e315084e9b5b9be63e74064,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326768424911779539, guid: 9b3247f55e315084e9b5b9be63e74064,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

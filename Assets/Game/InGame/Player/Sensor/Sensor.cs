@@ -74,11 +74,10 @@ namespace Confront.Player
         [Range(0.3f, 1f)]
         private float _isFrontCheckGizmoAlpha = 0.5f;
 
-        [Header("Layer Mask")]
-        public LayerMask GroundLayerMask;
-        public LayerMask EnemyLayerMask;
-        public LayerMask PassThroughPlatform;
-        public LayerMask GrabbablePointLayerMask;
+        public LayerMask GroundLayerMask => LayerUtility.GroundLayerMask;
+        public LayerMask EnemyLayerMask => LayerUtility.EnemyLayerMask | LayerUtility.PlatformEnemy;
+        public LayerMask PassThroughPlatform => LayerUtility.PassThroughPlatformLayerMask;
+        public LayerMask GrabbablePointLayerMask => LayerUtility.GrabbablePointLayerMask;
 
         public bool FrontCheck(PlayerController player, float sign)
         {
@@ -128,6 +127,7 @@ namespace Confront.Player
             for (int i = 0; i < hitCount; i++)
             {
                 var dir = player.transform.position - _collidersBuffer[i].transform.position;
+                dir.y = 0;
                 player.CharacterController.Move(dir.normalized * _correctionSpeed * Time.deltaTime);
             }
 

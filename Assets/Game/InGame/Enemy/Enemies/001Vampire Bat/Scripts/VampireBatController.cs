@@ -44,6 +44,8 @@ namespace Confront.Enemy
         private PlayerController _player;
         private AnimatorPauseHandler _animatorPauseHandler;
 
+        public GameObject Owner => gameObject; // IDamageable
+
         protected override void Awake()
         {
             base.Awake();
@@ -78,7 +80,7 @@ namespace Confront.Enemy
             AttackHitBox.Fire(transform, sign, Stats.AttackPower, LayerUtility.PlayerLayerMask, false);
         }
 
-        public void TakeDamage(float attackPower, Vector2 damageVector)
+        public void TakeDamage(float attackPower, Vector2 damageVector, Vector3 point)
         {
             var damage = DefaultCalculateDamage(attackPower, Stats.Defense);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INab.Dissolve;
+using System;
 using UnityEngine;
 
 namespace Confront.Boss.Leviathan
@@ -6,38 +7,39 @@ namespace Confront.Boss.Leviathan
     [CreateAssetMenu(menuName = "ConfrontSO/Boss/Leviathan/Die")]
     public class Die : ScriptableObject, IState
     {
-        [SerializeField]
-        private float _duration = 1f;
-
         private float _timer = 0f;
+        public Dissolver Dissolver;
+
+        private float Duration => Dissolver.duration;
 
         public string AnimationName => "Die";
 
         public void Enter(LeviathanController owner)
         {
             _timer = 0f;
-            DisableColliders(owner);
+            Dissolver.Dissolve();
+            SetCollidersActive(owner, false);
         }
 
         public void Execute(LeviathanController owner)
         {
             _timer += Time.deltaTime;
-            if (_timer >= _duration)
+            if (_timer >= Duration)
             {
-                GameObject.Destroy(owner.gameObject);
+                owner.gameObject.SetActive(false);
             }
         }
 
         public void Exit(LeviathanController owner)
         {
-
+            SetCollidersActive(owner, true);
         }
 
-        private void DisableColliders(LeviathanController owner)
+        private void SetCollidersActive(LeviathanController owner, bool isActive)
         {
             foreach (var part in owner.BossParts)
             {
-                part.gameObject.SetActive(false);
+                part.gameObject.SetActive(isActive);
             }
         }
     }
