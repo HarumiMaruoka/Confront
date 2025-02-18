@@ -49,6 +49,7 @@ MonoBehaviour:
   _attackCompletionTime: 2.2
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0
+  _swingSfxes: []
   _hitBoxes:
   - _offset: {x: 0, y: 2.5, z: 3}
     _size: {x: 0, y: 7, z: 6}
@@ -60,7 +61,7 @@ MonoBehaviour:
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
     _hitSFX:
-      Clip: {fileID: 0}
+      Clip: {fileID: 8300000, guid: eab8e344fff1f46caa15966d23ee1a6c, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -80,7 +81,7 @@ MonoBehaviour:
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
     _hitSFX:
-      Clip: {fileID: 0}
+      Clip: {fileID: 8300000, guid: d4b29971fa0ce4bfc857e0f357d8758d, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -100,7 +101,7 @@ MonoBehaviour:
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
     _hitSFX:
-      Clip: {fileID: 0}
+      Clip: {fileID: 8300000, guid: 721d4d8f4f8774171829a07f2fb3e11b, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -120,7 +121,7 @@ MonoBehaviour:
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
     _hitSFX:
-      Clip: {fileID: 0}
+      Clip: {fileID: 8300000, guid: 61b21fc3dc1fc440e8464d0a890e57e7, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -140,7 +141,7 @@ MonoBehaviour:
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
     _hitSFX:
-      Clip: {fileID: 0}
+      Clip: {fileID: 8300000, guid: 61b21fc3dc1fc440e8464d0a890e57e7, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -160,7 +161,7 @@ MonoBehaviour:
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
     _hitSFX:
-      Clip: {fileID: 0}
+      Clip: {fileID: 8300000, guid: 107f80111dbd6475f8209ce9b233818c, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -172,5 +173,3 @@ MonoBehaviour:
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   _shooters: []
-  _sfxOffset: 0
-  _sfx: {fileID: 8300000, guid: aabd8b64999713e4da626b5a26a0ded4, type: 3}

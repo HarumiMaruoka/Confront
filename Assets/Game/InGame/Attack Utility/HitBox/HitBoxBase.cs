@@ -17,9 +17,9 @@ namespace Confront.AttackUtility
         [SerializeField] protected Vector3 _size;
         [SerializeField] protected GizmoOption _gizmoOption;
 
-        [SerializeField] protected VFXParameters _hitVFX;
-        [SerializeField] protected SFXParameters _hitSFX;
-        [SerializeField] protected CameraShakeParameters _cameraShake;
+        public VFXParameters _hitVFX;
+        public AudioClip _hitSFX;
+        public CameraShakeParameters _cameraShake;
 
         public GizmoOption GizmoOption => _gizmoOption;
 
@@ -70,7 +70,7 @@ namespace Confront.AttackUtility
 
                     var damage = baseDamage + attackPower * factor;
                     damageable.TakeDamage(damage, damageVector, collider.bounds.center);
-                    PlayHitEffect(position, collider);
+                    CreateHitVFX(position, collider);
                     successfulHitCount++;
                 }
             }
@@ -78,7 +78,7 @@ namespace Confront.AttackUtility
             if (successfulHitCount > 0)
             {
                 if (isCameraShake) CameraShakeHandler.Instance.Shake(_cameraShake.Amplitude, _cameraShake.Frequency, _cameraShake.Duration);
-                if (_hitSFX != null && _hitSFX.Clip) AudioManager.PlaySE(_hitSFX.Clip);
+                if (_hitSFX) AudioManager.PlaySE(_hitSFX);
                 HitStopHandler.Stop(0.25f);
             }
 
@@ -90,7 +90,7 @@ namespace Confront.AttackUtility
             _alreadyHits.Clear();
         }
 
-        public void PlayHitEffect(Vector3 hitBoxCenter, Collider hitCollider)
+        public void CreateHitVFX(Vector3 hitBoxCenter, Collider hitCollider)
         {
             var weaponPosition = PlayerController.Instance.WeaponActivator.Current.transform.position;
             var colliderCenter = hitCollider.bounds.center;
@@ -107,12 +107,6 @@ namespace Confront.AttackUtility
             if (_hitVFX.VFXPrefab)
             {
                 VFXManager.PlayVFX(_hitVFX.VFXPrefab, position, rotation, size);
-            }
-
-            // SFX
-            if (_hitSFX.Clip)
-            {
-                AudioManager.PlaySE(_hitSFX.Clip);
             }
         }
 
@@ -134,11 +128,5 @@ namespace Confront.AttackUtility
         public Vector3 Offset = new Vector3(0f, 0f, -0.5f);
         public Vector3 MinSize = new Vector3(3, 3, 3);
         public Vector3 MaxSize = new Vector3(4, 4, 4);
-    }
-
-    [Serializable]
-    public class SFXParameters
-    {
-        public AudioClip Clip;
     }
 }

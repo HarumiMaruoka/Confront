@@ -385,7 +385,12 @@ namespace Confront.Player
                     }
                 }
 
-                if (PlayerInputHandler.InGameInput.Jump.triggered) return true;
+                if (PlayerInputHandler.InGameInput.Jump.triggered)
+                {
+                    if (DebugParams.Instance.IsInfiniteJump) return true;
+                    if (MovementParameters.JumpCount >= MovementParameters.MaxJumpCount) return false;
+                    return true;
+                }
 
                 return false;
             }

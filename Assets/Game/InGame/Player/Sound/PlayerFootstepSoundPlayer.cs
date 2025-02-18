@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.Utility;
+using System;
 using UnityEngine;
 
 namespace Confront.Player
@@ -10,7 +11,11 @@ namespace Confront.Player
 
         private void OnTriggerEnter(Collider other)
         {
-            _playerFootstepSound.PlayFootstepSound();
+            var groundLayer = LayerUtility.GroundLayerMask | LayerUtility.EnemyLayerMask | LayerUtility.PlatformEnemy;
+            var foot = 1 << other.gameObject.layer;
+            var isOnGroundLayer = (groundLayer & foot) != 0;
+
+            if (isOnGroundLayer) _playerFootstepSound.PlayFootstepSound();
         }
     }
 }

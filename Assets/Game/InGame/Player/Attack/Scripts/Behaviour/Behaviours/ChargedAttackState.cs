@@ -82,7 +82,7 @@ namespace Confront.Player.Combo
             _elapsed = 0f;
         }
 
-        public override void Enter(PlayerController player)
+        public override void Enter(PlayerController player, ComboTree tree)
         {
             _lastInput = ComboInput.None;
             _state = ChargeState.Ready;
@@ -91,7 +91,7 @@ namespace Confront.Player.Combo
             player.Animator.CrossFade(_readyAnimationName, 0.1f);
         }
 
-        public override void Execute(PlayerController player)
+        public override void Execute(PlayerController player, ComboTree tree)
         {
             switch (_state)
             {
@@ -101,7 +101,7 @@ namespace Confront.Player.Combo
             }
         }
 
-        public override void Exit(PlayerController player)
+        public override void Exit(PlayerController player, ComboTree tree)
         {
             _lastInput = ComboInput.None;
             _state = ChargeState.Ready;

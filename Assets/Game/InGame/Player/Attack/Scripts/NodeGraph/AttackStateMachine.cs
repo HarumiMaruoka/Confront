@@ -62,7 +62,7 @@ namespace Confront.Player.Combo
                 return;
             }
 
-            _currentNode.Behaviour.Execute(player);
+            _currentNode.Behaviour.Execute(player, _tree);
         }
 
         public void Exit(PlayerController player)
@@ -83,7 +83,7 @@ namespace Confront.Player.Combo
         {
             if (_currentNode && _currentNode.Behaviour)
             {
-                _currentNode.Behaviour.Exit(player);
+                _currentNode.Behaviour.Exit(player, _tree);
                 _currentNode.Behaviour.OnTransitionX -= ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY -= ChangeToYChild;
                 _currentNode.Behaviour.OnCompleted -= AttackCompleted;
@@ -100,7 +100,7 @@ namespace Confront.Player.Combo
                     var animationOffset = _currentNode.Behaviour.AnimationOffset;
                     player.Animator.CrossFade(animationName, 0.1f, 0, animationOffset);
                 }
-                _currentNode.Behaviour.Enter(player);
+                _currentNode.Behaviour.Enter(player, _tree);
                 _currentNode.Behaviour.OnTransitionX += ChangeToXChild;
                 _currentNode.Behaviour.OnTransitionY += ChangeToYChild;
                 _currentNode.Behaviour.OnCompleted += AttackCompleted;

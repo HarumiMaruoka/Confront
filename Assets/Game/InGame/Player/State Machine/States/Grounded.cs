@@ -15,6 +15,7 @@ namespace Confront.Player
             {
                 player.MovementParameters.Velocity.y = 0f;
             }
+            player.MovementParameters.JumpCount = 0;
         }
 
         public void Execute(PlayerController player)
@@ -97,7 +98,7 @@ namespace Confront.Player
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, 0f, player.MovementParameters.TurnDeceleration * Time.deltaTime);
             }
-            else 
+            else
             {
                 velocityMagnitude = Mathf.Lerp(velocityMagnitude, player.MovementParameters.MaxSpeed * inputDirection, acceleration * Time.deltaTime);
                 player.DirectionController.UpdateDirection(player.MovementParameters.Velocity);

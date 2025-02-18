@@ -12,6 +12,7 @@ namespace Confront.Player
         public void Enter(PlayerController player)
         {
             player.MovementParameters.Velocity.y = player.MovementParameters.JumpForce;
+            player.MovementParameters.JumpCount++;
         }
 
         public void Execute(PlayerController player)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Confront.AttackUtility;
+using Confront.VFXSystem;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +13,17 @@ namespace Confront.Player.Combo
         public ComboNode GroundRootY;
         public ComboNode AirRootX;
         public ComboNode AirRootY;
+
+        public VFXParameters DefaultVFX;
+        public AudioClip[] DefaultHitSFXs;
+        public AudioClip DefaultHitSFX
+        {
+            get
+            {
+                if (DefaultHitSFXs == null || DefaultHitSFXs.Length == 0) return null;
+                return DefaultHitSFXs[UnityEngine.Random.Range(0, DefaultHitSFXs.Length)];
+            }
+        }
 
         public event Action<ComboNode> OnRootDuplicated;
 

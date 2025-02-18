@@ -15,11 +15,13 @@ namespace Confront.Player.Combo
         public Action<PlayerController> OnTransitionY;
         public Action<PlayerController> OnCompleted;
 
-        public abstract void Enter(PlayerController player);
+        public AudioClip[] HitSFX;
 
-        public abstract void Execute(PlayerController player);
+        public abstract void Enter(PlayerController player, ComboTree tree);
 
-        public abstract void Exit(PlayerController player);
+        public abstract void Execute(PlayerController player, ComboTree tree);
+
+        public abstract void Exit(PlayerController player, ComboTree tree);
 
 
         protected virtual void OnEnable()

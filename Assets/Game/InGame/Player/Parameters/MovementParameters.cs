@@ -92,6 +92,9 @@ namespace Confront.Player
         [NonSerialized]
         public Vector3 MovingPlatformDelta = Vector3.zero;
 
+        public int JumpCount = 0;
+        public int MaxJumpCount = 2;
+
         public void TimerUpdate()
         {
             if (GrabIntervalTimer > 0)

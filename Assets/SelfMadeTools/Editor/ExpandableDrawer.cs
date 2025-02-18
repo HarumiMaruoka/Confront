@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using Confront.Enemy.Bullvar;
 
 namespace NexEditor
 {
@@ -70,7 +71,13 @@ namespace NexEditor
             Rect objectFieldRect = new Rect(
                 position.x + EditorGUIUtility.labelWidth,
                 position.y,
-                position.width - EditorGUIUtility.labelWidth,
+                position.width - EditorGUIUtility.labelWidth - 80f,
+                EditorGUIUtility.singleLineHeight
+            );
+            Rect buttonRect = new Rect(
+                position.x + position.width - 80f,
+                position.y,
+                80f,
                 EditorGUIUtility.singleLineHeight
             );
 
@@ -86,6 +93,30 @@ namespace NexEditor
 
             // ScriptableObject の参照フィールドを描画
             EditorGUI.PropertyField(objectFieldRect, property, GUIContent.none);
+            var createButtonClicked = GUI.Button(buttonRect, "Create", EditorStyles.miniButton);
+
+            if (createButtonClicked)
+            {
+                property.serializedObject.Update();
+                var type = fieldInfo.FieldType;
+                var obj = ScriptableObject.CreateInstance(type);
+                property.objectReferenceValue = obj;
+
+                // 保存先のフォルダパス（存在しなければ作成）
+                string folderPath = ProjectViewUtility.GetCurrentDirectory();
+                var assetName = type.Name;
+                var i = 0;
+                while (System.IO.File.Exists(folderPath + "/" + assetName + ".asset"))
+                {
+                    assetName = $"{type.Name} {i}";
+                    i++;
+                }
+
+                UnityEditor.AssetDatabase.CreateAsset(obj, folderPath + "/" + assetName + ".asset");
+                property.serializedObject.ApplyModifiedProperties();
+                UnityEditor.AssetDatabase.SaveAssets();
+                UnityEditor.AssetDatabase.Refresh();
+            }
 
             // ScriptableObject がセットされている場合のみ、フォールドアウトを描画する
             if (property.objectReferenceValue != null)

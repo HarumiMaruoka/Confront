@@ -1,5 +1,4 @@
-﻿using Confront.Debugger;
-using Confront.Input;
+﻿using Confront.Input;
 using Confront.AttackUtility;
 using System;
 using UnityEngine;
@@ -88,7 +87,7 @@ namespace Confront.Player.Combo
 #endif
         }
 
-        public override void Enter(PlayerController player)
+        public override void Enter(PlayerController player, ComboTree tree)
         {
             _elapsed = 0f;
             _lastInput = ComboInput.None;
@@ -96,6 +95,8 @@ namespace Confront.Player.Combo
             foreach (var hitBox in _hitBoxes)
             {
                 hitBox.Clear();
+                if (!hitBox._hitSFX) hitBox._hitSFX = tree.DefaultHitSFX;
+                if (hitBox._hitVFX == null || !hitBox._hitVFX.VFXPrefab) hitBox._hitVFX = tree.DefaultVFX;
             }
             foreach (var shooter in _shooters)
             {
@@ -103,7 +104,7 @@ namespace Confront.Player.Combo
             }
         }
 
-        public override void Execute(PlayerController player)
+        public override void Execute(PlayerController player, ComboTree tree)
         {
             var previousElapsed = _elapsed;
             _elapsed += Time.deltaTime;
@@ -111,10 +112,10 @@ namespace Confront.Player.Combo
             UpdatePlayerMovement(player, _xAxisMovementCurve, _yAxisMovementCurve, _elapsed);
             UpdateHitBoxesAndShooters(player);
             HandleTransition(player, previousElapsed);
-            HandleSFXPlayback(player, previousElapsed);
+            HandleSwingSFXPlayback(player, previousElapsed);
         }
 
-        private void HandleSFXPlayback(PlayerController player, float previousElapsed)
+        private void HandleSwingSFXPlayback(PlayerController player, float previousElapsed)
         {
             if (_swingSfxes == null) return;
 
@@ -206,7 +207,7 @@ namespace Confront.Player.Combo
             }
         }
 
-        public override void Exit(PlayerController player)
+        public override void Exit(PlayerController player, ComboTree tree)
         {
             _elapsed = 0f;
             _lastInput = ComboInput.None;

@@ -1,4 +1,5 @@
 ﻿using Confront.Player;
+using NexEditor;
 using System;
 using UnityEngine;
 
@@ -19,12 +20,8 @@ namespace Confront.Enemy.Bullvar
         [UnityEditor.MenuItem("Assets/Create/ConfrontSO/Enemy/Bullvar/Create All BullvarStates")]
         public static void CreateAllScriptableObjects()
         {
-            // 保存先のフォルダパス（存在しなければ作成）
-            string folderPath = GetSelectedPathOrFallback();
-            if (!UnityEditor.AssetDatabase.IsValidFolder(folderPath))
-            {
-                UnityEditor.AssetDatabase.CreateFolder("Assets", "ScriptableObjects");
-            }
+            // 保存先のフォルダパス
+            string folderPath = ProjectViewUtility.GetCurrentDirectory();
 
             // 各ScriptableObjectのインスタンスを作成してアセットとして保存する
             IdleState objA = ScriptableObject.CreateInstance<IdleState>();
@@ -51,20 +48,6 @@ namespace Confront.Enemy.Bullvar
             // アセットの保存とリフレッシュ
             UnityEditor.AssetDatabase.SaveAssets();
             UnityEditor.AssetDatabase.Refresh();
-        }
-
-        private static string GetSelectedPathOrFallback()
-        {
-            string path = "Assets";
-            foreach (UnityEngine.Object obj in UnityEditor.Selection.GetFiltered(typeof(UnityEngine.Object), UnityEditor.SelectionMode.Assets))
-            {
-                path = UnityEditor.AssetDatabase.GetAssetPath(obj);
-                if (System.IO.Directory.Exists(path))
-                {
-                    return path;
-                }
-            }
-            return path;
         }
     }
 #endif

@@ -26,5 +26,6 @@ namespace Confront.Debugger
         public bool CanPlayerAttack = true;
         public bool StateTransitionLogging = false;
         public bool IsGodMode = false;
+        public bool IsInfiniteJump = false;
     }
 }

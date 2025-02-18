@@ -49,6 +49,7 @@ MonoBehaviour:
   _attackCompletionTime: 1.4
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 1
+  _swingSfxes: []
   _hitBoxes:
   - _offset: {x: 0, y: 2.5, z: 3}
     _size: {x: 0, y: 7, z: 6}
@@ -60,10 +61,10 @@ MonoBehaviour:
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
     _hitSFX:
-      SFX: {fileID: 0}
+      Clip: {fileID: 8300000, guid: 256675968a4544e058f7eedcaaa095b2, type: 3}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.5
     _endTime: 0.7
