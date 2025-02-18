@@ -46,6 +46,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9167253019503995330}
   - component: {fileID: 241585592038590752}
+  - component: {fileID: 6892815282162754775}
   m_Layer: 7
   m_Name: VoidSanctuary6
   m_TagString: Untagged
@@ -107,6 +108,22 @@ MonoBehaviour:
     TransitionPoint: {x: 127, y: -42.8, z: 0}
     HitBoxHalfSize: {x: 11.62, y: 0.81, z: 2}
   CameraArea: {fileID: 3439502406508640366}
+--- !u!114 &6892815282162754775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228323297604090318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43b301b16110534095366afa6b4764d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _worldLeftTop: {x: 1, y: 9}
+  _worldRightBottom: {x: 155, y: -43}
+  _mapLeftTop: {x: 2, y: -98}
+  _mapRightBottom: {x: 3, y: -100}
 --- !u!1 &748260192711328233
 GameObject:
   m_ObjectHideFlags: 0
