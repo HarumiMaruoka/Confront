@@ -14,7 +14,7 @@ public static class HemisphereRaycastUtility
     /// <param name="rayCount">レイを発射する本数</param>
     /// <param name="layerMask">Raycast が当たるレイヤーマスク</param>
     /// <returns>最も近く衝突した法線ベクトル（衝突しなかった場合は Vector3.zero）</returns>
-    public static Vector3? GetClosestHitNormalInHemisphere(
+    public static Vector2? GetClosestHitNormalInHemisphere(
         Vector3 origin,
         Vector3 up,
         float radius,

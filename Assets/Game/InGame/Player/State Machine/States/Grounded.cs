@@ -162,6 +162,7 @@ namespace Confront.Player
                (isRightSlope && playerVelocity.x > 0 ||
                !isRightSlope && playerVelocity.x < 0))
             {
+                player.MovementParameters.Velocity = Vector3.zero;
                 return;
             }
 

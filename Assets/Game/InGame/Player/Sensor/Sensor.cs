@@ -159,13 +159,13 @@ namespace Confront.Player
             result.IsGrounded = isHitSphereCast ? Vector3.Dot(hitInfo.normal, Vector3.up) > 0.08f : false;
             Vector3 groundNormal;
             groundNormal = hitInfo.normal;
-            result.GroundDistance = isHitSphereCast ? hitInfo.distance : _groundCheckRayLength;
+            result.GroundDistance = isHitSphereCast ? hitInfo.distance : _groundCheckRayLength; // Gizmo表示用
 
             if (isHitSphereCast == false) // レイが地面にヒットしなかった場合、もう一度レイを飛ばす
             {
                 groundCheckRayOrigin = player.transform.position + (Vector3)_groundCheckRayOffset2;
                 var normal = HemisphereRaycastUtility.GetClosestHitNormalInHemisphere(groundCheckRayOrigin, Vector3.down, _groundCheckRayRadius, 1200, groundCheckLayerMask);
-                result.IsGrounded = normal.HasValue;// ? Vector3.Dot(normal.Value, Vector3.up) > 0.3f : false;
+                result.IsGrounded = normal.HasValue;
                 groundNormal = normal.GetValueOrDefault(Vector3.zero);
             }
 
@@ -178,19 +178,6 @@ namespace Confront.Player
                 result.GroundNormal = groundNormal;
                 var slopeLimit = player.CharacterController.slopeLimit;
                 result.IsSteepSlope = Vector3.Angle(Vector3.up, groundNormal) > slopeLimit;
-                if (!result.IsSteepSlope)
-                {
-                    _steepSlopeCount = 0;
-                }
-                else if (result.IsSteepSlope && _steepSlopeCount > 5)
-                {
-                    result.IsSteepSlope = true;
-                }
-                else
-                {
-                    _steepSlopeCount++;
-                    result.IsSteepSlope = false;
-                }
             }
 
             if (result.IsGrounded && result.IsAbyss)

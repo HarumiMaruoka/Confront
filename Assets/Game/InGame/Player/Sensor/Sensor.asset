@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sensor
   m_EditorClassIdentifier: 
   _groundCheckRayOffset1: {x: 0, y: 0.45}
-  _groundCheckRayLength: 0.6
+  _groundCheckRayLength: 1
   _groundCheckRayOffset2: {x: 0, y: 0.1}
   _groundCheckRayRadius: 0.3
   _isGroundCheckGizmoEnabled: 1
@@ -37,16 +37,4 @@ MonoBehaviour:
   _frontCheckBoxRayHalfSize: {x: 0.1, y: 1.7, z: 0.1}
   _isFrontCheckGizmoEnabled: 1
   _isFrontCheckGizmoAlpha: 0.5
-  GroundLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  EnemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  PassThroughPlatform:
-    serializedVersion: 2
-    m_Bits: 256
-  GrabbablePointLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
   _correctionSpeed: 30
