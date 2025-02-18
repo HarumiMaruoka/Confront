@@ -167,7 +167,7 @@ MonoBehaviour:
   InAirXAcceleration: 10
   InAirXDeceleration: 10
   InAirXMaxSpeed: 15
-  InAirMaxFallSpeed: -999
+  InAirMaxFallSpeed: -40
   AbyssAcceleration: 8
   AbyssXMinSpeed: 3.2
   SlopeAcceleration: 32
@@ -182,3 +182,5 @@ MonoBehaviour:
   BigDamageHorizontalDecelerationRate: 3
   MaxDamageVector: 50
   AttackInterval: 0.3
+  JumpCount: 0
+  MaxJumpCount: 2

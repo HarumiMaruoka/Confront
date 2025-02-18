@@ -21,6 +21,7 @@ namespace Confront.Debugger
             _stageDropdown.ClearOptions();
             _stageDropdown.AddOptions(StageManager.StageNames);
             _stageChangeButton.onClick.AddListener(ChangeStage);
+            _startPointIndex.text = "0";
         }
 
         private void ChangeStage()
