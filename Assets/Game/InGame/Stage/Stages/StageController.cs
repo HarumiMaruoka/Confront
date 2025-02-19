@@ -1,10 +1,11 @@
-﻿using Confront.Audio;
+﻿using Cinemachine;
+using Confront.Audio;
+using Confront.CameraUtilites;
 using Confront.GameUI;
 using Confront.Player;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Confront.Stage
 {
@@ -15,12 +16,15 @@ namespace Confront.Stage
         [HideInInspector]
         public StageTransitionData[] StageTransitionData;
         public PolygonCollider2D CameraArea;
+        public CinemachineVirtualCamera VirtualCamera;
+        public float CameraDistance = -12f;
 
         private void OnEnable()
         {
             CameraUtilites.ConfinerHandler.SetPolygonCollider(CameraArea);
             if (!StageManager.CurrentStage) StageManager.CurrentStage = this;
             AudioManager.PlayBGM(BGMClip, 1f);
+            CinemachineTransposerHandler.Instance.SetCameraDistance(CameraDistance);
         }
 
         private void Update()

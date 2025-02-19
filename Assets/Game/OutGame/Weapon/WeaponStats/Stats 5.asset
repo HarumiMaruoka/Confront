@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbbd3ca09b0d10408a3eb50c5a55d42, type: 3}
   m_Name: Stats 5
   m_EditorClassIdentifier: 
-  AttackPower: 1
+  AttackPower: 6
