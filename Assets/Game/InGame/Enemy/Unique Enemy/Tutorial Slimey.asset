@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5767b85f2fc81f3478175c9f8d430a5f, type: 3}
-  m_Name: Eye
+  m_Name: Tutorial Slimey
   m_EditorClassIdentifier: 
-  ViewDistance: 30.5
-  ViewAngle: 110
-  Offset: {x: 0, y: 4, z: 0}
-  AngleOffset: 12
+  ViewDistance: 11.82
+  ViewAngle: 99.3
+  Offset: {x: 0, y: 2.24, z: -4.1}
+  AngleOffset: 32.6
   IsGizmosVisible: 1

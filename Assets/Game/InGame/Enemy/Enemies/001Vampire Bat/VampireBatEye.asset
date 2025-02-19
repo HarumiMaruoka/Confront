@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5767b85f2fc81f3478175c9f8d430a5f, type: 3}
   m_Name: VampireBatEye
   m_EditorClassIdentifier: 
-  Offset: {x: 0, y: 1.06}
-  ViewDistance: 12
+  ViewDistance: 18
   ViewAngle: 270
+  Offset: {x: 0, y: 1.06, z: 0}
+  AngleOffset: 0
   IsGizmosVisible: 1

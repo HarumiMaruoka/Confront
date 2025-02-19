@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5767b85f2fc81f3478175c9f8d430a5f, type: 3}
-  m_Name: Eye
+  m_Script: {fileID: 11500000, guid: 074f91295777eb6428c64a7c2eed1cfd, type: 3}
+  m_Name: EnemyStats
   m_EditorClassIdentifier: 
-  ViewDistance: 30.5
-  ViewAngle: 110
-  Offset: {x: 0, y: 4, z: 0}
-  AngleOffset: 12
-  IsGizmosVisible: 1
+  MaxHealth: 111.2
+  AttackPower: 20.6
+  Defense: 0
