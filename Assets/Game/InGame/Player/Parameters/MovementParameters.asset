@@ -176,9 +176,9 @@ MonoBehaviour:
   DodgeMaxSpeed: 28
   DodgeAccelerationDuration: 0.08
   DodgeDecelerationDuration: 0.65
-  SmallDamageDuration: 1.2
+  SmallDamageDuration: 0.65
   SmallDamageHorizontalDecelerationRate: 2
-  BigDamageDuration: 1.4
+  BigDamageDuration: 1.2
   BigDamageHorizontalDecelerationRate: 3
   MaxDamageVector: 50
   AttackInterval: 0.3

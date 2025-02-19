@@ -45,6 +45,8 @@ namespace Confront.Debugger
         private Toggle _isGodMode;
         [SerializeField]
         private Toggle _isInfiniteJump;
+        [SerializeField]
+        private Toggle _isInfiniteAttackPower;
 
         [Header("GameSpeed")]
         [SerializeField]
@@ -90,6 +92,7 @@ namespace Confront.Debugger
             _stateChangeLogging.isOn = DebugParams.Instance.StateTransitionLogging;
             _isGodMode.isOn = DebugParams.Instance.IsGodMode;
             _isInfiniteJump.isOn = DebugParams.Instance.IsInfiniteJump;
+            _isInfiniteAttackPower.isOn = DebugParams.Instance.IsInfiniteAttackPower;
 
             OnDebugModeChanged(_debugMode.isOn);
             _debugMode.onValueChanged.AddListener(OnDebugModeChanged);
@@ -140,6 +143,7 @@ namespace Confront.Debugger
             DebugParams.Instance.StateTransitionLogging = _stateChangeLogging.isOn;
             DebugParams.Instance.IsGodMode = _isGodMode.isOn;
             DebugParams.Instance.IsInfiniteJump = _isInfiniteJump.isOn;
+            DebugParams.Instance.IsInfiniteAttackPower = _isInfiniteAttackPower.isOn;
         }
 
         private void InitializeGameSpeed()

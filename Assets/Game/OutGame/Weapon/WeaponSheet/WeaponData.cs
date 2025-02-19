@@ -11,6 +11,7 @@ namespace Confront.Weapon
         public string Name;
         public string Description;
         public Sprite Icon;
+        public Stats Stats;
         public ComboTree ComboTree;
     }
 }

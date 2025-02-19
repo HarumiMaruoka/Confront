@@ -9,7 +9,6 @@ namespace Confront.Player
         void Enter(PlayerController player) { }
         void Execute(PlayerController player) { }
         void LateExecute(PlayerController player) { }
-        void FixedExecute(PlayerController player) { }
         void Exit(PlayerController player) { }
     }
 }

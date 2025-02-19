@@ -66,10 +66,13 @@ namespace Confront.Player
             return (inputDirection > 0.1f && velocityX < -0.1f) || (inputDirection < -0.1f && velocityX > 0.1f);
         }
 
-        public static void Move(PlayerController player)
+        public static void Move(PlayerController player, bool isInputActive = true)
         {
             // 入力に応じてx速度を更新する。
-            Move(player, PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x);
+            if (isInputActive)
+                Move(player, PlayerInputHandler.InGameInput.Movement.ReadValue<Vector2>().x);
+            else
+                Move(player, 0f);
         }
 
         public static void Move(PlayerController player, float inputX)

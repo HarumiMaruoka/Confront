@@ -84,13 +84,5 @@ namespace Confront.Player
                 CurrentState.LateExecute(_player);
             }
         }
-
-        public void FixedUpdate()
-        {
-            if (CurrentState != null)
-            {
-                CurrentState.FixedExecute(_player);
-            }
-        }
     }
 }

@@ -81,7 +81,7 @@ namespace Confront.Player.Combo
             // ダメージを与える。
             if (other.TryGetComponent(out IDamageable damageable))
             {
-                var damage = _baseDamage + _player.CharacterStats.AttackPower * _factor;
+                var damage = _baseDamage + _player.AttackPower * _factor;
                 var damageVector = transform.right * _rigidbody.velocity.magnitude;
                 damageable.TakeDamage(damage, damageVector, other.bounds.center);
             }

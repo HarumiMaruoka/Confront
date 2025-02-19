@@ -67,7 +67,7 @@ namespace Confront.Player
             }
             switch (groundSensorResult.GroundType)
             {
-                case GroundType.Ground: Grounded.Move(player); break;
+                case GroundType.Ground: Grounded.Move(player, false); break;
                 case GroundType.Abyss: Abyss.Move(player); break;
                 case GroundType.SteepSlope: SteepSlope.Move(player); break;
                 case GroundType.InAir: InAir.Move(player, false); break;

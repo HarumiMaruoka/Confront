@@ -71,6 +71,7 @@ namespace Confront.Player
         public Vector3 InitialScale;
 
         public GameObject Owner => gameObject; // IDamageable
+        public float AttackPower => CharacterStats.AttackPower * _equippedWeapon.AttackPower;
 
         public WeaponInstance EquippedWeapon
         {
@@ -177,11 +178,6 @@ namespace Confront.Player
                 transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
                 CharacterController.enabled = prevCCEnabled;
             }
-        }
-
-        private void FixedUpdate()
-        {
-            StateMachine.FixedUpdate();
         }
 
         public bool DisablePlatformCollisionRequest = false;

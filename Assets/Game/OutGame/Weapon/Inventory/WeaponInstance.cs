@@ -10,25 +10,19 @@ namespace Confront.Weapon
         public WeaponData Data => WeaponManager.WeaponSheet.GetWeaponData(ID);
         public int Level = 1;
 
-        //public WeaponInstance(WeaponData data)
-        //{
-        //    Data = data;
-        //}
-
-        //public WeaponInstance(int id)
-        //{
-        //    Data = WeaponManager.WeaponSheet.GetWeaponData(id);
-        //}
-
         public static WeaponInstance Create(int id)
         {
             return new WeaponInstance { ID = id };
         }
 
-        //public WeaponInstance(string name)
-        //{
-        //    Data = WeaponManager.WeaponSheet.GetWeaponData(name);
-        //}
+        public float AttackPower
+        {
+            get
+            {
+                if (Data.Stats) return Data.Stats.AttackPower;
+                return 1;
+            }
+        }
 
         public void Equip()
         {
