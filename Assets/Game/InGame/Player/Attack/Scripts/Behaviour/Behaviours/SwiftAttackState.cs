@@ -38,6 +38,8 @@ namespace Confront.Player.Combo
 
         [Header("SFX")]
         [SerializeField]
+        private int _defaultSfxIndex = 0;
+        [SerializeField]
         private SwingSfx[] _swingSfxes;
 
         [Header("当たり判定")]
@@ -95,7 +97,7 @@ namespace Confront.Player.Combo
             foreach (var hitBox in _hitBoxes)
             {
                 hitBox.Clear();
-                if (!hitBox._hitSFX) hitBox._hitSFX = tree.DefaultHitSFX;
+                if (!hitBox._hitSFX) hitBox._hitSFX = tree.DefaultHitSFX(_defaultSfxIndex);
                 if (hitBox._hitVFX == null || !hitBox._hitVFX.VFXPrefab) hitBox._hitVFX = tree.DefaultVFX;
             }
             foreach (var shooter in _shooters)

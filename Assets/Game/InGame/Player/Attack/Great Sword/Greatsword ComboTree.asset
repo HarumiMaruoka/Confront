@@ -383,7 +383,7 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: -0.5}
     MinSize: {x: 3, y: 3, z: 3}
     MaxSize: {x: 4, y: 4, z: 4}
-  DefaultHitSFXs:
+  DefaultHitSFXs0:
   - {fileID: 8300000, guid: c8ffa2f1b3f724813888410f84ac35a5, type: 3}
   - {fileID: 8300000, guid: 08d976f6c01624fc2a87f39da2af3cfb, type: 3}
   - {fileID: 8300000, guid: 504fa545a32ee498b9d628dee7cc36af, type: 3}
@@ -509,6 +509,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 060c59a57d7c8493b94a84ab2cd04500, type: 3}
   - {fileID: 8300000, guid: 2f40fb60fb57d4d8ea74b2f7078d7e72, type: 3}
   - {fileID: 8300000, guid: 44831601c48b14d48bd08b3a40d24211, type: 3}
+  DefaultHitSFXs1: []
   Position: {x: 3.2, y: 319.2, z: 0}
   Scale: {x: 1, y: 1, z: 1}
   Children:

@@ -15,14 +15,26 @@ namespace Confront.Player.Combo
         public ComboNode AirRootY;
 
         public VFXParameters DefaultVFX;
-        public AudioClip[] DefaultHitSFXs;
-        public AudioClip DefaultHitSFX
+        public AudioClip[] DefaultHitSFXs0;
+        public AudioClip[] DefaultHitSFXs1;
+
+        private AudioClip[] GetDefaultHitSFXs(int index)
         {
-            get
+            index = Mathf.Clamp(index, 0, 1);
+
+            return index switch
             {
-                if (DefaultHitSFXs == null || DefaultHitSFXs.Length == 0) return null;
-                return DefaultHitSFXs[UnityEngine.Random.Range(0, DefaultHitSFXs.Length)];
-            }
+                0 => DefaultHitSFXs0,
+                1 => DefaultHitSFXs1,
+                _ => null,
+            };
+        }
+
+        public AudioClip DefaultHitSFX(int index)
+        {
+            var sfxs = GetDefaultHitSFXs(index);
+            if (sfxs == null || sfxs.Length == 0) return null;
+            return sfxs[UnityEngine.Random.Range(0, sfxs.Length)];
         }
 
         public event Action<ComboNode> OnRootDuplicated;
