@@ -62,15 +62,15 @@ namespace Confront.Boss.Leviathan
 
         private void OnDrawGizmos()
         {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube((_movementBoundaryLeftTop + _movementBoundaryRightBottom) / 2, _movementBoundaryLeftTop - _movementBoundaryRightBottom);
+
             if (AttackStateSelector != null) AttackStateSelector.OnDrawGizmos();
             if (StateMachine.Attack1) StateMachine.Attack1.DrawGizmos(transform);
             if (StateMachine.Attack2) StateMachine.Attack2.DrawGizmos(transform);
             if (StateMachine.AttackHard) StateMachine.AttackHard.DrawGizmos(transform);
             if (StateMachine.AttackSpecial) StateMachine.AttackSpecial.DrawGizmos(transform);
             if (StateMachine.Roar) StateMachine.Roar.DrawGizmos(transform);
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube((_movementBoundaryLeftTop + _movementBoundaryRightBottom) / 2, _movementBoundaryLeftTop - _movementBoundaryRightBottom);
         }
 
         protected override string CreateSaveData()

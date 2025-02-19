@@ -14,12 +14,13 @@ namespace Confront.GameUI
 
         private void Update()
         {
-            if ((!MenuController.Instance ||
-                !MenuController.Instance.CurrentMenu) &&
-                !warningFlag)
+            if ((!MenuController.Instance || !MenuController.Instance.CurrentMenu))
             {
-                warningFlag = true;
-                Debug.LogWarning("MenuController or CurrentMenu is null");
+                if (!warningFlag)
+                {
+                    warningFlag = true;
+                    Debug.LogWarning("MenuController or CurrentMenu is null");
+                }
                 return;
             }
 
@@ -34,7 +35,7 @@ namespace Confront.GameUI
         /// 指定された要素をScrollViewの範囲内に収める
         /// </summary>
         /// <param name="target">対象のRectTransform</param>
-        private void ScrollTo(RectTransform target)
+        public void ScrollTo(RectTransform target)
         {
             // ScrollRectのViewportの参照
             RectTransform viewport = scrollRect.viewport;

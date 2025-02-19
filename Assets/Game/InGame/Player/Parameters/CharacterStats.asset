@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CharacterStats
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  AttackPower: 3
+  AttackPower: 999
   Defense: 1
   Weight: 1

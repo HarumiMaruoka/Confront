@@ -22380,6 +22380,7 @@ GameObject:
   - component: {fileID: 4106529837949164056}
   - component: {fileID: 4553756534728546001}
   - component: {fileID: 4969047135375155955}
+  - component: {fileID: 4969047135375155956}
   m_Layer: 5
   m_Name: Load Panel
   m_TagString: Untagged
@@ -22407,13 +22408,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4969047135375155953}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5eb433236f0c7dc49996dfe215763b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 4631740074927664333}
   content: {fileID: 3255838188282580794}
+--- !u!114 &4969047135375155956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969047135375155953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2cf604fb94dae94c84e558b161b4b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollToSelected: {fileID: 4969047135375155955}
 --- !u!222 &4974124791313476367
 CanvasRenderer:
   m_ObjectHideFlags: 0

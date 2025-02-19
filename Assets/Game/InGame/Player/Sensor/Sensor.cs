@@ -140,8 +140,6 @@ namespace Confront.Player
             return UnityEngine.Physics.SphereCast(abyssCheckRayOrigin, _abyssCheckRayRadius, Vector3.down, out var hit, _abyssCheckRayLength, layerMask);
         }
 
-        private int _steepSlopeCount = 0;
-
         public GroundSensorResult CalculateGroundState(PlayerController player)
         {
             var result = new GroundSensorResult();

@@ -58,6 +58,8 @@ namespace Confront.AttackUtility
 
             int successfulHitCount = 0;
 
+            factor = Mathf.Max(1, factor);
+
             for (int i = 0; i < hitCount; i++)
             {
                 var collider = _colliderBuffer[i];

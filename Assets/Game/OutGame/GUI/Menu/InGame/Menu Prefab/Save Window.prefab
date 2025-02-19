@@ -1546,7 +1546,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1908290279275841554}
   m_HandleRect: {fileID: 1389659091524450459}
   m_Direction: 2
@@ -1972,7 +1972,6 @@ MonoBehaviour:
   _saveButtonPrefab: {fileID: 2215631918218178037, guid: d0f2557924a3c014f8800dd94333dc4a,
     type: 3}
   _saveButtonParent: {fileID: 2700768314468369811}
-  _scrollToSelected: {fileID: 6435918565329808129}
 --- !u!114 &6435918565329808129
 MonoBehaviour:
   m_ObjectHideFlags: 0

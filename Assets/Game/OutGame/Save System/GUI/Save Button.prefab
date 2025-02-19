@@ -541,6 +541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7298139936600236331}
+  - component: {fileID: 1681480100048180128}
   - component: {fileID: 2215631918218178037}
   - component: {fileID: 3576678962637299459}
   - component: {fileID: 2840619119577905846}
@@ -576,6 +577,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1213.9, y: 106}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1681480100048180128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6796127516081510414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d27495844c438b41b4ad1bcd3599653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoverSound: {fileID: 8300000, guid: a6473f5264a14804e992a7a4a29cd744, type: 3}
+  ClickSound: {fileID: 8300000, guid: bfc5803fa8fa8924bbeaa34f4f689bb1, type: 3}
 --- !u!114 &2215631918218178037
 MonoBehaviour:
   m_ObjectHideFlags: 0
