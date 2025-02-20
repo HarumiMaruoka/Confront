@@ -40,10 +40,10 @@ namespace Confront.Input
                 LastInputDevice = InputDevice.KeyboardMouse;
                 OnInputDeviceChanged?.Invoke(InputDevice.KeyboardMouse);
             }
-            else if (device is Gamepad && LastInputDevice != InputDevice.Gamepad)
+            else if (device is Gamepad && LastInputDevice != InputDevice.XBox)
             {
-                LastInputDevice = InputDevice.Gamepad;
-                OnInputDeviceChanged?.Invoke(InputDevice.Gamepad);
+                LastInputDevice = InputDevice.XBox;
+                OnInputDeviceChanged?.Invoke(InputDevice.XBox);
             }
         }
     }
@@ -51,7 +51,8 @@ namespace Confront.Input
     public enum InputDevice
     {
         KeyboardMouse,
-        Gamepad,
+        XBox,
+        DualSense,
         Any,
     }
 }

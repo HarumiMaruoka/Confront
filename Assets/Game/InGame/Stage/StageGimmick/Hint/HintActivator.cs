@@ -1,44 +1,46 @@
-﻿using Confront.Input;
-using Confront.Player;
-using System;
+﻿using Confront.Player;
 using UnityEngine;
 
 namespace Confront.Stage.Hint
 {
-    [DefaultExecutionOrder(-100)] // プレイヤーよりも先に実行されるようにする
     public class HintActivator : MonoBehaviour
     {
         [SerializeField]
         private string _message = "Hello, World!";
 
         [SerializeField]
-        private Vector3 _hitBoxHalfSize = new Vector3(3, 1, 1);
-
-        private static LayerMask _layerMask = -1;
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void InitializeLayerMask()
-        {
-            _layerMask = LayerMask.GetMask("Player");
-        }
+        private Vector2 _hitBoxHalfSize = new Vector2(3, 1);
 
         private void Update()
         {
             var hint = Hint.Instance;
-            var hit = Physics.CheckBox(transform.position, _hitBoxHalfSize, Quaternion.identity, _layerMask);
-            if (hit && !hint.IsVisible && !hint.IsAnimating)
+
+            bool isPlayerInsideArea = IsPlayerInsideHintArea();
+
+            if (isPlayerInsideArea && !hint.IsVisible && !hint.IsAnimating)
             {
                 hint.Message = _message;
                 hint.Show();
             }
-            else if (!hit && hint.IsVisible && !hint.IsAnimating)
+            else if (!isPlayerInsideArea && hint.IsVisible && !hint.IsAnimating)
             {
                 hint.Hide();
             }
         }
 
+        private bool IsPlayerInsideHintArea()
+        {
+            var playerPosition = PlayerController.Instance.transform.position;
+            var leftTop = transform.position + new Vector3(-_hitBoxHalfSize.x, _hitBoxHalfSize.y, 0);
+            var rightBottom = transform.position + new Vector3(_hitBoxHalfSize.x, -_hitBoxHalfSize.y, 0);
+            var isPlayerInsideArea = playerPosition.x >= leftTop.x && playerPosition.x <= rightBottom.x &&
+                      playerPosition.y <= leftTop.y && playerPosition.y >= rightBottom.y;
+            return isPlayerInsideArea;
+        }
+
         private void OnDrawGizmos()
         {
-            var hit = Physics.CheckBox(transform.position, _hitBoxHalfSize, Quaternion.identity, _layerMask);
+            var hit = IsPlayerInsideHintArea();
             Gizmos.color = hit ? Color.red : Color.green;
             Gizmos.DrawWireCube(transform.position, _hitBoxHalfSize * 2);
         }

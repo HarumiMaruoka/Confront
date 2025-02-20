@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d0c005cde8534086fb0e054aa58f5, type: 3}
+  m_Name: InGameInputSpriteInfo
+  m_EditorClassIdentifier: 
+  KeyboardMouse_AttackX: Mouse_1
+  KeyboardMouse_AttackY: Mouse_2
+  KeyboardMouse_Jump: Keyboard_13
+  KeyboardMouse_Move: Keyboard_50
+  KeyboardMouse_Item: Keyboard_81"> +     <sprite name="Keyboard_50
+  KeyboardMouse_Dodge: Keyboard_12
+  XBox_AttackX: XBox_23
+  XBox_AttackY: XBox_24
+  XBox_Jump: XBox_26
+  XBox_Move: XBox_9
+  XBox_Item: XBox_0
+  XBox_Dodge: XBox_12
+  DualSense_AttackX: DualSense_23
+  DualSense_AttackY: DualSense_25
+  DualSense_Jump: DualSense_2
+  DualSense_Move: DualSense_12
+  DualSense_Item: DualSense_26
+  DualSense_Dodge: DualSense_9

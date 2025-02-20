@@ -6,6 +6,7 @@ namespace Confront.Player
     public class Dead : IState
     {
         public string AnimationName => "Dead";
+        public float AnimationCrossFadeTime => 0.5f;
 
         public void Enter(PlayerController player)
         {

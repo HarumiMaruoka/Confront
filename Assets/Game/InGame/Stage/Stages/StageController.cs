@@ -16,8 +16,7 @@ namespace Confront.Stage
         [HideInInspector]
         public StageTransitionData[] StageTransitionData;
         public PolygonCollider2D CameraArea;
-        public CinemachineVirtualCamera VirtualCamera;
-        public float CameraDistance = -12f;
+        public float CameraDistance = 12f;
 
         private void OnEnable()
         {

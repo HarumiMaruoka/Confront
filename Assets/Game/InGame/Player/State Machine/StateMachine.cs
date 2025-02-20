@@ -57,7 +57,8 @@ namespace Confront.Player
             var animationName = CurrentState.AnimationName;
             if (!string.IsNullOrEmpty(animationPrefix) && !string.IsNullOrEmpty(animationName))
             {
-                _player.Animator.CrossFade(animationPrefix + "_" + animationName, 0.1f);
+                var crossFadeTime = CurrentState.AnimationCrossFadeTime ?? 0.1f;
+                _player.Animator.CrossFade(animationPrefix + "_" + animationName, crossFadeTime);
             }
             else if (!string.IsNullOrEmpty(animationName))
             {
