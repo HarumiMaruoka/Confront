@@ -119,6 +119,8 @@ MonoBehaviour:
     TransitionPoint: {x: 127, y: -42.8, z: 0}
     HitBoxHalfSize: {x: 11.62, y: 0.81, z: 2}
   CameraArea: {fileID: 3439502406508640366}
+  VirtualCamera: {fileID: 0}
+  CameraDistance: 12
 --- !u!114 &6892815282162754775
 MonoBehaviour:
   m_ObjectHideFlags: 0
