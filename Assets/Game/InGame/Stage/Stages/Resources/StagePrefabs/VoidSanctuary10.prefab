@@ -78,7 +78,6 @@ MonoBehaviour:
     TransitionPoint: {x: 43.7, y: -95.44, z: 0}
     HitBoxHalfSize: {x: 2, y: 4, z: 3}
   CameraArea: {fileID: 3883548772479256969}
-  VirtualCamera: {fileID: 0}
   CameraDistance: 12
 --- !u!114 &8173459975931642272
 MonoBehaviour:
@@ -1163,7 +1162,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5128300025542985836}
-  - component: {fileID: 6716877530802910447}
   m_Layer: 7
   m_Name: StartPoint
   m_TagString: Untagged
@@ -1188,25 +1186,6 @@ Transform:
   - {fileID: 1051957726514297957}
   m_Father: {fileID: 9167253019503995330}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6716877530802910447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7390115239544326646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e9d69940c2951f4999973db7ba68790, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BGMClip: {fileID: 0}
-  StartPoints:
-  - {fileID: 972289701979009305}
-  StageTransitionData: []
-  CameraArea: {fileID: 0}
-  VirtualCamera: {fileID: 0}
-  CameraDistance: -12
 --- !u!1 &7400987351443381664
 GameObject:
   m_ObjectHideFlags: 0
