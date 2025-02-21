@@ -10,7 +10,7 @@ namespace Confront.GameUI
     // セーブデータが存在しない場合は、NewGameを開始する。
     public class GameStartButton : MonoBehaviour
     {
-        [SerializeField] 
+        [SerializeField]
         private string _defaultSceneName = "Game Main";
 
         private void Start()
@@ -28,8 +28,8 @@ namespace Confront.GameUI
             }
 
 
-            SaveDataController lastSaveData = saveDataControllers[0];
-            for (int i = 1; saveDataControllers.Length > i; i++)
+            SaveDataController lastSaveData = null;
+            for (int i = 0; saveDataControllers.Length > i; i++)
             {
                 if (saveDataControllers[i] == null || saveDataControllers[i].SaveFileData == null) continue;
 

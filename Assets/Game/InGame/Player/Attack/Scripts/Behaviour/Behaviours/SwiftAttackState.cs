@@ -114,20 +114,24 @@ namespace Confront.Player.Combo
             UpdatePlayerMovement(player, _xAxisMovementCurve, _yAxisMovementCurve, _elapsed);
             UpdateHitBoxesAndShooters(player);
             HandleTransition(player, previousElapsed);
-            HandleSwingSFXPlayback(player, previousElapsed);
+            HandleSwingSFXPlayback(player, _elapsed, previousElapsed, _swingSfxes);
         }
 
-        private void HandleSwingSFXPlayback(PlayerController player, float previousElapsed)
+        public static void HandleSwingSFXPlayback(
+            PlayerController player,
+            float elapsed,
+            float previousElapsed,
+            SwingSfx[] swingSfxes)
         {
-            if (_swingSfxes == null) return;
+            if (swingSfxes == null) return;
 
-            for (int i = 0; i < _swingSfxes.Length; i++)
+            for (int i = 0; i < swingSfxes.Length; i++)
             {
-                if (_swingSfxes[i]?.Sfx != null &&
-                    previousElapsed <= _swingSfxes[i].Offset &&
-                    _elapsed > _swingSfxes[i].Offset)
+                if (swingSfxes[i]?.Sfx != null &&
+                    previousElapsed <= swingSfxes[i].Offset &&
+                    elapsed > swingSfxes[i].Offset)
                 {
-                    AudioManager.PlaySE(_swingSfxes[i].Sfx);
+                    AudioManager.PlaySE(swingSfxes[i].Sfx);
                 }
             }
         }
@@ -173,7 +177,7 @@ namespace Confront.Player.Combo
             {
                 foreach (var hitBox in _hitBoxes)
                 {
-                    var direction = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;;
+                    var direction = player.DirectionController.CurrentDirection == Direction.Right ? 1 : -1; ;
                     hitBox.Update(player.transform, player.AttackPower, direction, _elapsed, LayerMask, true);
                 }
             }

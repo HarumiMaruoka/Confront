@@ -10,6 +10,8 @@ namespace Confront.Player
         private float _drinkTiming = 0.5f;
         [SerializeField]
         private float _duration = 1f;
+        [SerializeField]
+        private float _deceleration = 12f;
 
         private Potion _potion;
         private InventorySlot _slot;
@@ -33,6 +35,8 @@ namespace Confront.Player
         {
             var previousElapsed = _elapsed;
             _elapsed += Time.deltaTime;
+
+            Grounded.Move(player, false);
 
             if (previousElapsed < _drinkTiming && _elapsed >= _drinkTiming)
             {

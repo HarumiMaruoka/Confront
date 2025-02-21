@@ -44,6 +44,12 @@ namespace Confront.Player.Combo
         [SerializeField]
         private float _nextAttackInputEndTime; // 次の攻撃入力を無効にする時間
 
+        [Header("SFX")]
+        [SerializeField]
+        private int _defaultHitSfxIndex = 0;
+        [SerializeField]
+        private SwingSfx[] _swingSfxes;
+
         [Header("Can Move")]
         [SerializeField]
         private bool _canMoveWhileCharging = false; // チャージ中に移動できるか
@@ -87,7 +93,7 @@ namespace Confront.Player.Combo
             _lastInput = ComboInput.None;
             _state = ChargeState.Ready;
             _elapsed = 0;
-            Clear();
+            Clear(tree);
             player.Animator.CrossFade(_readyAnimationName, 0.1f);
         }
 
@@ -163,6 +169,8 @@ namespace Confront.Player.Combo
                 shooter.Update(player, previousElapsed, _chargeAmount);
             }
 
+            SwiftAttackState.HandleSwingSFXPlayback(player, _elapsed, previousElapsed, _swingSfxes);
+
             // 次の攻撃入力を受け付ける
             if (_elapsed >= _nextAttackInputBeginTime && _elapsed < _nextAttackInputEndTime)
             {
@@ -188,11 +196,14 @@ namespace Confront.Player.Combo
         }
 
 
-        private void Clear()
+        private void Clear(ComboTree tree)
         {
             foreach (var hitBox in _hitBoxes)
             {
                 hitBox.Clear();
+                if (!hitBox._hitSFX) hitBox._hitSFX = tree.DefaultHitSFX(_defaultHitSfxIndex);
+                if (hitBox._hitVFX == null || !hitBox._hitVFX.VFXPrefab) hitBox._hitVFX = tree.DefaultVFX;
+
             }
             foreach (var shooter in _shooters)
             {

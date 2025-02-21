@@ -8273,6 +8273,7 @@ MonoBehaviour:
   - {fileID: 5420269643371299473}
   - {fileID: 7685678049854750446}
   - {fileID: 4973103227486095318}
+  - {fileID: 8490495451030402762}
   Animator: {fileID: 3869167893338857617}
   StateMachine:
     Idle: {fileID: 11400000, guid: 4649ae9e0e7daec478fc9d502cfaacf2, type: 2}
@@ -8404,6 +8405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4104800021044663370}
   - component: {fileID: 8165671826654389121}
+  - component: {fileID: 8490495451030402762}
   m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
@@ -8447,6 +8449,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 20, y: 11.3, z: 20}
   m_Center: {x: 0, y: 0, z: 1}
+--- !u!114 &8490495451030402762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140525481256361871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc718f49f43a30542b1036399cf3fb28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Defense: 0
 --- !u!1 &4149365048909695391
 GameObject:
   m_ObjectHideFlags: 0

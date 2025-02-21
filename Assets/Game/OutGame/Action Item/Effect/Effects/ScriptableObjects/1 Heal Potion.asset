@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: 1 Heal Potion
   m_EditorClassIdentifier: 
   _healAmount: 15
+  _vfx: {fileID: 1414392018365467145, guid: 62d886e709bca894dadf18366b57637e, type: 3}
