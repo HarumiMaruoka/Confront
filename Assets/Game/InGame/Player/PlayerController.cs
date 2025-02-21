@@ -381,6 +381,11 @@ namespace Confront.Player
                     }
                 }
 
+                if (StateMachine.CurrentState is SmallDamage or BigDamage)
+                {
+                    return false;
+                }
+
                 if (PlayerInputHandler.InGameInput.Jump.triggered)
                 {
                     if (DebugParams.Instance.IsInfiniteJump) return true;

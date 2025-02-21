@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ViewDistance: 7.5
   ViewAngle: 160
-  Offset: {x: -0.08, y: 0.45, z: 0}
+  Offset: {x: 0, y: 0.45, z: 0}
   AngleOffset: 0
   IsGizmosVisible: 1

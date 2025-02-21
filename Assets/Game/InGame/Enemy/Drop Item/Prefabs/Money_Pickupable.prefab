@@ -14660,6 +14660,12 @@ MonoBehaviour:
   ItemType: 0
   ItemID: 0
   Amount: 1
+  ParticleSystems:
+  - {fileID: 5445652135016000910}
+  - {fileID: 6296575692646850951}
+  - {fileID: 9096440647030966447}
+  - {fileID: 1786384476815130205}
+  - {fileID: 3682687908186048987}
   _minInitialSpeed: 4
   _maxInitialSpeed: 7
   _minAngle: 45

@@ -29,19 +29,18 @@ namespace Confront.Stage.Hint
         public string Message { set => _text.text = value; }
 
         public bool IsVisible { get; private set; }
-        public bool IsAnimating => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
-
+        public bool IsAnimating => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.8f;
 
         public void Show()
         {
             IsVisible = true;
-            _animator.Play("Show");
+            _animator.CrossFade("Show", 0.1f);
         }
 
         public void Hide()
         {
             IsVisible = false;
-            _animator.Play("Hide");
+            _animator.CrossFade("Hide", 0.1f);
         }
     }
 }

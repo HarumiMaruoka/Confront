@@ -3,6 +3,7 @@ using Confront.Audio;
 using Confront.CameraUtilites;
 using Confront.GameUI;
 using Confront.Player;
+using Confront.Utility;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Confront.Stage
         public StageTransitionData[] StageTransitionData;
         public PolygonCollider2D CameraArea;
         public float CameraDistance = 12f;
+        public float PostExposureLevel = 0.8f;
 
         private void OnEnable()
         {
@@ -24,6 +26,7 @@ namespace Confront.Stage
             if (!StageManager.CurrentStage) StageManager.CurrentStage = this;
             AudioManager.PlayBGM(BGMClip, 1f);
             CinemachineTransposerHandler.Instance.SetCameraDistance(CameraDistance);
+            PostExposureController.Instance.SetPostExposure(PostExposureLevel);
         }
 
         private void Update()

@@ -52,6 +52,8 @@ namespace Confront.Boss.Leviathan
             return PlayerOutOfBoundsTable.GetRandomStateType().ToState(Owner);
         }
 
+        private bool _showPlayerWarning = true; // 一度だけ表示するためのフラグ
+
         public void OnDrawGizmos()
         {
             if (Owner == null)
@@ -67,7 +69,11 @@ namespace Confront.Boss.Leviathan
             var player = PlayerController.Instance;
             if (player == null)
             {
-                Debug.LogWarning("PlayerController is null");
+                if (_showPlayerWarning)
+                {
+                    Debug.LogWarning("PlayerController is null");
+                    _showPlayerWarning = false;
+                }
                 return;
             }
 

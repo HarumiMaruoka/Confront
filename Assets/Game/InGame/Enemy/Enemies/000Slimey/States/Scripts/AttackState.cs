@@ -19,50 +19,37 @@ namespace Confront.Enemy.Slimey
         [SerializeField]
         private Projectile[] _projectiles;
 
-        public float Cooldown = 1.0f;
+        public float Duration = 3.0f;
         public float AttackRange = 1.0f;
 
-        private float _cooldownTimer;
+        private float _elapsedTime;
 
         public override string AnimationName => _animationName;
 
         public override void Enter(PlayerController player, SlimeyController slimey)
         {
             foreach (var hitBox in _hitBoxes) hitBox.Clear();
-            _cooldownTimer = 0;
+            _elapsedTime = 0;
         }
 
         public override void Execute(PlayerController player, SlimeyController slimey)
         {
-            if (!slimey.Eye.IsVisiblePlayer(slimey.transform, player, slimey.DirectionController.CurrentDirection))
-            {
-                slimey.ChangeState<IdleState>();
-            }
-
-            var sqrDistance = (player.transform.position - slimey.transform.position).sqrMagnitude;
-            if (sqrDistance > AttackRange * AttackRange)
+            var prevElapsed = _elapsedTime;
+            _elapsedTime += Time.deltaTime;
+            if (_elapsedTime > Duration)
             {
                 slimey.ChangeState<ApproachState>();
-            }
-
-            var previousCooldownTimer = _cooldownTimer;
-            _cooldownTimer += Time.deltaTime;
-            if (_cooldownTimer > Cooldown)
-            {
-                _cooldownTimer = 0f;
-                slimey.Animator.CrossFade(AnimationName, 0.1f);
-                foreach (var hitBox in _hitBoxes) hitBox.Clear();
             }
 
             foreach (var hitBox in _hitBoxes)
             {
                 var direction = slimey.DirectionController.CurrentDirection == Direction.Right ? 1 : -1;
-                hitBox.Update(slimey.transform, slimey.Stats.AttackPower, direction, _cooldownTimer, LayerUtility.PlayerLayerMask, false);
+                hitBox.Update(slimey.transform, slimey.Stats.AttackPower, direction, _elapsedTime, LayerUtility.PlayerLayerMask, false);
             }
 
             foreach (var projectile in _projectiles)
             {
-                if (_cooldownTimer > projectile.FireTime && previousCooldownTimer <= projectile.FireTime)
+                if (_elapsedTime > projectile.FireTime && prevElapsed <= projectile.FireTime)
                 {
                     var spawnPoint = slimey.GetSpawnPoint(projectile.SpawnPointIndex);
 
@@ -76,7 +63,7 @@ namespace Confront.Enemy.Slimey
 
         public override void Exit(PlayerController player, SlimeyController slimey)
         {
-            _cooldownTimer = -1f;
+            _elapsedTime = -1f;
         }
 
         public override void DrawGizmos(PlayerController player, SlimeyController slimey)
@@ -84,7 +71,7 @@ namespace Confront.Enemy.Slimey
             if (_hitBoxes == null) return;
             foreach (var hitBox in _hitBoxes)
             {
-                hitBox.DrawGizmos(slimey.transform, _cooldownTimer, LayerUtility.PlayerLayerMask);
+                hitBox.DrawGizmos(slimey.transform, _elapsedTime, LayerUtility.PlayerLayerMask);
             }
         }
     }

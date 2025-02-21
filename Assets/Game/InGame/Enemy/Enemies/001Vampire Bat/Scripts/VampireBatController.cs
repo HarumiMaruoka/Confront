@@ -6,6 +6,7 @@ using Confront.Player;
 using System.Collections.Generic;
 using Confront.GameUI;
 using Confront.Utility;
+using NexEditor;
 
 namespace Confront.Enemy
 {
@@ -16,21 +17,15 @@ namespace Confront.Enemy
         [Header("Components")]
         public Rigidbody Rigidbody;
         public Animator Animator;
-        public EnemyEye Eye;
+        [Expandable] public EnemyEye Eye;
 
         [Header("States")]
-        [SerializeField]
-        private Idle _idleState;
-        [SerializeField]
-        private Fly _flyState;
-        [SerializeField]
-        private Approach _approachState;
-        [SerializeField]
-        private Attack _attackState;
-        [SerializeField]
-        private Damage _damageState;
-        [SerializeField]
-        private Die _dieState;
+        [SerializeField, Expandable] private Idle _idleState;
+        [SerializeField, Expandable] private Fly _flyState;
+        [SerializeField, Expandable] private Approach _approachState;
+        [SerializeField, Expandable] private Attack _attackState;
+        [SerializeField, Expandable] private Damage _damageState;
+        [SerializeField, Expandable] private Die _dieState;
 
         [Header("Utility")]
         public HitBoxOneFrame AttackHitBox;
