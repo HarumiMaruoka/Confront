@@ -28,10 +28,20 @@ MonoBehaviour:
     _offset: {x: 0, y: 2.47, z: 15.5}
     _size: {x: 1, y: 10.9, z: 13.01}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: 0}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX: {fileID: 0}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 1.08
     _endTime: 1.28
-    _baseDamage: 30
-    _factor: 30
-    _damageDirection: {x: 1, y: 1}
-    _damageForce: 30
+    _baseDamage: 18
+    _damageFactor: 0
+    _knockbackDirection: {x: 0, y: 0}
+    _knockbackForce: 0
   _duration: 2.3

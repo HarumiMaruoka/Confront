@@ -14,11 +14,13 @@ namespace Confront.Stage.Hint
                 Debug.LogError("There are multiple Hint instances.");
             }
             Instance = this;
+            StageManager.OnStageChanged += OnStageChanged;
         }
 
         private void OnDestroy()
         {
             Instance = null;
+            StageManager.OnStageChanged -= OnStageChanged;
         }
 
         [SerializeField]
@@ -41,6 +43,11 @@ namespace Confront.Stage.Hint
         {
             IsVisible = false;
             _animator.CrossFade("Hide", 0.1f);
+        }
+
+        private void OnStageChanged(StageController _)
+        {
+            Hide();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Confront.Stage
 {
@@ -14,6 +15,12 @@ namespace Confront.Stage
         private static void Initialize()
         {
             LoadStagePrefabs();
+            SceneManager.sceneLoaded += Reset;
+        }
+
+        private static void Reset(Scene arg0, LoadSceneMode arg1)
+        {
+            Reset();
         }
 
         private static void LoadStagePrefabs()
@@ -26,6 +33,7 @@ namespace Confront.Stage
                 _stageNames.Add(_stagePrefabs[i].gameObject.name);
             }
         }
+
 
         private static StageController[] _stagePrefabs;
         private static Dictionary<string, StageController> _stagePrefabMap;
@@ -40,6 +48,7 @@ namespace Confront.Stage
 
         public static string CurrentStageName => CurrentStage.gameObject.name.Replace("(Clone)", "");
 
+        // プレイヤーを指定したステージの指定したスタート地点に移動させる。
         public static async UniTask ChangeStage(string nextStageName, int startPointIndex, Func<UniTask> fadeout = null, Func<UniTask> fadein = null)
         {
             if (_isChangingStage) return;
@@ -78,6 +87,7 @@ namespace Confront.Stage
             if (fadein != null) await fadein();
         }
 
+        // 指定したステージに切り替える。
         public static async UniTask ChangeStage(string nextStageName, Func<UniTask> fadeout = null, Func<UniTask> fadein = null)
         {
             if (_isChangingStage) return;
@@ -107,6 +117,8 @@ namespace Confront.Stage
             if (fadein != null) await fadein();
         }
 
+        public static event Action<StageController> OnStageChanged;
+
         private static void ChangeStage(StageController stage, int startPointIndex)
         {
             if (CurrentStage) CurrentStage.gameObject.SetActive(false);
@@ -124,6 +136,8 @@ namespace Confront.Stage
                 player.transform.position = startPoint;
                 player.CharacterController.enabled = prevEnable;
             }
+
+            OnStageChanged?.Invoke(CurrentStage);
         }
 
         private static void ChangeStage(StageController stage)
@@ -131,6 +145,8 @@ namespace Confront.Stage
             if (CurrentStage) CurrentStage.gameObject.SetActive(false);
             CurrentStage = stage;
             CurrentStage.gameObject.SetActive(true);
+
+            OnStageChanged?.Invoke(CurrentStage);
         }
 
         public static void Reset()

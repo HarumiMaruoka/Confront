@@ -8213,8 +8213,8 @@ MonoBehaviour:
         State: 10
       - Weight: 50
         State: 11
-  _movementBoundaryLeftTop: {x: -306.1, y: -131.6}
-  _movementBoundaryRightBottom: {x: -90.3, y: -173.8}
+  _movementBoundaryLeftTop: {x: -50, y: 40}
+  _movementBoundaryRightBottom: {x: 250, y: -10}
   _dissolver: {fileID: 8785487496999979279}
   DebugText: {fileID: 1844161990207587764}
 --- !u!95 &3869167893338857617
