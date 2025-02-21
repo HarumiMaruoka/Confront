@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074f91295777eb6428c64a7c2eed1cfd, type: 3}
   m_Name: MuscomorphStats
   m_EditorClassIdentifier: 
-  Health: 10
-  AttackPower: 10
+  MaxHealth: 300
+  AttackPower: 11
   Defense: 0

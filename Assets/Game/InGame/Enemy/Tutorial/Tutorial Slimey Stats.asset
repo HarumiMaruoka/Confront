@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074f91295777eb6428c64a7c2eed1cfd, type: 3}
   m_Name: Tutorial Slimey Stats
   m_EditorClassIdentifier: 
-  MaxHealth: 25
-  AttackPower: 0.1
+  MaxHealth: 200
+  AttackPower: 1
   Defense: 0
