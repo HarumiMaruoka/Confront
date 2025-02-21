@@ -20,7 +20,7 @@ namespace Confront.Stage
 
         private static void Reset(Scene arg0, LoadSceneMode arg1)
         {
-            Reset();
+            _createdStages.Clear();
         }
 
         private static void LoadStagePrefabs()
@@ -33,7 +33,6 @@ namespace Confront.Stage
                 _stageNames.Add(_stagePrefabs[i].gameObject.name);
             }
         }
-
 
         private static StageController[] _stagePrefabs;
         private static Dictionary<string, StageController> _stagePrefabMap;
@@ -121,7 +120,8 @@ namespace Confront.Stage
 
         private static void ChangeStage(StageController stage, int startPointIndex)
         {
-            if (CurrentStage) CurrentStage.gameObject.SetActive(false);
+            if (CurrentStage) 
+                CurrentStage.gameObject.SetActive(false);
             CurrentStage = stage;
             CurrentStage.gameObject.SetActive(true);
 
