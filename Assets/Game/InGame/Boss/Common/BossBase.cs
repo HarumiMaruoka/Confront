@@ -1,5 +1,4 @@
-﻿using Confront.AttackUtility;
-using Confront.Enemy;
+﻿using Confront.Enemy;
 using Confront.GameUI;
 using System;
 using UnityEngine;
@@ -8,7 +7,6 @@ namespace Confront.Boss
 {
     public abstract class BossBase : EnemyBase
     {
-        public float Health;
         public BossPart[] BossParts;
 
         protected override void Awake()
@@ -40,13 +38,13 @@ namespace Confront.Boss
         {
             if (_damage.HasValue)
             {
-                if (Health <= 0)
+                if (Stats.Health <= 0)
                 {
                     OnDie();
                     _isInvincible = true;
                 }
 
-                Health -= _damage.Value;
+                Stats.Health -= _damage.Value;
                 DamageDisplaySystem.Instance.ShowDamage((int)_damage.Value, _damagePosition);
                 _damage = null;
             }

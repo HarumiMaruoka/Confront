@@ -25,22 +25,22 @@ MonoBehaviour:
   _attackTransitionProbability: 0.5
   _attackPower: 1
   _hitSpheres:
-  - _offset: {x: 0, y: 10.12, z: 0.84}
-    _radius: 16.6
+  - _offset: {x: 0, y: 9.26, z: 0.51}
+    _radius: 18
     _gizmoOption: 3
     _startTime: 1.2
     _endTime: 1.4
     _baseDamage: 14
     _damageFactor: 0
-    _knockbackDirection: {x: 0, y: 0}
-    _knockbackForce: 0
-  - _offset: {x: 0, y: 20.94, z: -20.1}
-    _radius: 8.29
+    _knockbackDirection: {x: 1, y: 1}
+    _knockbackForce: 30
+  - _offset: {x: 0, y: 20.94, z: -16.31}
+    _radius: 10
     _gizmoOption: 3
     _startTime: 1.05
     _endTime: 1.25
     _baseDamage: 16
     _damageFactor: 0
-    _knockbackDirection: {x: 0, y: 0}
-    _knockbackForce: 0
+    _knockbackDirection: {x: 1, y: 1}
+    _knockbackForce: 30
   _duration: 2.2

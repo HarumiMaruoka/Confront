@@ -1,4 +1,6 @@
-﻿using INab.Dissolve;
+﻿using Confront.GameUI;
+using Confront.Utility;
+using INab.Dissolve;
 using System;
 using UnityEngine;
 
@@ -19,8 +21,21 @@ namespace Confront.Boss.Leviathan
         private Dissolver _dissolver;
 
         public TMPro.TextMeshProUGUI DebugText;
+        private AnimatorPauseHandler _animatorPauseHandler;
 
         public float DirectionSign => Direction == Direction.Right ? 1 : -1;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _animatorPauseHandler = new AnimatorPauseHandler(Animator);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _animatorPauseHandler.Dispose();
+        }
 
         private void Start()
         {
@@ -50,6 +65,8 @@ namespace Confront.Boss.Leviathan
 
         protected override void Update()
         {
+            if (MenuController.IsOpened) return;
+
             base.Update();
             StateMachine.Update();
             // 行動制限

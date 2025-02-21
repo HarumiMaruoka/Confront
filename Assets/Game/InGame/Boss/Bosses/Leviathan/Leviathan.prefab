@@ -8069,10 +8069,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2580696186687188835}
-  - component: {fileID: 660185170087673081}
   - component: {fileID: 3869167893338857617}
   - component: {fileID: 8785487496999979279}
   - component: {fileID: 3427327000554777355}
+  - component: {fileID: 660185170087673081}
   m_Layer: 17
   m_Name: Leviathan
   m_TagString: Untagged
@@ -8109,114 +8109,9 @@ Transform:
   - {fileID: 4399163470018359769}
   - {fileID: 9094321691817086735}
   - {fileID: 586385888691045543}
+  - {fileID: 4104800021044663370}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &660185170087673081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012939455615677586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a23bd66c90a14d64c9b34f0f1cfe2972, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 1000
-  Stats: {fileID: 11400000, guid: 1f67446d452c29e4daca0dbe46870c9a, type: 2}
-  UniqueDropItemTableInput: {fileID: 0}
-  LifeGauge: {fileID: 0}
-  Health: 100
-  BossParts:
-  - {fileID: 6580241153248875409}
-  - {fileID: 7127385052708423256}
-  - {fileID: 6995701657609620545}
-  - {fileID: 2214045104617211656}
-  - {fileID: 3313191783672421986}
-  - {fileID: 3403649798238289788}
-  - {fileID: 7637293623397498547}
-  - {fileID: 5486618061773005737}
-  - {fileID: 1592536236472627617}
-  - {fileID: 3080273611654251911}
-  - {fileID: 6269068614471322779}
-  - {fileID: 2450523543290928019}
-  - {fileID: 832778372410778636}
-  - {fileID: 6312852063501461375}
-  - {fileID: 6397192387243864326}
-  - {fileID: 2167848451860295904}
-  - {fileID: 4192519836798679306}
-  - {fileID: 8262018960843134408}
-  - {fileID: 6987532328829023546}
-  - {fileID: 8331012939396853831}
-  - {fileID: 8204515529974003796}
-  - {fileID: 8698303526241961357}
-  - {fileID: 2626276275861014662}
-  - {fileID: 8374798251055062964}
-  - {fileID: 6346609502548616898}
-  - {fileID: 1724075883970451316}
-  - {fileID: 5550481155894337346}
-  - {fileID: 7186624633102712859}
-  - {fileID: 5420269643371299473}
-  - {fileID: 7685678049854750446}
-  - {fileID: 4973103227486095318}
-  Animator: {fileID: 3869167893338857617}
-  StateMachine:
-    Idle: {fileID: 11400000, guid: 4649ae9e0e7daec478fc9d502cfaacf2, type: 2}
-    Walk: {fileID: 11400000, guid: 2f4c8d30a462bbf48905d2d46304bb80, type: 2}
-    Rotate: {fileID: 11400000, guid: 5bd145efd4fe29448b62e0b337455907, type: 2}
-    Stunned: {fileID: 11400000, guid: 711876f685d4c7e4eae7a214f4a28eac, type: 2}
-    GetHit1: {fileID: 11400000, guid: 6ff38173036a48b4b8df0c20de5c094e, type: 2}
-    GetHit2: {fileID: 11400000, guid: 8f3814014cf21f444b58432b8ec6262d, type: 2}
-    Die: {fileID: 11400000, guid: ecbc3424d8dd9254abe35aa17235f98d, type: 2}
-    Attack1: {fileID: 11400000, guid: 84399ca6672ad9a4f9bfbcd29326ee05, type: 2}
-    Attack2: {fileID: 11400000, guid: f8f5514ac4cc77749ac0eb062b714749, type: 2}
-    AttackHard: {fileID: 11400000, guid: eb316eeee6dbc354dae462f7520e6d02, type: 2}
-    AttackSpecial: {fileID: 11400000, guid: 643aeda2dd18ecf47baea18531af28c9, type: 2}
-    Roar: {fileID: 11400000, guid: 6701561fbf6181a4cb92231e627fcefa, type: 2}
-    Block: {fileID: 11400000, guid: 7d342e67d02c7de40a2ba99cf0575a7e, type: 2}
-  AttackStateSelector:
-    Owner: {fileID: 660185170087673081}
-    Regions:
-    - LocalTopLeft: {x: -11.7, y: 5.58}
-      LocalBottomRight: {x: -1, y: -5}
-      Center: {fileID: 2580696186687188835}
-      Table:
-        Table:
-        - Weight: 10
-          State: 9
-        - Weight: 90
-          State: 11
-    - LocalTopLeft: {x: -21.9, y: 11.81}
-      LocalBottomRight: {x: -1, y: -5}
-      Center: {fileID: 2580696186687188835}
-      Table:
-        Table:
-        - Weight: 50
-          State: 7
-        - Weight: 50
-          State: 8
-        - Weight: 50
-          State: 9
-    - LocalTopLeft: {x: -30.4, y: 19.7}
-      LocalBottomRight: {x: 18.86, y: -5}
-      Center: {fileID: 2580696186687188835}
-      Table:
-        Table:
-        - Weight: 50
-          State: 7
-        - Weight: 50
-          State: 10
-    PlayerOutOfBoundsTable:
-      Table:
-      - Weight: 50
-        State: 10
-      - Weight: 50
-        State: 11
-  _movementBoundaryLeftTop: {x: -50, y: 40}
-  _movementBoundaryRightBottom: {x: 250, y: -10}
-  _dissolver: {fileID: 8785487496999979279}
-  DebugText: {fileID: 1844161990207587764}
 --- !u!95 &3869167893338857617
 Animator:
   serializedVersion: 5
@@ -8330,6 +8225,111 @@ MonoBehaviour:
   materialToCopyFrom: {fileID: 0}
   vfxType: 0
   dissolveType: 0
+--- !u!114 &660185170087673081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4012939455615677586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23bd66c90a14d64c9b34f0f1cfe2972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1000
+  Stats: {fileID: 11400000, guid: 1f67446d452c29e4daca0dbe46870c9a, type: 2}
+  UniqueDropItemTableInput: {fileID: 0}
+  LifeGauge: {fileID: 0}
+  BossParts:
+  - {fileID: 6580241153248875409}
+  - {fileID: 7127385052708423256}
+  - {fileID: 6995701657609620545}
+  - {fileID: 2214045104617211656}
+  - {fileID: 3313191783672421986}
+  - {fileID: 3403649798238289788}
+  - {fileID: 7637293623397498547}
+  - {fileID: 5486618061773005737}
+  - {fileID: 1592536236472627617}
+  - {fileID: 3080273611654251911}
+  - {fileID: 6269068614471322779}
+  - {fileID: 2450523543290928019}
+  - {fileID: 832778372410778636}
+  - {fileID: 6312852063501461375}
+  - {fileID: 6397192387243864326}
+  - {fileID: 2167848451860295904}
+  - {fileID: 4192519836798679306}
+  - {fileID: 8262018960843134408}
+  - {fileID: 6987532328829023546}
+  - {fileID: 8331012939396853831}
+  - {fileID: 8204515529974003796}
+  - {fileID: 8698303526241961357}
+  - {fileID: 2626276275861014662}
+  - {fileID: 8374798251055062964}
+  - {fileID: 6346609502548616898}
+  - {fileID: 1724075883970451316}
+  - {fileID: 5550481155894337346}
+  - {fileID: 7186624633102712859}
+  - {fileID: 5420269643371299473}
+  - {fileID: 7685678049854750446}
+  - {fileID: 4973103227486095318}
+  Animator: {fileID: 3869167893338857617}
+  StateMachine:
+    Idle: {fileID: 11400000, guid: 4649ae9e0e7daec478fc9d502cfaacf2, type: 2}
+    Walk: {fileID: 11400000, guid: 2f4c8d30a462bbf48905d2d46304bb80, type: 2}
+    Rotate: {fileID: 11400000, guid: 5bd145efd4fe29448b62e0b337455907, type: 2}
+    Stunned: {fileID: 11400000, guid: 711876f685d4c7e4eae7a214f4a28eac, type: 2}
+    GetHit1: {fileID: 11400000, guid: 6ff38173036a48b4b8df0c20de5c094e, type: 2}
+    GetHit2: {fileID: 11400000, guid: 8f3814014cf21f444b58432b8ec6262d, type: 2}
+    Die: {fileID: 11400000, guid: ecbc3424d8dd9254abe35aa17235f98d, type: 2}
+    Attack1: {fileID: 11400000, guid: 84399ca6672ad9a4f9bfbcd29326ee05, type: 2}
+    Attack2: {fileID: 11400000, guid: f8f5514ac4cc77749ac0eb062b714749, type: 2}
+    AttackHard: {fileID: 11400000, guid: eb316eeee6dbc354dae462f7520e6d02, type: 2}
+    AttackSpecial: {fileID: 11400000, guid: 643aeda2dd18ecf47baea18531af28c9, type: 2}
+    Roar: {fileID: 11400000, guid: 6701561fbf6181a4cb92231e627fcefa, type: 2}
+    Block: {fileID: 11400000, guid: 7d342e67d02c7de40a2ba99cf0575a7e, type: 2}
+  AttackStateSelector:
+    Owner: {fileID: 660185170087673081}
+    Regions:
+    - LocalTopLeft: {x: -11.7, y: 5.58}
+      LocalBottomRight: {x: -1, y: -5}
+      Center: {fileID: 2580696186687188835}
+      Table:
+        Table:
+        - Weight: 10
+          State: 9
+        - Weight: 90
+          State: 11
+    - LocalTopLeft: {x: -21.9, y: 11.81}
+      LocalBottomRight: {x: -1, y: -5}
+      Center: {fileID: 2580696186687188835}
+      Table:
+        Table:
+        - Weight: 50
+          State: 7
+        - Weight: 50
+          State: 8
+        - Weight: 50
+          State: 9
+    - LocalTopLeft: {x: -30.4, y: 19.7}
+      LocalBottomRight: {x: 18.86, y: -5}
+      Center: {fileID: 2580696186687188835}
+      Table:
+        Table:
+        - Weight: 50
+          State: 7
+        - Weight: 50
+          State: 10
+    PlayerOutOfBoundsTable:
+      Table:
+      - Weight: 50
+        State: 10
+      - Weight: 50
+        State: 11
+  _movementBoundaryLeftTop: {x: -50, y: 40}
+  _movementBoundaryRightBottom: {x: 250, y: -10}
+  _dissolver: {fileID: 8785487496999979279}
+  DebugText: {fileID: 1844161990207587764}
 --- !u!1 &4088752861561777890
 GameObject:
   m_ObjectHideFlags: 0
@@ -8394,6 +8394,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5526655784703828523}
   m_LocalEulerAnglesHint: {x: 0.0000025456884, y: 0.000007724186, z: -84.999985}
+--- !u!1 &4140525481256361871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4104800021044663370}
+  - component: {fileID: 8165671826654389121}
+  m_Layer: 17
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4104800021044663370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140525481256361871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2580696186687188835}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8165671826654389121
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140525481256361871}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 11.3, z: 20}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &4149365048909695391
 GameObject:
   m_ObjectHideFlags: 0
@@ -21205,7 +21258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5238119625302772638
 RectTransform:
   m_ObjectHideFlags: 0

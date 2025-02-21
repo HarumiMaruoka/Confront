@@ -25,9 +25,9 @@ MonoBehaviour:
   _attackTransitionProbability: 0.5
   _attackPower: 1
   _hitBox:
-    _offset: {x: 0, y: 2.47, z: 15.5}
-    _size: {x: 1, y: 10.9, z: 13.01}
-    _gizmoOption: 3
+    _offset: {x: 0, y: 2.47, z: 12.6}
+    _size: {x: 1, y: 10.9, z: 14.72}
+    _gizmoOption: 0
     _hitVFX:
       VFXPrefab: {fileID: 0}
       Offset: {x: 0, y: 0, z: -0.5}
@@ -42,6 +42,6 @@ MonoBehaviour:
     _endTime: 1.28
     _baseDamage: 18
     _damageFactor: 0
-    _knockbackDirection: {x: 0, y: 0}
-    _knockbackForce: 0
+    _knockbackDirection: {x: 1, y: 1}
+    _knockbackForce: 10
   _duration: 2.3

@@ -25,7 +25,7 @@ MonoBehaviour:
   _attackTransitionProbability: 0.5
   _attackPower: 1
   _hitBox:
-    _offset: {x: 0, y: 6.6, z: 20}
+    _offset: {x: 0, y: 6.6, z: 16.7}
     _size: {x: 1, y: 15, z: 14}
     _gizmoOption: 3
     _hitVFX:
@@ -42,6 +42,6 @@ MonoBehaviour:
     _endTime: 1
     _baseDamage: 15
     _damageFactor: 0
-    _knockbackDirection: {x: 0, y: 0}
-    _knockbackForce: 0
+    _knockbackDirection: {x: 1, y: 1}
+    _knockbackForce: 10
   _duration: 2.2
