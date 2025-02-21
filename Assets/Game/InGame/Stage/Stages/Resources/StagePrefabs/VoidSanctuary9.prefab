@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d69940c2951f4999973db7ba68790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMClip: {fileID: 0}
+  BGMClip: {fileID: 8300000, guid: 714caaa1a370046e39cead87ce889500, type: 3}
   StartPoints:
   - {fileID: 5790097926668983662}
   StageTransitionData:

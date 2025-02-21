@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d69940c2951f4999973db7ba68790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMClip: {fileID: 0}
+  BGMClip: {fileID: 8300000, guid: 5247e53fe8ac243268c66a7894131d88, type: 3}
   StartPoints:
   - {fileID: 1404529452348072618}
   - {fileID: 8869447181195780743}
