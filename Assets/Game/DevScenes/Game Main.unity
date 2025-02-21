@@ -2342,12 +2342,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6d9e4304cc4b2468e809e71e25def1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponDropItemPrefab: {fileID: 0}
-  _armorDropItemPrefab: {fileID: 0}
-  _actionItemDropItemPrefab: {fileID: 0}
-  _forgeItemDropItemPrefab: {fileID: 0}
-  _moneyDropItemPrefab: {fileID: 0}
-  _cardDropItemPrefab: {fileID: 0}
+  _weaponDropItemPrefab: {fileID: 7260927983251774575, guid: dd56a971902c8a64681831f3dcf688c8,
+    type: 3}
+  _armorDropItemPrefab: {fileID: -299536582180744608, guid: d82bfa92857ea3e45b4416785709ee36,
+    type: 3}
+  _actionItemDropItemPrefab: {fileID: 7416689302949503780, guid: f2a7404d90d1c50469d0b398c1c88cfa,
+    type: 3}
+  _forgeItemDropItemPrefab: {fileID: -5645394464183400126, guid: 8da8a21567bc96840bcbdec9eee74ebf,
+    type: 3}
+  _moneyDropItemPrefab: {fileID: 8861191949838403663, guid: 8cdf03070f618d64e908b0861dc8bfc9,
+    type: 3}
+  _cardDropItemPrefab: {fileID: 3610418434502351639, guid: 756390dc796724b43b77c63a7dcf3c60,
+    type: 3}
 --- !u!1 &256731547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,7 +2632,7 @@ Transform:
   m_GameObject: {fileID: 264235132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -64.51, y: 8.627222, z: -16}
+  m_LocalPosition: {x: -64.51, y: 6.720417, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24302,7 +24308,7 @@ Transform:
   m_GameObject: {fileID: 2068263869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -64.51, y: 8.627222, z: -16}
+  m_LocalPosition: {x: -64.51, y: 6.720417, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
