@@ -1,5 +1,5 @@
 ﻿Type,ID,Drop Rate (%),Amount
-Weapon,2,100,1
+Weapon,2,10,1
 ActionItem,0,50,2
 ActionItem,1,20,1
 ForgeItem,2,80,3
