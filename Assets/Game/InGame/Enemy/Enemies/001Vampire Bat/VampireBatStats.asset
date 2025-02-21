@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074f91295777eb6428c64a7c2eed1cfd, type: 3}
   m_Name: VampireBatStats
   m_EditorClassIdentifier: 
-  MaxHealth: 150
+  MaxHealth: 120
   AttackPower: 7
   Defense: 0

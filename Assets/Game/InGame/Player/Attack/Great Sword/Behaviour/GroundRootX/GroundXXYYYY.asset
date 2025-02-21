@@ -79,7 +79,8 @@ MonoBehaviour:
     _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _hitVFX:
-      VFXPrefab: {fileID: 0}
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
@@ -98,7 +99,8 @@ MonoBehaviour:
     _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _hitVFX:
-      VFXPrefab: {fileID: 0}
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
@@ -117,7 +119,8 @@ MonoBehaviour:
     _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _hitVFX:
-      VFXPrefab: {fileID: 0}
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
@@ -136,7 +139,8 @@ MonoBehaviour:
     _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _hitVFX:
-      VFXPrefab: {fileID: 0}
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
@@ -155,7 +159,8 @@ MonoBehaviour:
     _size: {x: 0, y: 1.4, z: 6}
     _gizmoOption: 3
     _hitVFX:
-      VFXPrefab: {fileID: 0}
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
