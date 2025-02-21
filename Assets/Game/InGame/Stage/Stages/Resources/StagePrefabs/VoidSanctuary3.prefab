@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  Stats: {fileID: 11400000, guid: fc663520f1f7d254e83bac579244d045, type: 2}
+  Stats: {fileID: 11400000, guid: d12c675fa3d235e4da231256ad3c8cbd, type: 2}
   UniqueDropItemTableInput: {fileID: 0}
   LifeGauge: {fileID: 5635842287207486462}
   Rigidbody: {fileID: 3581933318913586722}
@@ -917,7 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  Stats: {fileID: 11400000, guid: fc663520f1f7d254e83bac579244d045, type: 2}
+  Stats: {fileID: 11400000, guid: d12c675fa3d235e4da231256ad3c8cbd, type: 2}
   UniqueDropItemTableInput: {fileID: 0}
   LifeGauge: {fileID: 664149698642041673}
   Rigidbody: {fileID: 2671196838578085882}
@@ -1336,7 +1336,7 @@ Transform:
   m_GameObject: {fileID: 4341859832537548417}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.69437975, y: 3.7619596, z: 2.0339422}
+  m_LocalPosition: {x: 0, y: 3.7619596, z: 2.0339422}
   m_LocalScale: {x: 1.2499998, y: 1.25, z: 1.2499998}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  Stats: {fileID: 11400000, guid: fc663520f1f7d254e83bac579244d045, type: 2}
+  Stats: {fileID: 11400000, guid: d12c675fa3d235e4da231256ad3c8cbd, type: 2}
   UniqueDropItemTableInput: {fileID: 0}
   LifeGauge: {fileID: 2482106326842642688}
   Rigidbody: {fileID: 2676323669832073945}
@@ -2937,7 +2937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  Stats: {fileID: 11400000, guid: fc663520f1f7d254e83bac579244d045, type: 2}
+  Stats: {fileID: 11400000, guid: d12c675fa3d235e4da231256ad3c8cbd, type: 2}
   UniqueDropItemTableInput: {fileID: 0}
   LifeGauge: {fileID: 2628056678543753889}
   Rigidbody: {fileID: 37833630724975293}
@@ -3310,7 +3310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  Stats: {fileID: 11400000, guid: fc663520f1f7d254e83bac579244d045, type: 2}
+  Stats: {fileID: 11400000, guid: d12c675fa3d235e4da231256ad3c8cbd, type: 2}
   UniqueDropItemTableInput: {fileID: 0}
   LifeGauge: {fileID: 1976561822898777939}
   Rigidbody: {fileID: 2743993837783737091}

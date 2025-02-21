@@ -19609,8 +19609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373d954f109fc9e4793094f5d83eb569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 10
-  _damageFactor: 1
+  _damageValue: 13
   _knockbackDirection: {x: 1, y: 1}
   _knockbackForce: 20
   _activationTime: 0

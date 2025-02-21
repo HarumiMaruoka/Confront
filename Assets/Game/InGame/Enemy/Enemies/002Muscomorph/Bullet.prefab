@@ -14684,7 +14684,7 @@ MonoBehaviour:
   _detached:
   - {fileID: 6456577456710409850}
   _projectilePS: {fileID: 6752037429893504725}
-  _baseDamage: 10
+  _baseDamage: 0
   _damageFactor: 1
   _knockbackDirection: {x: 1, y: 1}
   _knockbackForce: 0

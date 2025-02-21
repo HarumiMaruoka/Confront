@@ -17,12 +17,22 @@ MonoBehaviour:
   - _offset: {x: 0, y: 1.23, z: 2.52}
     _size: {x: 1.25, y: 1.24, z: 2.29}
     _gizmoOption: 0
+    _hitVFX:
+      VFXPrefab: {fileID: 0}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX: {fileID: 0}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 0.45
     _endTime: 0.85
-    _baseDamage: 6
-    _damageFactor: 3
+    _baseDamage: 0
+    _damageFactor: 1
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   _projectiles: []
-  Cooldown: 3
+  Duration: 3
   AttackRange: 3
