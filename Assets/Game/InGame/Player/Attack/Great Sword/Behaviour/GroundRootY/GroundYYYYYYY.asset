@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
   m_Name: GroundYYYYYYY
   m_EditorClassIdentifier: 
+  HitSFX: []
   _memopad: 
   _animationName: GS_GPS_7Combo_7
   _animationOffset: 0
@@ -49,6 +50,10 @@ MonoBehaviour:
   _attackCompletionTime: 2.2
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0
+  _defaultHitSfxIndex: 0
+  _swingSfxes:
+  - Sfx: {fileID: 8300000, guid: af84d63a1e1cf2741a4ae5264c739002, type: 3}
+    Offset: 0.71
   _hitBoxes:
   - _offset: {x: 0, y: 6, z: 3}
     _size: {x: 0, y: 1.5, z: 6}
@@ -59,11 +64,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.71
     _endTime: 0.73
@@ -79,11 +83,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.73
     _endTime: 0.75
@@ -99,11 +102,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.75
     _endTime: 0.77
@@ -119,11 +121,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.77
     _endTime: 0.79
@@ -139,11 +140,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.79
     _endTime: 0.81

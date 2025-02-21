@@ -61,8 +61,8 @@ MonoBehaviour:
   _comboInputDeactivationTime: 0.6
   _defaultHitSfxIndex: 0
   _swingSfxes:
-  - Sfx: {fileID: 0}
-    Offset: 0
+  - Sfx: {fileID: 8300000, guid: af84d63a1e1cf2741a4ae5264c739002, type: 3}
+    Offset: 0.22
   _hitBoxes:
   - _offset: {x: 0, y: 2.5, z: 3}
     _size: {x: 0, y: 7, z: 6}

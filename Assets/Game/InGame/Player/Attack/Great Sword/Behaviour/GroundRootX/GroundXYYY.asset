@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
   m_Name: GroundXYYY
   m_EditorClassIdentifier: 
+  HitSFX: []
   _memopad: 
   _animationName: GS_GGS_Combo_02_4
   _animationOffset: 0
@@ -58,7 +59,10 @@ MonoBehaviour:
   _attackCompletionTime: 1.2
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0
-  _swingSfxes: []
+  _defaultHitSfxIndex: 0
+  _swingSfxes:
+  - Sfx: {fileID: 8300000, guid: af84d63a1e1cf2741a4ae5264c739002, type: 3}
+    Offset: 0.25
   _hitBoxes:
   - _offset: {x: 0, y: 3, z: 3}
     _size: {x: 0, y: 2.5, z: 6}
@@ -69,8 +73,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: eab8e344fff1f46caa15966d23ee1a6c, type: 3}
+    _hitSFX: {fileID: 8300000, guid: 82b6da01404fd4da384d8c3d9ea7146e, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -85,12 +88,12 @@ MonoBehaviour:
     _size: {x: 0, y: 2.5, z: 6}
     _gizmoOption: 3
     _hitVFX:
-      VFXPrefab: {fileID: 0}
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: 4c86f9d3b36ff4d2cbfa2d2d76bae17d, type: 3}
+    _hitSFX: {fileID: 8300000, guid: 78045c047f5bf41ca9f5138cb9cebedf, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -105,12 +108,12 @@ MonoBehaviour:
     _size: {x: 0, y: 2.5, z: 6}
     _gizmoOption: 3
     _hitVFX:
-      VFXPrefab: {fileID: 0}
+      VFXPrefab: {fileID: -7314384494626508809, guid: 54c5a7b1bae634d4ab9b37190f6c3ecf,
+        type: 3}
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: 2160ed670e58e44e7940432b90e3d63f, type: 3}
+    _hitSFX: {fileID: 8300000, guid: 52011aa263aa34c73b7eff1fa6206f9c, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
   m_Name: GroundXYXXX
   m_EditorClassIdentifier: 
+  HitSFX: []
   _memopad: 
   _animationName: GS_GGS_Combo_01_4
   _animationOffset: 0.12
@@ -85,7 +86,10 @@ MonoBehaviour:
   _attackCompletionTime: 1.7
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0
-  _swingSfxes: []
+  _defaultHitSfxIndex: 0
+  _swingSfxes:
+  - Sfx: {fileID: 8300000, guid: af84d63a1e1cf2741a4ae5264c739002, type: 3}
+    Offset: 0.11
   _hitBoxes:
   - _offset: {x: 0, y: 6, z: -2.5}
     _size: {x: 0, y: 5.25, z: 5}
@@ -96,8 +100,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: 601416303535d44bba7646e43f371701, type: 3}
+    _hitSFX: {fileID: 0}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -116,8 +119,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -136,8 +138,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: 7496b653675304a8188010482ef284de, type: 3}
+    _hitSFX: {fileID: 0}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -156,8 +157,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: 12bf5bb259ead4607bfa9d44151d802d, type: 3}
+    _hitSFX: {fileID: 0}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -176,8 +176,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: 98165332fceac4fd6a21614b9b5671da, type: 3}
+    _hitSFX: {fileID: 0}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -196,8 +195,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: 8bab3f1bc5e3c4ac7bca8ad387d7d5d3, type: 3}
+    _hitSFX: {fileID: 0}
     _cameraShake:
       Amplitude: 2
       Frequency: 1

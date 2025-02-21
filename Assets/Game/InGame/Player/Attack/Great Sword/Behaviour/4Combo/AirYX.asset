@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
   m_Name: AirYX
   m_EditorClassIdentifier: 
+  HitSFX: []
   _memopad: 
   _animationName: GSA_GreatSword_Attack11
   _animationOffset: 0.2
@@ -49,6 +50,10 @@ MonoBehaviour:
   _attackCompletionTime: 1.2
   _comboInputAcceptanceTime: 0.2
   _comboInputDeactivationTime: 0.9
+  _defaultHitSfxIndex: 0
+  _swingSfxes:
+  - Sfx: {fileID: 8300000, guid: af84d63a1e1cf2741a4ae5264c739002, type: 3}
+    Offset: 0.1
   _hitBoxes:
   - _offset: {x: 0, y: 2.5, z: 2}
     _size: {x: 0, y: 7, z: 4}
@@ -59,11 +64,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.1
     _endTime: 0.18
@@ -79,11 +83,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.18
     _endTime: 0.26
@@ -99,11 +102,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.26
     _endTime: 0.32
@@ -119,11 +121,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      SFX: {fileID: 0}
+    _hitSFX: {fileID: 0}
     _cameraShake:
-      PowerAmplitude: 1
-      PowerFrequency: 1
+      Amplitude: 2
+      Frequency: 1
       Duration: 0.1
     _startTime: 0.36
     _endTime: 0.46

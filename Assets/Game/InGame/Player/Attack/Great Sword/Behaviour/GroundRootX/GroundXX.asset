@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c008d3ed0b7a1148910ef003ca09d5a, type: 3}
   m_Name: GroundXX
   m_EditorClassIdentifier: 
+  HitSFX: []
   _memopad: 
   _animationName: GS_GPS_3Combo_2
   _animationOffset: 0
@@ -49,6 +50,10 @@ MonoBehaviour:
   _attackCompletionTime: 1
   _comboInputAcceptanceTime: 0
   _comboInputDeactivationTime: 0.7
+  _defaultHitSfxIndex: 0
+  _swingSfxes:
+  - Sfx: {fileID: 8300000, guid: af84d63a1e1cf2741a4ae5264c739002, type: 3}
+    Offset: 0.2
   _hitBoxes:
   - _offset: {x: 0, y: 2.5, z: 3}
     _size: {x: 0, y: 7, z: 6}
@@ -59,8 +64,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX:
-      Clip: {fileID: 8300000, guid: ad6b6437feb464dd6a36cfb122b1425e, type: 3}
+    _hitSFX: {fileID: 8300000, guid: 5659866c77c0446d38aa1730fb1f8a17, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -72,5 +76,3 @@ MonoBehaviour:
     _knockbackDirection: {x: 0, y: 0}
     _knockbackForce: 0
   _shooters: []
-  _sfxOffset: 0
-  _sfx: {fileID: 8300000, guid: 4604e8211ceabe846a9ef84bd5603bd2, type: 3}

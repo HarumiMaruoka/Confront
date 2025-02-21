@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326761b2b720eb144a7081c43c15a7e4, type: 3}
   m_Name: GroundYXX
   m_EditorClassIdentifier: 
+  HitSFX: []
   _readyXAxisMovementCurve:
     serializedVersion: 2
     m_Curve:
@@ -86,6 +87,16 @@ MonoBehaviour:
   - _offset: {x: 0, y: 0, z: 3}
     _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: 0}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX: {fileID: 0}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 0.35
     _endTime: 0.38
     _baseDamage: 6
@@ -98,6 +109,16 @@ MonoBehaviour:
   - _offset: {x: 0, y: 1.5, z: 3}
     _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: 0}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX: {fileID: 0}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 0.38
     _endTime: 0.41
     _baseDamage: 6
@@ -110,6 +131,16 @@ MonoBehaviour:
   - _offset: {x: 0, y: 3, z: 3}
     _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: 0}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX: {fileID: 0}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 0.41
     _endTime: 0.44
     _baseDamage: 6
@@ -122,6 +153,16 @@ MonoBehaviour:
   - _offset: {x: 0, y: 4.5, z: 3}
     _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: 0}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX: {fileID: 0}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 0.44
     _endTime: 0.47
     _baseDamage: 6
@@ -134,6 +175,16 @@ MonoBehaviour:
   - _offset: {x: 0, y: 6, z: 3}
     _size: {x: 0, y: 1.5, z: 6}
     _gizmoOption: 3
+    _hitVFX:
+      VFXPrefab: {fileID: 0}
+      Offset: {x: 0, y: 0, z: -0.5}
+      MinSize: {x: 3, y: 3, z: 3}
+      MaxSize: {x: 4, y: 4, z: 4}
+    _hitSFX: {fileID: 0}
+    _cameraShake:
+      Amplitude: 2
+      Frequency: 1
+      Duration: 0.1
     _startTime: 0.47
     _endTime: 0.5
     _baseDamage: 6
