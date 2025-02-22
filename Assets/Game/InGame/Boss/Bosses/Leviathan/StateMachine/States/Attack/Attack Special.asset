@@ -44,3 +44,5 @@ MonoBehaviour:
     _knockbackDirection: {x: 1, y: 1}
     _knockbackForce: 30
   _duration: 2.2
+  _sfxOffset: 0.5
+  _sfx: {fileID: 8300000, guid: f51733f724466824a968ca145070e566, type: 3}

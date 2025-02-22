@@ -4958,6 +4958,8 @@ MonoBehaviour:
     type: 3}
   _particleSystem: {fileID: 78171889653927644}
   _targetOffset: {x: 0, y: 3, z: 0}
+  _launchSFX: {fileID: 8300000, guid: ab5ac6391c3234fc18dfda05330d5824, type: 3}
+  _hitSFX: {fileID: 8300000, guid: 0a7e6008cf37148a5b479c5bf4537dda, type: 3}
 --- !u!198 &78171889653927644
 ParticleSystem:
   m_ObjectHideFlags: 0

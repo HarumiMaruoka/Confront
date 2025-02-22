@@ -17,7 +17,7 @@ namespace Confront.Enemy
         public static EnemySheet EnemySheet { get; }
         public static Action OnEnemiesReset;
 
-        private static bool _showEnemyLifeGauge = true;
+        private static bool _showEnemyLifeGauge = false;
         public static event Action<bool> OnShowEnemyLifeGaugeChanged;
         public static bool ShowEnemyLifeGauge
         {

@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Confront.VC;
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -52,11 +53,13 @@ namespace Confront.Player
         public void Damage(float damage)
         {
             CurrentHealth -= damage;
+            VCCommand.SendToyBoxEvent();
         }
 
         public void Heal(float heal)
         {
             CurrentHealth += heal;
+            VCCommand.SendVCMainEvent();
         }
     }
 

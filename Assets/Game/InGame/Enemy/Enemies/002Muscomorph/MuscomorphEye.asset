@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5767b85f2fc81f3478175c9f8d430a5f, type: 3}
   m_Name: MuscomorphEye
   m_EditorClassIdentifier: 
-  ViewDistance: 33.5
-  ViewAngle: 58
-  Offset: {x: -0.75, y: 2, z: 0}
+  ViewDistance: 40.07
+  ViewAngle: 68
+  Offset: {x: 0, y: 2, z: -4}
   AngleOffset: 0
   IsGizmosVisible: 1

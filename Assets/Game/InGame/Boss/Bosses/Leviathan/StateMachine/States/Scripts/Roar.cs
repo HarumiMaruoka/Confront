@@ -1,8 +1,7 @@
 ﻿using Confront.AttackUtility;
-using Confront.Enemy;
+using Confront.Audio;
 using Confront.Player;
 using Confront.Utility;
-using System;
 using UnityEngine;
 
 namespace Confront.Boss.Leviathan
@@ -15,6 +14,12 @@ namespace Confront.Boss.Leviathan
         private float _attackPower = 1f;
         [SerializeField]
         private HitSphere _hitSphere;
+
+        [Header("Sound")]
+        [SerializeField]
+        private float _roarSoundOffset = 0.5f;
+        [SerializeField]
+        private AudioClip _roarSound;
 
         [Header("Duration")]
         [SerializeField]
@@ -39,9 +44,15 @@ namespace Confront.Boss.Leviathan
 
         public void Execute(LeviathanController owner)
         {
+            var previousElapsed = _elapsed;
             _elapsed += Time.deltaTime;
             var directionSign = PlayerController.Instance.transform.position.x - owner.transform.position.x > 0 ? 1 : -1;
             _hitSphere.Update(owner.transform, _attackPower, directionSign, _elapsed, LayerUtility.PlayerLayerMask);
+
+            if (previousElapsed <= _roarSoundOffset && _roarSoundOffset < _elapsed)
+            {
+                AudioManager.PlaySE(_roarSound, owner.transform.position);
+            }
             if (_elapsed >= _duration) TransitionToNextState(owner);
         }
 

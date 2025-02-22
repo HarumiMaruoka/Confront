@@ -8,6 +8,8 @@ namespace Confront.Boss.Leviathan
     {
         [SerializeField]
         private float _duration = 1f;
+        [SerializeField]
+        private float _defenseBoost = 80f;
 
         private float _timer = 0f;
 
@@ -16,7 +18,7 @@ namespace Confront.Boss.Leviathan
         public void Enter(LeviathanController owner)
         {
             _timer = 0f;
-            // 耐性を上げる
+            owner.Stats.Defense += _defenseBoost;
         }
 
         public void Execute(LeviathanController owner)
@@ -30,7 +32,7 @@ namespace Confront.Boss.Leviathan
 
         public void Exit(LeviathanController owner)
         {
-            // 耐性を戻す
+            owner.Stats.Defense -= _defenseBoost;
         }
     }
 }

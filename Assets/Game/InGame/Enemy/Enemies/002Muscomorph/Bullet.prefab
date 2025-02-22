@@ -14688,6 +14688,8 @@ MonoBehaviour:
   _damageFactor: 1
   _knockbackDirection: {x: 1, y: 1}
   _knockbackForce: 0
+  _launchSFX: {fileID: 8300000, guid: 11d8edf664b5018419784300abe60e74, type: 3}
+  _hitSFX: {fileID: 8300000, guid: 52173a49c4efb4f47997499d8cb21e48, type: 3}
 --- !u!1001 &535722154614826332
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0, z: -0.5}
       MinSize: {x: 3, y: 3, z: 3}
       MaxSize: {x: 4, y: 4, z: 4}
-    _hitSFX: {fileID: 0}
+    _hitSFX: {fileID: 8300000, guid: 93e12f8ced00f405dbc82db9f55c91a9, type: 3}
     _cameraShake:
       Amplitude: 2
       Frequency: 1
@@ -43,5 +43,8 @@ MonoBehaviour:
     _baseDamage: 15
     _damageFactor: 0
     _knockbackDirection: {x: 1, y: 1}
-    _knockbackForce: 10
+    _knockbackForce: 20
+  _sfx: {fileID: 8300000, guid: 906942a045afbad4690db00006bdc942, type: 3}
+  _sfxOffset: 0.1
+  _sfxVolume: 999
   _duration: 2.2

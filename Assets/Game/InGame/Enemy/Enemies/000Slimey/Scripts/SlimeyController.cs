@@ -37,6 +37,9 @@ namespace Confront.Enemy
         [SerializeField]
         private Transform[] _spawnPoints;
 
+        [Header("Damage")]
+        public float DamgageTransitionProbability = 0.5f; // ダメージを受けたときにひるむ（DamageStateに遷移する）確率
+
         [Header("For Checking (Do not modify from the editor)")]
         public SlimeyState CurrentState;
 
@@ -86,7 +89,7 @@ namespace Confront.Enemy
             {
                 // Do nothing.
             }
-            else
+            else if (UnityEngine.Random.value < DamgageTransitionProbability)
             {
                 ChangeState<DamageState>();
             }

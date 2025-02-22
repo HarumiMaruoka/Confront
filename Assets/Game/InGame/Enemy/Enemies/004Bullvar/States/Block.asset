@@ -16,5 +16,5 @@ MonoBehaviour:
   Deceleration: 8
   MinDuration: 1
   MaxDuration: 3
-  DefenseBoost: 1
+  DefenseBoost: 100
   IdleTransitionProbability: 0.5

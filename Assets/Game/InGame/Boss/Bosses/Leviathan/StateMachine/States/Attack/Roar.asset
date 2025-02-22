@@ -34,4 +34,6 @@ MonoBehaviour:
     _damageFactor: 0
     _knockbackDirection: {x: 1, y: 1}
     _knockbackForce: 30
+  _roarSoundOffset: 0.01
+  _roarSound: {fileID: 8300000, guid: 076e37820a0c54362ae5a073fc359f5f, type: 3}
   _duration: 2.2

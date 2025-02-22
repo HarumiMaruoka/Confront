@@ -131,7 +131,7 @@ namespace Confront.Player.Combo
                     previousElapsed <= swingSfxes[i].Offset &&
                     elapsed > swingSfxes[i].Offset)
                 {
-                    AudioManager.PlaySE(swingSfxes[i].Sfx);
+                    AudioManager.PlaySE(swingSfxes[i].Sfx, player.transform.position);
                 }
             }
         }

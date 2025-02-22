@@ -1,4 +1,5 @@
-﻿using Confront.Player;
+﻿using Confront.Audio;
+using Confront.Player;
 using Confront.Utility;
 using System;
 using UnityEngine;
@@ -29,6 +30,10 @@ namespace Confront.AttackUtility
         [SerializeField] private Vector2 _knockbackDirection = new Vector2(1, 1);
         [SerializeField] private float _knockbackForce;
 
+        [Header("SFX")]
+        [SerializeField] private AudioClip _launchSFX;
+        [SerializeField] private AudioClip _hitSFX;
+
         private Collider[] _colliderBuffer = new Collider[4];
 
         private float _flightDuration = 2.0f;  // 飛行にかける時間（秒）
@@ -42,6 +47,7 @@ namespace Confront.AttackUtility
 
         public override void Launch()
         {
+            AudioManager.PlaySE(_launchSFX);
             this._elapsedTime = 0f;
             this.transform.position = transform.position + _spawnOffset;
             this._lastPosition = transform.position + _spawnOffset;
@@ -109,11 +115,14 @@ namespace Confront.AttackUtility
             _projectilePS.Stop();
             _projectilePS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
-            // ヒットエフェクトの再生
+            // ヒットVFXの再生
             _hit.transform.position = hitPosition;
             _hitPS.transform.position = hitPosition;
             _hitPS.transform.parent = null;
             _hitPS.Play();
+
+            // ヒットSFXの再生
+            AudioManager.PlaySE(_hitSFX);
 
             // パーティクルの停止
             foreach (var detachedPrefab in _detached) detachedPrefab.Stop();

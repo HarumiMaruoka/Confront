@@ -7,7 +7,7 @@ namespace Confront.Audio
     {
         private float _masterVolume = 0.5f;
         private float _bgmVolume = 0.5f;
-        private float _seVolume = 0.5f;
+        private float _seVolume = 0.3f;
 
         public event Action<float> OnBgmVolumeChanged;
         public event Action<float> OnSeVolumeChanged;
