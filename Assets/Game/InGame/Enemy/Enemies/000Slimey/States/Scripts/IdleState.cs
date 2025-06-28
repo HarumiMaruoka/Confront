@@ -43,8 +43,8 @@ namespace Confront.Enemy.Slimey
                 return;
             }
 
-            var xSpeed = Mathf.MoveTowards(slimey.Rigidbody.velocity.x, 0, Deceleration * Time.deltaTime);
-            slimey.Rigidbody.velocity = new Vector2(xSpeed, slimey.Rigidbody.velocity.y);
+            var xSpeed = Mathf.MoveTowards(slimey.Rigidbody.linearVelocity.x, 0, Deceleration * Time.deltaTime);
+            slimey.Rigidbody.linearVelocity = new Vector2(xSpeed, slimey.Rigidbody.linearVelocity.y);
         }
 
         public override void Exit(PlayerController player, SlimeyController slimey)

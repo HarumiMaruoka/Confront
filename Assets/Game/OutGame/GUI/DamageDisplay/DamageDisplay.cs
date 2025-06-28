@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     public class DamageDisplay : MonoBehaviour
     {

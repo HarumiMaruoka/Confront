@@ -10,16 +10,17 @@ namespace Confront.ForgeItem
 {
     public class ForgeItemInventoryUI : MonoBehaviour
     {
-        private Stack<ForgeItemInventoryUIElement> _pool = new Stack<ForgeItemInventoryUIElement>();
-        private List<ForgeItemInventoryUIElement> _actives = new List<ForgeItemInventoryUIElement>();
-
         [SerializeField]
-        private Selectable _defaultSelectable;
-
+        private Transform _container;
         [SerializeField]
         private ForgeItemInventoryUIElement _elementPrefab;
         [SerializeField]
-        private Transform _container;
+        private Selectable _defaultSelectable;
+        [SerializeField]
+        private ForgeItemDescriptionView _descriptionView;
+
+        private Stack<ForgeItemInventoryUIElement> _pool = new Stack<ForgeItemInventoryUIElement>();
+        private List<ForgeItemInventoryUIElement> _actives = new List<ForgeItemInventoryUIElement>();
 
         #region Object Pooling
         private ForgeItemInventoryUIElement GetOrCreate()
@@ -29,13 +30,14 @@ namespace Confront.ForgeItem
             {
                 element = _pool.Pop();
                 element.gameObject.SetActive(true);
+                element.transform.SetAsLastSibling();
             }
             else
             {
                 element = Instantiate(_elementPrefab, _container);
+                element.OnSelected += OnSelected;
             }
-            element.gameObject.SetActive(true);
-            element.transform.SetAsLastSibling();
+
             _actives.Add(element);
             return element;
         }
@@ -58,6 +60,17 @@ namespace Confront.ForgeItem
             }
 
             InitializeNavigation();
+
+            if (_actives.Count > 0)
+            {
+                _actives.First().Button.Select();
+                OnSelected(_actives.First());
+            }
+            else
+            {
+                _defaultSelectable.Select();
+                _descriptionView.Clear();
+            }
         }
 
         public void Close(ForgeItemInventory inventory)
@@ -70,7 +83,7 @@ namespace Confront.ForgeItem
             _actives.Clear();
         }
 
-        private GameObject _previouseSelection;
+        private GameObject _previousSelection;
 
         private void OnEnable()
         {
@@ -78,7 +91,7 @@ namespace Confront.ForgeItem
             else Debug.LogError("PlayerController is not found.");
 
             var select = _actives.Count > 0 ? _actives.First().gameObject : _defaultSelectable.gameObject;
-            _previouseSelection = EventSystem.current.currentSelectedGameObject;
+            _previousSelection = EventSystem.current.currentSelectedGameObject;
             EventSystem.current.SetSelectedGameObject(select);
         }
 
@@ -86,13 +99,12 @@ namespace Confront.ForgeItem
         {
             if (PlayerController.Instance) Close(PlayerController.Instance.ForgeItemInventory);
             else Debug.LogError("PlayerController is not found.");
-            EventSystem.current?.SetSelectedGameObject(_previouseSelection);
+            EventSystem.current?.SetSelectedGameObject(_previousSelection);
         }
 
+        // VerticalLayoutナビゲーションを手動で設定する。
         private void InitializeNavigation()
         {
-            int collumn = 4;
-
             for (int i = 0; i < _actives.Count; i++)
             {
                 var button = _actives[i].Button;
@@ -100,43 +112,35 @@ namespace Confront.ForgeItem
                 nav.mode = Navigation.Mode.Explicit;
 
                 // 上のナビゲーション
-                if (i / collumn == 0) // 一番上の行であれば自分を指定する。
+                if (i == 0) // 一番上の行であれば自分を指定する。
                 {
                     nav.selectOnUp = button;
                 }
-                else
+                else // そうでなければ一つ前のボタンを指定する。
                 {
-                    nav.selectOnUp = _actives[i - collumn].Button;
+                    nav.selectOnUp = _actives[i - 1].Button;
                 }
                 // 下のナビゲーション
-                if (i / collumn == _actives.Count / collumn || i + collumn >= _actives.Count) // 一番下の行であれば自分を指定する。
+                if (i == _actives.Count - 1) // 一番下の行であれば自分を指定する。
                 {
                     nav.selectOnDown = button;
                 }
-                else
+                else // そうでなければ一つ後のボタンを指定する。
                 {
-                    nav.selectOnDown = _actives[i + collumn].Button;
+                    nav.selectOnDown = _actives[i + 1].Button;
                 }
-                // 左のナビゲーション
-                if (i % collumn == 0) // 一番左の列であれば自分を指定する。
-                {
-                    nav.selectOnLeft = button;
-                }
-                else
-                {
-                    nav.selectOnLeft = _actives[i - 1].Button;
-                }
-                // 右のナビゲーション
-                if (i % collumn == collumn - 1 || i + 1 >= _actives.Count) // 一番右の列であれば自分を指定する。
-                {
-                    nav.selectOnRight = button;
-                }
-                else
-                {
-                    nav.selectOnRight = _actives[i + 1].Button;
-                }
+                // 左のナビゲーションは常に自分を指定する。
+                nav.selectOnLeft = button;
+                // 右のナビゲーションは常に自分を指定する。
+                nav.selectOnRight = button;
+
                 button.navigation = nav;
             }
+        }
+
+        private void OnSelected(ForgeItemInventoryUIElement element)
+        {
+            _descriptionView.UpdateView(element?.ForgeItemData);
         }
     }
 }

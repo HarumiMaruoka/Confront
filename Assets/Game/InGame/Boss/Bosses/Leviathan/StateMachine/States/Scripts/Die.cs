@@ -27,7 +27,6 @@ namespace Confront.Boss.Leviathan
             if (_timer >= Duration)
             {
                 owner.gameObject.SetActive(false);
-                ThankYouMessagePanel.Instance.Show();
             }
         }
 

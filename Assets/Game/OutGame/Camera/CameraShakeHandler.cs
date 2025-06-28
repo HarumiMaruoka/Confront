@@ -1,6 +1,6 @@
-﻿using Cinemachine;
-using System;
+﻿using System;
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Confront.CameraUtilites
@@ -24,8 +24,8 @@ namespace Confront.CameraUtilites
 
             Instance = this;
             _noise = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-            _noise.m_AmplitudeGain = 0;
-            _noise.m_FrequencyGain = 0;
+            _noise.AmplitudeGain = 0;
+            _noise.FrequencyGain = 0;
         }
 
         public void Shake(float amplitude, float frequency, float duration)
@@ -44,13 +44,13 @@ namespace Confront.CameraUtilites
                 yield break;
             }
 
-            _noise.m_AmplitudeGain = amplitude;
-            _noise.m_FrequencyGain = frequency;
+            _noise.AmplitudeGain = amplitude;
+            _noise.FrequencyGain = frequency;
 
             yield return new WaitForSeconds(duration);
 
-            _noise.m_AmplitudeGain = 0;
-            _noise.m_FrequencyGain = 0;
+            _noise.AmplitudeGain = 0;
+            _noise.FrequencyGain = 0;
         }
     }
 }

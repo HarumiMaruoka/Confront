@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     public class UISelectionHandler : MonoBehaviour
     {

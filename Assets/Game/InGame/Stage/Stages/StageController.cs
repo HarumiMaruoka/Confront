@@ -1,7 +1,6 @@
-﻿using Cinemachine;
-using Confront.Audio;
+﻿using Confront.Audio;
 using Confront.CameraUtilites;
-using Confront.GameUI;
+using Confront.GUI;
 using Confront.Player;
 using Confront.Utility;
 using Cysharp.Threading.Tasks;

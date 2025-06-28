@@ -1,4 +1,4 @@
-﻿using Confront.GameUI;
+﻿using Confront.GUI;
 using System;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace Confront.Utility
             if (IsPaused) return;
 
             // 現在の速度を保存
-            SavedVelocity = Rigidbody.velocity;
+            SavedVelocity = Rigidbody.linearVelocity;
             SavedAngularVelocity = Rigidbody.angularVelocity;
 
             // Rigidbodyを停止状態にする
@@ -43,7 +43,7 @@ namespace Confront.Utility
             if (!IsPaused) return;
             // Rigidbodyを元に戻す
             Rigidbody.isKinematic = false;
-            Rigidbody.velocity = SavedVelocity;
+            Rigidbody.linearVelocity = SavedVelocity;
             Rigidbody.angularVelocity = SavedAngularVelocity;
             IsPaused = false;
         }

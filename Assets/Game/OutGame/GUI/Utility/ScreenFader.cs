@@ -4,7 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     public class ScreenFader : MonoBehaviour
     {

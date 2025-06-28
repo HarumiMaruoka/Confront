@@ -1,0 +1,228 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8924700827929554575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 0
+  Name: Cracked Iron Shard
+  Description: An old fragment of iron. Not very reliable for reinforcement, but
+    suitable for basic crafting.
+  Icon: {fileID: 21300000, guid: d559022b83393e64fadf6ce72411427c, type: 3}
+--- !u!114 &-8130171342893704536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 9
+  Name: Dragon Scale Fragment
+  Description: "A piece of a dragon\u2019s scale. Grants extraordinary durability
+    to equipment."
+  Icon: {fileID: 21300000, guid: 09038dce04ea0834986ba53cae57c02b, type: 3}
+--- !u!114 &-6594265944409409555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 2
+  Name: Dull Copper Chunk
+  Description: A once-shiny piece of copper. Easily usable after simple refinement.
+  Icon: {fileID: 21300000, guid: 663f4cb884c07b9408acd681aa879ffa, type: 3}
+--- !u!114 &-5672468040205483583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 11
+  Name: Celestial Platinum
+  Description: A rare metal known as the metal of the heavens. Enables enhancements
+    to their absolute peak.
+  Icon: {fileID: 21300000, guid: 15fa20aad0037ee439f0ef471e648b76, type: 3}
+--- !u!114 &-2829845749753673307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 6
+  Name: Obsidian Steel Ingot
+  Description: A robust material fusing obsidian and steel. Ideal for high-performance
+    equipment enhancements.
+  Icon: {fileID: 21300000, guid: 293897b5dec4a0348969dd0f8753a534, type: 3}
+--- !u!114 &-2755028930727741140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 1
+  Name: Decayed Wood Fragment
+  Description: Wood that has deteriorated over many years. Can be used for minor
+    enhancements.
+  Icon: {fileID: 21300000, guid: 1d71d27ee629c7d49925f71d840830ae, type: 3}
+--- !u!114 &-2210824724787439173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 8
+  Name: Fairy Dust
+  Description: Dust found near magical creatures' habitats. Excellent for enhancing
+    magical equipment.
+  Icon: {fileID: 21300000, guid: 557e96594385b16478f2a2524bb5e1c0, type: 3}
+--- !u!114 &-2085007260244946670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 7
+  Name: Starshade Crystal
+  Description: A crystal infused with starlight. Capable of granting special effects.
+  Icon: {fileID: 21300000, guid: de5620c2268ba0847b2fe9832821fad9, type: 3}
+--- !u!114 &-1095941621591591178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 4
+  Name: Gleaming Amber Stone
+  Description: A beautiful amber pebble. Stabilizes magical energy flows.
+  Icon: {fileID: 21300000, guid: 2ac477c74e3e32c4ea675fe9e82b7140, type: 3}
+--- !u!114 &-680933423178797976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 10
+  Name: Abyssal Gemstone
+  Description: A gemstone unearthed from the dark abyss. Holds latent power to unlock
+    limitless potential in equipment.
+  Icon: {fileID: 21300000, guid: 7182c7ec8ab216a42ad75bf32cb0b810, type: 3}
+--- !u!114 &-549045470779213324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 3
+  Name: Tempered Steel Shard
+  Description: A shard of carefully forged steel. Strengthens the foundation of weapons
+    and armor.
+  Icon: {fileID: 21300000, guid: 701a187467332fd44b911878105e04d0, type: 3}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e449ba31f98bbb544806ef0737415304, type: 3}
+  m_Name: ForgeItemSheet En
+  m_EditorClassIdentifier: 
+  _collection:
+  - {fileID: -8924700827929554575}
+  - {fileID: -2755028930727741140}
+  - {fileID: -6594265944409409555}
+  - {fileID: -549045470779213324}
+  - {fileID: -1095941621591591178}
+  - {fileID: 2366577443625991517}
+  - {fileID: -2829845749753673307}
+  - {fileID: -2085007260244946670}
+  - {fileID: -2210824724787439173}
+  - {fileID: -8130171342893704536}
+  - {fileID: -680933423178797976}
+  - {fileID: -5672468040205483583}
+--- !u!114 &2366577443625991517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4732a73830dae054b9d7fbd7fdb52887, type: 3}
+  m_Name: ForgeItemSheet (Confront.ForgeItem.ForgeItemSheet)
+  m_EditorClassIdentifier: 
+  ID: 5
+  Name: Precision Gear
+  Description: An artifact from mechanical civilization. Essential for precise equipment
+    upgrades.
+  Icon: {fileID: 21300000, guid: 5af513d3846091148a259d03b860446f, type: 3}

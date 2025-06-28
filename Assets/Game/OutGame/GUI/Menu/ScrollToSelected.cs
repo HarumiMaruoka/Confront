@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     public class ScrollToSelected : MonoBehaviour
     {

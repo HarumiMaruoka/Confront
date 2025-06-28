@@ -46,8 +46,8 @@ namespace Confront.ActionItem
 
         private void ShowNotification(ActionItemData item, int addAmount, int remainAmount)
         {
-            var title = $"ActionItem";
-            var message = $"{item.Name}:addAmount:{addAmount}";
+            var title = $"Picked up {item.Name} +{addAmount}";
+            var message = ""; // $"{item.Name}:addAmount:{addAmount}";
             if (remainAmount > 0) message += $",remainAmount:{remainAmount}";
             var icon = item.Icon;
             Notifier.AddNotification(title, message, icon);

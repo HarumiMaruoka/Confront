@@ -1,5 +1,5 @@
 ﻿using Confront.AttackUtility;
-using Confront.GameUI;
+using Confront.GUI;
 using Confront.Player;
 using Confront.Utility;
 using NexEditor;

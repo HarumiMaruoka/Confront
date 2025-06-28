@@ -23,7 +23,7 @@ namespace Confront.Weapon
 
         public bool AddWeapon(int id)
         {
-            var weapon = WeaponInstance.Create(id);//new WeaponInstance(id);
+            var weapon = WeaponInstance.Create(id);
             return AddWeapon(weapon);
         }
 
@@ -31,7 +31,7 @@ namespace Confront.Weapon
         {
             for (int i = 0; i < amount; i++)
             {
-                var weapon = WeaponInstance.Create(id);//new WeaponInstance(id);
+                var weapon = WeaponInstance.Create(id);
                 if (!AddWeapon(weapon)) return false;
             }
             return true;
@@ -42,18 +42,18 @@ namespace Confront.Weapon
             if (_weapons.Count >= _capacity)
             {
                 Debug.LogWarning("Inventory is full");
-                A(weapon);
+                NotifyWeaponNotAdded(weapon);
                 return false;
             }
             _weapons.Add(weapon);
             OnWeaponAdded?.Invoke(weapon);
-            ShowNotification(weapon);
+            NotifyWeaponAdded(weapon);
 
             return true;
         }
 
         // 手に入った通知を行う
-        private void ShowNotification(WeaponInstance weapon)
+        private void NotifyWeaponAdded(WeaponInstance weapon)
         {
             var title = $"Weapon";
             var message = $"Get:{weapon.Data.Name}";
@@ -62,7 +62,7 @@ namespace Confront.Weapon
         }
 
         // 手に入らなかった通知を行う
-        private void A(WeaponInstance weapon)
+        private void NotifyWeaponNotAdded(WeaponInstance weapon)
         {
             var title = $"Weapon";
             var message =

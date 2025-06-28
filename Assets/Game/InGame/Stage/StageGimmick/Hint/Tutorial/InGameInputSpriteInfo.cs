@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     [CreateAssetMenu(fileName = "InGameInputSpriteInfo", menuName = "ConfrontSO/GUI/InGameInputSpriteInfo")]
     public class InGameInputSpriteInfo : ScriptableObject

@@ -1,4 +1,4 @@
-﻿using Confront.GameUI;
+﻿using Confront.GUI;
 using Confront.Input;
 using Confront.Player;
 using System;

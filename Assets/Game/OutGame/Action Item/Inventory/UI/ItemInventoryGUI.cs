@@ -1,9 +1,8 @@
-﻿using Confront.GameUI;
+﻿using Confront.GUI;
 using Confront.Input;
 using Confront.Player;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,11 +11,7 @@ namespace Confront.ActionItem
 {
     public class ItemInventoryGUI : MonoBehaviour
     {
-        // TODO:実装がきちんと動作するか確認する
-        // TODO:ホバー時のGamepadとKeyboardMouseの挙動の違いの実装
-        // TODO:マウスオーバー時のスロットの情報を表示する
-
-        private GameObject _previouseSelection;
+        private GameObject _previousSelection;
 
         [SerializeField]
         private SlotUI _hotBarTop;
@@ -26,6 +21,9 @@ namespace Confront.ActionItem
         private SlotUI _hotBarLeft;
         [SerializeField]
         private SlotUI _hotBarRight;
+
+        [SerializeField]
+        private DescriptionView _descriptionView; // アイテムの説明を表示するUI
 
         [SerializeField]
         private SlotUI _prefab;
@@ -69,6 +67,8 @@ namespace Confront.ActionItem
                 else
                 {
                     slotUI = Instantiate(_prefab, _slotContainer);
+                    slotUI.OnSlotSelected += OnSelectionChanged;
+
                     _slots.Add(slotUI);
                 }
                 slotUI.Slot = inventory[i];
@@ -84,7 +84,7 @@ namespace Confront.ActionItem
         {
             if (PlayerController.Instance)
             {
-                _previouseSelection = EventSystem.current.currentSelectedGameObject;
+                _previousSelection = EventSystem.current.currentSelectedGameObject;
                 Open(PlayerController.Instance.ActionItemInventory);
                 EventSystem.current.SetSelectedGameObject(_slots[0].gameObject);
             }
@@ -98,6 +98,7 @@ namespace Confront.ActionItem
                 Open(player.ActionItemInventory);
                 InitializeHotBar(player.HotBar);
                 InitializeNavigation();
+                InitializeDescriptionAction();
                 EventSystem.current.SetSelectedGameObject(_slots[0].gameObject);
             }
             else
@@ -124,9 +125,9 @@ namespace Confront.ActionItem
             HoveringSlotUI.Slot.Count = 0;
             // TODO:アイテムが消滅しないようにする。
 
-            if (_previouseSelection)
+            if (_previousSelection)
             {
-                EventSystem.current?.SetSelectedGameObject(_previouseSelection);
+                EventSystem.current?.SetSelectedGameObject(_previousSelection);
             }
             else
             {
@@ -366,6 +367,22 @@ namespace Confront.ActionItem
             hotBarRightNavigation.selectOnRight = _hotBarRight.Button;
             _hotBarRight.Button.navigation = hotBarRightNavigation;
             // ============================================================= //
+        }
+
+        private void InitializeDescriptionAction()
+        {
+            _hotBarTop.OnSlotSelected += OnSelectionChanged;
+            _hotBarBottom.OnSlotSelected += OnSelectionChanged;
+            _hotBarLeft.OnSlotSelected += OnSelectionChanged;
+            _hotBarRight.OnSlotSelected += OnSelectionChanged;
+
+            _descriptionView.UpdateView(null);
+        }
+
+        private void OnSelectionChanged(SlotUI slot)
+        {
+            if (slot == null || slot.Slot == null || slot.Slot.Item == null) return;
+            _descriptionView.UpdateView(slot.Slot.Item);
         }
     }
 }

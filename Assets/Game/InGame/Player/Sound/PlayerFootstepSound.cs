@@ -1,7 +1,7 @@
-﻿using Cinemachine;
-using Confront.Audio;
+﻿using Confront.Audio;
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Confront.Player

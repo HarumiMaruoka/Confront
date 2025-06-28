@@ -1,5 +1,5 @@
-﻿using Cinemachine;
-using System;
+﻿using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Confront.CameraUtilites

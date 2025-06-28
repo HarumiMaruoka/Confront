@@ -47,6 +47,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cadab6dd4fbe3bb42a2d207b02c41769
+    m_Address: ForgeItemSheet En
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 000c8c20e5330e64188c0c2996ed0c1d, type: 2}
   m_SchemaSet:

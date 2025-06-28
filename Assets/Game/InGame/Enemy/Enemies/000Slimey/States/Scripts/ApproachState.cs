@@ -44,10 +44,10 @@ namespace Confront.Enemy.Slimey
             else
             {
                 var dir = (player.transform.position - slimey.transform.position).x >= 0f ? 1f : -1f;
-                var xSpeed = Mathf.MoveTowards(slimey.Rigidbody.velocity.x, ApproachMaxSpeed * dir, Time.deltaTime * ApproachAcceleration);
-                var ySpeed = slimey.Rigidbody.velocity.y;
+                var xSpeed = Mathf.MoveTowards(slimey.Rigidbody.linearVelocity.x, ApproachMaxSpeed * dir, Time.deltaTime * ApproachAcceleration);
+                var ySpeed = slimey.Rigidbody.linearVelocity.y;
 
-                slimey.Rigidbody.velocity = new Vector3(xSpeed, ySpeed, 0);
+                slimey.Rigidbody.linearVelocity = new Vector3(xSpeed, ySpeed, 0);
             }
         }
 

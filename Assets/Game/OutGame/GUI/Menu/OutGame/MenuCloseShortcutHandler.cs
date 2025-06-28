@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     // タイトルやゲームオーバー画面用 メニューを閉じるショートカットをハンドルするクラス
     public class MenuCloseShortcutHandler : MonoBehaviour

@@ -57,7 +57,7 @@ namespace Confront.Enemy.Slimey
 
             if (IsBlendTreeAnimation)
             {
-                slimey.Animator.SetFloat(_blendParamName, Mathf.Abs(slimey.Rigidbody.velocity.x / MoveSpeedRange));
+                slimey.Animator.SetFloat(_blendParamName, Mathf.Abs(slimey.Rigidbody.linearVelocity.x / MoveSpeedRange));
             }
 
             float x = Mathf.PerlinNoise(Time.time * NoiseScale + _timeOffsetX, Time.time * NoiseScale + _timeOffsetY);
@@ -65,8 +65,8 @@ namespace Confront.Enemy.Slimey
             xSpeed = Mathf.Abs(xSpeed) > 0.08f ? xSpeed : 0f;
             xSpeed = Mathf.Clamp(xSpeed, -SpeedLimit, SpeedLimit);
 
-            var ySpeed = slimey.Rigidbody.velocity.y;
-            slimey.Rigidbody.velocity = new Vector3(xSpeed, ySpeed, 0f);
+            var ySpeed = slimey.Rigidbody.linearVelocity.y;
+            slimey.Rigidbody.linearVelocity = new Vector3(xSpeed, ySpeed, 0f);
         }
 
         public override void Exit(PlayerController player, SlimeyController slimey)

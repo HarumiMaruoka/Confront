@@ -53,12 +53,6 @@ MonoBehaviour:
   ItemType: 0
   ItemID: 0
   Amount: 1
-  ParticleSystems:
-  - {fileID: 6414351172407941455}
-  - {fileID: 8695806395454431909}
-  - {fileID: 2686637919774892156}
-  - {fileID: 2010494935230283682}
-  - {fileID: 5383111637514947735}
   _minInitialSpeed: 4
   _maxInitialSpeed: 7
   _minAngle: 45
@@ -72,6 +66,10 @@ MonoBehaviour:
   _pickupRotationDirection: 1
   _pickupRotateSpeed: 8
   _pickupOffset: 3
+  _pickupSound:
+  - {fileID: 8300000, guid: 26c6842862aa99e49a498662bec469ac, type: 3}
+  - {fileID: 8300000, guid: b08d0fcc812e06e43a9adf74a8ab1208, type: 3}
+  - {fileID: 8300000, guid: 366b32d073663ee4080d3d7cdea0862b, type: 3}
   _alphaCurve:
     serializedVersion: 2
     m_Curve:
@@ -4855,6 +4853,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -9743,6 +9744,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -9850,6 +9854,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -19462,6 +19469,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -24350,6 +24360,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:

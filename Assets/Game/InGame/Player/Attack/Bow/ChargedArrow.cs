@@ -60,7 +60,7 @@ namespace Confront.Player.Combo
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg);
             _player = player;
             _factor = Mathf.Lerp(_minDamageFactor, _maxDamageFactor, chargeAmount);
-            _rigidbody.velocity = velocity;
+            _rigidbody.linearVelocity = velocity;
 
             var lifeTime = Mathf.Lerp(_minLifeTime, _maxLifeTime, chargeAmount);
             Destroy(gameObject, lifeTime);
@@ -82,7 +82,7 @@ namespace Confront.Player.Combo
             if (other.TryGetComponent(out IDamageable damageable))
             {
                 var damage = _baseDamage + _player.AttackPower * _factor;
-                var damageVector = transform.right * _rigidbody.velocity.magnitude;
+                var damageVector = transform.right * _rigidbody.linearVelocity.magnitude;
                 damageable.TakeDamage(damage, damageVector, other.bounds.center);
             }
         }

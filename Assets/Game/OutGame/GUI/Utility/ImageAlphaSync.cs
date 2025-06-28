@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Confront.GameUI.Utility
+namespace Confront.GUI.Utility
 {
     [ExecuteInEditMode]
     public class ImageAlphaSync : MonoBehaviour

@@ -505,6 +505,7 @@ MonoBehaviour:
   _damageState: {fileID: 11400000, guid: 2cc5e19dbb7fcaa429223dc38b0617d2, type: 2}
   _deadState: {fileID: 11400000, guid: 21a509aa492c216419d16083ce0f82d3, type: 2}
   _spawnPoints: []
+  DamgageTransitionProbability: 0.5
   CurrentState: {fileID: 0}
 --- !u!54 &3581933318913586722
 Rigidbody:
@@ -936,6 +937,7 @@ MonoBehaviour:
   _damageState: {fileID: 11400000, guid: 2cc5e19dbb7fcaa429223dc38b0617d2, type: 2}
   _deadState: {fileID: 11400000, guid: 21a509aa492c216419d16083ce0f82d3, type: 2}
   _spawnPoints: []
+  DamgageTransitionProbability: 0.5
   CurrentState: {fileID: 0}
 --- !u!54 &2671196838578085882
 Rigidbody:
@@ -1399,6 +1401,7 @@ MonoBehaviour:
   _damageState: {fileID: 11400000, guid: 2cc5e19dbb7fcaa429223dc38b0617d2, type: 2}
   _deadState: {fileID: 11400000, guid: 21a509aa492c216419d16083ce0f82d3, type: 2}
   _spawnPoints: []
+  DamgageTransitionProbability: 0.5
   CurrentState: {fileID: 0}
 --- !u!54 &2676323669832073945
 Rigidbody:
@@ -2982,6 +2985,7 @@ MonoBehaviour:
   _damageState: {fileID: 11400000, guid: 2cc5e19dbb7fcaa429223dc38b0617d2, type: 2}
   _deadState: {fileID: 11400000, guid: 21a509aa492c216419d16083ce0f82d3, type: 2}
   _spawnPoints: []
+  DamgageTransitionProbability: 0.5
   CurrentState: {fileID: 0}
 --- !u!54 &37833630724975293
 Rigidbody:
@@ -3355,6 +3359,7 @@ MonoBehaviour:
   _damageState: {fileID: 11400000, guid: 2cc5e19dbb7fcaa429223dc38b0617d2, type: 2}
   _deadState: {fileID: 11400000, guid: 21a509aa492c216419d16083ce0f82d3, type: 2}
   _spawnPoints: []
+  DamgageTransitionProbability: 0.5
   CurrentState: {fileID: 0}
 --- !u!54 &2743993837783737091
 Rigidbody:
@@ -16385,6 +16390,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560243101919737538, guid: c7699f99e47c40c489ff1fb7f2a9caac,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.28681436
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560243101919737538, guid: c7699f99e47c40c489ff1fb7f2a9caac,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.0000065038753
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560243101919737538, guid: c7699f99e47c40c489ff1fb7f2a9caac,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.000000039933404
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560243101919737538, guid: c7699f99e47c40c489ff1fb7f2a9caac,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.043406714
       objectReference: {fileID: 0}
     - target: {fileID: 6554008629227111813, guid: c7699f99e47c40c489ff1fb7f2a9caac,
         type: 3}

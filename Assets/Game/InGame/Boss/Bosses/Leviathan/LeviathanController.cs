@@ -1,4 +1,4 @@
-﻿using Confront.GameUI;
+﻿using Confront.GUI;
 using Confront.Utility;
 using INab.Dissolve;
 using System;

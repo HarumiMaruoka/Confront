@@ -1,6 +1,6 @@
 ﻿using Confront.AttackUtility;
 using Confront.Enemy;
-using Confront.GameUI;
+using Confront.GUI;
 using System;
 using UnityEngine;
 

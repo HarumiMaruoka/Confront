@@ -1,14 +1,14 @@
-﻿using Cinemachine;
-using Confront.ActionItem;
+﻿using Confront.ActionItem;
 using Confront.AttackUtility;
 using Confront.Debugger;
 using Confront.ForgeItem;
-using Confront.GameUI;
+using Confront.GUI;
 using Confront.Input;
 using Confront.Player.Combo;
 using Confront.SaveSystem;
 using Confront.Weapon;
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Confront.Player

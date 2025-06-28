@@ -8,7 +8,7 @@ namespace Confront.ForgeItem
     {
         static ForgeItemManager()
         {
-            var handle = Addressables.LoadAssetAsync<ForgeItemSheet>("ForgeItemSheet");
+            var handle = Addressables.LoadAssetAsync<ForgeItemSheet>("ForgeItemSheet En");
             handle.WaitForCompletion();
             ForgeItemSheet = handle.Result;
 

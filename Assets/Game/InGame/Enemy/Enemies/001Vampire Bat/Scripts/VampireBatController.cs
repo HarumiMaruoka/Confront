@@ -4,7 +4,7 @@ using Confront.Enemy.VampireBat;
 using Confront.AttackUtility;
 using Confront.Player;
 using System.Collections.Generic;
-using Confront.GameUI;
+using Confront.GUI;
 using Confront.Utility;
 using NexEditor;
 

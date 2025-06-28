@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     // 何もないところをクリックしたときに選択状態が解除されるのでそれを防ぐ。
     public class PersistentSelection : MonoBehaviour

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Confront.NotificationManager;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,35 +15,45 @@ namespace Confront.ForgeItem
 
         public event Action<ForgeItemData, int> OnCountChanged;
 
-        public int Pickup(int id, int amount)
+        public bool Pickup(int id, int amount)
         {
             var data = ForgeItemManager.ForgeItemSheet.GetItem(id);
             return Pickup(data, amount);
         }
 
-        /// <returns> The amount that could not be picked up. </returns>
-        public int Pickup(ForgeItemData data, int amount)
+        public bool Pickup(ForgeItemData data, int amount)
         {
-            if (_itemCountMap.ContainsKey(data))
+            if (data == null)
             {
-                if (_itemCountMap[data] < _capacity)
-                {
-                    int remainAmount = Mathf.Min(_capacity - _itemCountMap[data], amount);
-                    _itemCountMap[data] += remainAmount;
-                    OnCountChanged?.Invoke(data, _itemCountMap[data]);
-                    return amount - remainAmount;
-                }
+                Debug.LogError("ForgeItemData is null.");
+                return false;
             }
-            else
+
+            if (!_itemCountMap.ContainsKey(data))
             {
-                if (_itemCountMap.Count < _capacity)
-                {
-                    _itemCountMap.Add(data, amount);
-                    OnCountChanged?.Invoke(data, amount);
-                    return 0;
-                }
+                //Debug.Log($"Adding new item to inventory: {data.name}");
+                _itemCountMap[data] = 0;
             }
-            return amount;
+
+            if (amount <= 0)
+            {
+                Debug.LogWarning("Amount to pickup must be greater than 0.");
+                return false;
+            }
+
+            if (_itemCountMap[data] >= _capacity) // すでに最大数に達している場合は、追加できない。
+            {
+                Debug.LogWarning($"Cannot pickup {data.name}. Inventory is full.");
+                return false;
+            }
+
+            var prev = _itemCountMap[data];
+            _itemCountMap[data] += amount;
+            _itemCountMap[data] = Mathf.Clamp(_itemCountMap[data], 0, _capacity);
+
+            ShowNotification(data, amount);
+
+            return true;
         }
 
         public bool Use(ForgeItemData data, int amount)
@@ -65,9 +76,12 @@ namespace Confront.ForgeItem
             {
                 return _itemCountMap[data];
             }
+
+            Debug.LogError($"ForgeItemData not found in inventory: {data?.name}");
             return 0;
         }
 
+        // アイテムが十分にあるかを確認する。
         public bool HasEnoughItems(ForgeItemData data, int amount)
         {
             return GetCount(data) >= amount;
@@ -78,6 +92,14 @@ namespace Confront.ForgeItem
             _itemCountMap.Clear();
         }
 
+        private void ShowNotification(ForgeItemData item, int addAmount)
+        {
+            var title = $"Picked up {item.Name} +{addAmount}";
+            var message = ""; // $"{item.Name}:addAmount:{addAmount}";
+            var icon = item.Icon;
+            Notifier.AddNotification(title, message, icon);
+        }
+
         #region IEnumerable
         public int Count => _itemCountMap.Count;
 
@@ -85,6 +107,12 @@ namespace Confront.ForgeItem
         {
             get
             {
+                if (index < 0 || index >= _itemCountMap.Count)
+                {
+                    Debug.LogError($"Index {index} is out of range for ForgeItemInventory.");
+                    return null;
+                }
+
                 int i = 0;
                 foreach (var pair in _itemCountMap)
                 {
@@ -94,6 +122,7 @@ namespace Confront.ForgeItem
                     }
                     i++;
                 }
+
                 return null;
             }
         }

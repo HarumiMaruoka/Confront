@@ -1,4 +1,5 @@
-﻿using Confront.Player;
+﻿using Confront.Audio;
+using Confront.Player;
 using Confront.Utility;
 using Cysharp.Threading.Tasks;
 using System;
@@ -46,6 +47,8 @@ namespace Confront.DropItem
         [SerializeField]
         private float _pickupOffset = 1f;
         private CancellationTokenSource _pickupCancellationTokenSource;
+        [SerializeField]
+        private AudioClip[] _pickupSound;
 
         [Header("その他")]
         [SerializeField]
@@ -143,10 +146,19 @@ namespace Confront.DropItem
             }
         }
 
+        private void PlayPickupSound()
+        {
+            if (_pickupSound == null || _pickupSound.Length == 0) return;
+            var randomIndex = UnityEngine.Random.Range(0, _pickupSound.Length);
+            var clip = _pickupSound[randomIndex];
+            if (clip) AudioManager.PlaySE(clip);
+        }
+
         private async void HandlePickup()
         {
             var token = _pickupCancellationTokenSource.Token;
             await PerformPickup(_player, _pickupDuration, _pickupRotationDirection, _pickupRotateSpeed, token);
+            PlayPickupSound();
             ProcessItemPickup();
             OnComplete?.Invoke(this);
         }

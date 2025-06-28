@@ -1,6 +1,6 @@
 ﻿using Confront.AttackUtility;
 using Confront.Enemy.Slimey;
-using Confront.GameUI;
+using Confront.GUI;
 using Confront.Player;
 using Confront.Utility;
 using NexEditor;
@@ -70,7 +70,7 @@ namespace Confront.Enemy
             if (MenuController.IsOpened) return;
 
             CurrentState.Execute(_player, this);
-            DirectionController.UpdateDirection(Rigidbody.velocity);
+            DirectionController.UpdateDirection(Rigidbody.linearVelocity);
         }
 
         public void TakeDamage(float attackPower, Vector2 damageVector, Vector3 point)
@@ -160,7 +160,7 @@ namespace Confront.Enemy
                 Position = transform.position,
                 Direction = DirectionController.CurrentDirection,
                 Rotation = DirectionController.CurrentRotation,
-                Velocity = Rigidbody.velocity,
+                Velocity = Rigidbody.linearVelocity,
                 AngularVelocity = Rigidbody.angularVelocity
             };
             return saveData.CreateSaveData();
@@ -181,7 +181,7 @@ namespace Confront.Enemy
             transform.position = data.Value.Position;
             DirectionController.CurrentDirection = data.Value.Direction;
             transform.rotation = DirectionController.CurrentRotation;
-            Rigidbody.velocity = data.Value.Velocity;
+            Rigidbody.linearVelocity = data.Value.Velocity;
             Rigidbody.angularVelocity = data.Value.AngularVelocity;
         }
 
@@ -194,7 +194,7 @@ namespace Confront.Enemy
         {
             base.Reset();
             ChangeState<IdleState>();
-            Rigidbody.velocity = Vector3.zero;
+            Rigidbody.linearVelocity = Vector3.zero;
             Rigidbody.angularVelocity = Vector3.zero;
         }
 

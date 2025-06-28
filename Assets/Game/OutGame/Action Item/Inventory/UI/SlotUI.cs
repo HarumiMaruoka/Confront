@@ -2,11 +2,12 @@
 using Confront.Player;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
-    public class SlotUI : MonoBehaviour
+    public class SlotUI : MonoBehaviour, ISelectHandler
     {
         public Button Button;
 
@@ -26,6 +27,13 @@ namespace Confront.GameUI
                 if (_slot != null) _slot.OnAnyChanged += UpdateUI;
                 UpdateUI(_slot);
             }
+        }
+
+        public event Action<SlotUI> OnSlotSelected;
+
+        public void OnSelect(BaseEventData eventData)
+        {
+            OnSlotSelected?.Invoke(this);
         }
 
         public void UpdateUI(InventorySlot slot)

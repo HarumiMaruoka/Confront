@@ -1,4 +1,4 @@
-﻿using Confront.GameUI;
+﻿using Confront.GUI;
 using Confront.Stage;
 using Cysharp.Threading.Tasks;
 using System;

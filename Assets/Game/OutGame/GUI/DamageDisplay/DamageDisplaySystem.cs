@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     [DefaultExecutionOrder(-100)]
     public class DamageDisplaySystem : MonoBehaviour

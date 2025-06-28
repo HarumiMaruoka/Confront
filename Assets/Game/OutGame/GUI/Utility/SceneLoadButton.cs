@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     public class SceneLoadButton : MonoBehaviour
     {

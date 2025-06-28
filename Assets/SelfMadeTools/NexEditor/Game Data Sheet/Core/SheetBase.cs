@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
@@ -15,7 +15,6 @@ namespace NexEditor.GameDataSheet
         [SerializeField]
         private List<T> _collection;
         public IReadOnlyList<T> Collection => _collection ??= new List<T>();
-
 
         public T Create()
         {

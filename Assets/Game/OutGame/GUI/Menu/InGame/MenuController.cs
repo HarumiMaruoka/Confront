@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     // インゲーム用のメニューUIを制御するクラス。
     public class MenuController : MonoBehaviour

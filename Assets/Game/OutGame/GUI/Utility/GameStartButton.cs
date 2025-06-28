@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     // 最後にセーブされたデータを読み込む。
     // セーブデータが存在しない場合は、NewGameを開始する。

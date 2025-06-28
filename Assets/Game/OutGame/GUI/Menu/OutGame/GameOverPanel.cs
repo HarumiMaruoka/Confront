@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     public class GameOverPanel : MonoBehaviour
     {

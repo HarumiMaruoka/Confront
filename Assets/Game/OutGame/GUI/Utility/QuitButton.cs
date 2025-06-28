@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Confront.GameUI
+namespace Confront.GUI
 {
     [RequireComponent(typeof(Button))]
     public class QuitButton : MonoBehaviour

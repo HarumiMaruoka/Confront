@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Confront.ActionItem;
 using Confront.ForgeItem;
-using Confront.GameUI;
+using Confront.GUI;
 using Confront.Stage;
 using Confront.Utility;
 using Confront.Weapon;
