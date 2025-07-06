@@ -1,0 +1,2 @@
+Level,Health,Stamina,Damage,Armor,Speed,CritChance,CritDamage,DodgeInterval
+装備ID,増加体力,増加スタミナ,増加攻撃力,増加防御力,増加移動速度,増加クリティカル率,増加クリティカルダメージ,減少回避インターバル

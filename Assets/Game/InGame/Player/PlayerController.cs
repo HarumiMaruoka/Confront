@@ -1,6 +1,7 @@
 ﻿using Confront.ActionItem;
 using Confront.AttackUtility;
 using Confront.Debugger;
+using Confront.Equipment;
 using Confront.ForgeItem;
 using Confront.GUI;
 using Confront.Input;
@@ -59,6 +60,8 @@ namespace Confront.Player
         private WeaponInstance _equippedWeapon;
         public WeaponInventory WeaponInventory = new WeaponInventory();
         public WeaponActivator WeaponActivator;
+        // 装備
+        public PlayerEquipped Equipped = new PlayerEquipped();
         // Unityコンポーネント
         public CinemachineVirtualCamera VirtualCamera;
         public Animator Animator;

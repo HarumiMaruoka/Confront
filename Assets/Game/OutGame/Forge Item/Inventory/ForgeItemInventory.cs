@@ -56,7 +56,7 @@ namespace Confront.ForgeItem
             return true;
         }
 
-        public bool Use(ForgeItemData data, int amount)
+        public bool Remove(ForgeItemData data, int amount)
         {
             if (_itemCountMap.ContainsKey(data))
             {
@@ -70,6 +70,12 @@ namespace Confront.ForgeItem
             return false;
         }
 
+        public bool Remove(int id, int amount)
+        {
+            var data = ForgeItemManager.ForgeItemSheet.GetItem(id);
+            return Remove(data, amount);
+        }
+
         public int GetCount(ForgeItemData data)
         {
             if (_itemCountMap.ContainsKey(data))
@@ -81,10 +87,22 @@ namespace Confront.ForgeItem
             return 0;
         }
 
+        public int GetCount(int id)
+        {
+            var data = ForgeItemManager.ForgeItemSheet.GetItem(id);
+            return GetCount(data);
+        }
+
         // アイテムが十分にあるかを確認する。
         public bool HasEnoughItems(ForgeItemData data, int amount)
         {
             return GetCount(data) >= amount;
+        }
+
+        public bool HasEnoughItems(int id, int amount)
+        {
+            var data = ForgeItemManager.ForgeItemSheet.GetItem(id);
+            return HasEnoughItems(data, amount);
         }
 
         public void Clear()

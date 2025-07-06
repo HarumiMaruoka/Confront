@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Confront.ActionItem
 {
     [CreateAssetMenu(fileName = "ActionItemSheet", menuName = "Game Data Sheets/ActionItemSheet")]
-    public class ActionItemSheet : NexEditor.GameDataSheet.SheetBase<ActionItemData>
+    public class ActionItemSheet : NexEditor.ScriptableDashboard.ScriptableDashboard<ActionItemData>
     {
         private Dictionary<int, ActionItemData> _idToItemDic = new Dictionary<int, ActionItemData>();
 
@@ -36,7 +36,11 @@ namespace Confront.ActionItem
         {
             if (GUILayout.Button("Open Window"))
             {
-                ActionItemSheetWindow.Init();
+                var sheet = target as ActionItemSheet;
+                if (sheet != null)
+                {
+                    ActionItemSheetWindow.ShowWindow(sheet);
+                }
             }
 
             base.OnInspectorGUI();
@@ -45,9 +49,9 @@ namespace Confront.ActionItem
         [UnityEditor.Callbacks.OnOpenAsset]
         public static bool OnOpenAsset(int instanceId, int line)
         {
-            if (UnityEditor.Selection.activeObject is ActionItemSheet)
+            if (UnityEditor.Selection.activeObject is ActionItemSheet sheet)
             {
-                ActionItemSheetWindow.Init();
+                ActionItemSheetWindow.ShowWindow(sheet);
                 return true;
             }
             return false;

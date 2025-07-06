@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/ScriptableDashboard/ScriptableDashboardEditor.uss?fileID=7433441132597879392&amp;guid=914ca7ba57011c64bbaff92e858a42ec&amp;type=3#ScriptableDashboardEditor" />
+    <uie:ObjectField label="Dashboard" name="ObjectField" style="max-height: 32px; margin-bottom: 3px; margin-top: 3px;" />
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; border-bottom-width: 0; border-left-color: rgba(178, 178, 178, 0.71); border-right-color: rgba(178, 178, 178, 0.71); border-top-color: rgba(178, 178, 178, 0.71); border-bottom-color: rgba(178, 178, 178, 0.71); border-top-width: 1px;">
+        <ui:VisualElement name="LeftView" style="border-top-width: 0; border-right-width: 1px; border-left-color: rgba(178, 178, 178, 0.71); border-right-color: rgba(178, 178, 178, 0.71); border-top-color: rgba(178, 178, 178, 0.71); border-bottom-color: rgba(178, 178, 178, 0.71); min-width: 200px; max-width: 200px;">
+            <ui:Button text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddButton" />
+            <ui:Button text="Remove" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RemoveButton" />
+            <ui:Button text="Insert" parse-escape-sequences="true" display-tooltip-when-elided="true" name="InsertButton" />
+        </ui:VisualElement>
+        <ui:VisualElement name="RightView" style="flex-grow: 1;">
+            <ui:VisualElement name="FilterField" style="flex-grow: 1; flex-direction: row; max-height: 20px; min-height: 20px;">
+                <ui:Label tabindex="-1" text="Search" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-left; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                <uie:MaskField name="FilterMaskField" style="min-height: 20px; max-height: 20px; height: 20px; width: 150px; min-width: 150px; max-width: 150px;" />
+                <ui:TextField picking-mode="Ignore" name="FilterTextField" style="flex-grow: 1;" />
+            </ui:VisualElement>
+            <ui:MultiColumnListView name="TableView" style="flex-grow: 1; flex-shrink: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

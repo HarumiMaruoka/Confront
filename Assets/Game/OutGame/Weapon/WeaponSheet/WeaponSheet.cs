@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Confront.Weapon
 {
     [CreateAssetMenu(fileName = "WeaponSheet", menuName = "Game Data Sheets/WeaponSheet")]
-    public class WeaponSheet : NexEditor.GameDataSheet.SheetBase<WeaponData>
+    public class WeaponSheet : NexEditor.ScriptableDashboard.ScriptableDashboard<WeaponData>
     {
         public void Initialize()
         {
@@ -54,7 +54,11 @@ namespace Confront.Weapon
         {
             if (GUILayout.Button("Open Window"))
             {
-                WeaponSheetWindow.Init();
+                var sheet = target as WeaponSheet;
+                if (sheet != null)
+                {
+                    WeaponSheetWindow.ShowWindow(sheet);
+                }
             }
 
             base.OnInspectorGUI();
@@ -63,9 +67,9 @@ namespace Confront.Weapon
         [UnityEditor.Callbacks.OnOpenAsset]
         public static bool OnOpenAsset(int instanceId, int line)
         {
-            if (UnityEditor.Selection.activeObject is WeaponSheet)
+            if (UnityEditor.Selection.activeObject is WeaponSheet sheet)
             {
-                WeaponSheetWindow.Init();
+                WeaponSheetWindow.ShowWindow(sheet);
                 return true;
             }
             return false;
